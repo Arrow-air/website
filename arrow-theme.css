@@ -2,8 +2,8 @@
 
 /* Arrow brand colors */
 :root {
-	--bs-gray-500: #a6a6a6; 
-	--bs-dark-rgb: 109,109,109;
+	--bs-gray-dark: #a6a6a6;
+	--bs-dark-rgb: 65,65,65;
 	--bs-font-sans-serif: "karla",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 
 	/* possible overwrites
@@ -45,7 +45,6 @@
 	--bs-warning-rgb: 255,193,7;
 	--bs-danger-rgb: 220,53,69;
 	--bs-light-rgb: 248,249,250;
-	--bs-dark-rgb: 33,37,41;
 	--bs-white-rgb: 255,255,255;
 	--bs-black-rgb: 0,0,0;
 	--bs-body-color-rgb: 33,37,41;
@@ -55,7 +54,7 @@
 
 html, body {
 	height: 100%;
-	color: rgb(var(--bs-dark-rgb));
+	color: var(--bs-gray-dark);
 }
 
 h1, h2, h3, h4, h5 {
@@ -66,8 +65,12 @@ h1, h2, h3, h4, h5 {
 	font-size: 0.9rem!important;
 }
 
-.bg-gray {
-	background-color: var(--bs-gray-500);
+.bg-gray-dark {
+	background-color: var(--bs-gray-dark);
+}
+
+.border-gray-dark {
+	border-color: var(--bs-gray-dark)!important;
 }
 
 .top-banner {
