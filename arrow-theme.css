@@ -1,9 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla&family=Rubik:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Rubik:wght@700&family=Karla@700&display=swap');
 
 /* Arrow brand colors */
 :root {
+	--bs-dark-rgb: 6, 5, 40;
+	--bs-dark: #060528;
+	--bs-light-rgb: 217, 215, 229;
+	--bs-light: #d9d7e5;
+	--bs-primary-rgb: 83, 82, 153;
+	--bs-primary: #535299;
+	--bs-secondary-rgb: 27, 20, 100;
+	--bs-secondary: #1b1464;
+	--bs-blue-rgb: 96, 97, 177;
+	--bs-blue: #6061b1;
+	--bs-navy-rgb: 27, 20, 100;
+	--bs-navy: #1b1464;
+	--bs-lavender: #8086ed;
+	--bs-orange: #ff926a;
+
+	--bs-gray-light: #b2b2b2;
 	--bs-gray-dark: #a6a6a6;
-	--bs-dark-rgb: 65,65,65;
 	--bs-font-sans-serif: "karla",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 
 	/* possible overwrites
@@ -54,25 +69,20 @@
 
 html, body {
 	height: 100%;
-	color: var(--bs-gray-dark);
+	color: var(--bs-dark);
 }
 
 h1, h2, h3, h4, h5 {
 	font-family: 'Rubik', sans-serif;
 }
 
+ul {
+	list-style-type: square;
+}
+
 .fs-7 {
 	font-size: 0.9rem!important;
 }
-
-.bg-gray-dark {
-	background-color: var(--bs-gray-dark);
-}
-
-.border-gray-dark {
-	border-color: var(--bs-gray-dark)!important;
-}
-
 .top-banner {
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -81,4 +91,72 @@ h1, h2, h3, h4, h5 {
 
 .card {
 	border-radius: 0rem;
+	border: none;
+	background-color: var(--bs-gray-dark);
 }
+
+.discord-border-gradient {
+	border: 2px solid;
+	border-image-slice: 1;
+	border-image-source: linear-gradient(to right, var(--bs-lavender), var(--bs-orange))
+}
+
+@media (min-width: 992px) {
+	.discord-button-top {
+		position: absolute;
+		top: -20%;
+	}
+	.discord-button-top div {
+		color: var(--bs-primary)!important;
+		font-style: italic;
+	}
+}
+
+/* Extra theme colors */
+
+.bg-gray-dark {
+	background-color: var(--bs-gray-dark);
+}
+.border-gray-dark {
+	border-color: var(--bs-gray-dark)!important;
+}
+
+.bg-gray-light {
+	background-color: var(--bs-gray-light);
+}
+
+.text-blue {
+	color: var(--bs-blue);
+}
+.bg-blue {
+	background-color: var(--bs-blue);
+}
+.bg-blue-gradient {
+	background-color: var(--bs-blue);
+	background-image: linear-gradient(to bottom left, var(--bs-blue), var(--bs-lavender));
+}
+.border-blue {
+
+}
+
+.text-navy {
+	color: var(--bs-navy);
+}
+.bg-navy {
+	background-color: var(--bs-navy);
+}
+.bg-navy-gradient {
+	background-color: var(--bs-navy);
+	background-image: linear-gradient(to bottom left, var(--bs-navy), var(--bs-lavender));
+}
+.bg-navy-padded {
+	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
+	padding: 4px;
+	line-height: 3rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+.border-navy {
+	border-color: var(--bs-navy)!important;
+}
+
