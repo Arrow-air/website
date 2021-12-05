@@ -1,5 +1,165 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla&family=Rubik:wght@700&family=Karla@700&display=swap');
 
+html, body {
+	height: 100%;
+	color: var(--bs-dark);
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: 'Rubik', sans-serif;
+	font-weight: bold;
+}
+
+ul {
+	list-style-type: square;
+}
+
+.d-flex-center-center {
+	align-items: center !important;
+	justify-content: center !important;
+	display: flex !important;
+}
+
+.fs-7 {
+	font-size: 0.9rem!important;
+}
+.top-banner {
+	position: relative;
+	background-size: cover;
+	background-position: left top;
+	background-image: linear-gradient(to bottom, var(--bs-light), var(--bs-lavender));
+}
+
+.card {
+	border-radius: 0rem;
+	border: none;
+	background-color: var(--bs-gray-dark);
+}
+
+.discord-border-gradient {
+	border: 2px solid;
+	border-image-slice: 1;
+	border-image-source: linear-gradient(to right, var(--bs-lavender), var(--bs-orange))
+}
+
+.discord-button-top {
+	position: absolute;
+	top: -3rem;
+}
+.discord-button-top div {
+	color: var(--bs-navy)!important;
+	font-style: italic;
+	font-size: 0.8rem;
+}
+
+.text-bg-white-padded span {
+	background-color: rgba(255,255,255,0.5);
+	padding: 4px;
+	line-height: 3rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+
+/* Extra theme colors */
+
+.bg-gray-dark {
+	background-color: var(--bs-gray-dark);
+}
+.border-gray-dark {
+	border-color: var(--bs-gray-dark)!important;
+}
+
+.bg-gray-light {
+	background-color: var(--bs-gray-light);
+}
+
+.text-blue {
+	color: var(--bs-blue);
+}
+.bg-blue {
+	background-color: var(--bs-blue);
+}
+.bg-blue-gradient {
+	background-color: var(--bs-blue);
+	background-image: linear-gradient(to bottom left, var(--bs-blue), var(--bs-lavender));
+}
+.border-blue {
+	border-color: var(--bs-blue)!important;
+}
+
+.text-navy {
+	color: var(--bs-navy);
+}
+.text-bg-navy-padded span {
+	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
+	padding: 4px;
+	line-height: 3rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+.bg-navy {
+	background-color: var(--bs-navy);
+}
+.bg-navy-gradient {
+	background-color: var(--bs-navy);
+	background-image: linear-gradient(to bottom, var(--bs-blue), var(--bs-navy));
+}
+.border-navy {
+	border-color: var(--bs-navy)!important;
+}
+
+.text-midnight {
+	color: var(--bs-midnight);
+}
+.text-bg-midnight-padded span {
+	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
+	padding: 4px;
+	line-height: 3rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+.bg-midnight {
+	background-color: var(--bs-midnight);
+}
+.bg-midnight-gradient {
+	background-color: var(--bs-midnight);
+	background-image: linear-gradient(to bottom, var(--bs-navy), var(--bs-midnight));
+}
+.border-midnight {
+	border-color: var(--bs-midnight)!important;
+}
+
+.bg-banner-gradient {
+	background-color: var(--bs-navy);
+	background-image: linear-gradient(to bottom left, var(--bs-navy), var(--bs-lavender));
+}
+
+.text-lavender {
+	color: var(--bs-lavender);
+}
+.text-bg-lavender-padded span {
+	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
+	padding: 4px;
+	line-height: 3rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+.bg-lavender {
+	background-color: var(--bs-lavender);
+}
+.bg-lavender-gradient {
+	background-color: var(--bs-lavender);
+	background-image: linear-gradient(to bottom, var(--bs-navy), var(--bs-lavender));
+}
+.border-lavender {
+	border-color: var(--bs-lavender)!important;
+}
+
+.bg-banner-gradient {
+	background-color: var(--bs-navy);
+	background-image: linear-gradient(to bottom left, var(--bs-purple), var(--bs-lavender));
+}
+
 /* Arrow brand colors */
 :root {
 	--bs-dark-rgb: 6, 5, 40;
@@ -14,6 +174,8 @@
 	--bs-blue: #6061b1;
 	--bs-navy-rgb: 27, 20, 100;
 	--bs-navy: #1b1464;
+	--bs-midnight-rgb: 6, 5, 40;
+	--bs-midnight: #060528;
 	--bs-lavender: #8086ed;
 	--bs-orange: #ff926a;
 
@@ -66,97 +228,3 @@
 	--bs-body-bg-rgb: 255,255,255;
 	*/
 }
-
-html, body {
-	height: 100%;
-	color: var(--bs-dark);
-}
-
-h1, h2, h3, h4, h5 {
-	font-family: 'Rubik', sans-serif;
-}
-
-ul {
-	list-style-type: square;
-}
-
-.fs-7 {
-	font-size: 0.9rem!important;
-}
-.top-banner {
-	background-size: cover;
-	background-repeat: no-repeat;
-	background: url('img/banner-bg.png');
-}
-
-.card {
-	border-radius: 0rem;
-	border: none;
-	background-color: var(--bs-gray-dark);
-}
-
-.discord-border-gradient {
-	border: 2px solid;
-	border-image-slice: 1;
-	border-image-source: linear-gradient(to right, var(--bs-lavender), var(--bs-orange))
-}
-
-@media (min-width: 992px) {
-	.discord-button-top {
-		position: absolute;
-		top: -20%;
-	}
-	.discord-button-top div {
-		color: var(--bs-primary)!important;
-		font-style: italic;
-	}
-}
-
-/* Extra theme colors */
-
-.bg-gray-dark {
-	background-color: var(--bs-gray-dark);
-}
-.border-gray-dark {
-	border-color: var(--bs-gray-dark)!important;
-}
-
-.bg-gray-light {
-	background-color: var(--bs-gray-light);
-}
-
-.text-blue {
-	color: var(--bs-blue);
-}
-.bg-blue {
-	background-color: var(--bs-blue);
-}
-.bg-blue-gradient {
-	background-color: var(--bs-blue);
-	background-image: linear-gradient(to bottom left, var(--bs-blue), var(--bs-lavender));
-}
-.border-blue {
-
-}
-
-.text-navy {
-	color: var(--bs-navy);
-}
-.bg-navy {
-	background-color: var(--bs-navy);
-}
-.bg-navy-gradient {
-	background-color: var(--bs-navy);
-	background-image: linear-gradient(to bottom left, var(--bs-navy), var(--bs-lavender));
-}
-.bg-navy-padded {
-	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
-	padding: 4px;
-	line-height: 3rem;
-	box-decoration-break: clone;
-	-webkit-box-decoration-break: clone;
-}
-.border-navy {
-	border-color: var(--bs-navy)!important;
-}
-
