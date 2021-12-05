@@ -23,6 +23,12 @@ ul {
 .fs-7 {
 	font-size: 0.9rem!important;
 }
+
+.navbar-brand img {
+	max-width: 100%;
+	max-height: 60px;
+}
+
 .top-banner {
 	position: relative;
 	background-size: cover;
@@ -88,7 +94,7 @@ ul {
 }
 
 .text-navy {
-	color: var(--bs-navy);
+	color: var(--bs-navy)!important;
 }
 .text-bg-navy-padded span {
 	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
@@ -109,7 +115,7 @@ ul {
 }
 
 .text-midnight {
-	color: var(--bs-midnight);
+	color: var(--bs-midnight)!important;
 }
 .text-bg-midnight-padded span {
 	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
@@ -135,7 +141,7 @@ ul {
 }
 
 .text-lavender {
-	color: var(--bs-lavender);
+	color: var(--bs-lavender)!important;
 }
 .text-bg-lavender-padded span {
 	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
