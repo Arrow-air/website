@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla&family=Rubik:wght@700&family=Karla@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Rubik:wght@700display=swap');
 
 html, body {
 	height: 100%;
@@ -30,16 +30,20 @@ ul {
 }
 
 .top-banner {
-	position: relative;
 	background-size: cover;
 	background-position: left top;
 	background-image: linear-gradient(to bottom, var(--bs-light), var(--bs-lavender));
 }
 
+.top-banner img {
+	margin-top: -3rem;
+	margin-bottom: -12%;
+}
+
 .card {
 	border-radius: 0rem;
 	border: none;
-	background-color: var(--bs-gray-dark);
+	background-color: transparent;
 }
 
 .discord-border-gradient {
@@ -68,6 +72,7 @@ ul {
 
 /* Extra theme colors */
 
+
 .bg-gray-dark {
 	background-color: var(--bs-gray-dark);
 }
@@ -80,10 +85,17 @@ ul {
 }
 
 .text-blue {
-	color: var(--bs-blue);
+	color: var(--bs-blue)!important;
 }
 .bg-blue {
 	background-color: var(--bs-blue);
+}
+.text-bg-blue-padded span {
+	background-color: rgba(var(--bs-blue-rgb), 0.2);
+	padding: 4px;
+	line-height: 3rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
 }
 .bg-blue-gradient {
 	background-color: var(--bs-blue);
@@ -97,7 +109,7 @@ ul {
 	color: var(--bs-navy)!important;
 }
 .text-bg-navy-padded span {
-	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
+	background-color: var(--bs-navy);
 	padding: 4px;
 	line-height: 3rem;
 	box-decoration-break: clone;
@@ -136,8 +148,9 @@ ul {
 }
 
 .bg-banner-gradient {
-	background-color: var(--bs-navy);
-	background-image: linear-gradient(to bottom left, var(--bs-navy), var(--bs-lavender));
+	background-image: url(img/bg-repeatable.png), linear-gradient(to bottom, var(--bs-secondary), #15104f);
+	background-position: top left, top left;
+	background-repeat: repeat, repeat;
 }
 
 .text-lavender {
@@ -161,9 +174,25 @@ ul {
 	border-color: var(--bs-lavender)!important;
 }
 
-.bg-banner-gradient {
-	background-color: var(--bs-navy);
-	background-image: linear-gradient(to bottom left, var(--bs-purple), var(--bs-lavender));
+.text-orange {
+	color: var(--bs-orange)!important;
+}
+.text-bg-orange-padded span {
+	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
+	padding: 4px;
+	line-height: 3rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+.bg-orange {
+	background-color: var(--bs-orange);
+}
+.bg-orange-gradient {
+	background-color: var(--bs-orange);
+	background-image: linear-gradient(to bottom, var(--bs-navy), var(--bs-orange));
+}
+.border-orange {
+	border-color: var(--bs-orange)!important;
 }
 
 /* Arrow brand colors */
@@ -185,7 +214,7 @@ ul {
 	--bs-lavender: #8086ed;
 	--bs-orange: #ff926a;
 
-	--bs-gray-light: #b2b2b2;
+	--bs-gray-light: #e6e6e6;
 	--bs-gray-dark: #a6a6a6;
 	--bs-font-sans-serif: "karla",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 
