@@ -34,14 +34,19 @@ ul {
 }
 
 .top-banner img {
-	margin-top: -3rem;
-	margin-bottom: -12%;
+	margin-top: -5rem;
+	margin-bottom: -7%;
 }
 
 .card {
 	border-radius: 0rem;
 	border: none;
 	background-color: transparent;
+}
+
+.footer-devider {
+	background: rgb(128,134,237);
+	background: linear-gradient(90deg, rgba(var(--bs-blue-rgb),1) 0%, #7a76a9 50%, #f9a687 100%);
 }
 
 .discord-border-gradient {
@@ -62,13 +67,16 @@ ul {
 
 .text-bg-white-padded span {
 	background-color: rgba(255,255,255,0.5);
-	padding: 4px;
-	line-height: 3.5rem;
+	padding: 3px 15px;
+	line-height: 3rem;
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
 }
 
 /* Extra theme colors */
+.border-gray {
+	border-color: var(--bs-gray)!important;
+}
 
 .text-gray-dark {
 	color: var(--bs-gray-dark)!important;
@@ -92,8 +100,8 @@ ul {
 }
 .text-bg-blue-padded span {
 	background-color: rgba(var(--bs-blue-rgb), 0.2);
-	padding: 4px;
-	line-height: 3.5rem;
+	padding: 3px 15px;
+	line-height: 3rem;
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
 }
@@ -110,8 +118,8 @@ ul {
 }
 .text-bg-navy-padded span {
 	background-color: var(--bs-navy);
-	padding: 4px;
-	line-height: 3.5rem;
+	padding: 3px 15px;
+	line-height: 3rem;
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
 }
@@ -120,7 +128,7 @@ ul {
 }
 .bg-navy-gradient {
 	background-color: var(--bs-navy);
-	background-image: linear-gradient(to bottom, var(--bs-blue), var(--bs-navy));
+	background-image: linear-gradient(to bottom, rgba(var(--bs-blue-rgb),.5) 10%, var(--bs-navy) 90%);
 }
 .border-navy {
 	border-color: var(--bs-navy)!important;
@@ -131,8 +139,8 @@ ul {
 }
 .text-bg-midnight-padded span {
 	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
-	padding: 4px;
-	line-height: 3.5rem;
+	padding: 3px 15px;
+	line-height: 3rem;
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
 }
@@ -158,8 +166,8 @@ ul {
 }
 .text-bg-lavender-padded span {
 	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
-	padding: 4px;
-	line-height: 3.5rem;
+	padding: 3px 15px;
+	line-height: 3rem;
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
 }
@@ -179,8 +187,8 @@ ul {
 }
 .text-bg-orange-padded span {
 	background-image: linear-gradient(to right, rgba(27,20,100,0.1), rgba(40, 35, 118, 0.3));
-	padding: 4px;
-	line-height: 3.5rem;
+	padding: 3px 15px;
+	line-height: 3rem;
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
 }
@@ -211,10 +219,14 @@ ul {
 	--bs-navy: #1b1464;
 	--bs-midnight-rgb: 6, 5, 40;
 	--bs-midnight: #060528;
+	--bs-lavender-rgb: 128, 134, 237;
 	--bs-lavender: #8086ed;
-	--bs-orange: #ff926a;
+	--bs-orange-rgb: 252, 161, 134;
+	--bs-orange: #fca186;
 
 	--bs-gray-light: #e6e6e6;
+	--bs-gray: #cdcdcd;
+	--bs-gray: #cdcdcd;
 	--bs-gray-dark: #a6a6a6;
 	--bs-font-sans-serif: "karla",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 
