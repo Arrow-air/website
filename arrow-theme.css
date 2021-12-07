@@ -44,6 +44,10 @@ ul {
 	background-color: transparent;
 }
 
+.card-body {
+	justify-content: center !important;
+}
+
 .footer-devider {
 	background: rgb(128,134,237);
 	background: linear-gradient(90deg, rgba(var(--bs-blue-rgb),1) 0%, #7a76a9 50%, #f9a687 100%);
