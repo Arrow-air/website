@@ -1,1 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.a{isolation:isolate;}.b,.g{mix-blend-mode:multiply;}.c,.g{fill:#babad6;}.d{fill:#f1f1f1;}.d,.e{fill-opacity:0.25;}.d,.e,.f{stroke:#1b1464;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}.e{fill:#8086ed;}.f{fill:none;}</style></defs><g class="a"><g class="b"><path class="c" d="M150,200.18a72.41,72.41,0,0,0-43.49-38.69l26.68-9.17Z"/></g><polygon class="d" points="150.04 97.97 149.97 200.18 133.16 152.32 106.48 161.5 150.04 97.97 150.04 97.97"/><g class="b"><path class="c" d="M150,200.18a72.45,72.45,0,0,1,43.55-38.63l-26.67-9.2Z"/></g><polygon class="e" points="150.04 97.97 149.97 200.18 166.85 152.35 193.52 161.55 150.04 97.97 150.04 97.97"/><path class="f" d="M213.13,251.1a115.91,115.91,0,0,1-126.26,0c24.57,12.1,63.13-25,63.13-52.21C150,226.11,188.56,263.2,213.13,251.1Z"/><path class="g" d="M150,261.8a107.59,107.59,0,0,1-33.21-5.22c13.15-6.3,25.52-18.07,33.21-31.29,7.69,13.22,20.06,25,33.22,31.29A108,108,0,0,1,150,261.8Z"/><path class="f" d="M265.85,154a115.74,115.74,0,0,1-52.71,97.14h0c-24.57,12.1-63.13-25-63.13-52.21,0,27.22-38.56,64.31-63.13,52.21h0a115.86,115.86,0,1,1,179-97.14Z"/><line class="f" x1="86.87" y1="251.1" x2="86.86" y2="251.09"/><line class="f" x1="213.14" y1="251.09" x2="213.13" y2="251.1"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.2;}
+	.st1{fill:#BABAD6;}
+	.st2{fill:#F1F1F1;fill-opacity:0.25;stroke:#1B1464;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st3{fill:#8086ED;fill-opacity:0.25;stroke:#1B1464;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st4{fill:none;stroke:#1B1464;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st5{opacity:0.2;fill:#BABAD6;}
+</style>
+<g>
+	<g class="st0">
+		<path class="st1" d="M150,200.2c-8.4-18.4-24.2-32.4-43.5-38.7l26.7-9.2L150,200.2z"/>
+	</g>
+	<polygon class="st2" points="150,98 150,200.2 133.2,152.3 106.5,161.5 150,98 	"/>
+	<g class="st0">
+		<path class="st1" d="M150,200.2c8.5-18.4,24.3-32.4,43.6-38.6l-26.7-9.2L150,200.2z"/>
+	</g>
+	<polygon class="st3" points="150,98 150,200.2 166.9,152.4 193.5,161.6 150,98 	"/>
+	<path class="st4" d="M213.1,251.1c-38.4,24.9-87.9,24.9-126.3,0c24.6,12.1,63.1-25,63.1-52.2C150,226.1,188.6,263.2,213.1,251.1z"
+		/>
+	<path class="st5" d="M150,261.8c-11.3,0-22.5-1.8-33.2-5.2c13.2-6.3,25.5-18.1,33.2-31.3c7.7,13.2,20.1,25,33.2,31.3
+		C172.5,260,161.3,261.8,150,261.8z"/>
+	<path class="st4" d="M265.9,154c0,39.2-19.8,75.8-52.7,97.1l0,0c-24.6,12.1-63.1-25-63.1-52.2c0,27.2-38.6,64.3-63.1,52.2l0,0
+		C33.2,216.3,18,144.5,52.9,90.9s106.6-68.9,160.3-34C246,78.2,265.9,114.8,265.9,154L265.9,154z"/>
+	<line class="st4" x1="86.9" y1="251.1" x2="86.9" y2="251.1"/>
+	<line class="st4" x1="213.1" y1="251.1" x2="213.1" y2="251.1"/>
+</g>
+</svg>
