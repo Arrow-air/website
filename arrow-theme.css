@@ -70,7 +70,9 @@ ul {
 
 /* Extra theme colors */
 
-
+.text-gray-dark {
+	color: var(--bs-gray-dark)!important;
+}
 .bg-gray-dark {
 	background-color: var(--bs-gray-dark);
 }
