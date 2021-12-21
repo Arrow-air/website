@@ -79,6 +79,11 @@ const config = {
 		},
 		footer: {
 			style: 'light',
+			logo: {
+				alt: 'Arrow Logo',
+				src: 'img/wordmark_gray-on-gray.svg',
+			},
+			copyright: 'Built with love by the Arrow community',
 			links: [
 				{
 					title: 'Docs',

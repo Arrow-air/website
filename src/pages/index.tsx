@@ -102,18 +102,6 @@ export default function Home(): JSX.Element {
 						<a href="https://discord.com/invite/fab4bxaAW9" className="discord-button my-xl-5"><img src="img/button-render.png" alt="Discord" className="img-fluid"/></a>
 					</div>
 				</div>
-				<div className="row justify-content-center bg-gray-light text-gray-dark p-4">
-					<div className="col-12 col-md-6 text-center my-auto">
-						<span className="pb-1 border-bottom border-gray">
-							Built with love by the <strong>Arrow</strong> community
-						</span>
-					</div>
-					<div className="col-10 col-md-6">
-						<div className="row justify-content-center mt-3">
-							<img className="col-5 col-xl-4 img-fluid" src="img/wordmark_gray-on-gray.svg" alt="Arrow Logo"/>
-						</div>
-					</div>
-				</div>
 			</div>
 		</Layout>
 	);
