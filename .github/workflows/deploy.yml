@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - owllot/docusaurus
+      - owlot/docusaurus
 
 jobs:
   build:
