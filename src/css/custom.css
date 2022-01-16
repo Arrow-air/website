@@ -27,6 +27,25 @@ ul {
 	max-height: 60px;
 }
 
+.navbar__items--right > :last-child {
+	padding-right: calc( var(--ifm-button-padding-horizontal) * var(--ifm-button-size-multiplier) );
+}
+.nav-link svg {
+	display: none;
+}
+
+.footer__links {
+	background-position: left top;
+	background-image: linear-gradient(to bottom, var(--bs-gray-light), #7f85c0);
+	background-repeat: repeat;
+	background-size: cover;
+	margin-bottom: 0;
+}
+.footer__logo {
+	margin-top: 0;
+	max-width: 14rem;
+}
+
 .bg-banner-gradient {
 	background-image: url(/img/bg-hero-sub.png);
 	background-position: top left;
@@ -251,6 +270,10 @@ ul {
 .bg-lavender {
 	background-color: var(--bs-lavender);
 }
+.bg-lavender-light {
+	background-color: var(--bs-lavender-light);
+}
+
 .bg-lavender-gradient {
 	background-color: var(--bs-lavender);
 	background-image: linear-gradient(to bottom, var(--bs-navy), var(--bs-lavender));
@@ -349,6 +372,15 @@ h1, .h1 {
 	--ifm-h4-font-size: calc(1.275rem + 0.3vw);
 	--ifm-h5-font-size: 1.25rem;
 	--ifm-h6-font-size: 1rem;
+	--ifm-footer-link-color: #1b1464;
+	--ifm-footer-title-color: #a29cbe;
+	--ifm-global-radius: 0.2rem;
+	--ifm-navbar-item-padding-horizontal: 0.4rem;
+	--ifm-navbar-item-padding-vertical: 0.4rem;
+	--ifm-navbar-height: 5rem;
+
+	--ifm-color-primary: #535299;
+	--ifm-color-secondary: #1b1464;
 
 	/* possible overrides
 

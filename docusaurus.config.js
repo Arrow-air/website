@@ -67,13 +67,21 @@ const config = {
 					docId: 'intro',
 					position: 'right',
 					label: 'Pages',
+					className: 'text-secondary',
 				},
-				{to: '/blog', label: 'Blog', position: 'right'},
+				{
+					to: '/blog',
+					position: 'right',
+					label: 'Blog',
+					className: 'text-secondary',
+					image: 'img/arrow-icon_blog.svg',
+				},
 				{
 					href: 'https://discord.com/invite/fab4bxaAW9',
-					label: 'Discord',
 					position: 'right',
-					className: 'px-3 bg-navy text-white',
+					label: 'Discord',
+					className: 'text-white',
+					image: 'img/arrow-icon_discord.svg',
 				},
 			],
 		},
@@ -81,19 +89,10 @@ const config = {
 			style: 'light',
 			logo: {
 				alt: 'Arrow Logo',
-				src: 'img/wordmark_gray-on-gray.svg',
+				src: 'img/wordmark_gray.svg',
 			},
-			copyright: 'Built with love by the Arrow community',
+			copyright: 'Built with <img src="/img/arrow-icon_love.svg" style="height:1rem" alt="love"/> by the Arrow Community',
 			links: [
-				{
-					title: 'Docs',
-					items: [
-						{
-							label: 'Intro',
-							to: '/docs/intro',
-						},
-					],
-				},
 				{
 					title: 'Community',
 					items: [
@@ -108,8 +107,12 @@ const config = {
 					],
 				},
 				{
-					title: 'More',
+					title: 'Links',
 					items: [
+						{
+							label: 'Intro',
+							to: '/docs/intro',
+						},
 						{
 							label: 'Blog',
 							to: '/blog',
