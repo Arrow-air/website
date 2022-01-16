@@ -72,8 +72,8 @@ function Footer() {
         'footer--dark': footer.style === 'dark',
       })}>
       <div className="container-fluid bg-gray-light text-gray-dark">
-        <div className="row justify-content-center p-4 footer__links">
-          <div className="col-12 col-sm-10 col-xl-6 mt-5">
+        <div className="row justify-content-center p-5 footer__links">
+          <div className="col-12 col-sm-10 col-xl-6">
             <div className="d-flex flex-wrap flex-sm-nowrap justify-content-center">
             {logo && (logo.src || logo.srcDark) && (
               <div className="w-100 footer__col">
