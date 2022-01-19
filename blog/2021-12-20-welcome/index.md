@@ -5,4 +5,4 @@ authors: [arrow]
 tags: [hello]
 ---
 
-Welcome
+Welcome to the Arrow blog. New content will be posted here very soon.
