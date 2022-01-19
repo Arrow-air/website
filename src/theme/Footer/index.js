@@ -45,7 +45,7 @@ function FooterLink({to, href, label, prependBaseUrlToHref, ...props}) {
 function FooterLogo({sources, alt, width, height}) {
   return (
     <ThemedImage
-      className="footer__logo"
+      className="footer__logo mx-auto mx-sm-0"
       alt={alt}
       sources={sources}
       width={width}
@@ -72,57 +72,52 @@ function Footer() {
         'footer--dark': footer.style === 'dark',
       })}>
       <div className="container-fluid bg-gray-light text-gray-dark">
-        {links && links.length > 0 && (
-          <div className="row justify-content-center p-4 footer__links">
-			<div className="col-12 col-md-6 my-auto">
-				<div className="row">
-
-            {links.map((linkItem, i) => (
-              <div key={i} className="col footer__col">
-                {linkItem.title != null ? (
-                  <div className="footer__title">{linkItem.title}</div>
-                ) : null}
-                {linkItem.items != null &&
-                Array.isArray(linkItem.items) &&
-                linkItem.items.length > 0 ? (
+        <div className="row justify-content-center p-5 footer__links">
+          <div className="col-12 col-sm-10 col-xl-6">
+            <div className="d-flex flex-wrap flex-sm-nowrap justify-content-center">
+            {logo && (logo.src || logo.srcDark) && (
+              <div className="w-100 footer__col">
+                <div className="row h-100">
+                  <FooterLogo alt={logo.alt} sources={sources}/>
+                </div>
+              </div>
+            )}
+            {links && links.length > 0 ? (
+			  links.map((linkItem, i) => (
+              <div key={i} className="flex-shrink-1 text-nowrap px-3 footer__col">
+                {linkItem.title != null &&
+				<div className="footer__title">{linkItem.title}</div>
+				}
+                {linkItem.items != null && Array.isArray(linkItem.items) && linkItem.items.length > 0 && 
                   <ul className="footer__items">
-                    {linkItem.items.map((item, key) =>
-                      item.html ? (
-                        <li
-                          key={key}
-                          className="footer__item" // Developer provided the HTML, so assume it's safe.
-                          // eslint-disable-next-line react/no-danger
-                          dangerouslySetInnerHTML={{
-                            __html: item.html,
-                          }}
-                        />
-                      ) : (
-                        <li key={item.href || item.to} className="footer__item">
-                          <FooterLink {...item} />
-                        </li>
-                      ),
-                    )}
+                  {linkItem.items.map((item, key) => item.html ? (
+                    <li
+                      key={key}
+                      className="footer__item" // Developer provided the HTML, so assume it's safe.
+                      // eslint-disable-next-line react/no-danger
+                      dangerouslySetInnerHTML={{
+                        __html: item.html,
+                      }}
+                    />
+                  ) : (
+                    <li key={item.href || item.to} className="footer__item">
+                      <FooterLink {...item} />
+                    </li>
+                  ),)}
                   </ul>
-                ) : null}
+				}
               </div>
-            ))}
-              </div>
-              </div>
+              ))
+			) : null}
+            </div>
           </div>
-        )}
+        </div>
         {(logo || copyright) && (
 		<div className="footer__bottom text--center">
-			<div className="row justify-content-center p-4">
-            {logo && (logo.src || logo.srcDark) && (
-				<div className="col-10 col-md-6">
-					<div className="row justify-content-center mt-3">
-						<FooterLogo alt={logo.alt} sources={sources} className="col-5 col-xl-4 img-fluid"/>
-					</div>
-				</div>
-            )}
+			<div className="row justify-content-center p-4 bg-secondary">
             {copyright ? (
-				<div className="col-12 text-center my-4">
-					<span className="pb-1 border-bottom border-gray"
+				<div className="col-12 text-center">
+					<span className="fw-bold"
 						// eslint-disable-next-line react/no-danger
 						dangerouslySetInnerHTML={{
 						  __html: copyright,

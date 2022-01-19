@@ -99,7 +99,7 @@ export default function Home(): JSX.Element {
 						<p>
 						We are community led and have many roles for contributors in our friendly Discord
 						</p>
-						<a href="https://discord.com/invite/fab4bxaAW9" className="discord-button my-xl-5"><img src="img/button-render.png" alt="Discord" className="img-fluid"/></a>
+						<div class="px-5"><a href="https://discord.com/invite/fab4bxaAW9" className="discord-button my-xl-5"><img src="img/button-render.png" alt="Discord" className="img-fluid"/></a></div>
 					</div>
 				</div>
 			</div>

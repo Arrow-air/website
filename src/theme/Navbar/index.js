@@ -251,12 +251,12 @@ function Navbar() {
         </div>
         <div className="navbar__items navbar__items--right">
           {rightItems.map((item, i) => (
-            <div className={clsx('nav-link', 'text-navy', 'my-2', 'py-0', 'px-4', {
-              'border-end': i+1 != rightItems.length, 
-              'border-2': i+1 != rightItems.length,
-              'border-lavender': i+1 != rightItems.length,
+            <div className={clsx('nav-link', 'text-navy', 'my-2', 'py-0', 'mx-2', 'button', 'border-0', {
+              'bg-lavender-light': i+1 != rightItems.length,
+              'button--secondary': i+1 == rightItems.length,
             })}>
-              <NavbarItem {...item} key={i}/>
+              {item.image && <img src={'/' + item.image} alt={item.label} style={{height: '1rem'}}/> }
+			  <NavbarItem {...item} key={i}/>
             </div>
           ))}
           {!colorModeToggle.disabled && (

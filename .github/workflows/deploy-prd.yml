@@ -1,4 +1,4 @@
-name: Deploy Website
+name: Deploy Production
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
 #        run: yarn lint
       - name: Build
         run: yarn build
-      - name: Deploy to S3
+      - name: Deploy to production S3
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks
