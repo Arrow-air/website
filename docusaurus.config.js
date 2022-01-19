@@ -66,7 +66,7 @@ const config = {
 					type: 'doc',
 					docId: 'intro',
 					position: 'right',
-					label: 'Pages',
+					label: 'Docs',
 					className: 'text-secondary',
 				},
 				{
