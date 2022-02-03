@@ -103,9 +103,14 @@ ul {
 	background-size: cover;
 }
 
-.top-banner img {
-	margin-top: -5rem;
+
+.top-banner .hero-container {
+	background-image: url("/img/hero-image.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 	margin-bottom: -7%;
+	min-height: 20vw;
 }
 
 .card {

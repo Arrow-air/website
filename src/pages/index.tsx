@@ -23,8 +23,11 @@ function HomepageHeader() {
 						</h2>
 					</div>
 				</div>
-				<div className="col-12 col-sm-10 col-xl-8 position-relative px-0">
-					<img src="img/hero-image.png" className="img-fluid"/>
+				<div className="col-12 col-sm-10 col-xl-8 hero-container px-0 text-center">
+					<picture>
+						<source srcset="https://www.arrowair.com/img/hero-animated50.webp" type="image/webp" />
+						<img src="/img/hero-image.png" type="image/png" />
+					</picture>
 				</div>
 			</div>
 
@@ -99,7 +102,7 @@ export default function Home(): JSX.Element {
 						<p>
 						We are community led and have many roles for contributors in our friendly Discord
 						</p>
-						<div class="px-5"><a href="https://discord.com/invite/fab4bxaAW9" className="discord-button my-xl-5"><img src="img/button-render.png" alt="Discord" className="img-fluid"/></a></div>
+						<div className="px-5"><a href="https://discord.com/invite/fab4bxaAW9" className="discord-button my-xl-5"><img src="img/button-render.png" alt="Discord" className="img-fluid"/></a></div>
 					</div>
 				</div>
 			</div>
