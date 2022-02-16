@@ -1,10 +1,12 @@
+# References
+
 Engineering reference material, pulling information, open source material and standards from across sectors to help define Arrow's market and scope.
 
-VTOL
+## VTOL
 
 - TBD
 
-EV development 
+## EV development 
 
 ‼️ PIXKIT Open source drive by wire engineering chassis (good model for prototyping, seen similar dev on Airspeeder using ALU extrusions)
 https://www.pixmoving.com/pixkit
