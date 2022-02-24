@@ -6,9 +6,20 @@ sidebar_position: 4
 
 Engineering reference material, pulling information, open source material and standards from across sectors to help define Arrow's market and scope.
 
-## VTOL
+## Commercial VTOL vehicle prototypes
 
-- TBD
+These are some of the more publicized projects, but there are hundreds of eVTOL vehicles listed at https://evtol.news/aircraft
+
+- Airbus: Creator of CityAirbus (active project) and Vahana (retired project) https://en.wikipedia.org/wiki/Airbus_CityAirbus
+- Archer Aviation: Creator of Maker aircraft https://www.archer.com/
+- EHang: Creator of EHang 216 https://www.ehang.com/
+- Lillium: https://lilium.com/
+- Jetson Aero: Creator of Jetson ONE https://jetsonaero.com/
+- Joby Aviation: https://www.jobyaviation.com/
+- Opener: Creator of BlackFly: https://opener.aero/
+- Vertical Aerospace: Creator of VX4 https://vertical-aerospace.com/
+- Volocopter: https://www.volocopter.com/
+- Wisk Aero: https://wisk.aero/
 
 ## EV development
 
@@ -33,3 +44,10 @@ https://github.com/autocore-ai/SDV
 
 Interesting passive cooling system via internal radiators by battery pack
 https://www.greencarcongress.com/2018/03/20180301-williams.html
+
+## Open Source Hardware Projects
+
+Examples of projects that built multiple pieces of open source hardware
+
+- Open Source Ecology: Low cost open source industrial machines https://www.opensourceecology.org/
+- Crowd Supply: Crowdfunding open source electronics https://www.crowdsupply.com/
