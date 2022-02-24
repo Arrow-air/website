@@ -38,12 +38,12 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/Arrow-air/wiki/edit/main/website/",
+          editUrl: "https://github.com/Arrow-air/website/tree/main/docs",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/Arrow-air/wiki/edit/main/website/blog/",
+          editUrl: "https://github.com/Arrow-air/website/tree/main/blog/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -66,7 +66,7 @@ const config = {
         items: [
           {
             type: "doc",
-            docId: "intro",
+            docId: "about",
             position: "right",
             label: "Docs",
             className: "text-secondary",
@@ -113,8 +113,8 @@ const config = {
             title: "Links",
             items: [
               {
-                label: "Intro",
-                to: "/docs/intro",
+                label: "About",
+                to: "/docs/about",
               },
               {
                 label: "Blog",
@@ -129,6 +129,7 @@ const config = {
         ],
       },
       prism: {
+        additionalLanguages: ["solidity"],
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
