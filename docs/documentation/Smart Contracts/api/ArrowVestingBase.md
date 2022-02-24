@@ -19,8 +19,6 @@ constructor() initializer
 ```
 
 Creates an instance of the contract to be used as a "prototype" for [`ArrowVestingFactory`](./ArrowVestingFactory) to make clones.
-<br />
-<br />
 
 ###### initialize{#initialize}
 

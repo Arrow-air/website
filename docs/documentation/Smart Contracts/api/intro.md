@@ -23,8 +23,6 @@ function initialize(uint256 _initialSupply) public initializer
 Acts as a constructor under UUPS proxies. `initializer` is a modifier that makes sure the contract is only initiated once.
 
 - `_initialSupply`: the amount of tokens to be issued upon contract creation.
-  <br />
-  <br />
 
 ###### issueNewTokens{#issueNewToken}
 

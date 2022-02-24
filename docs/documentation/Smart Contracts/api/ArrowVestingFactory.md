@@ -19,8 +19,6 @@ constructor()
 ```
 
 Creates and saves a base implementation of [ArrowVestingBase](./ArrowVestingBase) to an immutable variable `vestingImplementation`.
-<br />
-<br />
 
 ###### createVestingSchedule{#vest}
 
