@@ -37,13 +37,11 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          editUrl: "https://github.com/Arrow-air/website/tree/main/docs",
+          editUrl: 'https://github.com/Arrow-air/website/edit/main/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          editUrl: "https://github.com/Arrow-air/website/tree/main/blog/",
+          editUrl: 'https://github.com/Arrow-air/website/edit/main/',
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
