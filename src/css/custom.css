@@ -12,6 +12,10 @@ ul {
 	list-style-type: square;
 }
 
+.d-flex {
+	display: flex !important;
+}
+
 .d-flex-center-center {
 	align-items: center !important;
 	justify-content: center !important;
@@ -799,3 +803,75 @@ h1, .h1 {
 		width:100%!important
 	}
 }
+
+.sign-cla input[type=checkbox]{
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+.sign-cla input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #663399;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.sign-cla input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.sign-cla .cla-text-wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sign-cla .cla-scroll-box {
+  padding: 5px 0;
+  border: #7a76a9 1px solid;
+  border-radius: 5px;
+}
+.sign-cla .controls {
+  margin-top: 20px;
+}
+.sign-cla .cb-text {
+  padding-left: 7px;
+  position: relative;
+  top: -2px;
+}
+
+.sign-cla button {
+  font-size: 1em;
+  line-height: 1;
+  position: relative;
+  border: 2px solid;
+  padding: 5px;
+  margin-top: 15px;
+  border-radius: 5px;
+  transition: background .3s;
+  color: rgb(27, 20, 100);
+  background: rgb(200, 200, 229);
+  border-color: rgb(200, 200, 229);
+}
+
+.sign-cla button:hover,
+.sign-cla button:focus {
+   background: darkgrey;
+   border-color: darkgrey;
+ }
