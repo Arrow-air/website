@@ -1,0 +1,17 @@
+name: Deploy generated docs
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-docs]
+
+jobs:
+  build-and-deploy-docs:
+    uses: ./.github/workflows/build-and-deploy-docs.yml
+    with:
+      node-version: 14.x
+      environment: production
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: read
