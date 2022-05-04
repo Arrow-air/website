@@ -837,7 +837,7 @@ h1, .h1 {
 .sign-cla .cla-text-wrapper {
   padding-left: 20px;
   padding-right: 20px;
-  height: 400px;
+  height: 45vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -862,7 +862,7 @@ h1, .h1 {
   position: relative;
   border: 2px solid;
   padding: 5px;
-  margin-top: 15px;
+  margin-top: 13px;
   border-radius: 5px;
   transition: background .3s;
   color: rgb(27, 20, 100);
@@ -870,6 +870,12 @@ h1, .h1 {
   border-color: rgb(200, 200, 229);
 }
 
+.sign-cla button span {
+	margin-left: 5px;
+	position: relative;
+	top: 2px;
+	padding-bottom: 10px
+}
 .sign-cla button:hover,
 .sign-cla button:focus {
    background: darkgrey;
