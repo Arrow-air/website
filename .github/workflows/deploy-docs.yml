@@ -1,0 +1,29 @@
+name: Deploy generated docs
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-docs]
+
+jobs:
+  build-and-deploy-docs:
+    uses: ./.github/workflows/build-and-deploy-docs.yml
+    with:
+      node-version: 14.x
+      environment: ${{ github.event.client_payload.environment }}
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: read
+
+  invalidate-cloudfront:
+    uses: ./.github/workflows/invalidate-cloudfront.yml
+    needs: [build-and-deploy-docs]
+    if: needs.build-and-deploy-docs.outputs.files_changed > 0
+    with:
+      paths: "/docs/*"
+      environment: ${{ github.event.client_payload.environment }}
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: read
