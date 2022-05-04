@@ -3,7 +3,7 @@ import './styles.css'
 
 export default function CLAText(): JSX.Element {
     return (
-        <React.Fragment>
+        <div className="cla-text">
                 <p className="c12"><span className="c1">Arrow Air Contributor License Agreement</span></p><p
                 className="c11"><span className="c1">Thank you for your interest in contributing to software or other projects by Arrow Air (&ldquo;Arrow&rdquo; or &ldquo;We&rdquo; or &ldquo;Us&rdquo;).</span>
             </p><p className="c6"><span
@@ -82,6 +82,6 @@ export default function CLAText(): JSX.Element {
             </p><p className="c5"><span className="c1">Print Entity Name and Title:</span></p><p className="c5"><span
                 className="c1">(if signing on behalf of an entity)</span></p><p className="c8"><span
                 className="c1">Date:</span></p>
-        </React.Fragment>
+        </div>
     )
 }

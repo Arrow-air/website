@@ -1,36 +1,36 @@
-.lst-kix_xdh80phlgwv-7 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-7 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-7, lower-latin) ". "
 }
 
-.lst-kix_xdh80phlgwv-8 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-8 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-8, lower-roman) ". "
 }
 
-.lst-kix_xdh80phlgwv-5 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-5 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-5, lower-roman) ". "
 }
 
-.lst-kix_xdh80phlgwv-6 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-6 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-6, decimal) ". "
 }
 
-.lst-kix_xdh80phlgwv-1 > li {
+.cla-text .lst-kix_xdh80phlgwv-1 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-1
 }
 
-ol.lst-kix_xdh80phlgwv-4.start {
+.cla-text ol.lst-kix_xdh80phlgwv-4.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-4 0
 }
 
-.lst-kix_xdh80phlgwv-5 > li {
+.cla-text .lst-kix_xdh80phlgwv-5 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-5
 }
 
-.lst-kix_xdh80phlgwv-0 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-0 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-0, decimal) ". "
 }
 
-.lst-kix_xdh80phlgwv-2 > li {
+.cla-text .lst-kix_xdh80phlgwv-2 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-2
 }
 
@@ -38,127 +38,127 @@ ol.lst-kix_xdh80phlgwv-4.start {
     counter-increment: lst-ctn-kix_xdh80phlgwv-8
 }
 
-.lst-kix_xdh80phlgwv-1 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-1 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-1, lower-latin) ". "
 }
 
-.lst-kix_xdh80phlgwv-2 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-2 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-2, lower-roman) ". "
 }
 
-.lst-kix_xdh80phlgwv-3 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-3 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-3, decimal) ". "
 }
 
-.lst-kix_xdh80phlgwv-4 > li:before {
+.cla-text .lst-kix_xdh80phlgwv-4 > li:before {
     content: "" counter(lst-ctn-kix_xdh80phlgwv-4, lower-latin) ". "
 }
 
-ol.lst-kix_xdh80phlgwv-1.start {
+.cla-text ol.lst-kix_xdh80phlgwv-1.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-1 0
 }
 
-ol.lst-kix_xdh80phlgwv-6.start {
+.cla-text ol.lst-kix_xdh80phlgwv-6.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-6 0
 }
 
-ol.lst-kix_xdh80phlgwv-5.start {
+.cla-text ol.lst-kix_xdh80phlgwv-5.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-5 0
 }
 
-.lst-kix_xdh80phlgwv-0 > li {
+.cla-text .lst-kix_xdh80phlgwv-0 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-0
 }
 
-ol.lst-kix_xdh80phlgwv-0.start {
+.cla-text ol.lst-kix_xdh80phlgwv-0.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-0 0
 }
 
-.lst-kix_xdh80phlgwv-6 > li {
+.cla-text .lst-kix_xdh80phlgwv-6 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-6
 }
 
-ol.lst-kix_xdh80phlgwv-3.start {
+.cla-text ol.lst-kix_xdh80phlgwv-3.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-3 0
 }
 
-.lst-kix_xdh80phlgwv-3 > li {
+.cla-text .lst-kix_xdh80phlgwv-3 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-3
 }
 
-li.li-bullet-0:before {
+.cla-text li.li-bullet-0:before {
     margin-left: -18pt;
     white-space: nowrap;
     display: inline-block;
     min-width: 18pt
 }
 
-ol.lst-kix_xdh80phlgwv-8.start {
+.cla-text ol.lst-kix_xdh80phlgwv-8.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-8 0
 }
 
-ol.lst-kix_xdh80phlgwv-5 {
+.cla-text ol.lst-kix_xdh80phlgwv-5 {
     list-style-type: none
 }
 
-ol.lst-kix_xdh80phlgwv-6 {
+.cla-text ol.lst-kix_xdh80phlgwv-6 {
     list-style-type: none
 }
 
-ol.lst-kix_xdh80phlgwv-2.start {
+.cla-text ol.lst-kix_xdh80phlgwv-2.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-2 0
 }
 
-ol.lst-kix_xdh80phlgwv-7 {
+.cla-text ol.lst-kix_xdh80phlgwv-7 {
     list-style-type: none
 }
 
-ol.lst-kix_xdh80phlgwv-8 {
+.cla-text ol.lst-kix_xdh80phlgwv-8 {
     list-style-type: none
 }
 
-ol.lst-kix_xdh80phlgwv-7.start {
+.cla-text ol.lst-kix_xdh80phlgwv-7.start {
     counter-reset: lst-ctn-kix_xdh80phlgwv-7 0
 }
 
-.lst-kix_xdh80phlgwv-4 > li {
+.cla-text .lst-kix_xdh80phlgwv-4 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-4
 }
 
-ol.lst-kix_xdh80phlgwv-0 {
+.cla-text ol.lst-kix_xdh80phlgwv-0 {
     list-style-type: none
 }
 
-ol.lst-kix_xdh80phlgwv-1 {
+.cla-text ol.lst-kix_xdh80phlgwv-1 {
     list-style-type: none
 }
 
-.lst-kix_xdh80phlgwv-7 > li {
+.cla-text .lst-kix_xdh80phlgwv-7 > li {
     counter-increment: lst-ctn-kix_xdh80phlgwv-7
 }
 
-ol.lst-kix_xdh80phlgwv-2 {
+.cla-text ol.lst-kix_xdh80phlgwv-2 {
     list-style-type: none
 }
 
-ol.lst-kix_xdh80phlgwv-3 {
+.cla-text ol.lst-kix_xdh80phlgwv-3 {
     list-style-type: none
 }
 
-ol.lst-kix_xdh80phlgwv-4 {
+.cla-text ol.lst-kix_xdh80phlgwv-4 {
     list-style-type: none
 }
 
-ol {
+.cla-text ol {
     margin: 0;
     padding: 0
 }
 
-table td, table th {
+.cla-text table td, table th {
     padding: 0
 }
 
-.c0 {
+.cla-text .c0 {
     margin-left: 36pt;
     padding-top: 12pt;
     padding-left: 0pt;
@@ -169,7 +169,7 @@ table td, table th {
     text-align: justify
 }
 
-.c2 {
+.cla-text .c2 {
     margin-left: 72pt;
     padding-top: 12pt;
     padding-left: 0pt;
@@ -180,7 +180,7 @@ table td, table th {
     text-align: justify
 }
 
-.c11 {
+.cla-text .c11 {
     background-color: #ffffff;
     padding-top: 12pt;
     padding-bottom: 8pt;
@@ -190,7 +190,7 @@ table td, table th {
     text-align: justify
 }
 
-.c1 {
+.cla-text .c1 {
     color: #000000;
     font-weight: 400;
     text-decoration: none;
@@ -200,7 +200,7 @@ table td, table th {
     font-style: normal
 }
 
-.c5 {
+.cla-text .c5 {
     margin-left: 36pt;
     padding-top: 0pt;
     padding-bottom: 0pt;
@@ -210,7 +210,7 @@ table td, table th {
     text-align: justify
 }
 
-.c8 {
+.cla-text .c8 {
     margin-left: 36pt;
     padding-top: 12pt;
     padding-bottom: 12pt;
@@ -220,7 +220,7 @@ table td, table th {
     text-align: justify
 }
 
-.c10 {
+.cla-text .c10 {
     padding-top: 0pt;
     padding-bottom: 12pt;
     line-height: 1.15;
@@ -229,7 +229,7 @@ table td, table th {
     text-align: justify
 }
 
-.c6 {
+.cla-text .c6 {
     padding-top: 12pt;
     padding-bottom: 12pt;
     line-height: 1.15;
@@ -238,7 +238,7 @@ table td, table th {
     text-align: justify
 }
 
-.c12 {
+.cla-text .c12 {
     padding-top: 12pt;
     padding-bottom: 12pt;
     line-height: 1.15;
@@ -247,28 +247,28 @@ table td, table th {
     text-align: center
 }
 
-.c4 {
+.cla-text .c4 {
     text-decoration-skip-ink: none;
     -webkit-text-decoration-skip: none;
     text-decoration: underline
 }
 
-.c9 {
+.cla-text .c9 {
     background-color: #ffffff;
     max-width: 468pt;
     padding: 72pt 72pt 72pt 72pt
 }
 
-.c3 {
+.cla-text .c3 {
     padding: 0;
     margin: 0
 }
 
-.c7 {
+.cla-text .c7 {
     font-style: italic
 }
 
-.title {
+.cla-text .title {
     padding-top: 0pt;
     color: #000000;
     font-size: 26pt;
@@ -281,7 +281,7 @@ table td, table th {
     text-align: left
 }
 
-.subtitle {
+.cla-text .subtitle {
     padding-top: 0pt;
     color: #666666;
     font-size: 15pt;
@@ -294,20 +294,20 @@ table td, table th {
     text-align: left
 }
 
-li {
+.cla-text li {
     color: #000000;
     font-size: 11pt;
     font-family: "Arial"
 }
 
-p {
+.cla-text p {
     margin: 0;
     color: #000000;
     font-size: 11pt;
     font-family: "Arial"
 }
 
-h1 {
+.cla-text h1 {
     padding-top: 20pt;
     color: #000000;
     font-size: 20pt;
@@ -320,7 +320,7 @@ h1 {
     text-align: left
 }
 
-h2 {
+.cla-text h2 {
     padding-top: 18pt;
     color: #000000;
     font-size: 16pt;
@@ -333,7 +333,7 @@ h2 {
     text-align: left
 }
 
-h3 {
+.cla-text h3 {
     padding-top: 16pt;
     color: #434343;
     font-size: 14pt;
@@ -346,7 +346,7 @@ h3 {
     text-align: left
 }
 
-h4 {
+.cla-text h4 {
     padding-top: 14pt;
     color: #666666;
     font-size: 12pt;
@@ -359,7 +359,7 @@ h4 {
     text-align: left
 }
 
-h5 {
+.cla-text h5 {
     padding-top: 12pt;
     color: #666666;
     font-size: 11pt;
@@ -372,7 +372,7 @@ h5 {
     text-align: left
 }
 
-h6 {
+.cla-text h6 {
     padding-top: 12pt;
     color: #666666;
     font-size: 11pt;
