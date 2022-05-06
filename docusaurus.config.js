@@ -10,7 +10,7 @@ const config = {
   tagline: "Bringing Private Air Travel to Everyone",
   url: "https://arrowair.com",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "Arrow", // Usually your GitHub org/user name.
