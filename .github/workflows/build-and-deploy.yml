@@ -47,7 +47,7 @@ jobs:
      - name: Deploy to ${{ inputs.environment }} S3
        id: sync_s3
        run: |
-         FILES_CHANGED=$(aws s3 sync ./build/ "s3://${{ secrets.AWS_S3_BUCKET }}/" --delete --size-only | wc -l)
+         FILES_CHANGED=$(aws s3 sync ./build/ "s3://${{ secrets.AWS_S3_BUCKET }}/" --delete | wc -l)
          echo "::set-output name=files_changed::$FILES_CHANGED"
          echo '::echo::on'
          echo "Files changed: $FILES_CHANGED"
