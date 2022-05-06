@@ -13,8 +13,8 @@ As of now, we're still finalizing the details of our Arrow token, but we will ma
 ## Add your introduction page
 
 Can't find your introduction page? You can add it yourself!
-  1. Copy the contents of the [https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors](template)
-  2. Go to [https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors](the contributors directory in GitHub)
+  1. Copy the contents of the [contributors template](https://raw.githubusercontent.com/Arrow-air/website/main/docs/contributing/contributors/_template.md)
+  2. Go to [the contributors directory in GitHub](https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors)
   3. Select `Add file` -> `Create new file`
   4. Paste the contents you copied from the template
   5. Fill out the template with your own information (you can use the `preview` to see if you're happy with the result)
