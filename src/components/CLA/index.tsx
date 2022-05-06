@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import clsx from 'clsx';
+import toast, { Toaster } from 'react-hot-toast';
+
 import CLAText from './CLAText'
 const GITHUB_CLIENT_ID = '825ac8e5815ccf3fa411';
+const SIGN_API_URL = '/api/v1/cla/user/sign';
 
 export default function CLA(): JSX.Element {
 	const [acceptedCLA, setAcceptedCLA ]= useState(false);
@@ -28,8 +30,27 @@ export default function CLA(): JSX.Element {
 		setAcceptedCLA(!acceptedCLA)
 	}
 
-	function sendGHCode(){
-		window.alert('sending API request with GH auth code ' + ghCode)
+	async function sendGHCode(){
+		//to test with staging or dev API url uncomment 2 lines below
+		//const SIGN_API_URL = 'https://od4scuzjyymlzg46inlzsra4oa0rberi.lambda-url.eu-west-1.on.aws/api/v1/user/ghUser/sign'
+		try {
+			const resp = await fetch( SIGN_API_URL, {
+				method: 'POST',
+				//mode: 'no-cors',
+				headers: { 'Content-Type': 'application/json'},
+				body: JSON.stringify({code: ghCode})
+			});
+			const data = await resp.json();
+			if (data?.success){
+				toast.success('CLA successfully signed!');
+			} else {
+				toast.error('There was a problem with signing CLA.');
+				console.log(data);
+			}
+		} catch (e){
+			toast.error('There was a problem with signing CLA.');
+			console.log(e);
+		}
 	}
 
 	return (
@@ -61,6 +82,7 @@ export default function CLA(): JSX.Element {
 					</div>
 				</div>
 			</article>
+			<Toaster />
 		</React.Fragment>
 	);
 }
