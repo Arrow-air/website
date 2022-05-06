@@ -50,7 +50,7 @@ jobs:
      - name: Deploy to ${{ inputs.environment }} S3
        id: sync_s3
        run: |
-         aws s3 sync "./build/assets/" "s3://${{ secrets.AWS_S3_BUCKET }}/assets/" --size-only | wc -l)
+         aws s3 sync "./build/assets/" "s3://${{ secrets.AWS_S3_BUCKET }}/assets/" --size-only
          FILES_CHANGED=$(aws s3 sync "./build/${{ github.event.client_payload.docs_path }}" "s3://${{ secrets.AWS_S3_BUCKET }}${{ github.event.client_payload.docs_path }}" --delete --size-only | wc -l)
          echo "::set-output name=files_changed::$FILES_CHANGED"
          echo '::echo::on'
