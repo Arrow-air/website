@@ -6,22 +6,22 @@ on:
       - main
 
 jobs:
-  production:
+  build-and-deploy:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
       node-version: 14.x
-      environment: production
+      environment: main
     secrets: inherit
     permissions:
       id-token: write
       contents: read
 
   invalidate-cloudfront:
-    needs: [production]
     uses: ./.github/workflows/invalidate-cloudfront.yml
+    needs: [build-and-deploy]
     with:
       paths: "/*"
-      environment: production
+      environment: main
     secrets: inherit
     permissions:
       id-token: write

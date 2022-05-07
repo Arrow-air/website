@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  staging:
+  build-and-deploy:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
       node-version: 14.x
@@ -18,8 +18,8 @@ jobs:
       contents: read
 
   invalidate-cloudfront:
-    needs: [staging]
     uses: ./.github/workflows/invalidate-cloudfront.yml
+    needs: [build-and-deploy]
     with:
       paths: "/*"
       environment: staging

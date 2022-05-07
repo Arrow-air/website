@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import CLAText from './CLAText'
-const GITHUB_CLIENT_ID = '825ac8e5815ccf3fa411';
+const GITHUB_CLIENT_ID_PRD = '825ac8e5815ccf3fa411';
+const GITHUB_CLIENT_ID_STG = '9830b30b4d8e0f1bba78';
 const SIGN_API_URL = '/api/v1/cla/user/sign';
 
 export default function CLA(): JSX.Element {
@@ -19,9 +20,17 @@ export default function CLA(): JSX.Element {
 		if (code){
 			setGhCode(code);
 		}
+		const error = urlParams.get('error');
+		if(error){
+			toast.error('There was a problem when signing the CLA.');
+			console.log(error);
+			console.log(urlParams.get('error_description'));
+			console.log(urlParams.get('error_uri'));
+		}
 	}, [])
 
 	function authWithGithub(){
+		const GITHUB_CLIENT_ID = window.location.hostname == 'www.arrowair.com' ? GITHUB_CLIENT_ID_PRD : GITHUB_CLIENT_ID_STG
 		window.open(`https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&scope=read:user`)
 	}
 
@@ -44,11 +53,11 @@ export default function CLA(): JSX.Element {
 			if (data?.success){
 				toast.success('CLA successfully signed!');
 			} else {
-				toast.error('There was a problem with signing CLA.');
+				toast.error('There was a problem when signing the CLA.');
 				console.log(data);
 			}
 		} catch (e){
-			toast.error('There was a problem with signing CLA.');
+			toast.error('There was a problem when signing the CLA.');
 			console.log(e);
 		}
 	}
@@ -58,9 +67,7 @@ export default function CLA(): JSX.Element {
 			<article className="row">
 				<div className="sign-cla col-12">
 					<div className="cla-scroll-box">
-						<p className="cla-text-wrapper">
-							<CLAText/>
-						</p>
+						<CLAText/>
 					</div>
 					<div className="controls">
 						<div className="d-flex">
