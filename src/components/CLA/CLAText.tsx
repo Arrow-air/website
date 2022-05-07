@@ -8,7 +8,7 @@ export default function CLAText(): JSX.Element {
                 className="c11"><span className="c1">Thank you for your interest in contributing to software or other projects by Arrow Air (&ldquo;Arrow&rdquo; or &ldquo;We&rdquo; or &ldquo;Us&rdquo;).</span>
             </p><p className="c6"><span
                 className="c1">The purpose of this Contributor License Agreement (&ldquo;Agreement&rdquo;) is to clarify and document the rights granted by Contributors to Us. &nbsp;To accomplish this, Arrow must have an Agreement on file that has been signed by each Contributor, indicating agreement to the license terms below. &nbsp;</span>
-            </p><p className="c6"><span>If You have not already done so, please use the CLA Assistant or follow the instructions at </span><span>https://www.arrowair.com/docs/contributing/sign-cla</span><span
+            </p><p className="c6"><span>If You have not already done so, please use the CLA Assistant or follow the instructions at </span><span>https://www.arrowair.com/docs/contributing/cla</span><span
                 className="c1">. &nbsp;Please read this document carefully before signing and keep a copy for Your records.</span>
             </p><p className="c6"><span className="c1">You accept and agree to the following terms and conditions for Your existing and future Contributions submitted to Arrow. &nbsp;This license is for your protection as a Contributor as well as the protection of Arrow and its users. &nbsp;Except for the license granted herein to Arrow and recipients of software, products, or other materials distributed by Arrow or its affiliates, You reserve all right, title, and interest in and to Your Contributions; this Agreement does not change your rights to use your own Contributions for any other purpose. </span>
             </p>
@@ -77,7 +77,7 @@ export default function CLAText(): JSX.Element {
                     <li className="c2 li-bullet-0"><span className="c1">If any provision of this Agreement is found void and unenforceable, such provision will be replaced to the extent possible with a provision that comes closest to the meaning of the original provision and that is enforceable. &nbsp;The terms and conditions set forth in this Agreement shall apply notwithstanding any failure of essential purpose of this Agreement or any limited remedy to the maximum extent possible under law. </span>
                     </li>
                 </ol>
-                <p className="c10"><span className="c1">Accepted and agreed to by Contributor or its authorized representative, as evidenced by their electronic acceptance of the Agreement or their signature below::</span>
+                <p className="c10"><span className="c1">Accepted and agreed to by Contributor or its authorized representative, as evidenced by their electronic acceptance of the Agreement or their signature below:</span>
                 </p><p className="c8"><span className="c1">Signature: </span></p><p className="c8"><span className="c1">Print Name:</span>
             </p><p className="c5"><span className="c1">Print Entity Name and Title:</span></p><p className="c5"><span
                 className="c1">(if signing on behalf of an entity)</span></p><p className="c8"><span

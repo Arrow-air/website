@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy-docs:
-    uses: ./.github/workflows/build-and-deploy-docs.yml
+    uses: ./.github/workflows/build-and-deploy.yml
     with:
       node-version: 14.x
       environment: ${{ github.event.client_payload.environment }}
@@ -19,9 +19,8 @@ jobs:
   invalidate-cloudfront:
     uses: ./.github/workflows/invalidate-cloudfront.yml
     needs: [build-and-deploy-docs]
-    if: needs.build-and-deploy-docs.outputs.files_changed > 0
     with:
-      paths: "/docs/*"
+      paths: "/*"
       environment: ${{ github.event.client_payload.environment }}
     secrets: inherit
     permissions:
