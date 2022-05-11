@@ -89,7 +89,7 @@ export default function CLA(): JSX.Element {
 					</div>
 				</div>
 			</article>
-			<Toaster />
+			<Toaster toastOptions={{duration: 5000}}/>
 		</React.Fragment>
 	);
 }
