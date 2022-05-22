@@ -60,6 +60,7 @@ const config = {
         logo: {
           alt: "Arrow Logo",
           src: "img/wordmark_gray.svg",
+          href: "pathname:///"
         },
         items: [
           {
