@@ -47,7 +47,6 @@ jobs:
        id: sync_s3
        run: |
          aws s3 sync "./build/assets/images/" "s3://${{ secrets.AWS_S3_BUCKET }}/assets/images/" --delete --size-only
-         aws s3 sync "./build/home/" "s3://${{ secrets.AWS_S3_BUCKET }}/home/" --delete --size-only
-         aws s3 sync "./build/" "s3://${{ secrets.AWS_S3_BUCKET }}/" --exclude "./build/assets/images" --exclude "./build/home/"
+         aws s3 sync "./build/" "s3://${{ secrets.AWS_S3_BUCKET }}/" --exclude "./build/assets/images"
     outputs:
       files_changed: "${{ steps.build-and-deploy.outputs.files_changed }}"
