@@ -10,7 +10,7 @@ jobs:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
       node-version: 14.x
-      environment: main
+      environment: production
     secrets: inherit
     permissions:
       id-token: write
@@ -21,7 +21,7 @@ jobs:
     needs: [build-and-deploy]
     with:
       paths: "/*"
-      environment: main
+      environment: production
     secrets: inherit
     permissions:
       id-token: write
