@@ -1,7 +1,11 @@
 ---
 tags:
   - contributors
-  - <your skill>
+  - Embedded and Control Systems
+  - Robotics
+  - C/C++
+  - Electronic Systems
+  - Simulations
 ---
 
 # 21stCenturyCOTYK / Alexander Dada
