@@ -8,7 +8,7 @@ tags:
   - Simulations
 ---
 
-# 21stCenturyCOTYK / Alexander Dada
+# 21stCenturyAlex / Alex
 
 ## About
 
