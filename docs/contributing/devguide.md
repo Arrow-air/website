@@ -19,7 +19,7 @@ sidebar_position: 3
     - ![DeWork - Claim Task](./assets/dework_claim.png)
     - Some important tasks are by **application only**. Describe why you're a good fit for the task!
 
-## :wrench: Work On a Task
+## :wrench: Work on a Task
 1. Clone or fork the target repository.
     - If you are not a core member on an [Arrow GitHub team](https://github.com/orgs/Arrow-air/teams), you will need to work from a fork.
     - [How to Fork a Repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
