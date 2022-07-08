@@ -41,7 +41,9 @@ sidebar_position: 3
 3. Confirm that the GitHub Actions checks pass.
      - These checks will vary from repository to repository
      - ![GitHub - Checks](./assets/github_checks.png)
-4. Get two approvals.
+4. Get approvals!
+    - The number of approvals may vary from repo to repo.
+    - Approvals generally need to come from core members of the [Arrow teams](https://github.com/orgs/Arrow-air/teams).
 5. Merge!
 
 ## :books: Repositories (Create, Modify, Delete)
