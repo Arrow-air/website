@@ -1,4 +1,4 @@
-# Typescript Style Guide
+# TypeScript Style Guide
 
 :zap: View the sidebar (right) for the rapid navigation.
 
