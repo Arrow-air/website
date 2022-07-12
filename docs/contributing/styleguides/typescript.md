@@ -6,9 +6,10 @@
 
 ## :guardsman: Formatters & Linters
 
-Run [prettier](https://prettier.io/) and [ESLint](https://eslint.org/) prior to pushing code.
+We use [gts](https://github.com/google/gts) to lint and automatically format code.
 
-:exclamation: ESLint will be run in CI (GitHub Workflows). Linting and formatting errors must be resolved prior merging a pull request.
+:exclamation: gts will be run in the continuous integration (CI) pipeline.
+- Errors must be resolved before merging a pull request.
 
 ## :page_with_curl: License Boilerplate
 

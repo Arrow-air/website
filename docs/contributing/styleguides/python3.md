@@ -6,7 +6,12 @@
 
 ## :guardsman: Formatters & Linters
 
-Run [autopep8](https://pypi.org/project/autopep8/) and [Flake8](https://pypi.org/project/flake8/) prior to pushing code.
+Run [yapf](https://pypi.org/project/autopep8/) and [Flake8](https://pypi.org/project/flake8/) prior to pushing code.
+
+```bash
+yapf -i -vv *.py style google
+flake8 *.py
+```
 
 :exclamation: Flake8 will be run in CI (GitHub Workflows). Linting and formatting errors must be resolved prior merging a pull request.
 
