@@ -11,9 +11,9 @@ We use [gts](https://github.com/google/gts) to lint and automatically format cod
 :exclamation: gts will be run in the continuous integration (CI) pipeline.
 - Errors must be resolved before merging a pull request.
 
-## :page_with_curl: License Boilerplate
+## :page_with_curl: License Notice
 
-Every file should start with a license boilerplate.
+Every file should start with a license notice.
 
 The license may vary from repository to repository.
 

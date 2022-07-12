@@ -86,9 +86,9 @@ mod foo {
 
 Read more about Rust docs [here](https://doc.rust-lang.org/rust-by-example/meta/doc.html).
 
-## :page_with_curl: License Boilerplate
+## :page_with_curl: License Notice
 
-Every file should start with a license boilerplate.
+Every file should start with a license notice.
 
 The license may vary from repository to repository.
 

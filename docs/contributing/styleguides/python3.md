@@ -77,9 +77,9 @@ help(ComplexNumber.add)  # to access method's docstring
 ```
 (*from [Geeks for Geeks](https://www.geeksforgeeks.org/python-docstrings/)*)
 
-## :page_with_curl: License Boilerplate
+## :page_with_curl: License Notice
 
-Every file should start with a license boilerplate.
+Every file should start with a license notice.
 
 The license may vary from repository to repository.
 
