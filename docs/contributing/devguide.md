@@ -132,7 +132,8 @@ As described [here](https://github.com/marketplace/actions/dynamic-badges#git-co
 - Emojis, if used, should be at the start of the message (**:tada: Add new feature**)
 
 Additionally:
-- Do not exceed a line length of 50 characters
+- Do not exceed a line length of 50 characters for commit title
+- Do not exceed a line length of 72 characters for commit body
 - Do **not** end the message with a period
 
 Keep these in mind always, especially when squashing commits (one message).
