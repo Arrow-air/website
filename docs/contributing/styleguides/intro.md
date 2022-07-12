@@ -4,7 +4,7 @@ Why use style guides? In short:
 
 1. Code is familiar and easier to read across all repositories.
 2. Predictable function, file, and class names.
-3. Superior documentation.
+3. Clean and readable documentation.
 
 ## :books: Our Style Guides
 
