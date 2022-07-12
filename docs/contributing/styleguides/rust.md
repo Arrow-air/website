@@ -4,18 +4,22 @@
 
 ## :guardsman: Formatting, Linting and Static Analysis
 
-*TL;DR Use `rustfmt`, `cargo clippy` and copy
-[`.cargo/config.toml`](https://github.com/Arrow-air/svc-template-rust/.cargo/config.toml)*
-
 Rust does not have an official style guide. It relies on the `rustfmt` tool.
 
-Run the following before pushing code:
+We use [husky](https://github.com/rhysd/cargo-husky) for pre-commit hooks.
+
+Husky will automatically run the following when you attempt to commit changes:
 - `rustfmt`: Format code to Rust's style guide
 - `cargo check`: Check a local package and all of its dependencies for errors
 - `cargo test`: Run unit and integration tests
-- `cargo clippy`: A collection of lints to catch common mistakes and improve your Rust code. [Source Code](https://github.com/rust-lang/rust-clippy)
+- `cargo clippy -- -D warnings`: A collection of lints to catch common mistakes
+  and improve your Rust code. [Source
+  Code](https://github.com/rust-lang/rust-clippy)
 
-:exclamation: `rustfmt`, `clippy`, `cargo check`, and `cargo test` will be run in CI (GitHub Workflows). Errors must be fixed prior to merging a pull request.
+Any errors (including warnings) must be resolved before committing code.
+
+:exclamation: These same checks will be run in CI, and must pass before the code
+can be merged.
 
 :exclamation: [cargo fuzz](https://rust-fuzz.github.io/book/introduction.html) and [rudra](https://github.com/sslab-gatech/Rudra) may also be introduced at a later date.
 

@@ -6,14 +6,22 @@
 
 ## :guardsman: Formatters & Linters
 
-Run [yapf](https://pypi.org/project/autopep8/) and [Flake8](https://pypi.org/project/flake8/) prior to pushing code.
+We use [husky](https://github.com/rhysd/cargo-husky) for pre-commit hooks.
 
+Husky will run the following when you try to commit:
+- [yapf](https://pypi.org/project/autopep8/)
+- [Flake8](https://pypi.org/project/flake8/)
+
+Any errors must be resolved prior to committing code.
+
+You can run these yourself as well:
 ```bash
-yapf -i -vv *.py style google
-flake8 *.py
+yapf -i -r -vv . style google
+flake8 .
 ```
 
-:exclamation: Flake8 will be run in CI (GitHub Workflows). Linting and formatting errors must be resolved prior merging a pull request.
+:exclamation: These checks will also be run for pull requests. All errors must
+be resolved.
 
 ## :speech_balloon: Naming Conventions
 

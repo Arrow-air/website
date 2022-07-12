@@ -119,6 +119,7 @@ Setting up a GPG Key:
   Key](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key)
 - [Informing Git about your GPG Key](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)
 - [Informing GitHub about your GPG Key](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-new-gpg-key-to-your-github-account)
+- All commits signed by default: `git config --global commit.gpgsign true`
 
 Add an `-S` to your commit command to sign it, e.g. `git commit -S -m "Add
 README.md"`.
