@@ -151,6 +151,7 @@ Keep these in mind always, especially when squashing commits (one message).
     - A brief description of what was changed and why
 - Your PR should equate to one DeWork issue
     - Addressing multiple tickets in one merge makes it harder to debug breaking changes.
+    - Use `git commit --fixup <commit sha>` to fix a previous commit. 
 ## :books: Repositories (Create, Modify, Delete)
 
 Repositories are managed through [Terraform](https://www.terraform.io/).
