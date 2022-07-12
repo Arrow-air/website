@@ -65,7 +65,9 @@ ms-python.python \
 docsmsft.docs-yaml \
 njpwerner.autodocstring \
 stkb.rewrap \
-eamodio.gitlens
+eamodio.gitlens \
+ms-vscode-remote.vscode-remote-extensionpack \
+tamasfe.even-better-toml \
 ```
 
 - [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview)
@@ -76,6 +78,10 @@ eamodio.gitlens
     - Syntax highlighting, linting, intellisense
 - [docs-yaml](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-yaml&ssr=false)
     - Intellisense, validation for YAML files
+- [Even Better
+  TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
+    - TOML files are used for Rust configuration
+    - Validation, syntax highlighting
 - [autoDocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)
     - Python docstring generator
 - [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap)
@@ -84,6 +90,8 @@ eamodio.gitlens
     - 80 characters is the recommended column
 - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
     - Hover over lines to see commit history, last author
+- [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+    - For working over SSH
 
 ## :construction: Git Guidelines
 
@@ -107,8 +115,10 @@ We enforce signed commits to authenticate commits from an author.
 GitHub repository settings.
 
 Setting up a GPG Key:
-- [Generate a GPG Key](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key)
-- [Add a GPG Key to GitHub](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-new-gpg-key-to-your-github-account)
+- [Generate a GPG
+  Key](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key)
+- [Informing Git about your GPG Key](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)
+- [Informing GitHub about your GPG Key](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-new-gpg-key-to-your-github-account)
 
 Add an `-S` to your commit command to sign it, e.g. `git commit -S -m "Add
 README.md"`.
@@ -130,7 +140,7 @@ Keep these in mind always, especially when squashing commits (one message).
 ### :+1: Pull Requests
 
 - Keep PRs small and easy to review!
-    - Our [reviewers](../peereview.md) may ask you to divide your PR into
+    - Our [reviewers](./peerreview.md) may ask you to divide your PR into
       multiple smaller PRs.
 - If the commit history is messy, recommend "Squash and Merge" when pushing in
   changes.
