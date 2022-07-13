@@ -17,9 +17,9 @@ sidebar_position: 3
 1. Visit the [Arrow DeWork](https://app.dework.xyz/arrow-air)
     - Sign in with your Discord credentials
 3. View open tasks
-    - ![DeWork - Open Tasks](./assets/opentasks_dework.png)
+    - ![DeWork - Open Tasks](/images/opentasks_dework.png)
 4. Claim a task, easy as a button click!
-    - ![DeWork - Claim Task](./assets/dework_claim.png)
+    - ![DeWork - Claim Task](/images/dework_claim.png)
     - Some important tasks are by **application only**. Describe why you're a good fit for the task!
 
 ### :wrench: Work on a Task
@@ -46,7 +46,7 @@ sidebar_position: 3
     - If you haven't signed the [CLA](./cla.mdx), the cla-bot will be disappointed :angry:
 3. Confirm that the GitHub Actions checks pass.
      - These checks will vary from repository to repository
-     - ![GitHub - Checks](./assets/github_checks.png)
+     - ![GitHub - Checks](/images/github_checks.png)
 4. Get approvals!
     - The number of approvals may vary from repo to repo.
     - Approvals generally need to come from core members of the [Arrow teams](https://github.com/orgs/Arrow-air/teams).
@@ -100,7 +100,7 @@ tamasfe.even-better-toml \
 The branch name should be copied from a [Arrow
 DeWork](https://app.dework.xyz/arrow-air) task.
 
-![DeWork - Suggested Git Branch Name](./assets/dework_branch.png)
+![DeWork - Suggested Git Branch Name](/images/dework_branch.png)
 - e.g. `am-smith/dw-227/rust-service-template`
 - This links your work to a ticket
 - Closing a pull request with this branch will also mark the DeWork task as "Done"!
