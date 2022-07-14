@@ -4,20 +4,12 @@ sidebar_position: 1
 
 # Getting Started
 
-The best way to get connected with the Arrow community and start working is to join our Discord server. Introduce yourself in the "introductions" channel and we'll all be happy to get you up to speed - we're a friendly bunch!
+The best way to get connected with the Arrow community and start working is to join our Discord server!
 
-As a general rule of culture, you don't need formal permission to start working on anything, but it's best to communicate well with the community to keep us all aligned and working on high-impact tasks. 
+Introduce yourself in the `#introductions` channel and we'll all be happy to get you up to speed - we're a friendly bunch!
 
-As of now, we're still finalizing the details of our Arrow token, but we will make sure that all contributors are retroactively rewarded for all of their hard work. We strive to have a culture of merit - If you contribute something valuable, you will be rewarded.
+:exclamation: As a general rule of culture, you don't need formal permission to start working on anything. However, it's best to communicate well with the community to keep us all aligned and working on high-impact tasks.
 
-## Add your introduction page
+See the [Development Guide](./devguide.md) for contributions our GitHub repositories.
 
-Can't find your introduction page? You can add it yourself!
-  1. Copy the contents of the [contributors template](https://raw.githubusercontent.com/Arrow-air/website/main/docs/contributing/contributors/_template.md)
-  2. Go to [the contributors directory in GitHub](https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors)
-  3. Select `Add file` -> `Create new file`
-  4. Paste the contents you copied from the template
-  5. Fill out the template with your own information (you can use the `preview` to see if you're happy with the result)
-  6. Create a PR from a new branch
-     ![image](assets/create_pr.jpg)
-  7. Your PR will be reviewed for approval. If everything looks ok, your PR will be approved and merged.
+See the [Contributor's Hub](./contributors-hub.mdx) for information on collaboration, compensation, and more.
