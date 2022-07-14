@@ -1,7 +1,6 @@
 ---
 sidebar_position: 1
 ---
-
 # Arrow Finances
 
 ## :moneybag: Financial Metrics
