@@ -39,9 +39,10 @@ sidebar_position: 3
 
 ### :checkered_flag: Push Changes
 1. Make a pull request.
-    - A "Pull Request" is a request to merge your branch into the `main` branch.
+    - A "Pull Request" is a request to merge your branch into the `develop` branch.
     - [How to create a pull request from a fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
     - If making edits to the [website](https://github.com/Arrow-air/website/), seek to merge your PR into the website `staging` branch instead.
+    - `main` is our latest stable release. `develop` is merged into `main` at the end of every release.
 2. Confirm the presence of the `cla-signed` label.
     - If you haven't signed the [CLA](./cla.mdx), the cla-bot will be disappointed :angry:
 3. Confirm that the GitHub Actions checks pass.
@@ -97,8 +98,8 @@ tamasfe.even-better-toml \
 
 ### :deciduous_tree: Branches
 
-The branch name should be copied from a [Arrow
-DeWork](https://app.dework.xyz/arrow-air) task.
+If working on a [Arrow
+DeWork](https://app.dework.xyz/arrow-air) task, the branch name should be copied from the ticket.
 
 ![DeWork - Suggested Git Branch Name](/images/dework_branch.png)
 - e.g. `am-smith/dw-227/rust-service-template`
@@ -141,6 +142,8 @@ Keep these in mind always, especially when squashing commits (one message).
 
 ### :+1: Pull Requests
 
+- Pull Requests should be targeted at the `develop` branch
+    - For the [website](https://github.com/Arrow-air/website) repository, target the `staging` branch
 - Keep PRs small and easy to review!
     - Our [reviewers](./peerreview.md) may ask you to divide your PR into
       multiple smaller PRs.
@@ -150,9 +153,11 @@ Keep these in mind always, especially when squashing commits (one message).
       added.
 - The Pull Request comments should be descriptive
     - A brief description of what was changed and why
-- Your PR should equate to one DeWork issue
+- Your PR should equate to no more than one DeWork issue
     - Addressing multiple tickets in one merge makes it harder to debug breaking changes.
     - Use `git commit --fixup <commit sha>` to fix a previous commit. 
+
+
 ## :books: Repositories (Create, Modify, Delete)
 
 Repositories are managed through [Terraform](https://www.terraform.io/).
