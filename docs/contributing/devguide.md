@@ -38,11 +38,11 @@ sidebar_position: 3
         - `git commit -S -m "Add README.md"`
 
 ### :checkered_flag: Push Changes
-1. Make a pull request.
-    - A "Pull Request" is a request to merge your branch into the `develop` branch.
-    - [How to create a pull request from a fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
+1. Make a pull request targeting the `develop` branch
+    - A "Pull Request" is a public request to merge your branch into another branch
     - If making edits to the [website](https://github.com/Arrow-air/website/), seek to merge your PR into the website `staging` branch instead.
     - `main` is our latest stable release. `develop` is merged into `main` at the end of every release.
+    - [How to create a pull request from a fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 2. Confirm the presence of the `cla-signed` label.
     - If you haven't signed the [CLA](./cla.mdx), the cla-bot will be disappointed :angry:
 3. Confirm that the GitHub Actions checks pass.
@@ -98,8 +98,7 @@ tamasfe.even-better-toml \
 
 ### :deciduous_tree: Branches
 
-If working on a [Arrow
-DeWork](https://app.dework.xyz/arrow-air) task, the branch name should be copied from the ticket.
+Use the suggested [DeWork Task](https://app.dework.xyz/arrow-air) branch name.
 
 ![DeWork - Suggested Git Branch Name](/images/dework_branch.png)
 - e.g. `am-smith/dw-227/rust-service-template`
@@ -142,7 +141,7 @@ Keep these in mind always, especially when squashing commits (one message).
 
 ### :+1: Pull Requests
 
-- Pull Requests should be targeted at the `develop` branch
+- Pull Requests should target the `develop` branch
     - For the [website](https://github.com/Arrow-air/website) repository, target the `staging` branch
 - Keep PRs small and easy to review!
     - Our [reviewers](./peerreview.md) may ask you to divide your PR into
