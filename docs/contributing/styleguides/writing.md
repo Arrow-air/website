@@ -22,9 +22,14 @@ In an attention economy, first impressions matter in forming long-term partnersh
 The style guide applies to all official and public-facing materials.
  
 ### :busts_in_silhouette: International Audience
-1. Reduce idioms, colloquialisms.
+1. Reduce idioms, local slangs.
 2. Units of measurement shall be in metric.
 3. Timestamps shall be in Coordinated Universal Time (UTC) and use 24 Hour format (e.g. 14:00 instead of 2:00 PM).
+
+### :wheelchair: Accessibility
+Some may access our contents using tools like screen readers. We want to be as inclusive as possible. Keep accessibility in mind when writing contents.
+
+For rich media materials like images, always try to add descriptive alternative titles so that screen readers can parse the materials.
 
 ### :white_check_mark: Readability
 Readability can be quantitatively measured by the [Flesch-kincaid score](https://readable.com/readability/flesch-reading-ease-flesch-kincaid-grade-level/).
