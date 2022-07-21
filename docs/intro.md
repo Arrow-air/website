@@ -8,6 +8,8 @@ sidebar_position: 1
 
 Arrow is a community with the mission of building vertical-takeoff aircraft that are affordable and accessible to everyone through an air taxi network. The vision of "private jets for everyone" will be achievable by using volume manufacturing, cheaper fuels, autonomy, and the rideshare network.
 
+haha
+
 #### How is Arrow different?
 
 Arrow is bringing the engineering ethos of web3 to the hardware space. Instead of closely guarding trade secrets, we'll be building entirely in public with all of our work open source. Using this model, we will build a global community of people working towards our shared vision and have a larger "brain trust" than any company building in secret could have.
