@@ -9,7 +9,7 @@
 We use [husky](https://github.com/rhysd/cargo-husky) for pre-commit hooks.
 
 Husky will run the following when you try to commit:
-- [yapf](https://pypi.org/project/autopep8/)
+- [yapf](https://github.com/google/yapf)
 - [Flake8](https://pypi.org/project/flake8/)
 
 Any errors must be resolved prior to committing code.
