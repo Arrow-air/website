@@ -3,7 +3,6 @@ sidebar_position: 2
 ---
 
 import { data, columns } from './GlossaryData'
-import "./glossary.css"
 import "/css/arrow.webflow.css"
 
 # Glossary
@@ -22,7 +21,7 @@ data.map(
         {
             Array.from(entry[2]).map((link) => (
             <div>
-            <a href="">{link}</a>
+            <a href={link}>{link}</a>
             </div>
             ))
         }
