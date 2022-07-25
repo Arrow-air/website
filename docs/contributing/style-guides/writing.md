@@ -48,11 +48,8 @@ score at which materials can be understood by 13-to-15-year-olds.
     1. A Pull Request must be made on the
        [website](https://github.com/Arrow-air/website/) GitHub
        repository. 
-    2. The new
-submission should be automatically broadcasted in Discord, and we do a
-fit screening. 
-    3. If any of the following fails, we stop here and reject
-the PR.
+    2. The new submission should be automatically broadcasted in Discord, and we do a fit screening. 
+    3. If any of the following fails, we stop here and reject the PR.
 
 2. Prior to opening a Pull Request, please confirm the following about the piece:
     * Should not be an op-ed
