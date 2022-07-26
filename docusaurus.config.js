@@ -25,7 +25,7 @@ const config = {
         indexBlog: true,
         blogDir: "blog/",
         docsDir: "docs/",
-        language: 'en',
+        language: "en",
         searchResultLimits: 8,
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
@@ -61,11 +61,11 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: 'https://github.com/Arrow-air/website/edit/staging/',
+          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/Arrow-air/website/edit/staging/',
+          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -84,7 +84,7 @@ const config = {
         logo: {
           alt: "Arrow Logo",
           src: "img/wordmark_gray.svg",
-          href: "pathname:///"
+          href: "pathname:///",
         },
         items: [
           {
@@ -102,10 +102,10 @@ const config = {
             image: "img/arrow-icon_blog.svg",
           },
           {
-            href: "https://discord.com/invite/fab4bxaAW9",
+            href: "https://discord.com/invite/arrow",
             position: "right",
             label: "Discord",
-            className: "text-white",
+            className: "text-secondary",
             image: "img/arrow-icon_discord.svg",
           },
         ],
