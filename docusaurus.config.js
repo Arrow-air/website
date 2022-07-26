@@ -25,7 +25,7 @@ const config = {
         indexBlog: true,
         blogDir: "blog/",
         docsDir: "docs/",
-        language: 'en',
+        language: "en",
         searchResultLimits: 8,
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
@@ -61,11 +61,11 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: 'https://github.com/Arrow-air/website/edit/staging/',
+          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/Arrow-air/website/edit/staging/',
+          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -84,7 +84,7 @@ const config = {
         logo: {
           alt: "Arrow Logo",
           src: "img/wordmark_gray.svg",
-          href: "pathname:///"
+          href: "pathname:///",
         },
         items: [
           {
@@ -111,13 +111,12 @@ const config = {
         ],
       },
       footer: {
-        style: "light",
+        style: "dark",
         logo: {
           alt: "Arrow Logo",
-          src: "img/wordmark_gray.svg",
+          src: "img/arrow-footer-mark.svg",
         },
-        copyright:
-          'Built with <img src="/img/arrow-icon_love.svg" style="height:1rem" alt="love"/> by the Arrow Community',
+        copyright: "Built with ❤️ by the Arrow Community",
         links: [
           {
             title: "Community",
