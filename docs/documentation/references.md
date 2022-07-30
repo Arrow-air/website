@@ -1,3 +1,6 @@
+---
+sidebar_position: 4
+---
 # References
 
 Engineering reference material, pulling information, open source material and standards from across sectors to help define Arrow's market and scope.

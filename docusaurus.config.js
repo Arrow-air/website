@@ -16,6 +16,30 @@ const config = {
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.
 
+  themes: [
+    // ... Your other themes.
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        indexDocs: true,
+        indexBlog: true,
+        blogDir: "blog/",
+        docsDir: "docs/",
+        language: "en",
+        searchResultLimits: 8,
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        // ... Your options.
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        // For Docs using Chinese, The `language` is recommended to set to:
+        // ```
+        // language: ["en", "zh"],
+        // ```
+      },
+    ],
+  ],
+
   stylesheets: [
     {
       href: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
@@ -37,11 +61,11 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: 'https://github.com/Arrow-air/website/edit/staging/',
+          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/Arrow-air/website/edit/staging/',
+          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -60,7 +84,7 @@ const config = {
         logo: {
           alt: "Arrow Logo",
           src: "img/wordmark_gray.svg",
-          href: "pathname:///"
+          href: "pathname:///",
         },
         items: [
           {
@@ -78,10 +102,10 @@ const config = {
             image: "img/arrow-icon_blog.svg",
           },
           {
-            href: "https://discord.com/invite/fab4bxaAW9",
+            href: "https://discord.com/invite/arrow",
             position: "right",
             label: "Discord",
-            className: "text-white",
+            className: "text-secondary",
             image: "img/arrow-icon_discord.svg",
           },
         ],
