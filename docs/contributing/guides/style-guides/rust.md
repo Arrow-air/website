@@ -2,6 +2,29 @@
 
 :zap: View the sidebar (right) for the rapid navigation.
 
+## Uniform Formatting and Linting
+
+To ensure high quality code, we have imposed strict linting, testing, and formatting requirements.
+
+For this goal, the following files and directories must be uniform across all Rust repositories:
+- `.editorconfig`: Specifies file formatting rules that must be followed
+- `.github/workflows/rust_ci.yml`: Specifies GitHub Workflow actions that must pass prior to merge
+- `.github/workflows/editorconfig_check.yml`: Ensures no file formatting violations prior to merge
+- `.cargo/config.toml`: Specifies extra compiler checks for stricter linting
+- `.cargo-husky/hooks/`: Scripts that must succeed before `git commit` is allowed to execute
+- `.gitignore`: One of two `.gitignore` files, one shared by Rust libraries and one shared by Rust services
+- Code coverage configuration (coming soon)
+
+:exclamation: Don't worry! We create and update these automatically through [Terraform](https://www.terraform.io/).
+
+These files should only be edited in the [`tf-github`](https://github.com/Arrow-air/tf-github/tree/main/src/templates/rust-all/) repository. Changes will be applied to all Rust repositories in the Arrow organization.
+
+Example:
+- Add a newline to `tf-github/templates/rust-all/.editorconfig`.
+- Make a pull request, get approvals, merge to `main`
+- A new commit is pushed to the default branch of each Rust repository controlled by Terraform.
+  - Each repository now has an updated `.editorconfig` file.
+
 ## :guardsman: Formatting, Linting and Static Analysis
 
 Rust does not have an official style guide. It relies on the `rustfmt` tool.
