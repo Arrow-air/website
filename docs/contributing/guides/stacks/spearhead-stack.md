@@ -5,10 +5,10 @@
 Resources:
 - [Autodesk Fusion 360 Website](https://www.autodesk.com/products/fusion-360/overview?term=1-YEAR&tab=subscription)
 
-## :zap: eCAD - *KiCAD*
+## :zap: eCAD - *Eagle (Fusion 360)*
 
 Resources:
-- [KiCAD Website](https://www.kicad.org/)
+- [Eagle Website](https://www.autodesk.com/products/eagle/overview)
 
 ## :airplane: Flight Hardware - *Pixhawk 6C*
 Resources:
@@ -20,14 +20,14 @@ Resources:
 Resources:
 - [PX4 Autopilot Website](https://px4.io/software/software-overview/)
 
-##  :eyes: Flight Simulation - *Godot*
+##  :slot_machine: Flight Simulation - *Godot*
 
 :construction: [Arrow Simulation Repository (GitHub)](https://github.com/Arrow-air/Modelling-Simulation-and-Control) :construction:
 
 Resources:
 - [Godot Website](https://godotengine.org/)
 
-## Mathematics - *Octave*
+## :heavy_division_sign: Matrix Programming - *Octave*
 
 Resources:
 - [Octave Website](https://octave.org/)
