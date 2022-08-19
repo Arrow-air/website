@@ -36,6 +36,38 @@ fn add_one(x: u32) -> u32 {
 }
 ```
 
+<details><summary>Solution</summary>
+<p>
+
+```rust
+fn add_one(x: u32) -> u32 {
+    x + 1
+    
+    // Could also return with:
+    // return x + 1; 
+}
+```
+    
+Notice that there is no semicolon `;` after `x+1`. `return` is not needed when the returned value is the last expression in the function.
+
+Try adding a semicolon and see the compiler explanation!
+    
+```bash
+$ cargo build
+error[E0308]: mismatched types
+ --> src/main.rs:1:23
+  |
+1 | fn add_one(x: u32) -> u32 {
+  |    -------            ^^^ expected `u32`, found `()`
+  |    |
+  |    implicitly returns `()` as its body has no tail or `return` expression
+2 |     x + 1;
+  |          - help: remove this semicolon
+```
+    
+</p>
+</details>
+
 4) Add a [unit test](https://doc.rust-lang.org/rust-by-example/testing/unit_testing.html) to the bottom of `lib.rs` for `add_one`
 - Unit tests validate the internal workings of a module
 - Use [`assert_eq!`](https://doc.rust-lang.org/std/macro.assert_eq.html) to compare the result with the expected result
