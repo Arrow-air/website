@@ -20,6 +20,7 @@
     "@easyops-cn/docusaurus-search-local": "^0.29.0",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
+    "docusaurus-plugin-remote-content": "^3.1.0",
     "gts": "^3.1.0",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.1",

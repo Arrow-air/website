@@ -4,6 +4,27 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
+const externalDocs = [
+    {
+        name: "svc-scheduler", // repo name
+        docs: [] // "conops.md", "sdd.md"
+    }
+];
+
+function getExternalDocInfo(d) {
+    const branchName = "main";
+    const url = "https://raw.githubusercontent.com/Arrow-air"
+    return [
+        "docusaurus-plugin-remote-content",
+        {
+            name: d.name,
+            sourceBaseUrl: `${url}/${d.name}/${branchName}/docs/`,
+            outDir: `docs/documentation/services/${d.name}`,
+            documents: d.docs,
+        },
+    ];
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Arrow",
@@ -15,6 +36,8 @@ const config = {
   favicon: "img/favicon.ico",
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.
+
+  plugins: externalDocs.map(getExternalDocInfo),
 
   themes: [
     // ... Your other themes.
