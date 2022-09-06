@@ -69,6 +69,7 @@ stkb.rewrap \
 eamodio.gitlens \
 ms-vscode-remote.vscode-remote-extensionpack \
 tamasfe.even-better-toml \
+EditorConfig.EditorConfig \
 ```
 
 - [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview)
@@ -93,6 +94,8 @@ tamasfe.even-better-toml \
     - Hover over lines to see commit history, last author
 - [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
     - For working over SSH
+- [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+    - Override user/workspace settings with settings found in `.editorconfig` files.
 
 ## :construction: Git Guidelines
 
