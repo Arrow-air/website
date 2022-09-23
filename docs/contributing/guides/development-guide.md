@@ -101,7 +101,7 @@ zxh404.vscode-proto3 \
 - [VS Code Proto3](https://marketplace.visualstudio.com/items?itemName=zxh404.vscode-proto3)
     - Syntax highlighting for `.proto` files
 - [Terraform](https://marketplace.visualstudio.com/items?itemName=4ops.terraform)
-    - Syntax highlighting for `.tf` files (used frequently by Arrow)
+    - Syntax highlighting for `.tf` files
 
 ## :construction: Git Guidelines
 
