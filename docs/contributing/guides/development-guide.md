@@ -70,6 +70,8 @@ eamodio.gitlens \
 ms-vscode-remote.vscode-remote-extensionpack \
 tamasfe.even-better-toml \
 EditorConfig.EditorConfig \
+zxh404.vscode-proto3 \
+4ops.terraform \
 ```
 
 - [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview)
@@ -96,6 +98,10 @@ EditorConfig.EditorConfig \
     - For working over SSH
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
     - Override user/workspace settings with settings found in `.editorconfig` files.
+- [VS Code Proto3](https://marketplace.visualstudio.com/items?itemName=zxh404.vscode-proto3)
+    - Syntax highlighting for `.proto` files
+- [Terraform](https://marketplace.visualstudio.com/items?itemName=4ops.terraform)
+    - Syntax highlighting for `.tf` files
 
 ## :construction: Git Guidelines
 
