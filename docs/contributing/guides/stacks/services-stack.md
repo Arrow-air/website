@@ -44,7 +44,7 @@ Currently performing in-house benchmarks for:
 - [GraphQL](https://graphql.org/)
 - [tonic](https://github.com/hyperium/tonic), a Rust implementation of [gRPC](https://grpc.io/)
 
-### :family: Interprocess Communication (IPC)
+### :family: Inter-Process Communication (IPC)
 
 Currently doing in-house benchmarks for:
 - [ZeroMQ](https://zeromq.org/)
