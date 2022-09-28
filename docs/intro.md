@@ -16,13 +16,13 @@ Building in public means that contributors don't need to be interviewed and hire
 
 All of the business logic for Arrow will live on the Ethereum blockchain. This will allow us to efficiently allocate tokens to any meaningful contributor instead of figuring out how to send shares of a C-Corp internationally. The Arrow token will not be publicly tradeable for the first few years of the project so we can focus on building a meaningful product.
 
-#### How is open source hardware possible?
+#### How is open-source hardware possible?
 
 As software technology advances, we can do more and more of the engineering process without a physical presence. Instead of machined prototypes and wind tunnels, we can use CAD models and CFD testing. This type of virtual iteration will be expanding to almost the entire engineering stack over the next decade.
 
 Blockchain technology allows us to easily reward contributors for their ideas. Alignment of incentives is much easier now that we are able to establish a culture of rewarding valuable ideas with a token allocation.
 
-The hard work of engineering will occur in the virtual realm, and the physical work will become more commoditized. Contract Manufacturers and robotic factories will be able to handle parts of the physical realm that previously required specialized talent available locally.
+The hard work of engineering will occur in the virtual realm, and the physical work will become a commodity. Contract Manufacturers and robotic factories will be able to handle parts of the physical realm that previously required specialized talent available locally.
 
 Arrow will be pioneering some of the techniques for hardware engineering with a global team.
 

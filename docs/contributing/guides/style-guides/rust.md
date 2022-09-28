@@ -55,7 +55,7 @@ can be merged.
 We configure our builds for stricter linting, including missing docs and unsafe
 code.
 - See a [template
-`.cargo/config.toml`](https://github.com/Arrow-air/svc-template-rust/.cargo/config.toml)
+`.cargo/config.toml`](https://github.com/Arrow-air/svc-template-rust/blob/develop/.cargo/config.toml)
 to see which flags we manually set.
 
 :exclamation: These are warnings (instead of errors) to ease development, **however**:

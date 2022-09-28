@@ -12,8 +12,8 @@
 ## :muscle: Motivation 
 Arrow DAO is an international effort. Although we conduct our business
 in English, our stakeholders vary in English fluency and reading
-proficiency. Even among native English speakers, confusions and
-misunderstandings arise when local slangs or idioms are introduced.
+proficiency. Even among native English speakers, confusion and
+misunderstandings arise when local idioms or slang are introduced.
 
 In an attention economy, first impressions matter in forming long-term partnerships. The Arrow brand will benefit from consistent writing styles by presenting an accessible, professional, organized and committed front that attracts contributors and business partners. 
 
@@ -32,8 +32,8 @@ Some may access our contents using tools like screen readers. We want to be as i
 For rich media materials like images, always try to add descriptive alternative titles so that screen readers can parse the materials.
 
 ### :white_check_mark: Readability
-Readability can be quantitatively measured by the [Flesch-kincaid score](https://readable.com/readability/flesch-reading-ease-flesch-kincaid-grade-level/).
-To reach a broader audience without losing professionality, we strive to
+Readability can be quantitatively measured by the [Flesch-Kincaid score](https://readable.com/readability/flesch-reading-ease-flesch-kincaid-grade-level/).
+To reach a broader audience without losing professionalism, we strive to
 score at which materials can be understood by 13-to-15-year-olds. 
 
 * If technology allows, take advantage of rich formatting like **bold**, *italic*, <ins>underline</ins>, ordered and unordered lists. We don’t want to throw a wall of text to our readers. 
@@ -59,6 +59,6 @@ score at which materials can be understood by 13-to-15-year-olds.
     * Should have no spelling/grammar issues.
 3. The "Editors" group on GitHub will review the blog.
 4. Editors, at this step, are free to make stylistic edits as long as the meaning of the edited part remains unaltered. The goal is to make the writing more “Arrow-like”.
-5. Review once again for inclusivity purposes. Find out and modify wordings that might be too localized or exclusive. (don’t assume that everyone has the same context)
+5. Review once again for inclusiveness purposes. Find out and modify wordings that might be too localized or exclusive. (don’t assume that everyone has the same context)
 6. If it’s a technical blog, we need to review deeper for fact checks
 

@@ -133,7 +133,7 @@ error[E0603]: function `add_one` is private
 - This emphasizes what integration tests are for!
   - Integration tests should validate the *public* interfaces (inputs and outputs) of a module
   - These tests provide confidence that *other* modules can interact with this module's public interfaces without causing an error
-  - By proving this, we verify module *integration*, the interoperation of multiple modules as a successful whole
+  - By proving this, we verify module *integration*, the inter-operation of multiple modules as a successful whole
 
 6) Modify `add_one` to instead update `x` in place, with no return value.
 - You'll learn more about `mut`, references, and `&mut`!
@@ -268,11 +268,11 @@ fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
 
 
 3) Add a [data structure](https://doc.rust-lang.org/rust-by-example/custom_types/structs.html) called `Ticket`.
-- `Ticket` shouldhave  two fields:
+- `Ticket` should have two fields:
     - `u32 id`
     - `DateTime<UTC> timestamp`
 - We need to import an external crate: `chrono`
-    - [Add `chrono` to your `cargo.toml` under `[dependencies]`](https://crates.io/crates/chrono) (see "Usage")
+    - Add `chrono` to your `cargo.toml` under `[dependencies]`
         - Alternatively run `cargo add chrono` from your project root
     - [Importing DateTime and Utc to your file](https://docs.rs/chrono/0.4.0/chrono/struct.DateTime.html#example) 
 
