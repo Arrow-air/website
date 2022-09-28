@@ -272,7 +272,7 @@ fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     - `u32 id`
     - `DateTime<UTC> timestamp`
 - We need to import an external crate: `chrono`
-    - [Add `chrono` to your `cargo.toml` under `[dependencies]`](https://crates.io/crates/chrono) (see "Usage")
+    - Add `chrono` to your `cargo.toml` under `[dependencies]`
         - Alternatively run `cargo add chrono` from your project root
     - [Importing DateTime and Utc to your file](https://docs.rs/chrono/0.4.0/chrono/struct.DateTime.html#example) 
 

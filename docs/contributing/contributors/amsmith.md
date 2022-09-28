@@ -13,8 +13,6 @@ tags:
 
 Hello! I'm a software engineer with a history of embedded software development for aerospace.
 
-[LinkedIn](https://www.linkedin.com/in/smitham42/)
-
 ### Team Contributions
 
 * Systems Engineering

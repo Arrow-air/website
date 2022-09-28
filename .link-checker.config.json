@@ -1,0 +1,18 @@
+{
+    "ignorePatterns": [
+      {
+        "pattern": "{link}"
+      }
+    ],
+    "replacementPatterns": [
+      {
+        "pattern": "^/images/",
+        "replacement": "{{BASEURL}}/static/images/"
+      },
+      {
+        "pattern": "^/([a-zA-Z._-]+)$",
+        "replacement": "{{BASEURL}}/src/pages/$1.md"
+      }
+    ],
+    "timeout": "20s"
+  }

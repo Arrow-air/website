@@ -18,3 +18,4 @@ ignorePaths:
   - '*.css'
   - '*.svg'
   - './static/js/webflow.js'
+  - '**Makefile'

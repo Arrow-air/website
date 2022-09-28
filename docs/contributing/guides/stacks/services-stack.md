@@ -53,7 +53,7 @@ Currently doing in-house benchmarks for:
 ### :watch: Benchmarks and Load Testing
 
 We're using the following framework(s) on a trial basis:
-- [Codename Taurus](https://gettaurus.org/) + JMeter
+- [Codename Taurus](https://github.com/Blazemeter/taurus) + JMeter
 
 
 ## :construction: On Deck
