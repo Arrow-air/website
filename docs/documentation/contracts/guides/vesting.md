@@ -36,7 +36,7 @@ These vesting contracts and tokens are distributed on the Optimism L2 network, w
 
 Vesting contracts have the ability to be cancelled by the Arrow multisig, in cases of erroneous token distributions or if specific contributors become inactive.
 
-Upon cancellation, any vested tokens will be distributed to the contributor, with any remaining unvested tokens returned to the Arrow multisig.
+Upon cancellation, any vested tokens will be distributed to the contributor, with any remaining un-vested tokens returned to the Arrow multisig.
 
 In order to cancel an existing vesting contract:
 

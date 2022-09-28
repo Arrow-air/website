@@ -44,7 +44,7 @@ Currently performing in-house benchmarks for:
 - [GraphQL](https://graphql.org/)
 - [tonic](https://github.com/hyperium/tonic), a Rust implementation of [gRPC](https://grpc.io/)
 
-### :family: Interprocess Communication (IPC)
+### :family: Inter-Process Communication (IPC)
 
 Currently doing in-house benchmarks for:
 - [ZeroMQ](https://zeromq.org/)
@@ -53,7 +53,7 @@ Currently doing in-house benchmarks for:
 ### :watch: Benchmarks and Load Testing
 
 We're using the following framework(s) on a trial basis:
-- [Codename Taurus](https://gettaurus.org/) + JMeter
+- [Codename Taurus](https://github.com/Blazemeter/taurus) + JMeter
 
 
 ## :construction: On Deck
