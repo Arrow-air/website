@@ -21,32 +21,30 @@ jobs:
       id-token: write
       contents: read
     steps:
-     - name: Checkout
-       uses: actions/checkout@v2
-     - name: Set up node ${{ inputs.node-version }}
-       uses: actions/setup-node@v2
-       with:
-         node-version: ${{ inputs.node-version }}
-         cache: yarn
-     - name: Install dependencies
-       run: yarn install --frozen-lockfile
- #   - name: Run Lint
- #     run: yarn lint
-     - name: Configure AWS Credentials
-       uses: aws-actions/configure-aws-credentials@v1
-       with:
-         role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
-         role-session-name: arrow-website-pull-docs
-         aws-region: "us-east-2"
-     - name: Sync files from S3 for processing
-       run: |
-         aws s3 sync "s3://${{ secrets.AWS_S3_DOCS_BUCKET }}/docs/" "./docs/"
-     - name: Build
-       run: yarn build
-     - name: Deploy to ${{ inputs.environment }} S3
-       id: sync_s3
-       run: |
-         aws s3 sync "./build/assets/images/" "s3://${{ secrets.AWS_S3_BUCKET }}/assets/images/" --delete --size-only
-         aws s3 sync "./build/" "s3://${{ secrets.AWS_S3_BUCKET }}/" --exclude "./build/assets/images"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up node ${{ inputs.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
+          role-session-name: arrow-website-pull-docs
+          aws-region: "us-east-2"
+      - name: Sync files from S3 for processing
+        run: |
+          aws s3 sync "s3://${{ secrets.AWS_S3_DOCS_BUCKET }}/docs/" "./docs/"
+      - name: Build
+        run: yarn build
+      - name: Deploy to ${{ inputs.environment }} S3
+        id: sync_s3
+        run: |
+          aws s3 sync "./build/assets/images/" "s3://${{ secrets.AWS_S3_BUCKET }}/assets/images/" --delete --size-only
+          aws s3 sync "./build/" "s3://${{ secrets.AWS_S3_BUCKET }}/" --exclude "./build/assets/images"
     outputs:
       files_changed: "${{ steps.build-and-deploy.outputs.files_changed }}"

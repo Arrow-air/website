@@ -21,12 +21,12 @@ jobs:
       id-token: write
       contents: read
     steps:
-     - name: Configure AWS Credentials
-       uses: aws-actions/configure-aws-credentials@v1
-       with:
-         role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
-         role-session-name: arrow-website-invalide-cloudfront
-         aws-region: "us-east-2"
-     - name: Create Invalidation
-       run: |
-         aws cloudfront create-invalidation --distribution-id "${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION }}" --paths "${{ inputs.paths }}"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
+          role-session-name: arrow-website-invalide-cloudfront
+          aws-region: "us-east-2"
+      - name: Create Invalidation
+        run: |
+          aws cloudfront create-invalidation --distribution-id "${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION }}" --paths "${{ inputs.paths }}"

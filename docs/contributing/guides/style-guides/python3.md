@@ -61,7 +61,7 @@ class ComplexNumber:
   
         Parameters:
            real (int): The real part of complex number.
-           imag (int): The imaginary part of complex number.   
+           imag (int): The imaginary part of complex number.
         """
   
     def add(self, num):

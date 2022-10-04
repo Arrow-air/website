@@ -12,7 +12,7 @@ Arrow is a community with the mission of building vertical-takeoff aircraft that
 
 Arrow is bringing the engineering ethos of web3 to the hardware space. Instead of closely guarding trade secrets, we'll be building entirely in public with all of our work open source. Using this model, we will build a global community of people working towards our shared vision and have a larger "brain trust" than any company building in secret could have.
 
-Building in public means that contributors don't need to be interviewed and hired before they can begin work. Anyone is free to contribute ideas towards our vision and will be judged solely on the merit of those ideas. 
+Building in public means that contributors don't need to be interviewed and hired before they can begin work. Anyone is free to contribute ideas towards our vision and will be judged solely on the merit of those ideas.
 
 All of the business logic for Arrow will live on the Ethereum blockchain. This will allow us to efficiently allocate tokens to any meaningful contributor instead of figuring out how to send shares of a C-Corp internationally. The Arrow token will not be publicly tradeable for the first few years of the project so we can focus on building a meaningful product.
 
