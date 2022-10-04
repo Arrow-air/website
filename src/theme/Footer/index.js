@@ -88,7 +88,7 @@ function Footer() {
                 {linkItem.title != null &&
 				<div className="footer__title">{linkItem.title}</div>
 				}
-                {linkItem.items != null && Array.isArray(linkItem.items) && linkItem.items.length > 0 && 
+                {linkItem.items != null && Array.isArray(linkItem.items) && linkItem.items.length > 0 &&
                   <ul className="footer__items">
                   {linkItem.items.map((item, key) => item.html ? (
                     <li
