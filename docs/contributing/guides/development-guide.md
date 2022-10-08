@@ -7,7 +7,7 @@ sidebar_position: 1
 1. Create an account: [GitHub](https://github.com/)
 2. Create an account: [Discord](https://discord.com/)
 3. Sign the [CLA](https://www.arrowair.com/docs/contributing/cla)
-4. Join the [Arrow Discord](https://discord.com/invite/fab4bxaAW9)
+4. Join the [Arrow Discord](https://discord.com/invite/arrow)
     - Be sure to visit the `#start-contributing` channel and give yourself a role!
 5. Set up a GPG Key
     - See [Sign Your Commits](#lock_with_ink_pen-sign-your-commits) for instructions
