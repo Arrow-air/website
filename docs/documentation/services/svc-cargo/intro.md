@@ -1,3 +1,6 @@
+---
+sidebar_position: 1
+---
 # `svc-cargo`
 
 > Server-side request handler for cargo flights.
