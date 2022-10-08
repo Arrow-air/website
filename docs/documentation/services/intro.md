@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# AAM Services
+# Services Introduction
 
 The software backend of Advanced Aerial Mobility (AAM).
 
@@ -13,7 +13,7 @@ Fleet routing, optimization, vertiport scheduling, flight booking, automated mai
 Document | Description
 ---- | ----
 :telescope: [High-Level Concept of Operations (CONOPS)](./conops.md) | Goals and motivation for the creation of AAM services. Key components, risk factors, modes of operation, and impact assessment.
-:guard: [High-Level Interface Control Document (ICD)](./icd.md) | The guiding document for technology stacks, authentication methods, and common interfaces of our microservices.
+:guardsman: [High-Level Interface Control Document (ICD)](./icd.md) | The guiding document for technology stacks, authentication methods, and common interfaces of our microservices.
 :recycle: [Systems Engineering Management Plan (SEMP)](./semp.md) | Document and code lifecycle management.
 
 ## Relevant Supplementary Materials
