@@ -38,6 +38,8 @@ Husky will automatically run the following when you attempt to commit changes:
 - `cargo clippy -- -D warnings`: A collection of lints to catch common mistakes
   and improve your Rust code. [Source
   Code](https://github.com/rust-lang/rust-clippy)
+- `taplo fmt`: Format TOML files to Arrow's style guide
+- `cspell`: Spell check all files in the repository
 
 Any errors (including warnings) must be resolved before committing code.
 
