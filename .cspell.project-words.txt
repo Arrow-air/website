@@ -70,6 +70,7 @@ arrowair
 opensource
 metaverse
 vertiports
+vertiport
 Roadmap
 Substack
 easyops
@@ -101,3 +102,7 @@ Timm
 tweens
 unitless
 zloirock
+CONOPS
+microservices
+SEMP
+Gantt
