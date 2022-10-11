@@ -13,19 +13,19 @@ export default function CLA(): JSX.Element {
   useEffect(() => {
     //on page load check if it's a new page load or after github auth redirect
     if (localStorage.getItem('claChecked') === 'true'){
-      setAcceptedCLA(true);
+    setAcceptedCLA(true);
     }
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     if (code){
-      setGhCode(code);
+    setGhCode(code);
     }
     const error = urlParams.get('error');
     if(error){
-      toast.error('There was a problem when signing the CLA.');
-      console.log(error);
-      console.log(urlParams.get('error_description'));
-      console.log(urlParams.get('error_uri'));
+    toast.error('There was a problem when signing the CLA.');
+    console.log(error);
+    console.log(urlParams.get('error_description'));
+    console.log(urlParams.get('error_uri'));
     }
   }, [])
 
@@ -43,53 +43,53 @@ export default function CLA(): JSX.Element {
     //to test with staging or dev API url uncomment 2 lines below
     //const SIGN_API_URL = 'https://od4scuzjyymlzg46inlzsra4oa0rberi.lambda-url.eu-west-1.on.aws/api/v1/user/ghUser/sign'
     try {
-      const resp = await fetch( SIGN_API_URL, {
+    const resp = await fetch( SIGN_API_URL, {
         method: 'POST',
         //mode: 'no-cors',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({code: ghCode})
-      });
-      const data = await resp.json();
-      if (data?.success){
+    });
+    const data = await resp.json();
+    if (data?.success){
         toast.success('CLA successfully signed!');
-      } else {
+    } else {
         toast.error('There was a problem when signing the CLA.');
         console.log(data);
-      }
+    }
     } catch (e){
-      toast.error('There was a problem when signing the CLA.');
-      console.log(e);
+    toast.error('There was a problem when signing the CLA.');
+    console.log(e);
     }
   }
 
   return (
     <React.Fragment>
-      <article className="row">
+    <article className="row">
         <div className="sign-cla col-12">
-          <div className="cla-scroll-box">
+        <div className="cla-scroll-box">
             <CLAText/>
-          </div>
-          <div className="controls">
+        </div>
+        <div className="controls">
             <div className="d-flex">
-              <input type={'checkbox'} checked={acceptedCLA} onClick={handleCLACheckbox}/>
-              <span className="cb-text">I have read and agree to CLA</span>
+            <input type={'checkbox'} checked={acceptedCLA} onClick={handleCLACheckbox}/>
+            <span className="cb-text">I have read and agree to CLA</span>
             </div>
             {
-              ghCode ?
+            ghCode ?
                 <button onClick={sendGHCode} disabled={!acceptedCLA}>
-                  <img src="/img/icons8-digital-signature-90.png" width={18} height={18}/>
-                  <span>Sign CLA</span>
+                <img src="/img/icons8-digital-signature-90.png" width={18} height={18}/>
+                <span>Sign CLA</span>
                 </button>
                 :
                 <button onClick={authWithGithub} disabled={!acceptedCLA}>
-                  <img src="/img/icons8-github-120.svg" width={22} height={22}/>
-                  <span>Sign in with GitHub</span>
+                <img src="/img/icons8-github-120.svg" width={22} height={22}/>
+                <span>Sign in with GitHub</span>
                 </button>
             }
-          </div>
         </div>
-      </article>
-      <Toaster toastOptions={{duration: 5000}}/>
+        </div>
+    </article>
+    <Toaster toastOptions={{duration: 5000}}/>
     </React.Fragment>
   );
 }

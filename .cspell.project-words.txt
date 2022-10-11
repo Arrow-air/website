@@ -102,6 +102,9 @@ Timm
 tweens
 unitless
 zloirock
+makefiles
+taplo
+mstruebing
 CONOPS
 microservices
 SEMP
