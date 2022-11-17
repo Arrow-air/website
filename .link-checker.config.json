@@ -4,6 +4,14 @@
       "pattern": "{link}"
     }
   ],
+  "httpHeaders": [
+    {
+      "urls": ["https://docs.github.com/"],
+      "headers": {
+        "Accept-Encoding": "zstd, br, gzip, deflate"
+      }
+    }
+  ],
   "replacementPatterns": [
     {
       "pattern": "^/images/",
