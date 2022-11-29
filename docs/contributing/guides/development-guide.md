@@ -7,7 +7,7 @@ sidebar_position: 1
 1. Create an account: [GitHub](https://github.com/)
 2. Create an account: [Discord](https://discord.com/)
 3. Sign the [CLA](https://www.arrowair.com/docs/contributing/cla)
-4. Join the [Arrow Discord](https://discord.com/invite/fab4bxaAW9)
+4. Join the [Arrow Discord](https://discord.com/invite/arrow)
     - Be sure to visit the `#start-contributing` channel and give yourself a role!
 5. Set up a GPG Key
     - See [Sign Your Commits](#lock_with_ink_pen-sign-your-commits) for instructions
@@ -172,6 +172,24 @@ Keep these in mind always, especially when squashing commits (one message).
 Repositories are managed through [Terraform](https://www.terraform.io/).
 
 Requests for repository management should be made to @owlot.
+
+
+## :hammer: Makefile and build automation
+
+All Arrow GitHub repositories are started from templates and are provisioned by Terraform to automate changes in the workflow.
+Templates contain a Makefile which is propagated to all repositories.
+
+Each repository has a Makefile which uses [make](https://www.gnu.org/software/make/manual/make.html) utility to run build targets.
+All make targets call specific commands from a docker container [arrow-rust](https://ghcr.io/arrow-air/tools/arrow-rust).
+Arrow-rust is a docker image with all the tools needed to build and test Rust code so developers don't have to install them locally.
+- they can be run separately - e.g. `make cspell-test`.
+- or multiple targets can be run at once. This is done during pre-commit hooks or PR checks. - `make test`.
+- or all targets to run test, build and release phases - `make all`.
+
+### Makefile targets
+Run `make help` to see all available targets or explore [template Makefile](https://github.com/Arrow-air/svc-template-rust/blob/develop/Makefile)
+and linked Makefiles.
+
 
 ## :closed_lock_with_key: Admin Access
 
