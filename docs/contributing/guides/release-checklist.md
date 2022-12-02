@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## :bust_in_silhouette: Developer
 
-### :hatching_chick: Create an End-of-Release Review
+### :hatching_chick: Review Branch & Pull Request
 
 1. Create a new branch from `develop`.
 
@@ -24,6 +24,21 @@ Why not create a `develop` -> `main` PR for the review?
 - `develop` is a protected branch that can only be pushed into through a PR.
 - Using an unprotected branch `r#-final-review` allows direct pushes to address review comments.
 
+### :scissors: Clean Up Commit History
+
+1. On the `r#-final-review` PR, view your commit history since last release:
+
+![Commit history with many unnecessary commits, Terraform automations](/images/dirty-review-branch.PNG)
+
+2. Use the oldest commit SHA listed in the PR commit history to interactive rebase the `r#-final-review` branch.
+    - `git rebase -i <commit SHA>`
+
+3. Use `fixup`, `reword`, and `squash` to clean up the commit history, confirming to [conventional commit specification](https://www.conventionalcommits.org/en/v1.0.0/#specification).
+    - `fix:`, `feat:`, `build:`, `chore:`, `ci:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`
+    - Try to use `docs(<doc abbreviation>):` for updates in the `docs` folder, e.g. `docs(sdd):`
+
+![Clean commit history after rebase](/images/cleaned-review-branch.PNG)
+
 ### :mag: Hold Review
 
 1. Inform peer reviewer(s) and await review comments.
@@ -32,8 +47,12 @@ Why not create a `develop` -> `main` PR for the review?
 
 ### :broom: Cleanup
 
-1. Since `develop` also needs the changes added to `r#-final-review`, open a PR to merge `main` into `develop`.
-2. Have the same reviewers approve the PR.
+:exclamation: Only perform this section once your review branch is merged into `main`!
+
+1. Delete the `develop` branch.
+2. Create a `develop` branch from `main`.
+    - This uses the cleaned up history from our review branch to continue development.
+3. View your active branches in the GitHub interface and delete any that are no longer desired.
 
 ## :busts_in_silhouette: Peer Reviewers
 
@@ -41,8 +60,10 @@ This is the *last chance* for a review of the code before it is immortalized for
 
 Some checks aren't currently automated.
 
-Please paste the following comment template into the review:
+If you are a *reviewer* (not the dev!) please paste the following comment template into the review:
 ```
+(Posted by the reviewer!)
+
 ## Documents
 - [ ] ICD
   - [ ] Current interfaces (grpc & rest)
