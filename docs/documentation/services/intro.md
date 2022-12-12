@@ -7,33 +7,71 @@ sidebar_position: 1
 The software backend of Advanced Aerial Mobility (AAM).
 
 Fleet routing, optimization, vertiport scheduling, flight booking, automated maintenance scheduling, regulatory compliance, and more.
+## :books: Document Types
 
-## High-Level Documentation
+Document | Abbr. | Description
+---- | ---- | ---
+Concept of Operations | CONOPS | Goals and motivation for the creation of a module.<br />Key components, risk factors, modes of operation, and impact assessment.
+Software Design Document | SDD | Description of module implementation.<br />Sequence diagrams.
+Interface Control Document | ICD | The source of truth of a module's interfaces.
+Systems Engineering Management Plan | SEMP | Document and code lifecycle management.
 
-Document | Description
----- | ----
-:telescope: [High-Level Concept of Operations (CONOPS)](./high-level/conops.md) | Goals and motivation for the creation of AAM services. Key components, risk factors, modes of operation, and impact assessment.
-:guardsman: [High-Level Interface Control Document (ICD)](./high-level/icd.md) | The guiding document for technology stacks, authentication methods, and common interfaces of our microservices.
-:recycle: [Systems Engineering Management Plan (SEMP)](./high-level/semp.md) | Document and code lifecycle management.
+## :telescope: High-Level Documentation
 
-## Relevant Supplementary Materials
+- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/se-services/blob/develop/docs/conops.md))
+- SE Management Plan (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/se-services/blob/develop/docs/semp.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/se-services/blob/develop/docs/icd.md))
+
+
+## :ant: Module-Level Documentation
+
+All module repositories have a `docs` folder.
+
+### [`svc-cargo`](https://github.com/Arrow-air/svc-cargo)
+
+> Server-side request handler for cargo flights.
+> Handle customer cargo flight requests and obtain itinerary information.
+
+- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/conops.md))
+- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/sdd.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/icd.md))
+
+### [`svc-scheduler`](https://github.com/Arrow-air/svc-scheduler)
+
+> Create, modify, and delete flights considering vertiport and aircraft schedules, optimize fleet routing.
+
+- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/conops.md))
+- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/sdd.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/icd.md))
+
+### [`svc-storage`](https://github.com/Arrow-air/svc-storage)
+
+> Retrieve and store data to various databases for other microservices.
+
+- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/conops.md))
+- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/sdd.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/icd.md))
+
+### [`svc-pricing`](https://github.com/Arrow-air/svc-pricing)
+
+> Calculates the cost of an itinerary and the price presented to customers.
+
+- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/conops.md))
+- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/sdd.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/icd.md))
+
+
+## :scroll: Relevant Supplementary Materials
 
 Item | Description
 --- | ---
-:construction: Requirements, User Stories |
-:one: [Phase One Kickoff Slides](https://docs.google.com/presentation/d/1w67jmXz8PCbrKqXVyfm7mrglstXGrd8lBW1hvwnFs4M/edit#slide=id.p1) | Description of work to be completed prior to first milestone
-:one: [Phase One Gantt Chart](https://docs.google.com/spreadsheets/d/1n2YXbq1wimU18PORQtSU--8hPNuETFIXwcqq1udSDQI/edit#gid=1115838130) | Progress and High-Level Tasks
+:one: [R1 Kickoff Slides](https://docs.google.com/presentation/d/1w67jmXz8PCbrKqXVyfm7mrglstXGrd8lBW1hvwnFs4M/edit#slide=id.p1) | Overview of planned R1 work and demos
+:two: [R2 Kickoff Slides](https://docs.google.com/presentation/d/1qa4xyMi2J_i_KCw--sTxRThvMo6QpeBPecASg27abu0/edit#slide=id.g1201bb7c418_2_33) | Overview of planned R2 work and demos
 
-## Microservice Documentation
-
-See our microservice-level documentation through the `svc-*` folders in this directory.
-
-:exclamation: Currently in Alpha. Documentation in Progress.
-
-## Contributors
+## :busts_in_silhouette: Contributors
 
 See the [Arrow-air/services](https://github.com/orgs/Arrow-air/teams) team.
 
-## Want to Contribute?
+## :wave: Want to Contribute?
 
 See our [Getting Started Guide](https://www.arrowair.com/docs/contributing/intro), and reach out to us on the [Arrow Discord](https://discord.com/invite/arrow)!
