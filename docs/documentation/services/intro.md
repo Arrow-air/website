@@ -32,34 +32,58 @@ All module repositories have a `docs` folder.
 > Server-side request handler for cargo flights.
 > Handle customer cargo flight requests and obtain itinerary information.
 
-- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/conops.md))
-- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/sdd.md))
-- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/icd.md))
+- Concept of Operations ([:sparkles: stable](https://github.com/Arrow-air/svc-cargo/blob/main/docs/conops.md), [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/conops.md))
+- Software Design Document ([:sparkles: stable](https://github.com/Arrow-air/svc-cargo/blob/main/docs/sdd.md), [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/sdd.md))
+- Interface Control Document ([:sparkles: stable](https://github.com/Arrow-air/svc-cargo/blob/main/docs/icd.md), [:hammer: develop](https://github.com/Arrow-air/svc-cargo/blob/develop/docs/icd.md))
 
 ### [`svc-scheduler`](https://github.com/Arrow-air/svc-scheduler)
 
 > Create, modify, and delete flights considering vertiport and aircraft schedules, optimize fleet routing.
 
-- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/conops.md))
-- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/sdd.md))
-- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/icd.md))
+- Concept of Operations ([:sparkles: stable](https://github.com/Arrow-air/svc-scheduler/blob/main/docs/conops.md), [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/conops.md))
+- Software Design Document ([:sparkles: stable](https://github.com/Arrow-air/svc-scheduler/blob/main/docs/sdd.md), [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/sdd.md))
+- Interface Control Document ([:sparkles: stable](https://github.com/Arrow-air/svc-scheduler/blob/main/docs/icd.md), [:hammer: develop](https://github.com/Arrow-air/svc-scheduler/blob/develop/docs/icd.md))
+- `lib-router` SDD ([:sparkles: stable](https://github.com/Arrow-air/lib-router/blob/main/docs/sdd.md), [:hammer: develop](https://github.com/Arrow-air/lib-router/blob/develop/docs/sdd.md))
 
 ### [`svc-storage`](https://github.com/Arrow-air/svc-storage)
 
 > Retrieve and store data to various databases for other microservices.
 
-- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/conops.md))
-- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/sdd.md))
-- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/icd.md))
+- Concept of Operations ([:sparkles: stable](https://github.com/Arrow-air/svc-storage/blob/main/docs/conops.md), [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/conops.md))
+- Software Design Document ([:sparkles: stable](https://github.com/Arrow-air/svc-storage/blob/main/docs/sdd.md), [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/sdd.md))
+- Interface Control Document ([:sparkles: stable](https://github.com/Arrow-air/svc-storage/blob/main/docs/icd.md), [:hammer: develop](https://github.com/Arrow-air/svc-storage/blob/develop/docs/icd.md))
 
 ### [`svc-pricing`](https://github.com/Arrow-air/svc-pricing)
 
 > Calculates the cost of an itinerary and the price presented to customers.
 
-- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/conops.md))
-- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/sdd.md))
-- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/icd.md))
+- Concept of Operations ([:sparkles: stable](https://github.com/Arrow-air/svc-pricing/blob/main/docs/conops.md), [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/conops.md))
+- Software Design Document ([:sparkles: stable](https://github.com/Arrow-air/svc-pricing/blob/main/docs/sdd.md), [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/sdd.md))
+- Interface Control Document ([:sparkles: stable](https://github.com/Arrow-air/svc-pricing/blob/main/docs/icd.md), [:hammer: develop](https://github.com/Arrow-air/svc-pricing/blob/develop/docs/icd.md))
 
+### [`svc-assets`](https://github.com/Arrow-air/svc-assets)
+
+> Register and manage assets on the network.
+
+- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-assets/blob/develop/docs/conops.md))
+- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-assets/blob/develop/docs/sdd.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-assets/blob/develop/docs/icd.md))
+
+### [`svc-compliance`](https://github.com/Arrow-air/svc-compliance)
+
+> Interface with regulatory bodies external to the Arrow network.
+
+- Concept of Operations (:sparkles: stable [:hammer: develop](https://github.com/Arrow-air/svc-compliance/blob/develop/docs/conops.md))
+- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-compliance/blob/develop/docs/sdd.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-compliance/blob/develop/docs/icd.md))
+
+### [`svc-telemetry`](https://github.com/Arrow-air/svc-telemetry)
+
+> Receive and rebroadcast telemetry from networked assets.
+
+- Concept of Operations (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-telemetry/blob/develop/docs/conops.md))
+- Software Design Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-telemetry/blob/develop/docs/sdd.md))
+- Interface Control Document (:sparkles: stable, [:hammer: develop](https://github.com/Arrow-air/svc-telemetry/blob/develop/docs/icd.md))
 
 ## :scroll: Relevant Supplementary Materials
 
