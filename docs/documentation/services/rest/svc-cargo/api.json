@@ -1,0 +1,418 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "svc-cargo",
+    "description": "Cargo Service GRPC and REST servers",
+    "contact": {
+      "name": "A.M. Smith (ServiceDog)"
+    },
+    "license": {
+      "name": "BUSL-1.1"
+    },
+    "version": "0.8.0-develop.1"
+  },
+  "paths": {
+    "/cargo/cancel": {
+      "delete": {
+        "tags": [
+          "rest_api"
+        ],
+        "summary": "Cancel a Flight",
+        "description": "Cancel a Flight\n",
+        "operationId": "cancel_flight",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlightCancel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Flight cancelled successfully"
+          },
+          "400": {
+            "description": "Request body is invalid format"
+          },
+          "500": {
+            "description": "svc-scheduler returned error"
+          },
+          "503": {
+            "description": "Could not connect to other microservice dependencies"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/cargo/confirm": {
+      "put": {
+        "tags": [
+          "rest_api"
+        ],
+        "summary": "Confirm a Flight",
+        "description": "Confirm a Flight\n",
+        "operationId": "confirm_flight",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlightConfirm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Flight Confirmed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request body is invalid format"
+          },
+          "500": {
+            "description": "svc-scheduler returned error"
+          },
+          "503": {
+            "description": "Could not connect to other microservice dependencies"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/cargo/query": {
+      "post": {
+        "tags": [
+          "rest_api"
+        ],
+        "summary": "Get Available Flights",
+        "description": "Get Available Flights\n\nSearch `FlightOption`s by query params and return matching `FlightOption`s.\n",
+        "operationId": "query_flight",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlightQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List available flight plans",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FlightOption"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request body is invalid format"
+          },
+          "500": {
+            "description": "svc-scheduler or svc-pricing returned error"
+          },
+          "503": {
+            "description": "Could not connect to other microservice dependencies"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/cargo/vertiports": {
+      "post": {
+        "tags": [
+          "rest_api"
+        ],
+        "summary": "Get Regional Vertiports",
+        "description": "Get Regional Vertiports\n",
+        "operationId": "query_vertiports",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VertiportsQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List all cargo-accessible vertiports successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vertiport"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unable to get vertiports."
+          },
+          "503": {
+            "description": "Could not connect to other microservice dependencies"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ConfirmStatus": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "Success": {
+                "type": "string",
+                "description": "Successful confirmation of flight",
+                "example": "Flight successfully confirmed."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "Conflict": {
+                "type": "string",
+                "description": "FlightOption already exists conflict.",
+                "example": "Could not confirm flight."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "NotFound": {
+                "type": "string",
+                "description": "FlightOption not found by id.",
+                "example": "Provided flight plan ID doesn't match an existing flight."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "Unauthorized": {
+                "type": "string",
+                "description": "Unauthorized Attempt to Confirm Flight",
+                "example": "Unauthorized confirmation by someone other than the customer."
+              }
+            }
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Unavailable"
+            ]
+          }
+        ],
+        "description": "Confirm Flight Operation Status"
+      },
+      "FlightCancel": {
+        "type": "object",
+        "description": "Request Body Information to Cancel a Flight",
+        "required": [
+          "fp_id"
+        ],
+        "properties": {
+          "fp_id": {
+            "type": "string",
+            "description": "Flight Plan ID to Cancel"
+          }
+        }
+      },
+      "FlightConfirm": {
+        "type": "object",
+        "description": "Customer Flight Confirm Option",
+        "required": [
+          "fp_id"
+        ],
+        "properties": {
+          "fp_id": {
+            "type": "string",
+            "description": "Flight Plan ID"
+          }
+        }
+      },
+      "FlightOption": {
+        "type": "object",
+        "description": "Flight Plan Option",
+        "required": [
+          "fp_id",
+          "vertiport_depart_id",
+          "vertiport_arrive_id",
+          "timestamp_depart",
+          "timestamp_arrive",
+          "distance_m"
+        ],
+        "properties": {
+          "base_pricing": {
+            "type": "number",
+            "format": "float",
+            "description": "The cost of the trip for the customer"
+          },
+          "currency_type": {
+            "type": "string",
+            "description": "The currency type, e.g. USD, EUR"
+          },
+          "distance_m": {
+            "type": "number",
+            "format": "float",
+            "description": "The estimated trip distance in meters"
+          },
+          "fp_id": {
+            "type": "string",
+            "description": "Flight Plan ID"
+          },
+          "timestamp_arrive": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Estimated arrival timestamp"
+          },
+          "timestamp_depart": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Estimated departure timestamp"
+          },
+          "vertiport_arrive_id": {
+            "type": "string",
+            "description": "Arrival Vertiport ID"
+          },
+          "vertiport_depart_id": {
+            "type": "string",
+            "description": "Departure Vertiport ID"
+          }
+        }
+      },
+      "FlightQuery": {
+        "type": "object",
+        "description": "Request Body Information for Flight Query",
+        "required": [
+          "vertiport_depart_id",
+          "vertiport_arrive_id",
+          "cargo_weight_kg"
+        ],
+        "properties": {
+          "cargo_weight_kg": {
+            "type": "number",
+            "format": "float",
+            "description": "The estimated weight of cargo"
+          },
+          "time_arrive_window": {
+            "$ref": "#/components/schemas/TimeWindow"
+          },
+          "time_depart_window": {
+            "$ref": "#/components/schemas/TimeWindow"
+          },
+          "vertiport_arrive_id": {
+            "type": "string",
+            "description": "The String ID of the destination vertiport"
+          },
+          "vertiport_depart_id": {
+            "type": "string",
+            "description": "The String ID of the vertiport to leave from"
+          }
+        }
+      },
+      "TimeWindow": {
+        "type": "object",
+        "description": "Time window (min and max)",
+        "required": [
+          "timestamp_min",
+          "timestamp_max"
+        ],
+        "properties": {
+          "timestamp_max": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The end of the pad window"
+          },
+          "timestamp_min": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The start of the pad window"
+          }
+        }
+      },
+      "Vertiport": {
+        "type": "object",
+        "description": "Vertiport Information",
+        "required": [
+          "id",
+          "label",
+          "latitude",
+          "longitude"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of the vertiport"
+          },
+          "label": {
+            "type": "string",
+            "description": "The human-readable label of the vertiport",
+            "example": "Mercy Hospital (Public)"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float",
+            "description": "The latitude (float value) of the vertiport"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float",
+            "description": "The longitude (float value) of the vertiport"
+          }
+        }
+      },
+      "VertiportsQuery": {
+        "type": "object",
+        "description": "Request Body Information for Region Query",
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "float",
+            "description": "Latitude of Client"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float",
+            "description": "Longitude of Client"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "svc-cargo",
+      "description": "svc-cargo REST API"
+    }
+  ]
+}

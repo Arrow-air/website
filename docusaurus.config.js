@@ -38,6 +38,28 @@ const config = {
         // ```
       },
     ],
+    "docusaurus-theme-openapi-docs"
+  ],
+
+
+  plugins: [
+    [
+        "docusaurus-plugin-openapi-docs",
+        {
+            id: "openapi",
+            docsPluginId: "classic",
+            config: {
+                cargo: {
+                    specPath: "docs/documentation/services/rest/svc-cargo/api.json",
+                    outputDir: "docs/documentation/services/rest/svc-cargo/",
+                    sidebarOptions: {
+                        groupPathsBy: "tag", // generate a sidebar.js slice that groups operations by tag
+                    },
+
+                }
+            }
+        },
+    ]
   ],
 
   stylesheets: [
@@ -62,6 +84,8 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: "https://github.com/Arrow-air/website/edit/staging/",
+          docLayoutComponent: "@theme/DocPage",
+          docItemComponent: "@theme/ApiItem"
         },
         blog: {
           showReadingTime: true,
@@ -156,6 +180,43 @@ const config = {
         darkTheme: darkCodeTheme,
         additionalLanguages: ['rust', 'toml']
       },
+      languageTabs: [
+        {
+            highlight: "bash",
+            language: "curl",
+            logoClass: "bash",
+        },
+        {
+            highlight: "python",
+            language: "python",
+            logoClass: "python",
+        },
+        {
+            highlight: "go",
+            language: "go",
+            logoClass: "go",
+        },
+        {
+            highlight: "javascript",
+            language: "nodejs",
+            logoClass: "nodejs",
+        },
+        //{
+        //  highlight: "ruby",
+        //  language: "ruby",
+        //  logoClass: "ruby",
+        //},
+        // {
+        //     highlight: "csharp",
+        //     language: "csharp",
+        //     logoClass: "csharp",
+        // },
+        // {
+        //   highlight: "php",
+        //   language: "php",
+        //   logoClass: "php",
+        // },
+        ],
     }),
 };
 

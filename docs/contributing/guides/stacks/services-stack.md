@@ -71,5 +71,3 @@ We're using the following framework(s) on a trial basis:
 ### :brain: ML & Deep Learning Frameworks
 - Simulation
 - Optimization
-
-

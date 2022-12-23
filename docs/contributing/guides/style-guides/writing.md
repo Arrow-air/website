@@ -46,8 +46,8 @@ score at which materials can be understood by 13-to-15-year-olds.
 1. The blog post submission must be in markdown format.
 
     1. A Pull Request must be made on the
-       [website](https://github.com/Arrow-air/website/) GitHub
-       repository. 
+        [website](https://github.com/Arrow-air/website/) GitHub
+        repository. 
     2. The new submission should be automatically broadcasted in Discord, and we do a fit screening. 
     3. If any of the following fails, we stop here and reject the PR.
 
@@ -61,4 +61,3 @@ score at which materials can be understood by 13-to-15-year-olds.
 4. Editors, at this step, are free to make stylistic edits as long as the meaning of the edited part remains unaltered. The goal is to make the writing more “Arrow-like”.
 5. Review once again for inclusiveness purposes. Find out and modify wordings that might be too localized or exclusive. (don’t assume that everyone has the same context)
 6. If it’s a technical blog, we need to review deeper for fact checks
-

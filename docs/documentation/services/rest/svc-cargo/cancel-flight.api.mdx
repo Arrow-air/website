@@ -1,0 +1,47 @@
+---
+id: cancel-flight
+title: "Cancel a Flight"
+description: "Cancel a Flight"
+sidebar_label: "Cancel a Flight"
+hide_title: true
+hide_table_of_contents: true
+api: {"tags":["rest_api"],"description":"Cancel a Flight\n","operationId":"cancel_flight","requestBody":{"content":{"application/json":{"schema":{"type":"object","description":"Request Body Information to Cancel a Flight","required":["fp_id"],"properties":{"fp_id":{"type":"string","description":"Flight Plan ID to Cancel"}}}}},"required":true},"responses":{"200":{"description":"Flight cancelled successfully"},"400":{"description":"Request body is invalid format"},"500":{"description":"svc-scheduler returned error"},"503":{"description":"Could not connect to other microservice dependencies"}},"deprecated":false,"method":"delete","path":"/cargo/cancel","jsonRequestBodyExample":{"fp_id":"string"},"info":{"title":"svc-cargo","description":"Cargo Service GRPC and REST servers","contact":{"name":"A.M. Smith (ServiceDog)"},"license":{"name":"BUSL-1.1"},"version":"0.8.0-develop.1"},"postman":{"name":"Cancel a Flight","description":{"content":"Cancel a Flight\n","type":"text/plain"},"url":{"path":["cargo","cancel"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"}],"method":"DELETE","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}}}}
+sidebar_class_name: "delete api-method"
+info_path: docs/documentation/services/rest//svc-cargo
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import TabItem from "@theme/TabItem";
+
+## Cancel a Flight
+
+
+
+Cancel a Flight
+
+
+<MimeTabs><TabItem label={"application/json"} value={"application/json-schema"}><details style={{}} data-collapsed={false} open={true}><summary style={{"textAlign":"left"}}><strong>Request Body</strong><strong style={{"fontSize":"var(--ifm-code-font-size)","color":"var(--openapi-required)"}}> required</strong></summary><div style={{"textAlign":"left","marginLeft":"1rem"}}></div><ul style={{"marginLeft":"1rem"}}><SchemaItem collapsible={false} name={"fp_id"} required={true} deprecated={undefined} schemaDescription={"Flight Plan ID to Cancel"} schemaName={"string"} qualifierMessage={undefined} defaultValue={undefined}></SchemaItem></ul></details></TabItem></MimeTabs><div><ApiTabs><TabItem label={"200"} value={"200"}><div>
+
+Flight cancelled successfully
+
+</div><div></div></TabItem><TabItem label={"400"} value={"400"}><div>
+
+Request body is invalid format
+
+</div><div></div></TabItem><TabItem label={"500"} value={"500"}><div>
+
+svc-scheduler returned error
+
+</div><div></div></TabItem><TabItem label={"503"} value={"503"}><div>
+
+Could not connect to other microservice dependencies
+
+</div><div></div></TabItem></ApiTabs></div>
+      

@@ -36,12 +36,12 @@ In short: ClassName, function_name, CONSTANT_NAME, ExceptionName, local_var_name
 The following conventions for Python 3 docstrings shall be adhered to.
 
 1. `class` docstrings should contain:
-   - A description of the class
-   - list of class attributes (initialization parameters)
+    - A description of the class
+    - list of class attributes (initialization parameters)
 2. function (`def`) docstrings should contain:
-   - A description of the function's purpose
-   - Arguments to the function
-   - The expected return value (and type) of the function
+    - A description of the function's purpose
+    - Arguments to the function
+    - The expected return value (and type) of the function
 
 *Example*:
 
@@ -60,8 +60,8 @@ class ComplexNumber:
         The constructor for ComplexNumber class.
   
         Parameters:
-           real (int): The real part of complex number.
-           imag (int): The imaginary part of complex number.
+            real (int): The real part of complex number.
+            imag (int): The imaginary part of complex number.
         """
   
     def add(self, num):

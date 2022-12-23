@@ -46,8 +46,8 @@ sidebar_position: 1
 2. Confirm the presence of the `cla-signed` label.
     - If you haven't signed the [CLA](./../sign-cla.mdx), the cla-bot will be disappointed :angry:
 3. Confirm that the GitHub Actions checks pass.
-     - These checks will vary from repository to repository
-     - ![GitHub - Checks](/images/github_checks.png)
+    - These checks will vary from repository to repository
+    - ![GitHub - Checks](/images/github_checks.png)
 4. Get approvals!
     - The number of approvals may vary from repo to repo.
     - Approvals generally need to come from core members of the [Arrow teams](https://github.com/orgs/Arrow-air/teams).
@@ -155,11 +155,11 @@ Keep these in mind always, especially when squashing commits (one message).
     - For the [website](https://github.com/Arrow-air/website) repository, target the `staging` branch
 - Keep PRs small and easy to review!
     - Our [reviewers](./peer-review.md) may ask you to divide your PR into
-      multiple smaller PRs.
+    multiple smaller PRs.
 - If the commit history is messy, recommend "Squash and Merge" when pushing in
   changes.
     - The squashed commit should have a thorough description of the changes
-      added.
+    added.
 - The Pull Request comments should be descriptive
     - A brief description of what was changed and why
 - Your PR should equate to no more than one Dework issue
