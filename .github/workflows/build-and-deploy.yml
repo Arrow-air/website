@@ -39,6 +39,9 @@ jobs:
       - name: Sync files from S3 for processing
         run: |
           aws s3 sync "s3://${{ secrets.AWS_S3_DOCS_BUCKET }}/docs/" "./docs/"
+      - name: Refresh REST API files
+        run: |
+          npx openapi-merge-cli --config develop.openapi-merge.json
       - name: Build
         run: yarn build
       - name: Deploy to ${{ inputs.environment }} S3
