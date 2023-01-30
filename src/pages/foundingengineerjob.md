@@ -40,5 +40,3 @@ Arrow Discord community: [https://discord.com/invite/fab4bxaAW9](https://discord
 ### Apply for this Job
 
 Send an email to thomas@arrowair.com
-
-or book an intro meeting: [https://calendly.com/thomas-arrow/30min](https://calendly.com/thomas-arrow/30min)

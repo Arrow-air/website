@@ -9,7 +9,7 @@ jobs:
   build-and-deploy-docs:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
-      node-version: 14.x
+      node-version: 19.x
       environment: ${{ github.event.client_payload.environment }}
     secrets: inherit
     permissions:

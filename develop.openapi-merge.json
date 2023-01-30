@@ -1,0 +1,23 @@
+{
+  "inputs": [
+    {
+      "inputURL": "https://www.arrowair.com/api-docs/rest/svc-cargo/develop/openapi.json",
+      "description": {
+        "append": true
+      }
+    },
+    {
+      "inputURL": "https://www.arrowair.com/api-docs/rest/svc-telemetry/develop/openapi.json",
+      "description": {
+        "append": true
+      }
+    },
+    {
+      "inputURL": "https://www.arrowair.com/api-docs/rest/svc-assets/develop/openapi.json",
+      "description": {
+        "append": true
+      }
+    }
+  ],
+  "output": "rest-develop.json"
+}

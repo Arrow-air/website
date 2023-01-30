@@ -1,6 +1,8 @@
 name: Deploy Staging
 
 on:
+  schedule:
+    - cron: '0 4 * * *' # run at 4 AM UTC
   push:
     branches:
       - staging
@@ -10,7 +12,7 @@ jobs:
   build-and-deploy:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
-      node-version: 14.x
+      node-version: 19.x
       environment: staging
     secrets: inherit
     permissions:

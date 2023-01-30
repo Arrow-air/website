@@ -41,12 +41,6 @@ const config = {
   ],
 
   stylesheets: [
-    {
-      href: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
-      integrity:
-        "sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3",
-      crossorigin: "anonymous",
-    },
     { href: "https://fonts.googleapis.com", rel: "preconnect" },
     { href: "https://fonts.gstatic.com", rel: "preconnect" },
     {
@@ -72,6 +66,25 @@ const config = {
         },
       }),
     ],
+    // Redocusaurus config
+    [
+      'redocusaurus',
+      {
+        // Plugin Options for loading OpenAPI files
+        specs: [
+          {
+            id: "rest-develop",
+            spec: "rest-develop.json",
+            route: "api/rest/develop"
+          },
+        ],
+        // Theme Options for modifying how redoc renders them
+        theme: {
+          // Change with your site colors
+          primaryColor: '#1890ff',
+        },
+      },
+    ],
   ],
 
   themeConfig:
@@ -80,6 +93,11 @@ const config = {
       colorMode: {
         disableSwitch: true,
       },
+      docs: {
+        sidebar: {
+          hideable: true
+        }
+      },
       navbar: {
         logo: {
           alt: "Arrow Logo",
@@ -87,6 +105,13 @@ const config = {
           href: "pathname:///",
         },
         items: [
+          {
+            type: "doc",
+            docId: "/category/apis",
+            position: "right",
+            label: "API",
+            className: "text-secondary",
+          },
           {
             type: "doc",
             docId: "intro",
@@ -156,6 +181,28 @@ const config = {
         darkTheme: darkCodeTheme,
         additionalLanguages: ['rust', 'toml']
       },
+      languageTabs: [
+        {
+            highlight: "bash",
+            language: "curl",
+            logoClass: "bash",
+        },
+        {
+            highlight: "python",
+            language: "python",
+            logoClass: "python",
+        },
+        {
+            highlight: "go",
+            language: "go",
+            logoClass: "go",
+        },
+        {
+            highlight: "javascript",
+            language: "nodejs",
+            logoClass: "nodejs",
+        },
+      ]
     }),
 };
 
