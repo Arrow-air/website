@@ -10,7 +10,7 @@ jobs:
   build-and-deploy:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
-      node-version: 14.x
+      node-version: 19.x
       environment: production
     secrets: inherit
     permissions:
