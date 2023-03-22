@@ -19,6 +19,9 @@ sidebar_position: 3
 
 This method allows the developer and reviewer to see all changes since the previous release.
 
+3. Clean up `fixup` commits
+On your `r#-final-review` branch, type in `git rebase -i autosquash origin/main` to autosquash all the fixup commits, if any.
+
 Why not create a `develop` -> `main` PR for the review?
 - Peer reviewers may request code changes.
 - `develop` is a protected branch that can only be pushed into through a PR.
