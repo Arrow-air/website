@@ -120,3 +120,4 @@ structs
 Vertipad
 vertipad
 vertipads
+autosquash
