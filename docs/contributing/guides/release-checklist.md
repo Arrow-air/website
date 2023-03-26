@@ -19,6 +19,11 @@ sidebar_position: 3
 
 This method allows the developer and reviewer to see all changes since the previous release.
 
+3. Clean up `fixup` commits
+On your `r#-final-review` branch, type in `git rebase -i --autosquash origin/main` to autosquash all the fixup commits, if any.
+
+Then, `git push -f` to force push changes back to the review branch.
+
 Why not create a `develop` -> `main` PR for the review?
 - Peer reviewers may request code changes.
 - `develop` is a protected branch that can only be pushed into through a PR.
@@ -27,7 +32,7 @@ Why not create a `develop` -> `main` PR for the review?
 ### :mag: Hold Review
 
 1. Inform peer reviewer(s) and await review comments.
-2. Push review fixes to your `r#-final-review` branch.
+2. Push review fixes to your `r#-final-review` branch *as a new commit* (i.e. "fix: address final review comments")
 3. After approval(s), when your code is passing all CI checks, you may merge to `main`.
 
 ### :broom: Cleanup
@@ -59,6 +64,7 @@ Please paste the following comment template into the review:
   - [ ] Accurate installation instructions
   - [ ] Current links to other documents
   - [ ] Arrow DAO links
+- [ ] Any instance of :construction: should genuinely be under construction
 
 ## Code (not applicable to examples/ folder)
 - [ ] No unhandled unwrap()s
@@ -67,16 +73,23 @@ Please paste the following comment template into the review:
 - [ ] Function arguments checked where possible
 - [ ] Sufficient logger (info, warn, and debug) messages
 - [ ] Sensible Types (unsigned vs. signed)
+- [ ] No `#[allow(dead_code)]` without good reason
+- [ ] End all error, info, and debug messages with punctuation (periods, etc.)
+- [ ] No FIXMEs or TODOs without a projected release (`TODO R4: etc.`)
 
 ## REST API
 - [ ] Return codes accurately documented with openapi
 - [ ] Return codes make sense
 - [ ] Sufficiently descriptive error messages
+- [ ] Do NOT reflect a user's bad input back at them in replies.
+    - i.e. "Warning: '{}' is not a valid entry." should instead be "Warning: invalid entry."
+    - Use debug messages to see the invalid argument.
 
 ## Cargo.toml(s)
 - [ ] Package versions correct
 - [ ] No minor versions specified
 - [ ] Links to crates.io package, not git branch
+- [ ] Must have `license-file = "LICENSE"` under `[package]`
 ```
 
 (Confirm items with an `x`, e.g. `- [x] Lorem ipsum`)
