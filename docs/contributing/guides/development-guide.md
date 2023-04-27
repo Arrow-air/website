@@ -57,37 +57,23 @@ sidebar_position: 1
 
 These extensions are **recommended**:
 
+### Generic
 ```bash
 # In VS Code Quick Open (Ctrl+P)
 ext install \
 bierner.github-markdown-preview \
-rust-lang.rust-analyzer \
-ms-python.python \
 docsmsft.docs-yaml \
-njpwerner.autodocstring \
 stkb.rewrap \
 eamodio.gitlens \
 ms-vscode-remote.vscode-remote-extensionpack \
 tamasfe.even-better-toml \
-EditorConfig.EditorConfig \
-zxh404.vscode-proto3 \
-4ops.terraform \
+EditorConfig.EditorConfig
 ```
 
 - [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview)
     - Includes `mermaid` (uml) rendering and emoji rendering in markdown preview pane
-- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer&ssr=false#overview)
-    - Linting, "go to" support, types and docs on hover, etc.
-- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-    - Syntax highlighting, linting, intellisense
 - [docs-yaml](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-yaml&ssr=false)
     - Intellisense, validation for YAML files
-- [Even Better
-  TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
-    - TOML files are used for Rust configuration
-    - Validation, syntax highlighting
-- [autoDocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)
-    - Python docstring generator
 - [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap)
     - Wrap code comments to fit within n characters
     - Need to enable this in Preferences->Settings->type "Rewrap"
@@ -96,12 +82,57 @@ zxh404.vscode-proto3 \
     - Hover over lines to see commit history, last author
 - [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
     - For working over SSH
+- [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
+    - TOML files are used for Rust configuration
+    - Validation, syntax highlighting
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
     - Override user/workspace settings with settings found in `.editorconfig` files.
+
+### Arrow Rust projects
+```bash
+# In VS Code Quick Open (Ctrl+P)
+ext install \
+rust-lang.rust-analyzer \
+zxh404.vscode-proto3 \
+njpwerner.autodocstring \
+ms-python.python
+```
+
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer&ssr=false#overview)
+    - Linting, "go to" support, types and docs on hover, etc.
 - [VS Code Proto3](https://marketplace.visualstudio.com/items?itemName=zxh404.vscode-proto3)
     - Syntax highlighting for `.proto` files
+- [autoDocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)
+    - Python docstring generator
+- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+    - Syntax highlighting, linting, intellisense
+
+### Arrow Web projects
+```bash
+# In VS Code Quick Open (Ctrl+P)
+ext install \
+esbenp.prettier-vscode \
+johnsoncodehk.volar
+
+```
+
+- [Prettier - Code formatter](https://open-vsx.org/extension/esbenp/prettier-vscode)
+    - Auto formatting files based on .prettierrc.yaml config
+- [Vue Language Features (Volar)](https://open-vsx.org/extension/Vue/volar)
+    - Syntax highlighting for .vue files
+    - Additional Vue development features
+    - When formatting .vue files, choose prettier as the default instead!
+
+### Arrow Terraform projects
+```bash
+# In VS Code Quick Open (Ctrl+P)
+ext install \
+4ops.terraform
+```
+
 - [Terraform](https://marketplace.visualstudio.com/items?itemName=4ops.terraform)
     - Syntax highlighting for `.tf` files
+
 
 ## :construction: Git Guidelines
 
@@ -136,11 +167,34 @@ README.md"`.
 
 ### :speech_balloon: Commit Messages
 
-As described [here](https://github.com/marketplace/actions/dynamic-badges#git-commit-messages):
-- Message should be in present tense (**Add new feature** instead of **Added new feature**)
-  - Should be written as if giving a command or instruction (**Remove bug X**, **Update README.md**)
-- Message should start with a capital letter (**Add new feature**)
-- Emojis, if used, should be at the start of the message (**:tada: Add new feature**)
+For most of the repositories, we've set up an auto-release process where commit
+messages will be used to generate a CHANGELOG.md file and determine the new
+release version.
+This makes it extra important to use the correct messages when committing your
+code.
+Follow the guidelines as described below, which are based on [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
+```
+<type>[(optional scope)]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+- The title should start with a change `type` (lower case):
+  - build -- Changes to build process, does not include code changes, results in ****Patch**** release
+  - ci    -- Changes to CI process, does not include code changes, results in **Patch** release
+  - docs  -- Changes to Docs / .md files, does not include code changes, results in **Patch** release
+  - fix   -- Patches a bug, results in **Patch** release
+  - perf  -- Performance fix, results in **Patch** release
+  - refactor -- Code refactor changes, results in **Patch** release
+  - style    -- Code / file formatting and style fixes, results in **Patch** release
+  - test     -- Changes to Tests, results in **Patch** release
+  - feat  -- Introduces a new feature, results in **Minor** release
+- The title `description` should start lower case (**Add new feature**)
+- Adding `!` after the `type` in the title, will indicate a breaking release.
+  This results in a **Major** release. A BREAKING CHANGE notice
+  can be added to the commit footer.
 
 Additionally:
 - Do not exceed a line length of 50 characters for commit title
