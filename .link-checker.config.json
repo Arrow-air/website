@@ -2,6 +2,9 @@
   "ignorePatterns": [
     {
       "pattern": "{link}"
+    },
+    {
+      "pattern": "twitter"
     }
   ],
   "httpHeaders": [
