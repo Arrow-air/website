@@ -2,18 +2,40 @@
   "inputs": [
     {
       "inputURL": "https://www.arrowair.com/api-docs/rest/svc-cargo/develop/openapi.json",
+      "pathModification": {
+        "stripStart": "/cargo",
+        "prepend": "/cargo"
+      },
       "description": {
         "append": true
       }
     },
     {
       "inputURL": "https://www.arrowair.com/api-docs/rest/svc-telemetry/develop/openapi.json",
+      "pathModification": {
+        "stripStart": "/telemetry",
+        "prepend": "/telemetry"
+      },
       "description": {
         "append": true
       }
     },
     {
       "inputURL": "https://www.arrowair.com/api-docs/rest/svc-assets/develop/openapi.json",
+      "pathModification": {
+        "stripStart": "/assets",
+        "prepend": "/assets"
+      },
+      "description": {
+        "append": true
+      }
+    },
+    {
+      "inputURL": "https://www.arrowair.com/api-docs/rest/svc-atc/develop/openapi.json",
+      "pathModification": {
+        "stripStart": "/atc",
+        "prepend": "/atc"
+      },
       "description": {
         "append": true
       }

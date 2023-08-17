@@ -27,7 +27,7 @@ Chinese open standard for EVs, seems they are trying to establish standards for 
 https://www.polestar-forum.com/threads/geely-holding-launches-open-source-electric-vehicle-architecture.495/
 
 Autoware Software Designed Vehicle standards, github to control systems below, full stack view of a control system
-https://www.autoware.org/autoware-open-ad-kit
+https://autoware.org/open-ad-kit/
 https://github.com/autocore-ai/SDV
 
 Interesting passive cooling system via internal radiators by battery pack
