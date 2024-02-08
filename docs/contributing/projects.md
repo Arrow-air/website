@@ -28,6 +28,6 @@ This could be split into multiple different projects. We've felt some friction i
 
 - Fork-ability of parts and part -> assembly management
 
-- Easy and permisonless onboarding for new contributors to get to work with our CAD files
+- Easy and permissionless onboarding for new contributors to get to work with our CAD files
 
 - A "place order" button that routes the order to a nearby Arrow workshop or approved supplier for fulfillment
