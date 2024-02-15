@@ -123,3 +123,5 @@ vertipads
 autosquash
 esbenp
 johnsoncodehk
+permissionless
+stablecoins
