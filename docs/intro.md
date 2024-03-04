@@ -18,7 +18,7 @@ All of the business logic for Arrow will live on the Ethereum blockchain. This w
 
 #### How is open-source hardware possible?
 
-As software technology advances, we can do more and more of the engineering process without a physical presence. Instead of machined prototypes and wind tunnels, we can use CAD models and CFD testing. This type of virtual iteration will be expanding to almost the entire engineering stack over the next decade.
+As software technology advances, we can do more and more of the engineering process without a physical presence. Instead of machined prototypes and wind tunnels, we can use CAD models and CFD analysis. This type of virtual iteration will be expanding to almost the entire engineering stack over the next decade.
 
 Blockchain technology allows us to easily reward contributors for their ideas. Alignment of incentives is much easier now that we are able to establish a culture of rewarding valuable ideas with a token allocation.
 
