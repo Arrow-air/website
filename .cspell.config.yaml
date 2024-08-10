@@ -24,3 +24,4 @@ ignorePaths:
   - "out"
   - "coverage"
   - "src/*.plan"
+noConfigSearch: true
