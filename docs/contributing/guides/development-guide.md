@@ -88,25 +88,6 @@ EditorConfig.EditorConfig
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
     - Override user/workspace settings with settings found in `.editorconfig` files.
 
-### Arrow Rust projects
-```bash
-# In VS Code Quick Open (Ctrl+P)
-ext install \
-rust-lang.rust-analyzer \
-zxh404.vscode-proto3 \
-njpwerner.autodocstring \
-ms-python.python
-```
-
-- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer&ssr=false#overview)
-    - Linting, "go to" support, types and docs on hover, etc.
-- [VS Code Proto3](https://marketplace.visualstudio.com/items?itemName=zxh404.vscode-proto3)
-    - Syntax highlighting for `.proto` files
-- [autoDocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)
-    - Python docstring generator
-- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-    - Syntax highlighting, linting, intellisense
-
 ### Arrow Web projects
 ```bash
 # In VS Code Quick Open (Ctrl+P)
@@ -234,14 +215,14 @@ All Arrow GitHub repositories are started from templates and are provisioned by 
 Templates contain a Makefile which is propagated to all repositories.
 
 Each repository has a Makefile which uses [make](https://www.gnu.org/software/make/manual/make.html) utility to run build targets.
-All make targets call specific commands from a docker container [arrow-rust](https://ghcr.io/arrow-air/tools/arrow-rust).
-Arrow-rust is a docker image with all the tools needed to build and test Rust code so developers don't have to install them locally.
+All make targets call specific commands from a docker container [arrow-sanitychecks](https://ghcr.io/arrow-air/tools/arrow-sanitychecks).
+arrow-sanitychecks is a docker image with linting tools needed to validate code so developers don't have to install them locally.
 - they can be run separately - e.g. `make cspell-test`.
 - or multiple targets can be run at once. This is done during pre-commit hooks or PR checks. - `make test`.
 - or all targets to run test, build and release phases - `make all`.
 
 ### Makefile targets
-Run `make help` to see all available targets or explore [template Makefile](https://github.com/Arrow-air/svc-template-rust/blob/develop/Makefile)
+Run `make help` to see all available targets or explore [template Makefile](https://github.com/Arrow-air/tf-github/blob/main/src/templates/all/Makefile)
 and linked Makefiles.
 
 

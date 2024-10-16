@@ -5,6 +5,12 @@
     },
     {
       "pattern": "twitter"
+    },
+    {
+      "pattern": "http://localhost"
+    },
+    {
+      "pattern": "https://www.greencarcongress.com"
     }
   ],
   "httpHeaders": [
@@ -25,5 +31,5 @@
       "replacement": "{{BASEURL}}/src/pages/$1.md"
     }
   ],
-  "timeout": "20s"
+  "timeout": "5s"
 }

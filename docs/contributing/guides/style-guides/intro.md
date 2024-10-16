@@ -11,7 +11,6 @@ Why use style guides? In short:
 :exclamation: We may point to other style guides in addition to defining our own guidelines.
 
 ### Programming Languages
-- [Rust](./rust.md)
 - [Python 3](./python3.md)
 - [TypeScript](./typescript.md)
 
