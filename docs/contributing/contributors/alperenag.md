@@ -1,7 +1,7 @@
 ---
 tags:
   - contributors
-  - aerospace engineeer
+  - aerospace engineer
   - governance
 ---
 
