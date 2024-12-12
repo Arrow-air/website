@@ -12,7 +12,7 @@ tags:
 
 ## About
 
-Electrical engineer by education, crypto nerd by hobby. I don't consider myself a write but I enjoy taking notes. Hardly serious
+Electrical engineer by education, crypto nerd by hobby. I don't consider myself a writer but I enjoy taking notes. Hardly serious
 
 *Fun fact:* I really enjoy food and beer 
 
