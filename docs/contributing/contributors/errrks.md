@@ -2,7 +2,7 @@
 tags:
   - contributors
   - Electrical Engineer
-  - Unofficial Money Man 
+  - Unofficial Treasurer  
   - Governance 
   - All the weird crypto things
   
