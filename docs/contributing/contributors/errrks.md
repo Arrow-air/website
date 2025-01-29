@@ -19,7 +19,7 @@ Electrical engineer by education, crypto nerd by hobby. I don't consider myself 
 ### Team contributions
 
 * Electrical layout designs for Spearhead, Feather, and Quiver
-* Tokenmoics research 
+* Tokenomics research 
 * Note taking
 * Workshop monkey 
 * Proposal writing 
