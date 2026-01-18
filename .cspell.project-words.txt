@@ -27,6 +27,7 @@ Consts
 Coordinape
 crossorigin
 datetime
+devkit
 Dework
 docsmsft
 Docstrings
@@ -54,14 +55,18 @@ hideable
 Holla
 htmlfile
 imag
+INPLACE
 iteratees
 johnsoncodehk
 lofi
 Lotte
 makefiles
 MCAD
+mdfile
 metaverse
 microservices
+mkdocs
+mktemp
 mozfullscreenchange
 msfullscreenchange
 mstruebing
@@ -80,6 +85,7 @@ phlgwv
 Photoshop
 Pixhawk
 PIXKIT
+prestart
 proto
 Proto
 Pushkarev
