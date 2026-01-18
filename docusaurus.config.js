@@ -66,25 +66,25 @@ const config = {
         },
       }),
     ],
-    // Redocusaurus config
-    [
-      'redocusaurus',
-      {
-        // Plugin Options for loading OpenAPI files
-        specs: [
-          {
-            id: "rest-develop",
-            spec: "rest-develop.json",
-            route: "api/rest/develop"
-          },
-        ],
-        // Theme Options for modifying how redoc renders them
-        theme: {
-          // Change with your site colors
-          primaryColor: '#1890ff',
-        },
-      },
-    ],
+    // Redocusaurus config (commented out - rest-develop.json is empty)
+    // [
+    //   'redocusaurus',
+    //   {
+    //     // Plugin Options for loading OpenAPI files
+    //     specs: [
+    //       {
+    //         id: "rest-develop",
+    //         spec: "rest-develop.json",
+    //         route: "api/rest/develop"
+    //       },
+    //     ],
+    //     // Theme Options for modifying how redoc renders them
+    //     theme: {
+    //       // Change with your site colors
+    //       primaryColor: '#1890ff',
+    //     },
+    //   },
+    // ],
   ],
 
   themeConfig:
@@ -105,13 +105,6 @@ const config = {
           href: "pathname:///",
         },
         items: [
-          {
-            type: "doc",
-            docId: "/category/apis",
-            position: "right",
-            label: "API",
-            className: "text-secondary",
-          },
           {
             type: "doc",
             docId: "intro",
