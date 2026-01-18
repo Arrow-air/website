@@ -96,13 +96,13 @@ for source in "${DOCS_SOURCES[@]}"; do
 	if [ ! -f "$target_path/_category_.json" ]; then
 		cat > "$target_path/_category_.json" << EOF
 {
-  "label": "${sidebar_label}",
-  "position": ${sidebar_position},
-  "collapsed": true,
-  "link": {
-    "type": "generated-index",
-    "description": "Documentation for ${sidebar_label}"
-  }
+	"label": "${sidebar_label}",
+	"position": ${sidebar_position},
+	"collapsed": true,
+	"link": {
+		"type": "generated-index",
+		"description": "Documentation for ${sidebar_label}"
+	}
 }
 EOF
 		echo "  Created _category_.json for sidebar"

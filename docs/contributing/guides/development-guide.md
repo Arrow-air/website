@@ -189,7 +189,7 @@ Keep these in mind always, especially when squashing commits (one message).
 - Pull Requests should target the `develop` branch
     - For the [website](https://github.com/Arrow-air/website) repository, target the `staging` branch
 - Keep PRs small and easy to review!
-    - Our [reviewers](./peer-review.md) may ask you to divide your PR into
+    - Our reviewers may ask you to divide your PR into
       multiple smaller PRs.
 - If the commit history is messy, recommend "Squash and Merge" when pushing in
   changes.
