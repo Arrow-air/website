@@ -22,7 +22,7 @@ jobs:
       contents: read
     steps:
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
           role-session-name: arrow-website-invalide-cloudfront
