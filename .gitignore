@@ -23,4 +23,4 @@ yarn-error.log*
 
 # Imported external docs (pulled at build time)
 docs/project-quiver/
-static/project-quiver/
+static/docs/project-quiver/

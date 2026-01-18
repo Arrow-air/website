@@ -66,7 +66,8 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 		{} \;
 
 	# Move HTML files to static folder (Docusaurus serves these as-is)
-	static_path="static/$key"
+	# Put under static/docs/ so URLs match the /docs/... path
+	static_path="static/docs/$key"
 
 	# Clean up old static folder
 	rm -rf "$static_path"
@@ -90,7 +91,7 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 		md_rel_dir=$(dirname "${mdfile#$target_path/}")
 
 		$SED_INPLACE \
-			-e "s|\./assets/\([^)]*\.html\)|/$key/$md_rel_dir/assets/\1|g" \
+			-e "s|\./assets/\([^)]*\.html\)|/docs/$key/$md_rel_dir/assets/\1|g" \
 			"$mdfile" 2>/dev/null || true
 	done
 
