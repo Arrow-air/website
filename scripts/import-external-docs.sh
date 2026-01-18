@@ -91,7 +91,7 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 		md_rel_dir=$(dirname "${mdfile#$target_path/}")
 
 		$SED_INPLACE \
-			-e "s|\./assets/\([^)]*\.html\)|/docs/$key/$md_rel_dir/assets/\1|g" \
+			-e "s|\./assets/\([^)]*\.html\)|pathname:///docs/$key/$md_rel_dir/assets/\1|g" \
 			"$mdfile" 2>/dev/null || true
 	done
 
