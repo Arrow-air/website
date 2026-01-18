@@ -1,8 +1,9 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const { themes } = require("prism-react-renderer");
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.dracula;
 
 // External docs config - shared with import script (external-docs.json)
 const externalDocs = require('./external-docs.json');
@@ -14,33 +15,35 @@ const config = {
   url: "https://arrowair.com",
   baseUrl: "/",
   onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.
 
+  markdown: {
+    format: 'detect',
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
+  },
+
   themes: [
-    // ... Your other themes.
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        indexDocs: true,
-        indexBlog: true,
-        blogDir: "blog/",
-        docsDir: "docs/",
-        language: "en",
-        searchResultLimits: 8,
-        highlightSearchTermsOnTargetPage: true,
-        explicitSearchResultPath: true,
-        // ... Your options.
-        // `hashed` is recommended as long-term-cache of index file is possible.
-        hashed: true,
-        // For Docs using Chinese, The `language` is recommended to set to:
-        // ```
-        // language: ["en", "zh"],
-        // ```
-      },
-    ],
+    // Temporarily disabled - causing conflict with Docusaurus 3
+    // [
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   {
+    //     indexDocs: true,
+    //     indexBlog: true,
+    //     blogDir: "blog/",
+    //     docsDir: "docs/",
+    //     language: "en",
+    //     searchResultLimits: 8,
+    //     highlightSearchTermsOnTargetPage: true,
+    //     explicitSearchResultPath: true,
+    //     hashed: true,
+    //   },
+    // ],
   ],
 
   stylesheets: [
