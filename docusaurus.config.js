@@ -4,6 +4,17 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
+// External docs imported at build time - maps local path to source repo
+// Add new repos here when importing docs from other repositories
+const externalDocs = {
+  'project-quiver': {
+    repo: 'Arrow-air/project-quiver',
+    branch: 'main',
+    docsPath: 'docs', // path in source repo
+  },
+  // Example: 'another-project': { repo: 'Arrow-air/another-project', branch: 'main', docsPath: 'docs' },
+};
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Arrow",
@@ -55,7 +66,17 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
+          editUrl: ({ docPath }) => {
+            // Check if this doc is from an external repo
+            for (const [folder, config] of Object.entries(externalDocs)) {
+              if (docPath.startsWith(`${folder}/`)) {
+                const relativePath = docPath.replace(`${folder}/`, '');
+                return `https://github.com/${config.repo}/edit/${config.branch}/${config.docsPath}/${relativePath}`;
+              }
+            }
+            // Default to website repo
+            return `https://github.com/Arrow-air/website/edit/staging/docs/${docPath}`;
+          },
         },
         blog: {
           showReadingTime: true,
