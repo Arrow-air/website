@@ -4,16 +4,8 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
-// External docs imported at build time - maps local path to source repo
-// Add new repos here when importing docs from other repositories
-const externalDocs = {
-  'project-quiver': {
-    repo: 'Arrow-air/project-quiver',
-    branch: 'main',
-    docsPath: 'docs', // path in source repo
-  },
-  // Example: 'another-project': { repo: 'Arrow-air/another-project', branch: 'main', docsPath: 'docs' },
-};
+// External docs config - shared with import script (external-docs.json)
+const externalDocs = require('./external-docs.json');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
