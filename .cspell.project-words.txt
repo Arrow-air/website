@@ -44,6 +44,7 @@ esbenp
 extensionpack
 Flesch-Kincaid
 flexbox
+frontmatter
 Gantt
 gigafactory
 Goodluck
