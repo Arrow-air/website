@@ -29,21 +29,20 @@ const config = {
   },
 
   themes: [
-    // Temporarily disabled - causing conflict with Docusaurus 3
-    // [
-    //   require.resolve("@easyops-cn/docusaurus-search-local"),
-    //   {
-    //     indexDocs: true,
-    //     indexBlog: true,
-    //     blogDir: "blog/",
-    //     docsDir: "docs/",
-    //     language: "en",
-    //     searchResultLimits: 8,
-    //     highlightSearchTermsOnTargetPage: true,
-    //     explicitSearchResultPath: true,
-    //     hashed: true,
-    //   },
-    // ],
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        indexDocs: true,
+        indexBlog: true,
+        blogDir: "blog/",
+        docsDir: "docs/",
+        language: "en",
+        searchResultLimits: 8,
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        hashed: true,
+      },
+    ],
   ],
 
   stylesheets: [
