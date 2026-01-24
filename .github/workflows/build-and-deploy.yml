@@ -22,16 +22,18 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up node ${{ inputs.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
-          cache: yarn
+          cache: npm
+      - name: Install jq
+        run: sudo apt-get install -y jq
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
           role-session-name: arrow-website-pull-docs
@@ -43,7 +45,7 @@ jobs:
         run: |
           npx openapi-merge-cli --config develop.openapi-merge.json
       - name: Build
-        run: yarn build
+        run: npm run build
       - name: Deploy to ${{ inputs.environment }} S3
         id: sync_s3
         run: |

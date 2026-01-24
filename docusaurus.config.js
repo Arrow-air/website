@@ -1,8 +1,12 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const { themes } = require("prism-react-renderer");
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.dracula;
+
+// External docs config - shared with import script (external-docs.json)
+const externalDocs = require('./external-docs.json');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -11,13 +15,20 @@ const config = {
   url: "https://arrowair.com",
   baseUrl: "/",
   onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.
 
+  markdown: {
+    format: 'detect',
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
+  },
+
   themes: [
-    // ... Your other themes.
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
@@ -29,13 +40,7 @@ const config = {
         searchResultLimits: 8,
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
-        // ... Your options.
-        // `hashed` is recommended as long-term-cache of index file is possible.
         hashed: true,
-        // For Docs using Chinese, The `language` is recommended to set to:
-        // ```
-        // language: ["en", "zh"],
-        // ```
       },
     ],
   ],
@@ -55,7 +60,17 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/Arrow-air/website/edit/staging/",
+          editUrl: ({ docPath }) => {
+            // Check if this doc is from an external repo
+            for (const [folder, config] of Object.entries(externalDocs)) {
+              if (docPath.startsWith(`${folder}/`)) {
+                const relativePath = docPath.replace(`${folder}/`, '');
+                return `https://github.com/${config.repo}/edit/${config.branch}/${config.docsPath}/${relativePath}`;
+              }
+            }
+            // Default to website repo
+            return `https://github.com/Arrow-air/website/edit/staging/docs/${docPath}`;
+          },
         },
         blog: {
           showReadingTime: true,
@@ -66,25 +81,25 @@ const config = {
         },
       }),
     ],
-    // Redocusaurus config
-    [
-      'redocusaurus',
-      {
-        // Plugin Options for loading OpenAPI files
-        specs: [
-          {
-            id: "rest-develop",
-            spec: "rest-develop.json",
-            route: "api/rest/develop"
-          },
-        ],
-        // Theme Options for modifying how redoc renders them
-        theme: {
-          // Change with your site colors
-          primaryColor: '#1890ff',
-        },
-      },
-    ],
+    // Redocusaurus config (commented out - rest-develop.json is empty)
+    // [
+    //   'redocusaurus',
+    //   {
+    //     // Plugin Options for loading OpenAPI files
+    //     specs: [
+    //       {
+    //         id: "rest-develop",
+    //         spec: "rest-develop.json",
+    //         route: "api/rest/develop"
+    //       },
+    //     ],
+    //     // Theme Options for modifying how redoc renders them
+    //     theme: {
+    //       // Change with your site colors
+    //       primaryColor: '#1890ff',
+    //     },
+    //   },
+    // ],
   ],
 
   themeConfig:
@@ -105,13 +120,6 @@ const config = {
           href: "pathname:///",
         },
         items: [
-          {
-            type: "doc",
-            docId: "/category/apis",
-            position: "right",
-            label: "API",
-            className: "text-secondary",
-          },
           {
             type: "doc",
             docId: "intro",
