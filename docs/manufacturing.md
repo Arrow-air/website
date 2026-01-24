@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: How Arrow coordinates open source hardware manufacturing through a decentralized network of community manufacturers.
 ---
 
 # Manufacturing at Arrow
@@ -14,4 +15,6 @@ The current specification envisions an Arrow-operated web store and protocol tha
 
 As we evolve the concept, details will change from the original specification, but the core idea of an open network of manufacturers remains central to Arrow's model. By allowing anyone to build our designs, we can bring products to market quickly, with global availability and affordable costs for customers.
 
-If you're interested in joining Arrow as a manufacturer, or in helping build our manufacturing protocol, please introduce yourself on our [Discord](http://www.discord.gg/arrow) or [governance forum](https://dao.arrowair.com/) and we'd be happy to discuss more.
+:::tip Get Involved
+If you're interested in joining Arrow as a manufacturer, or in helping build our manufacturing protocol, please introduce yourself on our [Discord](https://discord.gg/arrow) or [governance forum](https://dao.arrowair.com/) and we'd be happy to discuss more.
+:::
