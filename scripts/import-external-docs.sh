@@ -97,7 +97,21 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 
 	# Create _category_.json for sidebar if it doesn't exist in source
 	if [ ! -f "$target_path/_category_.json" ]; then
-		cat > "$target_path/_category_.json" << EOF
+		if [ -f "$target_path/index.md" ] || [ -f "$target_path/index.mdx" ]; then
+			cat > "$target_path/_category_.json" << EOF
+{
+	"label": "${sidebar_label}",
+	"position": ${sidebar_position},
+	"collapsed": true,
+	"link": {
+		"type": "doc",
+		"id": "${key}/index"
+	}
+}
+EOF
+			echo "  Created _category_.json (linked to index doc)"
+		else
+			cat > "$target_path/_category_.json" << EOF
 {
 	"label": "${sidebar_label}",
 	"position": ${sidebar_position},
@@ -108,7 +122,8 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 	}
 }
 EOF
-		echo "  Created _category_.json for sidebar"
+			echo "  Created _category_.json (generated index)"
+		fi
 	fi
 
 	# Cleanup
