@@ -1,0 +1,9 @@
+{
+	"label": "About Arrow",
+	"position": 1,
+	"collapsed": true,
+	"link": {
+		"type": "doc",
+		"id": "about-arrow/index"
+	}
+}
