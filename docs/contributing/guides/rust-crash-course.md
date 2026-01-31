@@ -1,3 +1,7 @@
+---
+draft: true
+---
+
 # Arrow Rust Crash Course
 
 Through these projects you will learn what you need to contribute to the Arrow Rust codebase.
