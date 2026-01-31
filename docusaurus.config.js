@@ -122,7 +122,7 @@ const config = {
         items: [
           {
             type: "doc",
-            docId: "intro",
+            docId: "about-arrow/index",
             position: "right",
             label: "Docs",
             className: "text-secondary",
