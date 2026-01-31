@@ -17,7 +17,7 @@ misunderstandings arise when local idioms or slang are introduced.
 
 In an attention economy, first impressions matter in forming long-term partnerships. The Arrow brand will benefit from consistent writing styles by presenting an accessible, professional, organized and committed front that attracts contributors and business partners. 
 
-## :book: Guidelines 
+## 📖 Guidelines 
 ### :telescope: Scope
 The style guide applies to all official and public-facing materials.
  
