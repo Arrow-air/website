@@ -1,6 +1,7 @@
 ---
 draft: true
 ---
+<!-- This page is hidden due to the fact that Arrow doesn't currently maintain any Rust codebase -->
 
 # Arrow Rust Crash Course
 
