@@ -23,8 +23,6 @@ https://ree.auto/
 Fully open source looking chassis design from Open Motors
 https://www.openmotors.co/product/tabbyevo/
 
-Chinese open standard for EVs, seems they are trying to establish standards for EV architecture as we speak. 
-https://www.polestar-forum.com/threads/geely-holding-launches-open-source-electric-vehicle-architecture.495/
 
 Autoware Software Designed Vehicle standards, github to control systems below, full stack view of a control system
 https://autoware.org/open-ad-kit/
