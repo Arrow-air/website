@@ -37,15 +37,19 @@ const watchMode = process.argv.includes('--watch');
 const LIVERELOAD_SCRIPT = `
 <script>
 (function(){
-  var ws = new WebSocket('ws://'+location.host+'/ws');
   var ready = false;
-  ws.onmessage = function(e) {
-    try { var m = JSON.parse(e.data); } catch(e) { return; }
-    if (m.type === 'ok' || m.type === 'still-ok') {
-      if (ready) location.reload();
-      ready = true;
-    }
-  };
+  function connect() {
+    var ws = new WebSocket('ws://'+location.host+'/ws');
+    ws.onmessage = function(e) {
+      try { var m = JSON.parse(e.data); } catch(e) { return; }
+      if (m.type === 'ok' || m.type === 'still-ok') {
+        if (ready) location.reload();
+        ready = true;
+      }
+    };
+    ws.onclose = function() { setTimeout(connect, 1000); };
+  }
+  connect();
 })();
 </script>`;
 
