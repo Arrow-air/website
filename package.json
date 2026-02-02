@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "import-docs": "bash scripts/import-external-docs.sh",
-    "prestart": "bash scripts/import-external-docs.sh",
-    "prebuild": "bash scripts/import-external-docs.sh",
+    "prestart": "node scripts/build-html.js && bash scripts/import-external-docs.sh",
+    "prebuild": "node scripts/build-html.js && bash scripts/import-external-docs.sh",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",

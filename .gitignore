@@ -21,6 +21,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Generated HTML pages (built from templates/)
+static/index.html
+static/quiver.html
+static/engineering.html
+static/community.html
+
 # Imported external docs (pulled at build time)
 docs/project-quiver/
 static/docs/project-quiver/

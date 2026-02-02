@@ -1,0 +1,11 @@
+{
+  "output": "static/quiver.html",
+  "title": "Quiver 2",
+  "wfPageId": "6923215dcff625bc817bceb1",
+  "metaTags": [
+    "<meta content=\"Quiver 2\" property=\"og:title\">",
+    "<meta content=\"Quiver 2\" property=\"twitter:title\">"
+  ],
+  "extraHead": "",
+  "bodyFile": "quiver.body.html"
+}

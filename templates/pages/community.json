@@ -1,0 +1,11 @@
+{
+  "output": "static/community.html",
+  "title": "Arrow - Community",
+  "wfPageId": "686bc51e4de6de0bbceef192",
+  "metaTags": [
+    "<meta content=\"Arrow - Community\" property=\"og:title\">",
+    "<meta content=\"Arrow - Community\" property=\"twitter:title\">"
+  ],
+  "extraHead": "  <link href=\"/css/community-style.css\" rel=\"stylesheet\" type=\"text/css\">",
+  "bodyFile": "community.body.html"
+}
