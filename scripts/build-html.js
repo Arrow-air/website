@@ -29,6 +29,25 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const TEMPLATES = path.join(ROOT, 'templates');
 const PAGES_DIR = path.join(TEMPLATES, 'pages');
+const watchMode = process.argv.includes('--watch');
+
+// In watch mode, inject a script that connects to webpack-dev-server's
+// WebSocket. When webpack recompiles (triggered by our updated static
+// files), the script reloads the page automatically.
+const LIVERELOAD_SCRIPT = `
+<script>
+(function(){
+  var ws = new WebSocket('ws://'+location.host+'/ws');
+  var ready = false;
+  ws.onmessage = function(e) {
+    try { var m = JSON.parse(e.data); } catch(e) { return; }
+    if (m.type === 'ok' || m.type === 'still-ok') {
+      if (ready) location.reload();
+      ready = true;
+    }
+  };
+})();
+</script>`;
 
 function loadBaseTemplate() {
   return fs.readFileSync(path.join(TEMPLATES, 'base.html'), 'utf8')
@@ -79,6 +98,11 @@ function buildAll() {
       extraScripts = fs.readFileSync(path.join(PAGES_DIR, config.extraScriptsFile), 'utf8').trimEnd();
     }
     html = replacePlaceholder(html, '{{EXTRA_SCRIPTS}}', extraScripts);
+
+    // In watch mode, inject livereload script before </body>
+    if (watchMode) {
+      html = html.replace('</body>', LIVERELOAD_SCRIPT + '\n</body>');
+    }
 
     const outputPath = path.join(ROOT, config.output);
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
