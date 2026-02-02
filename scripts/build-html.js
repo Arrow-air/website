@@ -26,6 +26,10 @@ const ROOT = path.resolve(__dirname, '..');
 const TEMPLATES = path.join(ROOT, 'templates');
 const PAGES_DIR = path.join(TEMPLATES, 'pages');
 
+// In dev mode (npm start), skip index.html to avoid conflicting with
+// Docusaurus's SPA shell. All other pages work fine in dev mode.
+const isDevServer = process.env.npm_lifecycle_event === 'prestart';
+
 // Load the shared page skeleton (contains {{INCLUDE:…}} and {{…}} placeholders).
 // Strip the leading HTML comment — it documents the placeholder syntax for
 // developers reading the template source, but shouldn't appear in output.
@@ -55,6 +59,12 @@ const configs = fs.readdirSync(PAGES_DIR).filter(f => f.endsWith('.json'));
 
 for (const configFile of configs) {
   const config = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, configFile), 'utf8'));
+
+  if (isDevServer && config.output === 'static/index.html') {
+    console.log('Skipped: static/index.html (conflicts with Docusaurus dev server)');
+    continue;
+  }
+
   let html = baseTemplate;
 
   // Step 1 — Inline shared partials (navbar, footer, head styles, global styles)

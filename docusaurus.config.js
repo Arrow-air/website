@@ -45,6 +45,10 @@ const config = {
     ],
   ],
 
+  plugins: [
+    require.resolve('./plugins/dev-homepage'),
+  ],
+
   stylesheets: [
     { href: "https://fonts.googleapis.com", rel: "preconnect" },
     { href: "https://fonts.gstatic.com", rel: "preconnect" },
