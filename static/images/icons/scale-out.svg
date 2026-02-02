@@ -1,0 +1,64 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Network grid with nodes - detailed 8-bit style -->
+  <!-- Top left node -->
+  <rect x="4" y="4" width="4" height="4" fill="white"/>
+  <rect x="8" y="4" width="4" height="4" fill="white"/>
+  <rect x="4" y="8" width="4" height="4" fill="white"/>
+  <rect x="8" y="8" width="4" height="4" fill="white"/>
+  <!-- Top right node -->
+  <rect x="52" y="4" width="4" height="4" fill="white"/>
+  <rect x="56" y="4" width="4" height="4" fill="white"/>
+  <rect x="52" y="8" width="4" height="4" fill="white"/>
+  <rect x="56" y="8" width="4" height="4" fill="white"/>
+  <!-- Connection lines top -->
+  <rect x="16" y="8" width="4" height="4" fill="white"/>
+  <rect x="24" y="8" width="4" height="4" fill="white"/>
+  <rect x="36" y="8" width="4" height="4" fill="white"/>
+  <rect x="44" y="8" width="4" height="4" fill="white"/>
+  <!-- Diagonal connections -->
+  <rect x="12" y="12" width="4" height="4" fill="white"/>
+  <rect x="48" y="12" width="4" height="4" fill="white"/>
+  <rect x="16" y="16" width="4" height="4" fill="white"/>
+  <rect x="44" y="16" width="4" height="4" fill="white"/>
+  <rect x="20" y="20" width="4" height="4" fill="white"/>
+  <rect x="40" y="20" width="4" height="4" fill="white"/>
+  <!-- Center node (larger) -->
+  <rect x="24" y="24" width="4" height="4" fill="white"/>
+  <rect x="28" y="24" width="4" height="4" fill="white"/>
+  <rect x="32" y="24" width="4" height="4" fill="white"/>
+  <rect x="36" y="24" width="4" height="4" fill="white"/>
+  <rect x="24" y="28" width="4" height="4" fill="white"/>
+  <rect x="28" y="28" width="4" height="4" fill="white"/>
+  <rect x="32" y="28" width="4" height="4" fill="white"/>
+  <rect x="36" y="28" width="4" height="4" fill="white"/>
+  <rect x="24" y="32" width="4" height="4" fill="white"/>
+  <rect x="28" y="32" width="4" height="4" fill="white"/>
+  <rect x="32" y="32" width="4" height="4" fill="white"/>
+  <rect x="36" y="32" width="4" height="4" fill="white"/>
+  <rect x="24" y="36" width="4" height="4" fill="white"/>
+  <rect x="28" y="36" width="4" height="4" fill="white"/>
+  <rect x="32" y="36" width="4" height="4" fill="white"/>
+  <rect x="36" y="36" width="4" height="4" fill="white"/>
+  <!-- Diagonal connections bottom -->
+  <rect x="20" y="40" width="4" height="4" fill="white"/>
+  <rect x="40" y="40" width="4" height="4" fill="white"/>
+  <rect x="16" y="44" width="4" height="4" fill="white"/>
+  <rect x="44" y="44" width="4" height="4" fill="white"/>
+  <rect x="12" y="48" width="4" height="4" fill="white"/>
+  <rect x="48" y="48" width="4" height="4" fill="white"/>
+  <!-- Connection lines bottom -->
+  <rect x="16" y="52" width="4" height="4" fill="white"/>
+  <rect x="24" y="52" width="4" height="4" fill="white"/>
+  <rect x="36" y="52" width="4" height="4" fill="white"/>
+  <rect x="44" y="52" width="4" height="4" fill="white"/>
+  <!-- Bottom left node -->
+  <rect x="4" y="52" width="4" height="4" fill="white"/>
+  <rect x="8" y="52" width="4" height="4" fill="white"/>
+  <rect x="4" y="56" width="4" height="4" fill="white"/>
+  <rect x="8" y="56" width="4" height="4" fill="white"/>
+  <!-- Bottom right node -->
+  <rect x="52" y="52" width="4" height="4" fill="white"/>
+  <rect x="56" y="52" width="4" height="4" fill="white"/>
+  <rect x="52" y="56" width="4" height="4" fill="white"/>
+  <rect x="56" y="56" width="4" height="4" fill="white"/>
+</svg>

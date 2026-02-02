@@ -1,0 +1,104 @@
+<svg width="721" height="481" viewBox="0 0 721 481" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4169C9"/>
+      <stop offset="100%" style="stop-color:#2B4A8F"/>
+    </linearGradient>
+    <linearGradient id="glassGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/>
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.05)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="721" height="481" fill="url(#bgGrad2)"/>
+
+  <!-- Grid lines -->
+  <g stroke="rgba(255,255,255,0.1)" stroke-width="1">
+    <line x1="0" y1="60" x2="721" y2="60"/>
+    <line x1="0" y1="120" x2="721" y2="120"/>
+    <line x1="0" y1="180" x2="721" y2="180"/>
+    <line x1="0" y1="240" x2="721" y2="240"/>
+    <line x1="0" y1="300" x2="721" y2="300"/>
+    <line x1="0" y1="360" x2="721" y2="360"/>
+    <line x1="0" y1="420" x2="721" y2="420"/>
+    <line x1="90" y1="0" x2="90" y2="481"/>
+    <line x1="180" y1="0" x2="180" y2="481"/>
+    <line x1="270" y1="0" x2="270" y2="481"/>
+    <line x1="360" y1="0" x2="360" y2="481"/>
+    <line x1="450" y1="0" x2="450" y2="481"/>
+    <line x1="540" y1="0" x2="540" y2="481"/>
+    <line x1="630" y1="0" x2="630" y2="481"/>
+  </g>
+
+  <!-- Hexagon network decoration -->
+  <polygon points="360,120 410,145 410,195 360,220 310,195 310,145" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+  <polygon points="360,100 420,130 420,210 360,240 300,210 300,130" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+
+  <!-- Connection dots -->
+  <circle cx="150" cy="150" r="3" fill="white" opacity="0.3"/>
+  <circle cx="570" cy="130" r="3" fill="white" opacity="0.3"/>
+  <circle cx="130" cy="340" r="3" fill="white" opacity="0.3"/>
+  <circle cx="590" cy="360" r="3" fill="white" opacity="0.3"/>
+  <line x1="150" y1="150" x2="270" y2="200" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <line x1="570" y1="130" x2="450" y2="200" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+  <!-- Stars -->
+  <circle cx="100" cy="70" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="620" cy="90" r="2" fill="white" opacity="0.4"/>
+  <circle cx="660" cy="400" r="1.5" fill="white" opacity="0.5"/>
+
+  <!-- Glass card -->
+  <rect x="270" y="150" width="180" height="180" rx="20" fill="url(#glassGrad2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+  <!-- 8-bit icon (ballot box) scaled and centered -->
+  <g transform="translate(305, 178) scale(2)">
+    <rect x="24" y="4" width="4" height="4" fill="white"/>
+    <rect x="28" y="4" width="4" height="4" fill="white"/>
+    <rect x="32" y="4" width="4" height="4" fill="white"/>
+    <rect x="24" y="8" width="4" height="4" fill="white"/>
+    <rect x="32" y="8" width="4" height="4" fill="white"/>
+    <rect x="24" y="12" width="4" height="4" fill="white"/>
+    <rect x="28" y="12" width="4" height="4" fill="white"/>
+    <rect x="32" y="12" width="4" height="4" fill="white"/>
+    <rect x="28" y="16" width="4" height="4" fill="white"/>
+    <rect x="36" y="8" width="4" height="4" fill="white"/>
+    <rect x="40" y="4" width="4" height="4" fill="white"/>
+    <rect x="8" y="20" width="4" height="4" fill="white"/>
+    <rect x="12" y="20" width="4" height="4" fill="white"/>
+    <rect x="16" y="20" width="4" height="4" fill="white"/>
+    <rect x="20" y="20" width="4" height="4" fill="white"/>
+    <rect x="36" y="20" width="4" height="4" fill="white"/>
+    <rect x="40" y="20" width="4" height="4" fill="white"/>
+    <rect x="44" y="20" width="4" height="4" fill="white"/>
+    <rect x="48" y="20" width="4" height="4" fill="white"/>
+    <rect x="8" y="24" width="4" height="4" fill="white"/>
+    <rect x="48" y="24" width="4" height="4" fill="white"/>
+    <rect x="8" y="28" width="4" height="4" fill="white"/>
+    <rect x="48" y="28" width="4" height="4" fill="white"/>
+    <rect x="8" y="32" width="4" height="4" fill="white"/>
+    <rect x="48" y="32" width="4" height="4" fill="white"/>
+    <rect x="8" y="36" width="4" height="4" fill="white"/>
+    <rect x="48" y="36" width="4" height="4" fill="white"/>
+    <rect x="8" y="40" width="4" height="4" fill="white"/>
+    <rect x="48" y="40" width="4" height="4" fill="white"/>
+    <rect x="8" y="44" width="4" height="4" fill="white"/>
+    <rect x="48" y="44" width="4" height="4" fill="white"/>
+    <rect x="8" y="48" width="4" height="4" fill="white"/>
+    <rect x="48" y="48" width="4" height="4" fill="white"/>
+    <rect x="8" y="52" width="4" height="4" fill="white"/>
+    <rect x="12" y="52" width="4" height="4" fill="white"/>
+    <rect x="16" y="52" width="4" height="4" fill="white"/>
+    <rect x="20" y="52" width="4" height="4" fill="white"/>
+    <rect x="24" y="52" width="4" height="4" fill="white"/>
+    <rect x="28" y="52" width="4" height="4" fill="white"/>
+    <rect x="32" y="52" width="4" height="4" fill="white"/>
+    <rect x="36" y="52" width="4" height="4" fill="white"/>
+    <rect x="40" y="52" width="4" height="4" fill="white"/>
+    <rect x="44" y="52" width="4" height="4" fill="white"/>
+    <rect x="48" y="52" width="4" height="4" fill="white"/>
+  </g>
+
+  <!-- Mission badge text -->
+  <text x="360" y="395" font-family="monospace" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="4">DECENTRALIZED • TRANSPARENT</text>
+</svg>
