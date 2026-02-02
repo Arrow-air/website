@@ -1,0 +1,11 @@
+{
+  "output": "static/dao.html",
+  "title": "Arrow - DAO",
+  "wfPageId": "686bc51e4de6de0bbceef192",
+  "metaTags": [
+    "<meta content=\"Arrow - DAO\" property=\"og:title\">",
+    "<meta content=\"Arrow - DAO\" property=\"twitter:title\">"
+  ],
+  "extraHead": "  <link href=\"/css/dao-styles.css\" rel=\"stylesheet\" type=\"text/css\">",
+  "bodyFile": "dao.body.html"
+}

@@ -26,8 +26,11 @@ const ROOT = path.resolve(__dirname, '..');
 const TEMPLATES = path.join(ROOT, 'templates');
 const PAGES_DIR = path.join(TEMPLATES, 'pages');
 
-// Load the shared page skeleton (contains {{INCLUDE:…}} and {{…}} placeholders)
-const baseTemplate = fs.readFileSync(path.join(TEMPLATES, 'base.html'), 'utf8');
+// Load the shared page skeleton (contains {{INCLUDE:…}} and {{…}} placeholders).
+// Strip the leading HTML comment — it documents the placeholder syntax for
+// developers reading the template source, but shouldn't appear in output.
+const baseTemplate = fs.readFileSync(path.join(TEMPLATES, 'base.html'), 'utf8')
+  .replace(/^<!--[\s\S]*?-->\n/, '');
 
 // Replace {{INCLUDE:partials/foo.html}} lines with the actual file contents.
 // These are the shared sections (navbar, footer, etc.) that every page uses.

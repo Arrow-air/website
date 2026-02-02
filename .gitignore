@@ -26,6 +26,7 @@ static/index.html
 static/quiver.html
 static/engineering.html
 static/community.html
+static/dao.html
 
 # Imported external docs (pulled at build time)
 docs/project-quiver/
