@@ -17,6 +17,10 @@
 // The JSON configs describe each page — title, Webflow page ID, which
 // body-content file to slot in, any extra <head> links or <script> tags, etc.
 //
+// Flags:
+//   --watch   After the initial build, watch templates/ for changes and
+//             rebuild automatically. Used by the dev server (npm start).
+//
 // Zero npm dependencies — only Node built-ins (fs, path).
 //
 const fs = require('fs');
@@ -26,14 +30,12 @@ const ROOT = path.resolve(__dirname, '..');
 const TEMPLATES = path.join(ROOT, 'templates');
 const PAGES_DIR = path.join(TEMPLATES, 'pages');
 
-// Load the shared page skeleton (contains {{INCLUDE:…}} and {{…}} placeholders).
-// Strip the leading HTML comment — it documents the placeholder syntax for
-// developers reading the template source, but shouldn't appear in output.
-const baseTemplate = fs.readFileSync(path.join(TEMPLATES, 'base.html'), 'utf8')
-  .replace(/^<!--[\s\S]*?-->\n/, '');
+function loadBaseTemplate() {
+  return fs.readFileSync(path.join(TEMPLATES, 'base.html'), 'utf8')
+    .replace(/^<!--[\s\S]*?-->\n/, '');
+}
 
 // Replace {{INCLUDE:partials/foo.html}} lines with the actual file contents.
-// These are the shared sections (navbar, footer, etc.) that every page uses.
 function resolveIncludes(html) {
   return html.replace(/^{{INCLUDE:(.+?)}}$/gm, (_, filePath) => {
     return fs.readFileSync(path.join(TEMPLATES, filePath), 'utf8').trimEnd();
@@ -50,47 +52,69 @@ function replacePlaceholder(html, placeholder, value) {
   return html.replace(new RegExp('\\n?' + escaped + '\\n?'), '\n');
 }
 
-// Auto-discover every *.json config in templates/pages/
-const configs = fs.readdirSync(PAGES_DIR).filter(f => f.endsWith('.json'));
+function buildAll() {
+  const baseTemplate = loadBaseTemplate();
+  const configs = fs.readdirSync(PAGES_DIR).filter(f => f.endsWith('.json'));
 
-for (const configFile of configs) {
-  const config = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, configFile), 'utf8'));
+  for (const configFile of configs) {
+    const config = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, configFile), 'utf8'));
+    let html = baseTemplate;
 
-  let html = baseTemplate;
+    html = resolveIncludes(html);
+    html = html.replace(/{{WF_PAGE_ID}}/g, config.wfPageId || '');
+    html = html.replace('{{TITLE}}', config.title || '');
 
-  // Step 1 — Inline shared partials (navbar, footer, head styles, global styles)
-  html = resolveIncludes(html);
+    const metaTags = (config.metaTags || []).map(t => '  ' + t).join('\n');
+    html = replacePlaceholder(html, '{{META_TAGS}}', metaTags);
+    html = replacePlaceholder(html, '{{EXTRA_HEAD}}', config.extraHead || '');
 
-  // Step 2 — Webflow page ID (appears in <html> tag AND the footer newsletter form)
-  html = html.replace(/{{WF_PAGE_ID}}/g, config.wfPageId || '');
+    let bodyContent = '';
+    if (config.bodyFile) {
+      bodyContent = fs.readFileSync(path.join(PAGES_DIR, config.bodyFile), 'utf8').trimEnd();
+    }
+    html = replacePlaceholder(html, '{{CONTENT}}', bodyContent);
 
-  // Step 3 — Page title
-  html = html.replace('{{TITLE}}', config.title || '');
+    let extraScripts = '';
+    if (config.extraScriptsFile) {
+      extraScripts = fs.readFileSync(path.join(PAGES_DIR, config.extraScriptsFile), 'utf8').trimEnd();
+    }
+    html = replacePlaceholder(html, '{{EXTRA_SCRIPTS}}', extraScripts);
 
-  // Step 4 — OG / Twitter meta tags (indented to match surrounding markup)
-  const metaTags = (config.metaTags || []).map(t => '  ' + t).join('\n');
-  html = replacePlaceholder(html, '{{META_TAGS}}', metaTags);
-
-  // Step 5 — Extra <head> content (e.g. page-specific CSS files)
-  html = replacePlaceholder(html, '{{EXTRA_HEAD}}', config.extraHead || '');
-
-  // Step 6 — Main body content (read from a separate .body.html file)
-  let bodyContent = '';
-  if (config.bodyFile) {
-    bodyContent = fs.readFileSync(path.join(PAGES_DIR, config.bodyFile), 'utf8').trimEnd();
+    const outputPath = path.join(ROOT, config.output);
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.writeFileSync(outputPath, html);
+    console.log(`Built: ${config.output}`);
   }
-  html = replacePlaceholder(html, '{{CONTENT}}', bodyContent);
+}
 
-  // Step 7 — Extra scripts (e.g. engineering page's dark-mode toggle)
-  let extraScripts = '';
-  if (config.extraScriptsFile) {
-    extraScripts = fs.readFileSync(path.join(PAGES_DIR, config.extraScriptsFile), 'utf8').trimEnd();
+// --- Initial build ---
+buildAll();
+
+// --- Watch mode ---
+if (process.argv.includes('--watch')) {
+  let debounce = null;
+
+  function onChange(dir, eventType, filename) {
+    if (debounce) return;
+    debounce = setTimeout(() => {
+      debounce = null;
+      console.log(`\n[watch] ${filename || 'file'} changed, rebuilding...`);
+      try {
+        buildAll();
+        console.log('[watch] Done. Refresh your browser.');
+      } catch (e) {
+        console.error('[watch] Build error:', e.message);
+      }
+    }, 200);
   }
-  html = replacePlaceholder(html, '{{EXTRA_SCRIPTS}}', extraScripts);
 
-  // Write the finished page to static/
-  const outputPath = path.join(ROOT, config.output);
-  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, html);
-  console.log(`Built: ${config.output}`);
+  // Watch all template directories (base, partials, pages)
+  const dirs = [TEMPLATES, path.join(TEMPLATES, 'partials'), PAGES_DIR];
+  for (const dir of dirs) {
+    fs.watch(dir, { persistent: true }, (event, filename) => {
+      onChange(dir, event, filename);
+    });
+  }
+
+  console.log('\n[watch] Watching templates/ for changes...');
 }

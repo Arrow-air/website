@@ -5,9 +5,10 @@
   "scripts": {
     "import-docs": "bash scripts/import-external-docs.sh",
     "prestart": "node scripts/build-html.js && bash scripts/import-external-docs.sh",
+    "watch-templates": "node scripts/build-html.js --watch",
     "prebuild": "node scripts/build-html.js && bash scripts/import-external-docs.sh",
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "node scripts/build-html.js --watch & docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
