@@ -122,8 +122,8 @@ buildAll();
 if (process.argv.includes('--watch')) {
   let debounce = null;
 
-  function onChange(dir, eventType, filename) {
-    if (debounce) return;
+  function rebuild(filename) {
+    if (debounce) clearTimeout(debounce);
     debounce = setTimeout(() => {
       debounce = null;
       console.log(`\n[watch] ${filename || 'file'} changed, rebuilding...`);
@@ -136,13 +136,12 @@ if (process.argv.includes('--watch')) {
     }, 200);
   }
 
-  // Watch all template directories (base, partials, pages)
-  const dirs = [TEMPLATES, path.join(TEMPLATES, 'partials'), PAGES_DIR];
-  for (const dir of dirs) {
-    fs.watch(dir, { persistent: true }, (event, filename) => {
-      onChange(dir, event, filename);
-    });
-  }
+  // Single recursive watcher on templates/ (uses FSEvents on macOS)
+  fs.watch(TEMPLATES, { persistent: true, recursive: true }, (event, filename) => {
+    if (filename && /\.(html|json)$/.test(filename)) {
+      rebuild(filename);
+    }
+  });
 
   console.log('\n[watch] Watching templates/ for changes...');
 }
