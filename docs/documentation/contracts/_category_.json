@@ -4,5 +4,8 @@
   "link": {
     "type": "doc",
     "id": "documentation/contracts/index"
+  },
+  "customProps": {
+    "icon": "cube"
   }
 }

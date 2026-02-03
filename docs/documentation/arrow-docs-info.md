@@ -1,6 +1,8 @@
 ---
 title: Arrow Docs Info
 sidebar_position: 99
+sidebar_custom_props:
+  icon: doc
 ---
 
 # Arrow Docs Info

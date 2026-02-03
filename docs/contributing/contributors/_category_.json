@@ -1,4 +1,8 @@
 {
   "label": "Meet Our Contributors",
-  "position": 4
+  "position": 4,
+  "collapsed": true,
+  "customProps": {
+    "icon": "users"
+  }
 }

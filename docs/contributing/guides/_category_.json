@@ -1,4 +1,8 @@
 {
   "label": "Guides",
-  "position": 3
+  "position": 3,
+  "collapsed": true,
+  "customProps": {
+    "icon": "book"
+  }
 }
