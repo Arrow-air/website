@@ -15,7 +15,7 @@ const config = {
   url: "https://arrowair.com",
   baseUrl: "/",
   onBrokenLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "images/favicon.png",
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.
 
@@ -43,6 +43,10 @@ const config = {
         hashed: true,
       },
     ],
+  ],
+
+  plugins: [
+    require.resolve('./plugins/dev-homepage'),
   ],
 
   stylesheets: [
