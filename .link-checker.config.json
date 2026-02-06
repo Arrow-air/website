@@ -11,6 +11,15 @@
     },
     {
       "pattern": "https://www.greencarcongress.com"
+    },
+    {
+      "pattern": "^#$"
+    },
+    {
+      "pattern": "via.placeholder.com"
+    },
+    {
+      "pattern": "openmotors.co"
     }
   ],
   "httpHeaders": [
