@@ -5,9 +5,9 @@ draft: true # Not currently using this workflow - needs revision for our needs
 
 # Release Checklist
 
-## :bust_in_silhouette: Developer
+## Developer
 
-### :hatching_chick: Create an End-of-Release Review
+### Create an End-of-Release Review
 
 1. Create a new branch from `develop`.
 
@@ -30,18 +30,18 @@ Why not create a `develop` -> `main` PR for the review?
 - `develop` is a protected branch that can only be pushed into through a PR.
 - Using an unprotected branch `r#-final-review` allows direct pushes to address review comments.
 
-### :mag: Hold Review
+### Hold Review
 
 1. Inform peer reviewer(s) and await review comments.
 2. Push review fixes to your `r#-final-review` branch *as a new commit* (i.e. "fix: address final review comments")
 3. After approval(s), when your code is passing all CI checks, you may merge to `main`.
 
-### :broom: Cleanup
+### Cleanup
 
 1. Since `develop` also needs the changes added to `r#-final-review`, open a PR to merge `main` into `develop`.
 2. Have the same reviewers approve the PR.
 
-## :busts_in_silhouette: Peer Reviewers
+## Peer Reviewers
 
 This is the *last chance* for a review of the code before it is immortalized forever as a new release.
 

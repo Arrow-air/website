@@ -2,6 +2,7 @@
 sidebar_position: 2
 slug: /manufacturing
 description: How Arrow coordinates open source hardware manufacturing through a decentralized network of community manufacturers.
+hide_table_of_contents: true
 sidebar_custom_props:
   icon: gear
 ---

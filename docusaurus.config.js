@@ -45,6 +45,10 @@ const config = {
     ],
   ],
 
+  clientModules: [
+    require.resolve('./src/js/imageCollapse.js'),
+  ],
+
   plugins: [
     require.resolve('./plugins/dev-homepage'),
   ],
@@ -110,7 +114,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-        disableSwitch: true,
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
       },
       docs: {
         sidebar: {
@@ -125,25 +131,20 @@ const config = {
         },
         items: [
           {
-            type: "doc",
-            docId: "about-arrow/index",
+            type: "search",
             position: "right",
-            label: "Docs",
-            className: "text-secondary",
           },
           {
-            to: "/blog",
+            href: "https://github.com/Arrow-air",
             position: "right",
-            label: "Blog",
-            className: "text-secondary",
-            image: "img/arrow-icon_blog.svg",
+            className: "navbar-icon navbar-icon--github",
+            "aria-label": "GitHub",
           },
           {
             href: "https://discord.com/invite/arrow",
             position: "right",
-            label: "Discord",
-            className: "text-secondary",
-            image: "img/arrow-icon_discord.svg",
+            className: "navbar-icon navbar-icon--discord",
+            "aria-label": "Discord",
           },
         ],
       },
