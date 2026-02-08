@@ -102,7 +102,8 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 {
 	"label": "${sidebar_label}",
 	"position": ${sidebar_position},
-	"collapsed": true,
+	"collapsible": false,
+	"collapsed": false,
 	"link": {
 		"type": "doc",
 		"id": "${key}/index"
@@ -115,7 +116,8 @@ EOF
 {
 	"label": "${sidebar_label}",
 	"position": ${sidebar_position},
-	"collapsed": true,
+	"collapsible": false,
+	"collapsed": false,
 	"link": {
 		"type": "generated-index",
 		"description": "Documentation for ${sidebar_label}"

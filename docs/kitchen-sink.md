@@ -124,7 +124,7 @@ This is a danger admonition.
 
 ## Images
 
-![Placeholder](https://via.placeholder.com/600x200?text=Sample+Image)
+![Placeholder](https://placehold.co/600x200/f0f0f0/999?text=Sample+Image&font=source-sans-pro)
 
 ---
 

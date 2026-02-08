@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 title: Introduction
+hide_table_of_contents: true
 ---
 
 # Introduction to Arrow Contracts

@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 slug: /intro
+hide_table_of_contents: true
 ---
 
 # About Arrow
