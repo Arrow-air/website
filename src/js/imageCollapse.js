@@ -21,15 +21,18 @@ function initImageCollapse() {
   });
 }
 
-// Run on initial load
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initImageCollapse);
-} else {
-  initImageCollapse();
-}
+// Only run in browser (not during SSR)
+if (typeof document !== 'undefined') {
+  // Run on initial load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initImageCollapse);
+  } else {
+    initImageCollapse();
+  }
 
-// Re-run on SPA navigation
-const observer = new MutationObserver(() => {
-  initImageCollapse();
-});
-observer.observe(document.body, {childList: true, subtree: true});
+  // Re-run on SPA navigation
+  const observer = new MutationObserver(() => {
+    initImageCollapse();
+  });
+  observer.observe(document.body, {childList: true, subtree: true});
+}
