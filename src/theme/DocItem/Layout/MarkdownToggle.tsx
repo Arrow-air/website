@@ -146,18 +146,18 @@ export default function MarkdownToggle({children}: Props): ReactNode {
     };
   }, [viewState, editUrl]);
 
-  // Apply/remove grey background on the doc main container
+  // Apply/remove background class on the doc main container
   useEffect(() => {
     const el = document.querySelector<HTMLElement>('[class*="docMainContainer"]');
     if (!el) return;
-    const showGrey = viewState !== 'rendered';
-    if (showGrey) {
-      el.style.backgroundColor = '#CCCCCC';
+    const showBg = viewState !== 'rendered';
+    if (showBg) {
+      el.classList.add(styles.rawModeBg);
     } else {
-      el.style.backgroundColor = '';
+      el.classList.remove(styles.rawModeBg);
     }
     return () => {
-      el.style.backgroundColor = '';
+      el.classList.remove(styles.rawModeBg);
     };
   }, [viewState]);
 

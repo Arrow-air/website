@@ -385,3 +385,22 @@
   widows: 2;
   text-align: left
 }
+
+/* Dark mode */
+[data-theme='dark'] .cla-text p,
+[data-theme='dark'] .cla-text li,
+[data-theme='dark'] .cla-text .c1,
+[data-theme='dark'] .cla-text h1,
+[data-theme='dark'] .cla-text h2,
+[data-theme='dark'] .cla-text h3,
+[data-theme='dark'] .cla-text h4,
+[data-theme='dark'] .cla-text h5,
+[data-theme='dark'] .cla-text h6,
+[data-theme='dark'] .cla-text .title {
+  color: #d1d5db;
+}
+
+[data-theme='dark'] .cla-text .c11,
+[data-theme='dark'] .cla-text .c9 {
+  background-color: transparent;
+}

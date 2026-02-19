@@ -81,6 +81,14 @@
   height: 12px;
 }
 
+:global([data-theme='dark']) .rawModeBg {
+  background-color: #1a2236;
+}
+
+.rawModeBg {
+  background-color: #CCCCCC;
+}
+
 .rawContent {
   font-family: 'Jetbrainsmono', monospace;
   font-size: 13px;
@@ -93,6 +101,10 @@
   border: 1px solid var(--docs-border);
   color: var(--docs-text);
   overflow-x: auto;
+}
+
+:global([data-theme='dark']) .rawContent {
+  background: var(--docs-bg-subtle);
 }
 
 .loading {
