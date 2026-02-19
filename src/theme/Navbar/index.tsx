@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import NavbarOriginal from '@theme-original/Navbar';
 import Link from '@docusaurus/Link';
 import {useColorMode} from '@docusaurus/theme-common';
@@ -77,10 +77,94 @@ function ThemeToggle() {
   );
 }
 
+function MenuIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+  );
+}
+
+function EllipsisIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <circle cx="5" cy="12" r="2" />
+      <circle cx="12" cy="12" r="2" />
+      <circle cx="19" cy="12" r="2" />
+    </svg>
+  );
+}
+
+function LinksDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [open]);
+
+  return (
+    <div className={styles.linksDropdown} ref={ref}>
+      <button
+        className={styles.iconButton}
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-label="Community links"
+      >
+        <EllipsisIcon />
+      </button>
+      {open && (
+        <div className={styles.dropdownMenu}>
+          <a
+            href="https://github.com/Arrow-air"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.dropdownItem}
+          >
+            <GitHubIcon /> GitHub
+          </a>
+          <a
+            href="https://discord.com/invite/arrow"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.dropdownItem}
+          >
+            <DiscordIcon /> Discord
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function DocsNavbar() {
+  const openSidebar = () => {
+    const toggle = document.querySelector<HTMLButtonElement>('.navbar__toggle');
+    if (toggle) toggle.click();
+  };
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarInner}>
+        {/* Mobile menu toggle */}
+        <button
+          className={`${styles.iconButton} ${styles.menuToggle}`}
+          type="button"
+          onClick={openSidebar}
+          aria-label="Open navigation menu"
+        >
+          <MenuIcon />
+        </button>
+
         {/* Logo */}
         <Link to="/docs/intro" className={styles.logo}>
           <ArrowLogo />
@@ -100,7 +184,8 @@ function DocsNavbar() {
           <div className={styles.searchWrapper}>
             <SearchBar />
           </div>
-          <div className={styles.tooltipWrapper}>
+          {/* Desktop: individual icon buttons */}
+          <div className={`${styles.tooltipWrapper} ${styles.desktopOnly}`}>
             <a
               href="https://github.com/Arrow-air"
               target="_blank"
@@ -112,7 +197,7 @@ function DocsNavbar() {
             </a>
             <span className={styles.tooltip}>GitHub</span>
           </div>
-          <div className={styles.tooltipWrapper}>
+          <div className={`${styles.tooltipWrapper} ${styles.desktopOnly}`}>
             <a
               href="https://discord.com/invite/arrow"
               target="_blank"
@@ -123,6 +208,10 @@ function DocsNavbar() {
               <DiscordIcon />
             </a>
             <span className={styles.tooltip}>Discord</span>
+          </div>
+          {/* Mobile: combined dropdown */}
+          <div className={styles.mobileOnly}>
+            <LinksDropdown />
           </div>
           <ThemeToggle />
         </div>
@@ -135,8 +224,8 @@ export default function Navbar(props): JSX.Element {
   return (
     <>
       <DocsNavbar />
-      {/* Hidden original navbar to preserve Docusaurus internals */}
-      <div style={{ display: 'none' }}>
+      {/* Original navbar hidden visually but sidebar overlay remains functional */}
+      <div className={styles.hiddenNavbar}>
         <NavbarOriginal {...props} />
       </div>
     </>
