@@ -1,4 +1,5 @@
-import React, {type ReactNode} from 'react';
+import React, {type ReactNode, useState, useLayoutEffect} from 'react';
+import {createPortal} from 'react-dom';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
 
 function GitHubIcon(): ReactNode {
@@ -14,10 +15,7 @@ function GitHubIcon(): ReactNode {
   );
 }
 
-export default function EndBar(): ReactNode {
-  const {metadata} = useDoc();
-  const {editUrl} = metadata;
-
+function EndBarContent({editUrl}: {editUrl?: string}): ReactNode {
   return (
     <div className="doc-end-bar-wrapper">
       <div className="doc-end-bar">
@@ -47,4 +45,34 @@ export default function EndBar(): ReactNode {
       </div>
     </div>
   );
+}
+
+export default function EndBar(): ReactNode {
+  const {metadata} = useDoc();
+  const {editUrl} = metadata;
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const paginationNav = document.querySelector('nav.pagination-nav');
+    if (!paginationNav?.parentElement) return;
+
+    let target = paginationNav.parentElement.querySelector(
+      '.end-bar-portal',
+    ) as HTMLElement | null;
+    if (!target) {
+      target = document.createElement('div');
+      target.className = 'end-bar-portal';
+      paginationNav.parentElement.appendChild(target);
+    }
+    setPortalTarget(target);
+
+    return () => {
+      target?.remove();
+      setPortalTarget(null);
+    };
+  }, []);
+
+  if (!portalTarget) return null;
+
+  return createPortal(<EndBarContent editUrl={editUrl} />, portalTarget);
 }
