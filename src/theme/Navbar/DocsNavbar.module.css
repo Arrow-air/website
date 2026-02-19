@@ -49,6 +49,27 @@
   gap: 0.75rem;
 }
 
+.mainSiteLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.mainSiteLink:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
 .searchWrapper {
   margin-right: 0.25rem;
 }
@@ -72,10 +93,85 @@
   text-decoration: none;
 }
 
-.colorModeToggle {
+/* Theme toggle (shadcn-style) */
+.themeToggle {
+  position: relative;
   display: flex;
   align-items: center;
-  color: rgba(255, 255, 255, 0.7);
+}
+
+.themeIconWrapper {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.themeIcon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Light mode: show moon (switch to dark) */
+.sunIcon {
+  transform: rotate(-90deg) scale(0);
+  opacity: 0;
+}
+
+.moonIcon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+/* Dark mode: show sun (switch to light) */
+:global([data-theme='dark']) .sunIcon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+:global([data-theme='dark']) .moonIcon {
+  transform: rotate(90deg) scale(0);
+  opacity: 0;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 101;
+  padding: 4px 8px;
+  background: #1a1f2e;
+  color: #f3f4f6;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme='dark']) .tooltip {
+  background: #374151;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.themeToggle:hover .tooltip,
+.tooltipWrapper:hover .tooltip {
+  opacity: 1;
+}
+
+.tooltipWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 /* Mobile responsive */

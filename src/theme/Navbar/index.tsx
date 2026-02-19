@@ -1,7 +1,6 @@
 import React from 'react';
 import NavbarOriginal from '@theme-original/Navbar';
 import Link from '@docusaurus/Link';
-import ColorModeToggle from '@theme/ColorModeToggle';
 import {useColorMode} from '@docusaurus/theme-common';
 import SearchBar from '@theme/SearchBar';
 import styles from './DocsNavbar.module.css';
@@ -35,9 +34,50 @@ function DiscordIcon() {
   );
 }
 
-function DocsNavbar() {
-  const {colorMode, setColorMode} = useColorMode();
+function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+    </svg>
+  );
+}
 
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  );
+}
+
+function ThemeToggle() {
+  const {colorMode, setColorMode} = useColorMode();
+  const isDark = colorMode === 'dark';
+
+  return (
+    <div className={styles.themeToggle}>
+      <button
+        className={styles.iconButton}
+        type="button"
+        onClick={() => setColorMode(isDark ? 'light' : 'dark')}
+        aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+      >
+        <span className={styles.themeIconWrapper}>
+          <span className={`${styles.themeIcon} ${styles.sunIcon}`}>
+            <SunIcon />
+          </span>
+          <span className={`${styles.themeIcon} ${styles.moonIcon}`}>
+            <MoonIcon />
+          </span>
+        </span>
+      </button>
+      <span className={styles.tooltip}>Toggle theme</span>
+    </div>
+  );
+}
+
+function DocsNavbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarInner}>
@@ -48,32 +88,43 @@ function DocsNavbar() {
 
         {/* Right Actions */}
         <div className={styles.navActions}>
+          <a
+            href="https://www.arrowair.com"
+            className={styles.mainSiteLink}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 244.04 271.73" fill="currentColor" aria-hidden>
+              <polygon points="203.47 159.39 153.11 148.22 122.02 232.71 90.93 148.22 40.57 159.39 122.02 39.29 203.47 159.39"/>
+            </svg>
+            MAIN SITE
+          </a>
           <div className={styles.searchWrapper}>
             <SearchBar />
           </div>
-          <a
-            href="https://github.com/Arrow-air"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.iconButton}
-            aria-label="GitHub"
-          >
-            <GitHubIcon />
-          </a>
-          <a
-            href="https://discord.com/invite/arrow"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.iconButton}
-            aria-label="Discord"
-          >
-            <DiscordIcon />
-          </a>
-          <ColorModeToggle
-            className={styles.colorModeToggle}
-            value={colorMode}
-            onChange={setColorMode}
-          />
+          <div className={styles.tooltipWrapper}>
+            <a
+              href="https://github.com/Arrow-air"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconButton}
+              aria-label="GitHub"
+            >
+              <GitHubIcon />
+            </a>
+            <span className={styles.tooltip}>GitHub</span>
+          </div>
+          <div className={styles.tooltipWrapper}>
+            <a
+              href="https://discord.com/invite/arrow"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconButton}
+              aria-label="Discord"
+            >
+              <DiscordIcon />
+            </a>
+            <span className={styles.tooltip}>Discord</span>
+          </div>
+          <ThemeToggle />
         </div>
       </div>
     </nav>
