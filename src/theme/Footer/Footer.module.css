@@ -234,3 +234,89 @@
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   DARK MODE
+   ========================================================================== */
+
+:global([data-theme='dark']) .footer {
+  background: #0943bf;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+:global([data-theme='dark']) .logo {
+  color: #ffffff;
+}
+
+:global([data-theme='dark']) .logo:hover {
+  color: #ffffff;
+}
+
+:global([data-theme='dark']) .tagline {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+:global([data-theme='dark']) .newsletterLabel {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+:global([data-theme='dark']) .newsletterInput {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+:global([data-theme='dark']) .newsletterInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+:global([data-theme='dark']) .newsletterInput:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+:global([data-theme='dark']) .newsletterButton {
+  background: #ffffff;
+  color: #0943bf;
+  border-color: #ffffff;
+}
+
+:global([data-theme='dark']) .newsletterButton:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+:global([data-theme='dark']) .columnTitle {
+  color: #ffffff !important;
+}
+
+:global([data-theme='dark']) .linkList a {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+:global([data-theme='dark']) .linkList a:hover {
+  color: #ffffff;
+}
+
+:global([data-theme='dark']) .socialLink {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+:global([data-theme='dark']) .socialLink:hover {
+  color: #ffffff;
+}
+
+:global([data-theme='dark']) .divider {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+:global([data-theme='dark']) .copyright {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+:global([data-theme='dark']) .legalLinks a {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+:global([data-theme='dark']) .legalLinks a:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
