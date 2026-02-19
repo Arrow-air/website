@@ -1,8 +1,22 @@
 .footer {
   background: #fafafa;
   border-top: 1px solid #e5e7eb;
-  padding: 3rem 0 1.5rem;
+  padding: 3.5rem 0 1.5rem;
   margin-top: auto;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='8' viewBox='0 0 6 8' shape-rendering='crispEdges'%3E%3Crect x='4' y='0' width='2' height='2' fill='rgba(156,163,175,0.35)'/%3E%3Crect x='3' y='2' width='2' height='2' fill='rgba(156,163,175,0.35)'/%3E%3Crect x='2' y='4' width='2' height='2' fill='rgba(156,163,175,0.35)'/%3E%3Crect x='1' y='6' width='2' height='2' fill='rgba(156,163,175,0.35)'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 6px 8px;
+  image-rendering: pixelated;
 }
 
 .footerInner {
@@ -192,6 +206,7 @@
 
 .legalLinks {
   display: flex;
+  align-items: center;
   gap: 1.5rem;
 }
 
@@ -235,6 +250,106 @@
   }
 }
 
+/* Footer Theme Toggle */
+.footerThemeToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.themeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #d1d5db;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.themeButton:hover {
+  color: #4b5563;
+  border-color: #9ca3af;
+}
+
+.themeIconWrapper {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 14px;
+  overflow: hidden;
+}
+
+.themeIcon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sunIcon {
+  transform: rotate(-90deg) scale(0);
+  opacity: 0;
+}
+
+.moonIcon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+:global([data-theme='dark']) .sunIcon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+:global([data-theme='dark']) .moonIcon {
+  transform: rotate(90deg) scale(0);
+  opacity: 0;
+}
+
+.themeTooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 4px 8px;
+  background: #1a1f2e;
+  color: #f3f4f6;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footerThemeToggle:hover .themeTooltip {
+  opacity: 1;
+}
+
+:global([data-theme='dark']) .themeButton {
+  color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+:global([data-theme='dark']) .themeButton:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+:global([data-theme='dark']) .themeTooltip {
+  background: #374151;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
 /* ==========================================================================
    DARK MODE
    ========================================================================== */
@@ -242,6 +357,10 @@
 :global([data-theme='dark']) .footer {
   background: #0943bf;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+:global([data-theme='dark']) .footer::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='8' viewBox='0 0 6 8' shape-rendering='crispEdges'%3E%3Crect x='4' y='0' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='3' y='2' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='2' y='4' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='1' y='6' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3C/svg%3E");
 }
 
 :global([data-theme='dark']) .logo {
