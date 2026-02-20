@@ -47,6 +47,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-left: 0.75rem;
 }
 
 .mainSiteLink {
@@ -71,7 +72,7 @@
 }
 
 .searchWrapper {
-  margin-right: 0.25rem;
+  margin-right: 0;
 }
 
 .iconButton {
@@ -98,6 +99,12 @@
   position: relative;
   display: flex;
   align-items: center;
+}
+
+.themeToggle .tooltip {
+  left: auto;
+  right: 0;
+  transform: none;
 }
 
 .themeIconWrapper {
@@ -174,9 +181,126 @@
   align-items: center;
 }
 
+/* Menu toggle — hidden on desktop */
+.menuToggle {
+  display: none;
+  cursor: pointer;
+}
+
+/* Desktop/mobile visibility */
+.desktopOnly {
+  display: flex;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* Links dropdown */
+.linksDropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 200;
+  background: #1a1f2e;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+:global([data-theme='dark']) .dropdownMenu {
+  background: #374151;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #f3f4f6 !important;
+  text-decoration: none !important;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
+}
+
+.dropdownItem svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Hidden original navbar — bar invisible, sidebar overlay still works */
+.hiddenNavbar :global(.navbar) {
+  height: 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+}
+
 /* Mobile responsive */
 @media (max-width: 996px) {
+  .menuToggle {
+    display: flex;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: flex;
+  }
+
+  .navActions {
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-end;
+  }
+
   .searchWrapper {
+    flex: 1;
+    min-width: 0;
     margin-right: 0;
+  }
+
+  .mainSiteLink {
+    display: none;
+  }
+
+  .tooltip {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbarInner {
+    padding: 0 0.75rem 12px;
+  }
+
+  .navActions {
+    gap: 0.5rem;
+  }
+
+  .logo svg {
+    width: 90px;
+    height: auto;
   }
 }

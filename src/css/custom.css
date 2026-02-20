@@ -133,8 +133,92 @@ nav[class*="navbar"] > [class*="navbarInner"] {
 }
 
 /* ==========================================================================
+   NAVBAR SIDEBAR (mobile slide-in menu)
+   ========================================================================== */
+
+/* Brand bar only — dark blue, matched to main navbar height */
+.navbar-sidebar__brand {
+  background: #072a80 !important;
+  border-bottom: none;
+  height: 72px;
+  padding: 0 1.5rem !important;
+  position: relative;
+}
+
+/* Slash pattern below brand bar */
+.navbar-sidebar__brand::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='8' viewBox='0 0 6 8' shape-rendering='crispEdges'%3E%3Crect x='4' y='0' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='3' y='2' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='2' y='4' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='1' y='6' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 6px 8px;
+  image-rendering: pixelated;
+}
+
+/* Replace old logo with new white Arrow wordmark — match main navbar size */
+.navbar-sidebar__brand .navbar__logo img {
+  content: url('/img/wordmark_white.svg');
+  height: 27px;
+  width: 90px;
+}
+
+/* Pixelated close button */
+.navbar-sidebar__close {
+  color: rgba(255, 255, 255, 0.7) !important;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.navbar-sidebar__close:hover {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Replace default X SVG with pixel-art X */
+.navbar-sidebar__close svg {
+  display: none;
+}
+
+.navbar-sidebar__close::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  image-rendering: pixelated;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='1' height='1' fill='white'/%3E%3Crect x='1' y='1' width='1' height='1' fill='white'/%3E%3Crect x='2' y='2' width='1' height='1' fill='white'/%3E%3Crect x='3' y='3' width='1' height='1' fill='white'/%3E%3Crect x='4' y='4' width='1' height='1' fill='white'/%3E%3Crect x='5' y='5' width='1' height='1' fill='white'/%3E%3Crect x='6' y='6' width='1' height='1' fill='white'/%3E%3Crect x='6' y='0' width='1' height='1' fill='white'/%3E%3Crect x='5' y='1' width='1' height='1' fill='white'/%3E%3Crect x='4' y='2' width='1' height='1' fill='white'/%3E%3Crect x='2' y='4' width='1' height='1' fill='white'/%3E%3Crect x='1' y='5' width='1' height='1' fill='white'/%3E%3Crect x='0' y='6' width='1' height='1' fill='white'/%3E%3C/svg%3E");
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+}
+
+/* Hide the Docusaurus theme toggle in the sidebar (we have our own) */
+.navbar-sidebar__brand .toggle_vylO,
+.navbar-sidebar__brand [class*="toggle_"] {
+  display: none;
+}
+
+/* Sidebar overlay backdrop */
+.navbar-sidebar__backdrop {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ==========================================================================
    NAVBAR SEARCH BAR — retro CLI style
    ========================================================================== */
+
+[class*="searchBarContainer"] {
+  margin-left: 0 !important;
+}
 
 .navbar__search-input {
   font-family: 'Jetbrainsmono', monospace !important;
@@ -142,7 +226,7 @@ nav[class*="navbar"] > [class*="navbarInner"] {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   width: 240px !important;
-  height: 34px;
+  height: 36px;
   background-color: rgba(255, 255, 255, 0.1) !important;
   border: 1px solid rgba(255, 255, 255, 0.25) !important;
   border-radius: 0 !important;
@@ -951,14 +1035,32 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   [class*="docMainContainer"] {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
+    overflow-x: hidden;
   }
   .theme-doc-markdown {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  [class*="breadcrumbsContainer"] {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
   }
   .container {
     padding-left: 0 !important;
     padding-right: 0 !important;
+    overflow-x: hidden;
+  }
+  .navbar__search-input {
+    width: 100% !important;
+  }
+  .navbar__search-input:focus {
+    width: 100% !important;
+  }
+  .pagination-nav {
+    padding: 0 0.5rem !important;
+  }
+  .doc-end-bar-wrapper {
+    padding: 0 0.5rem !important;
   }
 }
 
@@ -1896,6 +1998,29 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   height: 12px;
 }
 
+/* End bar mobile responsive */
+@media (max-width: 996px) {
+  .doc-end-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .doc-end-bar__message {
+    white-space: normal;
+    flex-shrink: 1;
+    width: 100%;
+  }
+
+  .doc-end-bar__fill {
+    display: none;
+  }
+
+  .theme-edit-this-page {
+    margin: 0 auto 0.5rem;
+  }
+}
+
 /* ==========================================================================
    SIDEBAR ICONS
    ========================================================================== */
@@ -2074,13 +2199,66 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
 }
 
 /* ==========================================================================
+   MOBILE TOC ("On this page" dropdown)
+   ========================================================================== */
+
+.theme-doc-toc-mobile {
+  margin: 0.75rem 0 1.25rem !important;
+  background: rgba(8, 67, 191, 0.05) !important;
+  border: 1px solid var(--docs-border);
+  border-bottom: 3px solid var(--docs-border);
+}
+
+[data-theme='dark'] .theme-doc-toc-mobile {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.theme-doc-toc-mobile .tocCollapsibleButton_TO0P,
+.theme-doc-toc-mobile > button {
+  font-family: 'Jetbrainsmono', monospace !important;
+  font-size: 11px !important;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--docs-text-muted);
+  padding: 0.5rem 0.75rem !important;
+}
+
+.theme-doc-toc-mobile .tocCollapsibleButton_TO0P::after,
+.theme-doc-toc-mobile > button::after {
+  filter: var(--docs-chevron-filter, none);
+}
+
+[data-theme='dark'] .theme-doc-toc-mobile .tocCollapsibleButton_TO0P::after,
+[data-theme='dark'] .theme-doc-toc-mobile > button::after {
+  filter: brightness(0) invert(0.7);
+}
+
+.theme-doc-toc-mobile .tocCollapsibleContent_vkbj,
+.theme-doc-toc-mobile [class*="tocCollapsibleContent"] {
+  border-top: 1px solid var(--docs-border);
+}
+
+.theme-doc-toc-mobile .table-of-contents a {
+  font-family: 'Jetbrainsmono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--docs-text-muted);
+}
+
+.theme-doc-toc-mobile .table-of-contents a:hover {
+  color: var(--docs-primary);
+}
+
+/* ==========================================================================
    BREADCRUMBS
    ========================================================================== */
 
 /* Breadcrumbs wrapper - match content layout */
 [class*="breadcrumbsContainer"] {
   max-width: var(--docs-content-max-width);
-  margin: 0 auto;
+  margin: 0 auto 0.5rem;
   padding: 0 2rem;
   width: 100%;
 }
@@ -2094,7 +2272,7 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
 
 .breadcrumbs {
   font-family: 'Departure Mono', 'Jetbrainsmono', monospace;
-  font-size: 11px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding-left: 0 !important;
@@ -2105,7 +2283,7 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
 }
 
 .breadcrumbs__item:first-child:last-child .breadcrumbs__link {
-  padding-left: 9px;
+  padding-left: 0;
 }
 
 .breadcrumbs__item:first-child:not(:last-child) .breadcrumbs__link {
@@ -2115,6 +2293,7 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
 .breadcrumbs__link {
   color: var(--docs-text-muted);
   cursor: pointer;
+  padding: 0.25rem 0.5rem;
 }
 
 .breadcrumbs__link:hover {
