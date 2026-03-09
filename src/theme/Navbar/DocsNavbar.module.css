@@ -1,0 +1,306 @@
+.navbar {
+  position: relative;
+  z-index: 100;
+  background: #0943bf;
+  border-bottom: none;
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='8' viewBox='0 0 6 8' shape-rendering='crispEdges'%3E%3Crect x='4' y='0' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='3' y='2' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='2' y='4' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3Crect x='1' y='6' width='2' height='2' fill='rgba(255,255,255,0.3)'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 6px 8px;
+  image-rendering: pixelated;
+}
+
+.navbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1.5rem 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: 0.75rem;
+}
+
+.mainSiteLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.mainSiteLink:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
+.searchWrapper {
+  margin-right: 0;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.iconButton:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
+/* Theme toggle (shadcn-style) */
+.themeToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.themeToggle .tooltip {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.themeIconWrapper {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.themeIcon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Light mode: show moon (switch to dark) */
+.sunIcon {
+  transform: rotate(-90deg) scale(0);
+  opacity: 0;
+}
+
+.moonIcon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+/* Dark mode: show sun (switch to light) */
+:global([data-theme='dark']) .sunIcon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+:global([data-theme='dark']) .moonIcon {
+  transform: rotate(90deg) scale(0);
+  opacity: 0;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 101;
+  padding: 4px 8px;
+  background: #1a1f2e;
+  color: #f3f4f6;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme='dark']) .tooltip {
+  background: #374151;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.themeToggle:hover .tooltip,
+.tooltipWrapper:hover .tooltip {
+  opacity: 1;
+}
+
+.tooltipWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Menu toggle — hidden on desktop */
+.menuToggle {
+  display: none;
+  cursor: pointer;
+}
+
+/* Desktop/mobile visibility */
+.desktopOnly {
+  display: flex;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* Links dropdown */
+.linksDropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 200;
+  background: #1a1f2e;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+:global([data-theme='dark']) .dropdownMenu {
+  background: #374151;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #f3f4f6 !important;
+  text-decoration: none !important;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
+}
+
+.dropdownItem svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Hidden original navbar — bar invisible, sidebar overlay still works */
+.hiddenNavbar :global(.navbar) {
+  height: 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 996px) {
+  .menuToggle {
+    display: flex;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: flex;
+  }
+
+  .navActions {
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-end;
+  }
+
+  .searchWrapper {
+    flex: 1;
+    min-width: 0;
+    margin-right: 0;
+  }
+
+  .mainSiteLink {
+    display: none;
+  }
+
+  .tooltip {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbarInner {
+    padding: 0 0.75rem 12px;
+  }
+
+  .navActions {
+    gap: 0.5rem;
+  }
+
+  .logo svg {
+    width: 90px;
+    height: auto;
+  }
+}

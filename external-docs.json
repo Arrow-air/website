@@ -1,0 +1,9 @@
+{
+  "project-quiver": {
+    "repo": "Arrow-air/project-quiver",
+    "branch": "main",
+    "docsPath": "docs",
+    "sidebarLabel": "Project Quiver",
+    "sidebarPosition": 1
+  }
+}

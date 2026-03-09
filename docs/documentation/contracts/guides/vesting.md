@@ -13,7 +13,7 @@ These vesting contracts and tokens are distributed on the Optimism L2 network, w
 
 1. Bridge the amount of ARROW tokens required from the Arrow mainnet multisig over to the Arrow Optimism multisig.
 
-   - Check the latest [Optimism deployment](https://github.com/ethereum-optimism/optimism/tree/develop/packages/contracts/deployments/mainnet#readme) and use the `L1StandardBridge` contract at `0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1`.
+   - Check the latest [Optimism deployment](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts-bedrock/README.md) and use the `L1StandardBridge` contract at `0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1`.
    - Approve the `L1StandardBridge` to spend the required number of ARROW tokens, calling `approve` on the ArrowToken contract at `0x736609D310B5F925531B5ad895925CB0586F6241`.
    - Deposit ARROW tokens to the L2 Optimism multisig, calling `depositERC20To` on the `L1StandardBridge`.
 
@@ -36,7 +36,7 @@ These vesting contracts and tokens are distributed on the Optimism L2 network, w
 
 Vesting contracts have the ability to be cancelled by the Arrow multisig, in cases of erroneous token distributions or if specific contributors become inactive.
 
-Upon cancellation, any vested tokens will be distributed to the contributor, with any remaining unvested tokens returned to the Arrow multisig.
+Upon cancellation, any vested tokens will be distributed to the contributor, with any remaining un-vested tokens returned to the Arrow multisig.
 
 In order to cancel an existing vesting contract:
 

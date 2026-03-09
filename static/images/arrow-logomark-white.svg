@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Arrow_Logomark" data-name="Arrow Logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 244.04 271.73">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="White_arrow_on_blue" data-name="White arrow on blue">
+    <g id="Arow_Body" data-name="Arow Body">
+      <polygon class="cls-1" points="203.47 159.39 153.11 148.22 122.02 232.71 90.93 148.22 40.57 159.39 122.02 39.29 203.47 159.39"/>
+    </g>
+  </g>
+</svg>

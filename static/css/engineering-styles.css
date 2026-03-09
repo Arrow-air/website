@@ -1,0 +1,315 @@
+/* Font smoothing */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+/* Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+  background: #e8e4d9;
+  transition: background 0.5s ease;
+}
+
+/* Theme transition overlay */
+.theme-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.theme-transition::before {
+  content: '';
+  position: absolute;
+  top: var(--y, 20px);
+  left: var(--x, calc(100% - 80px));
+  width: 0;
+  height: 0;
+  background: #252525;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: none;
+}
+
+body.dark-mode .theme-transition::before {
+  background: #e8e4d9;
+}
+
+.theme-transition.animating::before {
+  animation: theme-wipe 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes theme-wipe {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 300vmax;
+    height: 300vmax;
+    opacity: 0;
+  }
+}
+
+/* Code styling */
+code,
+kbd,
+samp,
+pre {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+code {
+  font-size: 0.875em;
+  padding: 0.125rem 0.375rem;
+  background-color: #d9d5ca;
+  border-radius: 0;
+  color: #1a1a1a;
+}
+
+pre {
+  padding: 1rem;
+  background-color: #d9d5ca;
+  border-radius: 0;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-left: 3px solid #1a1a1a;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #1a1a1a;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+kbd {
+  font-size: 0.875em;
+  padding: 0.125rem 0.375rem;
+  background-color: #1a1a1a;
+  color: #e8e4d9;
+  border-radius: 0;
+  border: 1px solid #1a1a1a;
+}
+
+/* Engineering Manual Styles */
+.engineering-manual {
+  background: #f5f3eb;
+  color: #1a1a1a;
+  padding: 60px 80px 60px 120px;
+  max-width: 900px;
+  margin: 40px auto;
+  font-family: 'JetBrains Mono', monospace;
+  position: relative;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+  transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.engineering-manual * {
+  transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease;
+}
+
+/* Hole punches */
+.engineering-manual::before {
+  content: '';
+  position: absolute;
+  left: 35px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  border-left: 2px dashed #999;
+}
+
+.engineering-manual::after {
+  content: '○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-lr;
+  font-size: 18px;
+  color: #999;
+  letter-spacing: 25px;
+  line-height: 1;
+}
+
+/* ASCII Logo */
+.engineering-manual .ascii-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #0843BF;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  white-space: pre;
+}
+
+/* Dot decoration */
+.dot-decoration {
+  height: 20px;
+  margin-bottom: 30px;
+  background-image: radial-gradient(circle, #999 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-position: 0 0;
+  mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%);
+}
+
+.engineering-manual h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 40px 0;
+  text-transform: uppercase;
+  color: #1a1a1a;
+}
+
+.engineering-manual h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+  padding-bottom: 8px;
+  border-bottom: 3px double #1a1a1a;
+  position: relative;
+}
+
+.engineering-manual h2::after {
+  content: '○ ○ ○ ○ ○ ○';
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 8px;
+  color: #999;
+  letter-spacing: 4px;
+}
+
+.engineering-manual h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0843BF;
+  margin-top: 30px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.engineering-manual h3::before {
+  content: "[";
+  margin-right: 4px;
+}
+
+.engineering-manual h3::after {
+  content: "]";
+  margin-left: 4px;
+}
+
+.engineering-manual p,
+.engineering-manual li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+  font-weight: 400;
+}
+
+.engineering-manual hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 40px 0;
+}
+
+.engineering-manual code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #e8e4d9;
+  border: 1px solid #ccc;
+  padding: 2px 6px;
+  border-radius: 0;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+.engineering-manual strong {
+  font-family: 'JetBrains Mono', monospace;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.engineering-manual a {
+  color: #0843BF;
+  text-decoration: none;
+  border-bottom: 1px solid #0843BF;
+  transition: opacity 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.engineering-manual a:hover {
+  opacity: 0.7;
+}
+
+/* Button styling */
+.engineering-manual .cta-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.engineering-manual .cta-buttons a {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: transparent;
+  border: 2px solid #0843BF;
+  color: #0843BF;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.engineering-manual .cta-buttons a:hover {
+  background-color: #0843BF;
+  color: #f5f3eb;
+  opacity: 1;
+}
+
+/* Footer text */
+.engineering-manual .footer-text {
+  font-size: 11px;
+  color: #666;
+  margin-top: 50px;
+  font-weight: 400;
+  text-align: center;
+  font-style: italic;
+}
+
+.engineering-manual .footer-text strong {
+  font-style: normal;
+  color: #1a1a1a;
+}
