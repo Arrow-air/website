@@ -7,9 +7,9 @@ jobs:
   rebase:
     name: Rebase
     if: >-
-      github.event.issue.pull_request != '' && 
+      github.event.issue.pull_request != '' &&
       (
-        contains(github.event.comment.body, '/autosquash') || 
+        contains(github.event.comment.body, '/autosquash') ||
         contains(github.event.comment.body, '/fixup') ||
         contains(github.event.comment.body, '/rebase')
       )

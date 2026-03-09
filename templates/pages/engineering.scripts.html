@@ -1,0 +1,33 @@
+  <script>
+    function toggleTheme(event) {
+      const body = document.body;
+      const button = document.querySelector('.theme-toggle');
+      const transition = document.querySelector('.theme-transition');
+      const x = event.clientX;
+      const y = event.clientY;
+      transition.style.setProperty('--x', x + 'px');
+      transition.style.setProperty('--y', y + 'px');
+      transition.classList.add('animating');
+      setTimeout(() => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+          button.textContent = 'Light Mode';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          button.textContent = 'Dark Mode';
+          localStorage.setItem('theme', 'light');
+        }
+      }, 100);
+      setTimeout(() => {
+        transition.classList.remove('animating');
+      }, 800);
+    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const button = document.querySelector('.theme-toggle');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        button.textContent = 'Light Mode';
+      }
+    })();
+  </script>
