@@ -1,12 +1,38 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+const path = require('path');
 const { themes } = require("prism-react-renderer");
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
 
 // External docs config - shared with import script (external-docs.json)
 const externalDocs = require('./external-docs.json');
+
+// Custom plugin: prevent docs/project-quiver/ files from being processed by the
+// main docs preset's MDX webpack loader (they are handled by the quiver plugin instance).
+function excludeProjectQuiverFromMainDocsLoader() {
+  const projectQuiverPath = path.resolve(__dirname, 'docs', 'project-quiver');
+  const docsPath = path.resolve(__dirname, 'docs') + path.sep;
+  return {
+    name: 'exclude-project-quiver-from-main-mdx-loader',
+    configureWebpack(config) {
+      for (const rule of (config.module?.rules ?? [])) {
+        if (!rule || typeof rule !== 'object' || !Array.isArray(rule.include)) continue;
+        // Identify the main docs MDX rule: includes 'docs/' but not 'project-quiver'
+        if (rule.include.some(d => d === docsPath) &&
+            !rule.include.some(d => typeof d === 'string' && d.includes('project-quiver'))) {
+          rule.exclude = (Array.isArray(rule.exclude)
+            ? rule.exclude
+            : rule.exclude ? [rule.exclude] : []
+          ).concat(projectQuiverPath);
+          break;
+        }
+      }
+      return {};
+    },
+  };
+}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -35,7 +61,7 @@ const config = {
         indexDocs: true,
         indexBlog: true,
         blogDir: "blog/",
-        docsDir: "docs/",
+        docsDir: ["docs", "docs-quiver", "docs-spearhead", "docs-flight-tracking", "docs-bounty"],
         language: "en",
         searchResultLimits: 8,
         highlightSearchTermsOnTargetPage: true,
@@ -50,14 +76,47 @@ const config = {
   ],
 
   plugins: [
+    excludeProjectQuiverFromMainDocsLoader,
     require.resolve('./plugins/dev-homepage'),
+    ['@docusaurus/plugin-content-docs', {
+      id: 'quiver',
+      path: 'docs/project-quiver',
+      routeBasePath: 'quiver',
+      sidebarPath: require.resolve('./sidebars-quiver.js'),
+      editUrl: 'https://github.com/Arrow-air/project-quiver/edit/main/docs/',
+      showLastUpdateTime: true,
+    }],
+    ['@docusaurus/plugin-content-docs', {
+      id: 'spearhead',
+      path: 'docs-spearhead',
+      routeBasePath: 'spearhead',
+      sidebarPath: require.resolve('./sidebars-spearhead.js'),
+      editUrl: 'https://github.com/Arrow-air/website/edit/staging/docs-spearhead/',
+      showLastUpdateTime: true,
+    }],
+    ['@docusaurus/plugin-content-docs', {
+      id: 'flight-tracking',
+      path: 'docs-flight-tracking',
+      routeBasePath: 'flight-tracking',
+      sidebarPath: require.resolve('./sidebars-flight-tracking.js'),
+      editUrl: 'https://github.com/Arrow-air/website/edit/staging/docs-flight-tracking/',
+      showLastUpdateTime: true,
+    }],
+    ['@docusaurus/plugin-content-docs', {
+      id: 'bounty',
+      path: 'docs-bounty',
+      routeBasePath: 'bounty',
+      sidebarPath: require.resolve('./sidebars-bounty.js'),
+      editUrl: 'https://github.com/Arrow-air/website/edit/staging/docs-bounty/',
+      showLastUpdateTime: true,
+    }],
   ],
 
   stylesheets: [
     { href: "https://fonts.googleapis.com", rel: "preconnect" },
     { href: "https://fonts.gstatic.com", rel: "preconnect" },
     {
-      href: "https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Rubik:wght@400;700&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Karla:wght@400;700&family=Rubik:wght@400;700&display=swap",
     },
   ],
 
@@ -68,6 +127,8 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
+          exclude: ['**/project-quiver/**'], // served by the separate quiver plugin instance
+          showLastUpdateTime: true,
           editUrl: ({ docPath }) => {
             // Check if this doc is from an external repo
             for (const [folder, config] of Object.entries(externalDocs)) {

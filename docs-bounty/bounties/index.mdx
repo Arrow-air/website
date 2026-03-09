@@ -1,0 +1,73 @@
+---
+sidebar_position: 1
+sidebar_label: Active Bounties
+---
+
+# Bounty Board
+
+Active bounties open to the Arrow community. Complete a bounty to earn USDC and $ARROW tokens.
+
+export const Badge = ({ status }) => {
+  const styles = {
+    OPEN:    { background: 'rgba(8,67,191,0.08)',   color: '#0843BF', border: '1px solid rgba(8,67,191,0.2)' },
+    CLAIMED: { background: 'rgba(180,130,0,0.08)',  color: '#92650a', border: '1px solid rgba(180,130,0,0.2)' },
+    CLOSED:  { background: 'rgba(107,114,128,0.1)', color: '#6b7280', border: '1px solid rgba(107,114,128,0.2)' },
+  };
+  return (
+    <span style={{
+      ...styles[status],
+      fontFamily: "'Departure Mono', monospace",
+      fontSize: '9px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.05em',
+      padding: '2px 7px',
+      borderRadius: '4px',
+      whiteSpace: 'nowrap',
+    }}>
+      {status}
+    </span>
+  );
+};
+
+## Engineering — Quiver
+
+| Bounty | Status | USDC | $ARROW | Expires | Outline | Apply |
+|--------|--------|------|--------|---------|---------|-------|
+| Quiver Payload Attachment Design | <Badge status="OPEN" /> | $500 | 2,000 | Mar 15 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| PT3 FEA Analysis — Main Frame | <Badge status="OPEN" /> | $800 | 3,500 | Mar 15 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Propeller Efficiency Benchmarking | <Badge status="OPEN" /> | $400 | 1,500 | Mar 20 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Landing Gear Iteration — PT3 | <Badge status="OPEN" /> | $600 | 2,500 | Mar 28 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Vibration Damping Solution — PT3 Arms | <Badge status="OPEN" /> | $350 | 1,200 | Apr 1 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Payload Release Mechanism Design | <Badge status="OPEN" /> | $700 | 3,000 | Apr 5 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Flight Log Analysis Tool | <Badge status="CLAIMED" /> | $550 | 2,200 | Mar 10 | [GitHub](https://github.com/Arrow-air/project-quiver) | — |
+| Flight Controller Tuning Guide | <Badge status="CLAIMED" /> | $300 | 1,000 | Mar 1 | [GitHub](https://github.com/Arrow-air/project-quiver) | — |
+| Motor Mount Stress Test Documentation | <Badge status="CLAIMED" /> | $250 | 800 | Feb 20 | [GitHub](https://github.com/Arrow-air/project-quiver) | — |
+
+## Engineering — Spearhead
+
+| Bounty | Status | USDC | $ARROW | Expires | Outline | Apply |
+|--------|--------|------|--------|---------|---------|-------|
+| Spearhead Airframe Stress Analysis | <Badge status="OPEN" /> | $750 | 3,000 | Apr 10 | [GitHub](https://github.com/Arrow-air/project-spearhead) | [Apply](https://github.com/Arrow-air/project-spearhead) |
+| Wing Profile CFD Simulation | <Badge status="OPEN" /> | $900 | 4,000 | Apr 15 | [GitHub](https://github.com/Arrow-air/project-spearhead) | [Apply](https://github.com/Arrow-air/project-spearhead) |
+| Tail Assembly Design Review | <Badge status="OPEN" /> | $500 | 2,000 | Apr 20 | [GitHub](https://github.com/Arrow-air/project-spearhead) | [Apply](https://github.com/Arrow-air/project-spearhead) |
+| Avionics Bay Layout — Rev 2 | <Badge status="OPEN" /> | $650 | 2,800 | Apr 25 | [GitHub](https://github.com/Arrow-air/project-spearhead) | [Apply](https://github.com/Arrow-air/project-spearhead) |
+| Spearhead Weight Budget Analysis | <Badge status="CLAIMED" /> | $400 | 1,500 | Mar 20 | [GitHub](https://github.com/Arrow-air/project-spearhead) | — |
+
+## Engineering — General
+
+| Bounty | Status | USDC | $ARROW | Expires | Outline | Apply |
+|--------|--------|------|--------|---------|---------|-------|
+| Cross-Project Telemetry Dashboard | <Badge status="OPEN" /> | $600 | 2,500 | Apr 12 | [GitHub](https://github.com/Arrow-air) | [Apply](https://github.com/Arrow-air) |
+| Shared Sensor Calibration Procedure | <Badge status="OPEN" /> | $350 | 1,200 | Apr 18 | [GitHub](https://github.com/Arrow-air) | [Apply](https://github.com/Arrow-air) |
+| Engineering Wiki — Getting Started Guide | <Badge status="OPEN" /> | $250 | 800 | Apr 22 | [GitHub](https://github.com/Arrow-air) | [Apply](https://github.com/Arrow-air) |
+| CI/CD Pipeline Documentation | <Badge status="CLAIMED" /> | $300 | 1,000 | Mar 18 | [GitHub](https://github.com/Arrow-air) | — |
+
+## General
+
+| Bounty | Status | USDC | $ARROW | Expires | Outline | Apply |
+|--------|--------|------|--------|---------|---------|-------|
+| Ground Station UI Wireframes | <Badge status="OPEN" /> | $450 | 1,800 | Apr 10 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Community Onboarding Guide | <Badge status="OPEN" /> | $200 | 750 | Mar 25 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Social Media Content — Feb Build Log | <Badge status="OPEN" /> | $150 | 500 | Mar 10 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Translate Docs to Spanish | <Badge status="OPEN" /> | $300 | 1,000 | Apr 15 | [GitHub](https://github.com/Arrow-air/project-quiver) | [Apply](https://github.com/Arrow-air/project-quiver) |
+| Project Quiver Build Video | <Badge status="CLAIMED" /> | $500 | 2,000 | Mar 5 | [GitHub](https://github.com/Arrow-air/project-quiver) | — |

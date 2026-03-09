@@ -35,7 +35,7 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 	sidebar_label=$(jq -r ".\"$key\".sidebarLabel // \"$key\"" "$CONFIG_FILE")
 	sidebar_position=$(jq -r ".\"$key\".sidebarPosition // 99" "$CONFIG_FILE")
 
-	target_path="docs/$key"
+	target_path=$(jq -r ".\"$key\".targetPath // \"docs/$key\"" "$CONFIG_FILE")
 
 	echo "Importing docs from $repo ($branch)..."
 
@@ -95,8 +95,10 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 			"$mdfile" 2>/dev/null || true
 	done
 
-	# Create _category_.json for sidebar if it doesn't exist in source
-	if [ ! -f "$target_path/_category_.json" ]; then
+	# Create _category_.json for sidebar only when importing into the default docs/ subfolder
+	# (not needed for top-level plugin roots specified via targetPath)
+	custom_target=$(jq -r ".\"$key\".targetPath // \"\"" "$CONFIG_FILE")
+	if [ -z "$custom_target" ] && [ ! -f "$target_path/_category_.json" ]; then
 		if [ -f "$target_path/index.md" ] || [ -f "$target_path/index.mdx" ]; then
 			cat > "$target_path/_category_.json" << EOF
 {
