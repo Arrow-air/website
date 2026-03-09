@@ -2,6 +2,8 @@
 tags:
   - contributors
   - <your skill>
+# A one-sentence intro shown below the page title. Keep it short and punchy.
+description: <one sentence about yourself>
 ---
 
 # <Your Discord name> / <optional: your real name>
