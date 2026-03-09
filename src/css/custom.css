@@ -553,7 +553,7 @@ h1, .h1 {
     --ifm-global-spacing: 1.5rem;
     --ifm-navbar-item-padding-horizontal: 0.4rem;
     --ifm-navbar-item-padding-vertical: 0.4rem;
-    --ifm-navbar-height: 5rem;
+    --ifm-navbar-height: 115px; /* 72px DocsNavbar + 43px SubNav */
 
     --ifm-color-primary: #535299;
     --ifm-color-secondary: #1b1464;
