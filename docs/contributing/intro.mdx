@@ -1,93 +1,95 @@
 ---
 sidebar_position: 2
-description: How to join, what we need help with, and quick wins for new contributors.
-sidebar_custom_props:
-  icon: rocket
+title: Getting Started
+description: A step-by-step guide to getting oriented and making your first contribution to Arrow.
 ---
 
 # Getting Started
 
-Welcome to Arrow! We're a global community building open source aircraft. Here's how to get involved.
+Arrow is a global community building open-source aircraft. No gatekeeping, no approval process. If you want to contribute, you can start today.
 
-## Join the Community
-
-**[Discord](https://discord.com/invite/arrow)** is home base. It's where we coordinate, hold meetings, and hang out. Introduce yourself in `#general` and we'll help you get oriented.
-
-:::tip You Don't Need Permission
-Arrow has an open culture — you don't need formal approval to start contributing. Just communicate with the community to stay aligned on priorities.
+:::tip
+You don't need permission to start. Just communicate with the community so you stay aligned on what's actually needed.
 :::
 
-## Community Calls
+<Steps>
 
-We hold regular community calls to sync up on progress, discuss priorities, and hang out. Times are announced in Discord and posted in the events tab there. These are the fastest way to get up to speed and meet the team.
+  <Step title="Read the docs">
+    Spend 20 minutes getting a basic picture of what Arrow is and how it operates before jumping into Discord or GitHub.
 
-## Ways to Contribute
+    - [What is Arrow?](/docs/overview/about-arrow) — Mission, structure, the short version
+    - [Our Projects](/docs/overview/our-projects) — Quiver, Spearhead, what's in development
+    - [How We Work](/docs/contributing/how-we-work) — Async culture and how decisions get made
+    - [Why a DAO?](/docs/governance/why-a-dao) — Why we're organized this way
+  </Step>
 
-### Grants & Bounties
+  <Step title="Join Discord">
+    [Discord](https://discord.com/invite/arrow) is where Arrow actually lives. Meetings, coordination, hardware updates, off-topic chatter. It all happens there. Drop into **#community-chat** and say hi.
 
-We fund contributor work through grants and bounties coordinated on the **[DAO Forum](https://dao.arrowair.com)**. If you have an idea that would benefit Arrow — or want to take on existing work — pitch it there.
+    We hold regular community calls announced in the events tab. These are the fastest way to get a feel for the project and meet people. No agenda required to attend.
 
-**Current priorities:**
-- **Attachments** for [Project Quiver](/project-quiver) (cameras, sensors, delivery mechanisms)
-- **Documentation** and guides
-- **Flight testing** and validation
-- **Manufacturing** tooling and processes
-- **Software** (companion computer, ground control, web)
+    <DemoImage src="/img/getting-started_discord.png" alt="Arrow Discord server" />
+  </Step>
 
-### Dev-Kit Loans
+  <Step title="Browse the DAO forum and YouTube">
+    Before jumping into work, read through some of the ongoing conversation.
 
-Building hardware? We loan out Quiver dev-kits to contributors developing attachments or integrations. Check the [Project Quiver](/project-quiver) page for details on the platform and how to apply.
+    The **[DAO Forum](https://dao.arrowair.com)** is where governance proposals, grants, and project discussions are posted publicly. Reading through a few recent AIPs shows you how Arrow actually makes decisions and what's getting attention right now.
 
-### Skills We Need
+    The **[YouTube channel](https://www.youtube.com/@ArrowAir)** has flight test footage, build videos, and demos. Seeing the hardware fly makes the whole thing feel less abstract.
 
-You don't have to be an aerospace engineer. We need help across many areas:
+    <DemoImage src="/img/getting-started_dao-forum.png" alt="Arrow DAO Forum" />
+  </Step>
 
-- **Mechanical / CAD** — Airframe, attachments, manufacturing fixtures
-- **Electronics** — PCB design, wiring, sensors
-- **Software** — Embedded, web, companion computer, ground control
-- **Flight Testing** — Pilots, test planning, data analysis
-- **Documentation** — Guides, tutorials, technical writing
-- **Video / Media** — Demos, tutorials, promotional content
+  <Step title="Find something to work on">
+    Arrow needs help across a wide range of areas. You don't have to be an aerospace engineer.
 
-### Quick Wins for New Contributors
+    We regularly need people with skills in mechanical design and CAD, electronics and PCB work, software (embedded, web, companion computer, ground control), flight testing, documentation, and video production. If you have a skill and want to use it, there's probably something useful you can do.
 
-Not sure where to start? Some easy first contributions:
+    **Don't have expensive tools?** Most design work happens in software — CAD tools like Fusion 360 and OnShape have free tiers, and all electronics work uses open source tooling. For hardware, most builds can be done with basic workshop tools or on-demand services like local makerspaces and PCB fabs.
 
-- Fix typos or improve clarity in the docs
-- Test and give feedback on existing documentation
-- Help answer questions in Discord
-- Review and comment on open PRs or forum proposals
+    **Not sure how much time you have?** However much you can give. Some contributors are here daily; others drop in once a month. Both are genuinely valuable. Arrow works because small contributions compound.
 
-## Before You Contribute Code
+    If you're not sure where to start, some genuinely easy first contributions: fix a typo in the docs, test a guide and report what's confusing, answer a question in Discord, or leave a comment on an open PR.
 
-1. **Sign the [CLA](/docs/contributing/cla)** — Required before we can merge your PRs
-2. **Read the [Development Guide](./guides/development-guide.md)** — Git workflow, commit conventions, and tooling
+    For funded work, browse open bounties on the [Bounty Board](/bounty) or the [DAO Forum](https://dao.arrowair.com). If you want to build hardware, we loan out Quiver dev-kits to contributors developing attachments. See the [Project Quiver](/quiver) docs for details.
+  </Step>
 
-## Collaboration Tools
+  <Step title="Sign the CLA">
+    One thing you do need before any PRs can be merged: sign the Contributor License Agreement. It takes about a minute and only needs to be done once.
 
-| Tool | Purpose |
-|------|---------|
-| [Discord](https://discord.com/invite/arrow) | Chat, meetings, coordination |
-| [GitHub](https://github.com/Arrow-air) | Code, hardware designs, issues |
-| [DAO Forum](https://dao.arrowair.com) | Governance, grants, proposals |
-| [HammerTime](https://hammertime.cyou/) | Timezone-friendly time sharing |
-| [Arrow Drive](https://drive.google.com/drive/folders/1efLrzqsiajzlxXiOUjxPT53CkfDGC0Yu?usp=sharing) | Presentations, brand assets |
+    **[Sign the CLA](/docs/contributing/sign-cla)**
+  </Step>
 
-## Working Async
+  <Step title="Read the guides">
+    If you're contributing code or documentation, these are worth reading before you submit anything.
 
-Arrow contributors are spread across the globe. Most communication is asynchronous — don't expect instant responses, but do expect thoughtful ones. Document your work, over-communicate context, and be patient with timezone differences.
+    - [Development Guide](/docs/guides/development-guide) — Git workflow, branching conventions, commit style, local setup
+    - [Writing Style Guide](/docs/guides/style-guides/writing) — How docs are written at Arrow
+    - [Code Style Guides](/docs/guides/style-guides) — Python, TypeScript, Rust conventions
+    - [Brand Guidelines](/docs/contributing/arrow-brand) — Logos, colors, how to represent Arrow
 
-## Contributor Pages
+    **Tools:**
 
-Want to add your profile to the site?
+    | Tool | What it's for |
+    |------|--------------|
+    | [Discord](https://discord.com/invite/arrow) | Chat, meetings, coordination |
+    | [GitHub](https://github.com/Arrow-air) | Code, hardware designs, issues |
+    | [DAO Forum](https://dao.arrowair.com) | Governance, grants, proposals |
+    | [Arrow Drive](https://drive.google.com/drive/folders/1efLrzqsiajzlxXiOUjxPT53CkfDGC0Yu?usp=sharing) | Presentations, brand assets |
+  </Step>
 
-1. Copy the [contributor template](https://raw.githubusercontent.com/Arrow-air/website/main/docs/contributing/contributors/_template.md)
-2. Go to the [contributors directory](https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors)
-3. Click **Add file** → **Create new file**
-4. Fill out the template and submit a PR
+  <Step title="Add your contributor profile (a good first PR)">
+    Adding your profile to the [Contributors](/docs/contributing/contributors) page is a solid first PR. It gets you through the full contribution workflow without any pressure, and it puts your name in the record.
 
-![Creating a PR](/images/create_pr.jpg)
+    1. Copy the [contributor template](https://raw.githubusercontent.com/Arrow-air/website/main/docs/contributing/contributors/_template.md)
+    2. Go to the [contributors directory](https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors) on GitHub
+    3. Click **Add file**, then **Create new file**
+    4. Fill it out and open a PR against `staging`
+  </Step>
+
+</Steps>
 
 ---
 
-Questions? Just ask in Discord — we're happy to help!
+Questions? Ask in [Discord](https://discord.com/invite/arrow).

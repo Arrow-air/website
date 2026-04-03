@@ -1,0 +1,101 @@
+# DemoImage Test
+
+Reference for the `<DemoImage>` component — screenshot and diagram frames with colored backgrounds.
+
+---
+
+## Single — blue (default)
+
+<DemoImage src="/img/demo-discord.png" alt="Arrow Discord server" />
+
+---
+
+## Single video — blue
+
+<DemoImage>
+  <video src="/img/demo-cleanshot.webm" autoPlay loop muted playsInline style={{width: '100%', display: 'block'}} />
+</DemoImage>
+
+---
+
+## Single — grey
+
+<DemoImage color="grey" src="/img/demo-discord.png" alt="Arrow Discord server" />
+
+---
+
+## Single — teal
+
+<DemoImage color="teal" src="/img/demo-discord.png" alt="Arrow Discord server" />
+
+---
+
+## Single with caption — blue
+
+<DemoImage src="/img/demo-devtools.png" alt="DevTools Elements panel" caption="Chrome DevTools — Elements panel showing computed styles" />
+
+---
+
+## Single with caption — grey
+
+<DemoImage color="grey" src="/img/demo-devtools.png" alt="DevTools Elements panel" caption="Chrome DevTools — Elements panel showing computed styles" />
+
+---
+
+## Single with caption — teal
+
+<DemoImage color="teal" src="/img/demo-devtools.png" alt="DevTools Elements panel" caption="Chrome DevTools — Elements panel showing computed styles" />
+
+---
+
+## Two column — blue
+
+<DemoImage cols={2}>
+  <img src="/img/demo-discord.png" alt="Arrow Discord" />
+  <img src="/img/demo-devtools.png" alt="DevTools" />
+</DemoImage>
+
+---
+
+## Two column — grey
+
+<DemoImage color="grey" cols={2}>
+  <img src="/img/demo-discord.png" alt="Arrow Discord" />
+  <img src="/img/demo-devtools.png" alt="DevTools" />
+</DemoImage>
+
+---
+
+## Two column — teal
+
+<DemoImage color="teal" cols={2}>
+  <img src="/img/demo-discord.png" alt="Arrow Discord" />
+  <img src="/img/demo-devtools.png" alt="DevTools" />
+</DemoImage>
+
+---
+
+## Two column with caption — blue
+
+<DemoImage cols={2} caption="Arrow Discord community channel · DevTools inspection view">
+  <img src="/img/demo-discord.png" alt="Arrow Discord" />
+  <img src="/img/demo-devtools.png" alt="DevTools" />
+</DemoImage>
+
+---
+
+## Two column with caption — grey
+
+<DemoImage color="grey" cols={2} caption="Arrow Discord community channel · DevTools inspection view">
+  <img src="/img/demo-discord.png" alt="Arrow Discord" />
+  <img src="/img/demo-devtools.png" alt="DevTools" />
+</DemoImage>
+
+---
+
+## Two column with caption — teal
+
+<DemoImage color="teal" cols={2} caption="Arrow Discord community channel · DevTools inspection view">
+  <img src="/img/demo-discord.png" alt="Arrow Discord" />
+  <img src="/img/demo-devtools.png" alt="DevTools" />
+</DemoImage>

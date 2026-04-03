@@ -1,0 +1,462 @@
+import ThemedImage from '@theme/ThemedImage';
+
+# Images
+
+A reference for embedding images and video in Arrow docs. Most things work with standard markdown — no special syntax needed.
+
+---
+
+## Full width
+
+Drop an image into your doc with standard markdown. It fills the content column automatically.
+
+```md
+![A description of your image](/img/your-image.jpg)
+```
+
+![Quiver quadcopter in flight](/img/quiver-01.jpg)
+
+---
+
+## Sized images
+
+Need a smaller image? Switch to an `<img>` tag and set `width` as a percentage or in pixels. Your file extension can be `.md` or `.mdx` — both support inline HTML.
+
+```md
+<!-- 25% wide -->
+<img src="/img/your-image.png" width="25%" />
+
+<!-- 50% wide -->
+<img src="/img/your-image.png" width="50%" />
+
+<!-- 75% wide -->
+<img src="/img/your-image.png" width="75%" />
+
+<!-- Fixed pixel width -->
+<img src="/img/your-image.png" width="320" />
+```
+
+<img src="/img/quiver-3d.png" width="25%" />
+
+<img src="/img/quiver-3d.png" width="50%" />
+
+<img src="/img/quiver-3d.png" width="75%" />
+
+<img src="/img/quiver-3d.png" width="320" />
+
+---
+
+## With caption
+
+Wrap your image in a `<figure>` to add a caption below it.
+
+```md
+<figure>
+  <img src="/img/your-image.jpg" alt="A description" />
+  <figcaption>Your caption goes here</figcaption>
+</figure>
+```
+
+<figure>
+  <img src="/img/quiver-01.jpg" alt="Quiver quadcopter" />
+  <figcaption>Project Quiver — open source quadcopter platform</figcaption>
+</figure>
+
+Works with sized images too:
+
+```md
+<figure>
+  <img src="/img/your-image.png" width="50%" alt="A description" />
+  <figcaption>Your caption goes here</figcaption>
+</figure>
+```
+
+<figure>
+  <img src="/img/quiver-3d.png" width="50%" alt="Quiver 3D render" />
+  <figcaption>Quiver 3D render, 50% width</figcaption>
+</figure>
+
+---
+
+## Borderless
+
+By default, images get a border and shadow to make them stand out from the page. To remove both, add `"borderless"` as the image title — no extra syntax needed.
+
+```md
+<!-- With border (default) -->
+![A description](/img/your-image.png)
+
+<!-- Without border -->
+![A description](/img/your-image.png "borderless")
+```
+
+With border (default):
+
+![Quiver](/img/quiver-3d.png)
+
+Without border:
+
+![Quiver](/img/quiver-3d.png "borderless")
+
+Works on full-width images too:
+
+![Quiver in flight](/img/quiver-01.jpg "borderless")
+
+---
+
+## Float left / right
+
+Wrap text around an image by floating it. Add a `<div style={{clear: 'both'}} />` after your paragraph to stop the wrap.
+
+```md
+<img src="/img/your-image.png" width="240" style={{float: 'left', marginRight: '1.5rem', marginBottom: '1rem'}} />
+
+Your paragraph text wraps around the image here. Keep writing and it will
+flow naturally until the image runs out of height.
+
+<div style={{clear: 'both'}} />
+```
+
+<img src="/img/quiver-3d.png" width="240" style={{float: 'left', marginRight: '1.5rem', marginBottom: '1rem'}} />
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+<div style={{clear: 'both'}} />
+
+```md
+<img src="/img/your-image.png" width="240" style={{float: 'right', marginLeft: '1.5rem', marginBottom: '1rem'}} />
+```
+
+<img src="/img/quiver-3d.png" width="240" style={{float: 'right', marginLeft: '1.5rem', marginBottom: '1rem'}} />
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+<div style={{clear: 'both'}} />
+
+---
+
+## Centered
+
+```md
+<div style={{textAlign: 'center'}}>
+  <img src="/img/your-image.png" width="50%" />
+</div>
+```
+
+<div style={{textAlign: 'center'}}>
+  <img src="/img/quiver-3d.png" width="50%" />
+</div>
+
+---
+
+## Side by side
+
+Place two or three images next to each other using a grid. Adjust `gridTemplateColumns` to control the split.
+
+```md
+<!-- 2-up: equal columns -->
+<div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem'}}>
+  <img src="/img/image-one.png" />
+  <img src="/img/image-two.png" />
+</div>
+
+<!-- 3-up: equal columns -->
+<div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem'}}>
+  <img src="/img/image-one.png" />
+  <img src="/img/image-two.png" />
+  <img src="/img/image-three.png" />
+</div>
+
+<!-- Unequal split: 2/3 + 1/3 -->
+<div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem'}}>
+  <img src="/img/image-one.png" />
+  <img src="/img/image-two.png" />
+</div>
+```
+
+<div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem'}}>
+  <img src="/img/quiver-card-image-01.png" />
+  <img src="/img/spearhead-first-version.png" />
+</div>
+
+<div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1rem'}}>
+  <img src="/img/sky-01.png" />
+  <img src="/img/sky-grey-01.png" />
+  <img src="/img/sky-grey-02.png" />
+</div>
+
+---
+
+## Inline with text
+
+Embed a small icon or image inside a sentence.
+
+```md
+Here is some text with an icon <img src="/img/your-icon.png" style={{display: 'inline', height: '1.5em', verticalAlign: 'middle'}} /> right in the middle.
+```
+
+Here is some text with an icon <img src="/img/pixel-quiver.png" style={{display: 'inline', height: '1.5em', verticalAlign: 'middle'}} /> right in the middle.
+
+---
+
+## Dark / light mode
+
+Use `ThemedImage` when you need a different image for dark and light mode — useful for diagrams, logos, or anything with a background. Add the import at the top of your `.mdx` file.
+
+```mdx
+import ThemedImage from '@theme/ThemedImage';
+
+<ThemedImage
+  alt="Arrow wordmark"
+  sources={{
+    light: '/img/your-image-light.svg',
+    dark: '/img/your-image-dark.svg',
+  }}
+/>
+```
+
+<ThemedImage
+  alt="Arrow wordmark"
+  sources={{
+    light: '/img/brand/wordmark_gray.svg',
+    dark: '/img/brand/wordmark_white.svg',
+  }}
+  style={{maxWidth: '320px'}}
+/>
+
+---
+
+## Hero / cover image
+
+A wide, cropped image for the top of a post or section. Uses `object-fit: cover` to fill the frame regardless of the source image's dimensions.
+
+```md
+<div style={{width: '100%', aspectRatio: '21/9', overflow: 'hidden'}}>
+  <img src="/img/your-image.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
+</div>
+```
+
+<div style={{position: 'relative', width: '100%', aspectRatio: '21/9', overflow: 'hidden', marginBottom: '1.5rem'}}>
+  <img src="/img/quiver-01.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', margin: 0}} />
+</div>
+
+---
+
+## Hero with text overlay
+
+Add a title over a cover image — useful for engineering reports or blog posts.
+
+```md
+<div style={{position: 'relative', width: '100%', aspectRatio: '21/9', overflow: 'hidden'}}>
+  <img src="/img/your-image.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
+  <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%)', display: 'flex', alignItems: 'flex-end', padding: '2rem'}}>
+    <div>
+      <p style={{color: 'rgba(255,255,255,0.7)', margin: '0 0 0.25rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.08em'}}>Project Update</p>
+      <h2 style={{color: '#fff', margin: 0, fontSize: '1.75rem'}}>Your Title Here</h2>
+    </div>
+  </div>
+</div>
+```
+
+<div style={{position: 'relative', width: '100%', aspectRatio: '21/9', overflow: 'hidden', marginBottom: '1.5rem'}}>
+  <img src="/img/quiver-01.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', margin: 0}} />
+  <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%)', display: 'flex', alignItems: 'flex-end', padding: '2rem'}}>
+    <div>
+      <p style={{color: 'rgba(255,255,255,0.7)', margin: '0 0 0.25rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.08em'}}>Project Update</p>
+      <h2 style={{color: '#fff', margin: 0, fontSize: '1.75rem'}}>PT3 Engineering Report</h2>
+    </div>
+  </div>
+</div>
+
+---
+
+## Author bio
+
+Add an author bio at the top or bottom of a post. Photo sizes: `avatar__photo--sm`, `avatar__photo--lg`, `avatar__photo--xl`.
+
+```md
+<div className="avatar">
+  <img className="avatar__photo avatar__photo--lg" src="/img/your-photo.png" alt="Your name" />
+  <div className="avatar__intro">
+    <div className="avatar__name">Your Name</div>
+    <small className="avatar__subtitle">Your role · Team</small>
+  </div>
+</div>
+```
+
+<div className="avatar" style={{marginBottom: '1.5rem'}}>
+  <img className="avatar__photo avatar__photo--lg" src="/img/favicon_128px.png" alt="Author avatar" />
+  <div className="avatar__intro">
+    <div className="avatar__name">sleety</div>
+    <small className="avatar__subtitle">Core contributor · Engineering</small>
+  </div>
+</div>
+
+---
+
+## Video — YouTube embed
+
+Paste a YouTube video into your doc. The wrapper div keeps it responsive at 16:9.
+
+```md
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+  <iframe
+    style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0}}
+    src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+    title="Your video title"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  />
+</div>
+```
+
+Replace `YOUR_VIDEO_ID` with the ID from the YouTube URL — e.g. `youtube.com/watch?v=`**`dQw4w9WgXcQ`**.
+
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', marginBottom: '1rem'}}>
+  <iframe
+    style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0}}
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+    title="YouTube video placeholder"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  />
+</div>
+
+For a half-width embed, wrap it in a sized div:
+
+```md
+<div style={{width: '50%'}}>
+  <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+    <iframe
+      style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0}}
+      src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+      title="Your video title"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  </div>
+</div>
+```
+
+<div style={{width: '50%'}}>
+  <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+    <iframe
+      style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0}}
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+      title="YouTube video placeholder small"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  </div>
+</div>
+
+---
+
+## Video — self-hosted
+
+For MP4 files hosted in `static/videos/`, use the native `<video>` element.
+
+```md
+<!-- With play controls -->
+<video controls style={{width: '100%'}}>
+  <source src="/videos/your-video.mp4" type="video/mp4" />
+</video>
+
+<!-- Autoplay loop — good for ambient / demo footage -->
+<video autoPlay muted loop playsInline style={{width: '100%'}}>
+  <source src="/videos/your-video.mp4" type="video/mp4" />
+</video>
+```
+
+<video controls style={{width: '100%'}}>
+  <source src="/videos/placeholder.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+---
+
+## Demo image — screenshot frame
+
+Use `<DemoImage>` to showcase screenshots, walkthroughs, or diagrams in a styled frame. Three color variants: `blue` (default), `grey`, `teal`. Single or two-column layout. Optional caption.
+
+### Single column
+
+```jsx
+<DemoImage src="/img/your-screenshot.png" alt="App screenshot" />
+
+<DemoImage color="grey" src="/img/your-screenshot.png" alt="App screenshot" />
+
+<DemoImage color="teal" src="/img/your-screenshot.png" alt="App screenshot" />
+```
+
+<DemoImage src="/img/quiver-card-image-01.png" alt="Quiver card" />
+
+<DemoImage color="grey" src="/img/quiver-card-image-01.png" alt="Quiver card" />
+
+<DemoImage color="teal" src="/img/quiver-card-image-01.png" alt="Quiver card" />
+
+---
+
+### Single column with caption
+
+```jsx
+<DemoImage src="/img/your-screenshot.png" alt="App screenshot" caption="The main dashboard view" />
+```
+
+<DemoImage src="/img/quiver-card-image-01.png" alt="Quiver card" caption="Project Quiver — overview panel" />
+
+<DemoImage color="grey" src="/img/spearhead-first-version.png" alt="Spearhead" caption="Spearhead v1 — first iteration of the control surface" />
+
+<DemoImage color="teal" src="/img/sky-01.png" alt="Sky" caption="Sky coverage analysis — processed output" />
+
+---
+
+### Two columns
+
+```jsx
+<DemoImage cols={2}>
+  <img src="/img/image-one.png" alt="Step 1" />
+  <img src="/img/image-two.png" alt="Step 2" />
+</DemoImage>
+```
+
+<DemoImage cols={2}>
+  <img src="/img/quiver-card-image-01.png" alt="Quiver card" />
+  <img src="/img/spearhead-first-version.png" alt="Spearhead" />
+</DemoImage>
+
+<DemoImage color="grey" cols={2}>
+  <img src="/img/sky-01.png" alt="Sky 1" />
+  <img src="/img/sky-grey-01.png" alt="Sky 2" />
+</DemoImage>
+
+<DemoImage color="teal" cols={2}>
+  <img src="/img/quiver-card-image-01.png" alt="Quiver" />
+  <img src="/img/sky-grey-02.png" alt="Sky grey" />
+</DemoImage>
+
+---
+
+### Two columns with caption
+
+```jsx
+<DemoImage cols={2} caption="Before and after comparison">
+  <img src="/img/image-one.png" alt="Before" />
+  <img src="/img/image-two.png" alt="After" />
+</DemoImage>
+```
+
+<DemoImage cols={2} caption="Before and after — Quiver card vs Spearhead render">
+  <img src="/img/quiver-card-image-01.png" alt="Quiver" />
+  <img src="/img/spearhead-first-version.png" alt="Spearhead" />
+</DemoImage>
+
+<DemoImage color="grey" cols={2} caption="Sky processing — raw and processed outputs">
+  <img src="/img/sky-01.png" alt="Raw" />
+  <img src="/img/sky-grey-01.png" alt="Processed" />
+</DemoImage>
+
+<DemoImage color="teal" cols={2} caption="Cloud processing pipeline — two output formats">
+  <img src="/img/cloud-processed-01.png" alt="Cloud processed" />
+  <img src="/img/cloud-processedalt-01.png" alt="Cloud processed alt" />
+</DemoImage>

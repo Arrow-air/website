@@ -131,7 +131,7 @@ export default function Footer(): JSX.Element {
               <ul className={styles.linkList}>
                 <li><a href="https://discord.com/invite/arrow" target="_blank" rel="noopener noreferrer">Discord</a></li>
                 <li><a href="https://dao.arrowair.com/" target="_blank" rel="noopener noreferrer">DAO Forum</a></li>
-                <li><Link to="/docs/contributing/intro">Contribute</Link></li>
+                <li><Link to="/docs/contributing">Contribute</Link></li>
               </ul>
             </div>
 
