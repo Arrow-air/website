@@ -95,6 +95,14 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 			"$mdfile" 2>/dev/null || true
 	done
 
+	# Patch known upstream links that do not resolve cleanly in the website's
+	# Docusaurus route structure after import.
+	if [ "$key" = "project-quiver" ] && [ -f "$target_path/index.md" ]; then
+		$SED_INPLACE \
+			-e 's|\[Engineering Reports\](\./Engineering-Reports/)|[Engineering Reports](/quiver/category/engineering-reports/)|g' \
+			"$target_path/index.md" 2>/dev/null || true
+	fi
+
 	# Create _category_.json for sidebar only when importing into the default docs/ subfolder
 	# (not needed for top-level plugin roots specified via targetPath)
 	custom_target=$(jq -r ".\"$key\".targetPath // \"\"" "$CONFIG_FILE")
