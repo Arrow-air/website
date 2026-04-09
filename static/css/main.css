@@ -3189,7 +3189,7 @@ figcaption {
   position: absolute;
   inset: 0;
   background: url('../img/ai-dither-radial.png') center bottom no-repeat;
-  background-size: 1200px 1200px;
+  background-size: cover;
   image-rendering: pixelated;
   opacity: 0.1;
   pointer-events: none;
