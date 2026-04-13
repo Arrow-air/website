@@ -20,18 +20,16 @@ function EndBarContent({editUrl}: {editUrl?: string}): ReactNode {
     <div className="doc-end-bar-wrapper">
       <div className="doc-end-bar">
         <span className="doc-end-bar__message">
-          Questions? Just ask{' '}
+          Questions? Ask on{' '}
           <a
             href="https://discord.com/invite/arrow"
             target="_blank"
             rel="noopener noreferrer">
             Discord
           </a>
-          {' '}&mdash; we're happy to help
+          {' '}&mdash; we&rsquo;re happy to help
         </span>
-        <span className="doc-end-bar__fill" aria-hidden="true">
-          {'#'.repeat(80)}
-        </span>
+        <span className="doc-end-bar__fill" aria-hidden="true" />
         {editUrl && (
           <a
             href={editUrl}

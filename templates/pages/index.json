@@ -4,5 +4,6 @@
   "wfPageId": "686bc4649f23f7482c1e3649",
   "metaTags": [],
   "extraHead": "",
-  "bodyFile": "index.body.html"
+  "bodyFile": "index.body.html",
+  "extraScriptsFile": "index.scripts.html"
 }

@@ -1,10 +1,18 @@
 function initImageCollapse() {
   const containers = document.querySelectorAll(
-    '.theme-doc-markdown p:has(> img), .theme-doc-markdown figure'
+    '.theme-doc-markdown p:has(> img), .theme-doc-markdown figure:not(.demo-image)'
   );
 
   containers.forEach((container) => {
     if (container.querySelector('.image-collapse-btn')) return;
+
+    // Stamp filename from the img src onto the wrapper for CSS to display
+    const img = container.querySelector('img');
+    if (img) {
+      const src = img.getAttribute('src') || '';
+      const filename = src.split('/').pop().replace(/\.[^.]+$/, '');
+      container.dataset.filename = filename;
+    }
 
     const btn = document.createElement('button');
     btn.className = 'image-collapse-btn';

@@ -264,16 +264,15 @@
   width: 22px;
   height: 22px;
   padding: 0;
-  border: 1px solid #d1d5db;
+  border: none;
   background: transparent;
   color: #9ca3af;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .themeButton:hover {
   color: #4b5563;
-  border-color: #9ca3af;
 }
 
 .themeIconWrapper {
@@ -337,12 +336,10 @@
 
 :global([data-theme='dark']) .themeButton {
   color: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.25);
 }
 
 :global([data-theme='dark']) .themeButton:hover {
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.5);
 }
 
 :global([data-theme='dark']) .themeTooltip {

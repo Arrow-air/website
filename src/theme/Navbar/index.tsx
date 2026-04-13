@@ -146,10 +146,38 @@ function LinksDropdown() {
   );
 }
 
-function DocsIcon() {
+function DocsIcon({ size, filled }: { size?: number; filled?: boolean } = {}) {
+  if (filled) {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size ?? 18} height={size ?? 18} viewBox="0 0 24 24" aria-hidden>
+        {/* House filled with door cut out via evenodd */}
+        <path
+          fillRule="evenodd"
+          fill="currentColor"
+          d="M21 21V8.75L12 2L3 8.75V21H21Z M9 21V16C9 14.34 10.34 13 12 13C13.66 13 15 14.34 15 16V21Z"
+        />
+        <path d="M21 21V8.75L12 2L3 8.75V21H21Z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+        <path d="M9 21V16C9 14.3431 10.3431 13 12 13C13.6569 13 15 14.3431 15 16V21" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+      </svg>
+    );
+  }
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width={size ?? 12} height={size ?? 12} viewBox="0 0 24 24" aria-hidden className={size ? undefined : styles.smallIcon}>
+      <path d="M9 21V16C9 14.3431 10.3431 13 12 13C13.6569 13 15 14.3431 15 16V21" stroke="currentColor" strokeWidth="2" fill="none"/>
+      <path d="M21 21V8.75L12 2L3 8.75V21H21Z" stroke="currentColor" strokeWidth="2" fill="none"/>
+    </svg>
+  );
+}
+
+function DocsActiveIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      {/* Fill layer: house with door cut out via evenodd */}
+      <path fillRule="evenodd" fill="currentColor"
+        d="M20 21V8.75L12 2L4 8.75V21H20Z M8 21V16C8 13.79 9.79 12 12 12C14.21 12 16 13.79 16 16V21Z"/>
+      {/* Stroke layer */}
+      <path d="M8 21V16C8 13.79 9.79 12 12 12C14.21 12 16 13.79 16 16V21" stroke="currentColor" strokeWidth="2" fill="none"/>
+      <path d="M20 21V8.75L12 2L4 8.75V21H20Z" stroke="currentColor" strokeWidth="2" fill="none"/>
     </svg>
   );
 }
@@ -164,16 +192,52 @@ function BookIcon() {
 
 function QuiverIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
       <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 10h4v4h-4zm0 0L6.5 6.5M9.96 6A3.5 3.5 0 1 0 6 9.96m8 .04l3.5-3.5m.5 3.46A3.5 3.5 0 1 0 14.04 6M14 14l3.5 3.5m-3.46.5A3.5 3.5 0 1 0 18 14.04M10 14l-3.5 3.5M6 14.04A3.5 3.5 0 1 0 9.96 18"/>
+    </svg>
+  );
+}
+
+function QuiverActiveIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <path fill="white" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 8h8v8h-8zm0 0L6.5 6.5M16 8L17.5 6.5M16 16L17.5 17.5M8 16L6.5 17.5"/>
+      <circle fill="currentColor" stroke="currentColor" strokeWidth="2" cx="6.5" cy="6.5" r="3"/>
+      <circle fill="currentColor" stroke="currentColor" strokeWidth="2" cx="17.5" cy="6.5" r="3"/>
+      <circle fill="currentColor" stroke="currentColor" strokeWidth="2" cx="17.5" cy="17.5" r="3"/>
+      <circle fill="currentColor" stroke="currentColor" strokeWidth="2" cx="6.5" cy="17.5" r="3"/>
     </svg>
   );
 }
 
 function SpearheadIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" aria-hidden>
-      <path d="M17.615 2.55a4.5 4.5 0 0 0-3.23 0L11.3 3.736l13 5l4.485-1.725a3.3 3.3 0 0 0-.868-.499zm3.9 7.258l-13.001-5l-4.43 1.704q-.481.186-.87.5L16 11.928zM2 9.545q0-.422.105-.818L15 13.687v15.95a4.5 4.5 0 0 1-.615-.187L4.083 25.488A3.25 3.25 0 0 1 2 22.455zM17.615 29.45q-.302.117-.615.188V13.687l12.895-4.96q.104.396.105.818v12.91a3.25 3.25 0 0 1-2.083 3.033z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 17 16.75" aria-hidden className={styles.smallIcon}>
+      <title>spearhead-icon-svg</title>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1">
+        <path d="M6.75,9.36l-6,.89v-1.57c0-.41.25-.78.63-.93l5.37-2.15"/>
+        <path d="M10.25,9.36l6,.89v-1.57c0-.41-.25-.78-.63-.93l-5.37-2.15"/>
+        <path d="M6.75,2.5v3.71c0,.52.04,1.04.12,1.56l.47,2.64c.09.57.58.99,1.16.99h0c.58,0,1.07-.42,1.16-.99l.47-2.64c.08-.52.12-1.04.12-1.56v-3.71c0-.97-.78-1.75-1.75-1.75h0c-.97,0-1.75.78-1.75,1.75Z"/>
+        <path d="M4.66 13.64H12.35V16H4.66z" fill="currentColor"/>
+        <path d="M4.66 13.64L4.66 9.75"/>
+        <path d="M12.34 13.64L12.34 9.75"/>
+      </g>
+    </svg>
+  );
+}
+
+function SpearheadActiveIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 17 16.75" aria-hidden className={styles.smallIcon}>
+      <title>spearhead-icon-svg</title>
+      <g fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1">
+        <path d="M6.75,9.36l-6,.89v-1.57c0-.41.25-.78.63-.93l5.37-2.15"/>
+        <path d="M10.25,9.36l6,.89v-1.57c0-.41-.25-.78-.63-.93l-5.37-2.15"/>
+        <path d="M6.75,2.5v3.71c0,.52.04,1.04.12,1.56l.47,2.64c.09.57.58.99,1.16.99h0c.58,0,1.07-.42,1.16-.99l.47-2.64c.08-.52.12-1.04.12-1.56v-3.71c0-.97-.78-1.75-1.75-1.75h0c-.97,0-1.75.78-1.75,1.75Z"/>
+        <path d="M4.66 13.64H12.35V16H4.66z"/>
+        <path d="M4.66 13.64L4.66 9.75"/>
+        <path d="M12.34 13.64L12.34 9.75"/>
+      </g>
     </svg>
   );
 }
@@ -207,8 +271,8 @@ const QUICK_LINKS = [
   },
   {
     label: 'Community',
-    href: 'https://www.arrowair.com/community',
-    external: true,
+    href: '/docs/community/index',
+    external: false,
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -217,8 +281,8 @@ const QUICK_LINKS = [
   },
   {
     label: 'Engineering',
-    href: 'https://www.arrowair.com/engineering',
-    external: true,
+    href: '/docs/contributing/how-we-work',
+    external: false,
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
@@ -232,6 +296,16 @@ const QUICK_LINKS = [
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
         <path d="M12 16q-.825 0-1.412-.587T10 14t.588-1.412T12 12t1.413.588T14 14t-.587 1.413T12 16M7.375 7h9.25l2-4H5.375zM8.4 21h7.2q2.25 0 3.825-1.562T21 15.6q0-.95-.325-1.85t-.925-1.625L17.15 9H6.85l-2.6 3.125q-.6.725-.925 1.625T3 15.6q0 2.275 1.563 3.838T8.4 21"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Changelog',
+    href: '/docs/changelog',
+    external: false,
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
       </svg>
     ),
   },
@@ -296,26 +370,63 @@ function QuickLinksDropdown() {
 
 function FlightTrackingIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>itinerary-2</title>
+      <g fill="currentColor">
+        <path d="M5 21C6.65685 21 8 19.6569 8 18C8 16.3431 6.65685 15 5 15C3.34315 15 2 16.3431 2 18C2 19.6569 3.34315 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path>
+        <path d="M19 9C20.6569 9 22 7.65685 22 6C22 4.34315 20.6569 3 19 3C17.3431 3 16 4.34315 16 6C16 7.65685 17.3431 9 19 9Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path>
+        <path d="M5 11V3H11L13 21H19V13" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path>
+      </g>
+    </svg>
+  );
+}
+
+function FlightTrackingActiveIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>itinerary-2</title>
+      <g fill="currentColor">
+        <path d="M5 21C6.65685 21 8 19.6569 8 18C8 16.3431 6.65685 15 5 15C3.34315 15 2 16.3431 2 18C2 19.6569 3.34315 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square"></path>
+        <path d="M19 9C20.6569 9 22 7.65685 22 6C22 4.34315 20.6569 3 19 3C17.3431 3 16 4.34315 16 6C16 7.65685 17.3431 9 19 9Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square"></path>
+        <path d="M5 11V3H11L13 21H19V13" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path>
+      </g>
     </svg>
   );
 }
 
 function BountyIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M12 16q-.825 0-1.412-.587T10 14t.588-1.412T12 12t1.413.588T14 14t-.587 1.413T12 16M7.375 7h9.25l2-4H5.375zM8.4 21h7.2q2.25 0 3.825-1.562T21 15.6q0-.95-.325-1.85t-.925-1.625L17.15 9H6.85l-2.6 3.125q-.6.725-.925 1.625T3 15.6q0 2.275 1.563 3.838T8.4 21"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>sack-coins</title>
+      <g fill="currentColor">
+        <path d="M13 18H21V22H13V18Z" stroke="currentColor" strokeWidth="2" fill="none"></path>
+        <path d="M15 14H23V18H15V14Z" stroke="currentColor" strokeWidth="2" fill="none"></path>
+        <path d="M13.8545 7.47656L15.6797 10.4814L15.9941 11H13.6543L12.4365 8.99512H11.5615L10.0186 11.5215L9.49707 12.375L7.79004 11.333L8.31152 10.4795L10.1465 7.47363L10.4385 6.99512H13.5625L13.8545 7.47656Z" fill="currentColor" stroke="none"></path>
+        <path d="M17.4189 1.60449L17.8486 2.60449L18.0439 3.05762L17.8037 3.48828L16.4238 5.9541C18.6379 7.0012 20.4182 8.72994 21.333 11H19.125C18.2132 9.3457 16.6403 8.08809 14.6699 7.3916L13.5508 6.99707L14.1299 5.96094L15.7852 3H8.21582L9.875 5.95996L10.4561 6.99609L9.33594 7.3916C6.1681 8.51128 4 11.0767 4 14.5C4 16.5381 4.75813 18.0442 5.96777 19.0938C6.98483 19.9761 8.3706 20.5749 10 20.8418V22.8652C7.95467 22.5813 6.0852 21.8434 4.65723 20.6045C2.99215 19.1598 2 17.0942 2 14.5C2 10.5168 4.31801 7.49921 7.58008 5.95508L6.19727 3.48926L5.95605 3.05859L6.15137 2.60449L6.58105 1.60449L6.8418 1H17.1582L17.4189 1.60449Z" fill="currentColor" stroke="none"></path>
+      </g>
+    </svg>
+  );
+}
+
+function BountyActiveIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>sack-coins</title>
+      <g fill="currentColor">
+        <circle cx="17" cy="18" r="4" fill="currentColor" stroke="currentColor" strokeWidth="2"/>
+        <path d="M13.8545 7.47656L15.6797 10.4814L15.9941 11H13.6543L12.4365 8.99512H11.5615L10.0186 11.5215L9.49707 12.375L7.79004 11.333L8.31152 10.4795L10.1465 7.47363L10.4385 6.99512H13.5625L13.8545 7.47656Z" fill="currentColor" stroke="none"></path>
+        <path d="M17.4189 1.60449L17.8486 2.60449L18.0439 3.05762L17.8037 3.48828L16.4238 5.9541C18.6379 7.0012 20.4182 8.72994 21.333 11H19.125C18.2132 9.3457 16.6403 8.08809 14.6699 7.3916L13.5508 6.99707L14.1299 5.96094L15.7852 3H8.21582L9.875 5.95996L10.4561 6.99609L9.33594 7.3916C6.1681 8.51128 4 11.0767 4 14.5C4 16.5381 4.75813 18.0442 5.96777 19.0938C6.98483 19.9761 8.3706 20.5749 10 20.8418V22.8652C7.95467 22.5813 6.0852 21.8434 4.65723 20.6045C2.99215 19.1598 2 17.0942 2 14.5C2 10.5168 4.31801 7.49921 7.58008 5.95508L6.19727 3.48926L5.95605 3.05859L6.15137 2.60449L6.58105 1.60449L6.8418 1H17.1582L17.4189 1.60449Z" fill="currentColor" stroke="none"></path>
+      </g>
     </svg>
   );
 }
 
 const SUBNAV_TABS = [
-  { label: 'Arrow',               path: '/docs',             to: '/docs/intro',       icon: <DocsIcon /> },
-  { label: 'Quiver',              path: '/quiver',           to: '/quiver',           icon: <QuiverIcon /> },
-  { label: 'Spearhead',           path: '/spearhead',        to: '/spearhead',        icon: <SpearheadIcon /> },
-  { label: 'Flight Tracking App', path: '/flight-tracking',  to: '/flight-tracking',  icon: <FlightTrackingIcon /> },
-  { label: 'Bounty Board',        path: '/bounty',           to: '/bounty',           icon: <BountyIcon /> },
+  { label: 'HOME',                path: '/docs',             to: '/docs/intro',       icon: <DocsIcon />, activeIcon: <DocsActiveIcon /> },
+  { label: 'Quiver',              path: '/quiver',           to: '/quiver',           icon: <QuiverIcon />, activeIcon: <QuiverActiveIcon /> },
+  { label: 'Spearhead',           path: '/spearhead',        to: '/spearhead',        icon: <SpearheadIcon />, activeIcon: <SpearheadActiveIcon /> },
+  { label: 'Flight Tracking App', path: '/flight-tracking',  to: '/flight-tracking',  icon: <FlightTrackingIcon />, activeIcon: <FlightTrackingActiveIcon /> },
+  { label: 'Bounty Board',        path: '/bounty',           to: '/bounty',           icon: <BountyIcon />, activeIcon: <BountyActiveIcon /> },
 ];
 
 function SubNav() {
@@ -368,7 +479,7 @@ function SubNav() {
               to={tab.to}
               className={`${styles.subNavTab} ${isActive ? styles.subNavTabActive : ''}`}
             >
-              {tab.icon}
+              {isActive && tab.activeIcon ? tab.activeIcon : tab.icon}
               <span>{tab.label}</span>
             </Link>
           );
@@ -432,30 +543,27 @@ function DocsNavbar() {
         {/* Logo */}
         <Link to="/docs/intro" className={styles.logo}>
           <ArrowLogo />
+          <span className={styles.logoLabel}>Docs</span>
         </Link>
 
         {/* Right Actions */}
         <div className={styles.navActions}>
-          <div className={`${styles.tooltipWrapper} ${styles.desktopOnly}`}>
-            <Link
-              to="/docs/intro"
-              className={styles.iconButton}
-              aria-label="Docs home"
-            >
-              <DocsIcon />
-            </Link>
-            <span className={styles.tooltip}>Docs home</span>
-          </div>
-          <div className={`${styles.tooltipWrapper} ${styles.desktopOnly}`}>
-            <Link
-              to="/docs/intro"
-              className={styles.iconButton}
-              aria-label="About Arrow"
-            >
-              <BookIcon />
-            </Link>
-            <span className={styles.tooltip}>About Arrow</span>
-          </div>
+          <a
+            href="https://www.arrowair.com"
+            className={`${styles.iconButton} ${styles.iconButtonLabeled} ${styles.desktopOnly}`}
+            aria-label="Homepage"
+          >
+            <DocsIcon size={18} filled />
+            <span className={styles.iconButtonLabel}>Homepage</span>
+          </a>
+          <Link
+            to="/docs/intro"
+            className={`${styles.iconButton} ${styles.iconButtonLabeled} ${styles.desktopOnly}`}
+            aria-label="Docs Home"
+          >
+            <BookIcon />
+            <span className={styles.iconButtonLabel}>Docs Home</span>
+          </Link>
           <QuickLinksDropdown />
           <div className={styles.searchWrapper}>
             <SearchBar />

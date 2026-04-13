@@ -107,9 +107,9 @@ export default function Footer(): JSX.Element {
         <div className={styles.topSection}>
           {/* Left - Logo & Newsletter */}
           <div className={styles.leftColumn}>
-            <Link to="/" className={styles.logo}>
+            <a href="/index.html" className={styles.logo}>
               <ArrowLogo />
-            </Link>
+            </a>
             <p className={styles.tagline}>
               Building open source aircraft for humanity.
             </p>
@@ -120,9 +120,9 @@ export default function Footer(): JSX.Element {
             <div className={styles.linkColumn}>
               <h4 className={styles.columnTitle}>Engineering</h4>
               <ul className={styles.linkList}>
-                <li><Link to="/docs/project-quiver">Project Quiver</Link></li>
+                <li><Link to="/quiver">Project Quiver</Link></li>
                 <li><a href="https://github.com/Arrow-air" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><Link to="/docs">Documentation</Link></li>
+                <li><Link to="/docs/intro">Documentation</Link></li>
               </ul>
             </div>
 
@@ -131,7 +131,7 @@ export default function Footer(): JSX.Element {
               <ul className={styles.linkList}>
                 <li><a href="https://discord.com/invite/arrow" target="_blank" rel="noopener noreferrer">Discord</a></li>
                 <li><a href="https://dao.arrowair.com/" target="_blank" rel="noopener noreferrer">DAO Forum</a></li>
-                <li><Link to="/docs/contributing/intro">Contribute</Link></li>
+                <li><Link to="/docs/contributing">Contribute</Link></li>
               </ul>
             </div>
 
@@ -140,7 +140,7 @@ export default function Footer(): JSX.Element {
               <ul className={styles.linkList}>
                 <li><a href="https://snapshot.org/#/s:arrowair.eth" target="_blank" rel="noopener noreferrer">Snapshot</a></li>
                 <li><a href="https://github.com/Arrow-air/dao-aips" target="_blank" rel="noopener noreferrer">AIPs</a></li>
-                <li><Link to="/dao">Overview</Link></li>
+                <li><a href="/dao.html">Overview</a></li>
               </ul>
             </div>
 
@@ -167,8 +167,8 @@ export default function Footer(): JSX.Element {
           <p className={styles.copyright}>© 2026 Arrow. All rights reserved.</p>
           <div className={styles.legalLinks}>
             <FooterThemeToggle />
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/terms-of-service">Terms of Service</Link>
           </div>
         </div>
       </div>

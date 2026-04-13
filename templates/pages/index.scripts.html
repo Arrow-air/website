@@ -1,0 +1,212 @@
+<script>
+
+(function () {
+  var images = document.querySelectorAll('.arrow-timeline_image');
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  images.forEach(function (img, i) {
+    img.style.transitionDelay = (i * 0.1) + 's';
+    observer.observe(img);
+  });
+})();
+
+(function () {
+  var tip = document.createElement('div');
+  tip.className = 'ag-tooltip';
+  tip.style.opacity = '0';
+  document.body.appendChild(tip);
+
+  document.querySelectorAll('.ag-cell[data-tooltip]').forEach(function (cell) {
+    cell.addEventListener('mouseenter', function (e) {
+      var raw = cell.getAttribute('data-tooltip');
+      // Format: "name: type: task" or "name: task"
+      var colonIdx = raw.indexOf(': ');
+      var name = colonIdx !== -1 ? raw.slice(0, colonIdx) : raw;
+      var rest = colonIdx !== -1 ? raw.slice(colonIdx + 2) : '';
+
+      // Detect optional task type prefix (e.g. "fix:", "feat:", "chore:")
+      var typeMatch = rest.match(/^([a-z]+(?:\([^)]+\))?!?): (.+)$/);
+      var taskType = typeMatch ? typeMatch[1] + ': ' : '';
+      var taskDesc = typeMatch ? typeMatch[2] : rest;
+
+      tip.innerHTML =
+        '<span class="ag-tooltip-name">' + name + '</span>' +
+        (rest ? ': <span class="ag-tooltip-task">' + taskType + taskDesc + '</span>' : '');
+
+      tip.style.opacity = '1';
+      positionTip(e);
+    });
+
+    cell.addEventListener('mousemove', positionTip);
+
+    cell.addEventListener('mouseleave', function () {
+      tip.style.opacity = '0';
+    });
+  });
+
+  function positionTip(e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    tip.style.left = x + 'px';
+    tip.style.top = (y - tip.offsetHeight - 10) + 'px';
+    // Keep within viewport horizontally
+    var rect = tip.getBoundingClientRect();
+    if (rect.right > window.innerWidth - 8) {
+      tip.style.left = (window.innerWidth - rect.width - 8) + 'px';
+    }
+    if (rect.left < 8) {
+      tip.style.left = '8px';
+    }
+  }
+})();
+
+(function () {
+  var canvas = document.getElementById('hero-dither-canvas');
+  if (!canvas) return;
+
+  var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+
+  var MAX_RIPPLES = 6;
+
+  var VS = 'attribute vec2 a_pos;void main(){gl_Position=vec4(a_pos,0.,1.);}';
+
+  var FS = [
+    'precision mediump float;',
+    'uniform vec2 u_res;',
+    'uniform float u_time;',
+    'uniform vec3 u_ripples[' + MAX_RIPPLES + '];', // xy=UV pos, z=birth time
+    'uniform vec2 u_mouse;', // UV mouse position
+
+    'float bayer2(vec2 a){a=floor(a);return fract(a.x/2.+a.y*a.y*.75);}',
+    'float bayer4(vec2 a){return bayer2(a*.5)*.25+bayer2(a);}',
+    'float bayer8(vec2 a){return bayer4(a*.5)*.25+bayer2(a);}',
+
+    'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+    'float noise(vec2 p){',
+    '  vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);',
+    '  return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),',
+    '             mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);',
+    '}',
+
+    'void main(){',
+    '  vec2 uv=gl_FragCoord.xy/u_res;',
+
+    // Base animated island mask
+    '  float mask=noise(uv*1.1+vec2(u_time*.034+29.5,-u_time*.028+214.3));',
+    '  mask+=noise(uv*2.0-vec2(u_time*.025-61.8,u_time*.03+88.4))*.5;',
+    '  mask/=1.5;',
+    '  mask=smoothstep(.52,.72,mask);',
+    '  float radial=length(uv-vec2(0.5,0.6));',
+    '  float edgeBias=smoothstep(0.10,0.72,radial);',
+    '  mask*=edgeBias;',
+
+    // Ripple contributions
+    '  float ripple=0.;',
+    '  for(int i=0;i<' + MAX_RIPPLES + ';i++){',
+    '    float age=u_time-u_ripples[i].z;',
+    '    if(age>0.&&age<3.){',
+    '      float dist=length(uv-u_ripples[i].xy);',
+    '      ripple+=sin(dist*25.-age*7.)*exp(-dist*5.)*exp(-age*1.8)*.35;',
+    '    }',
+    '  }',
+    '  mask=clamp(mask+ripple,0.,1.);',
+
+    '  float tex=noise(uv*6.+vec2(u_time*.05,-u_time*.04))*.4+.3;',
+    // Mouse glow — Gaussian falloff centered on cursor
+    '  float mdist=length(uv-u_mouse);',
+    '  float mouseFactor=exp(-mdist*mdist*18.);',
+    '  float b=clamp(tex*mask,0.,1.);',
+    '  float hard=step(0.05,b);',
+    '  float d=step(bayer8(gl_FragCoord.xy),b)*hard;',
+    '  vec3 fg=mix(vec3(.098,.106,.125),vec3(0.035,0.263,0.749),mouseFactor);',
+    '  gl_FragColor=vec4(mix(vec3(0.),fg,d),1.);',
+    '}',
+  ].join('\n');
+
+  function makeShader(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+
+  var prog = gl.createProgram();
+  gl.attachShader(prog, makeShader(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, makeShader(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'a_pos');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var uRes     = gl.getUniformLocation(prog, 'u_res');
+  var uTime    = gl.getUniformLocation(prog, 'u_time');
+  var uRipples = gl.getUniformLocation(prog, 'u_ripples');
+  var uMouse   = gl.getUniformLocation(prog, 'u_mouse');
+
+  // Circular buffer of ripples [x, y, birthTime]
+  var ripples = [];
+  for (var i = 0; i < MAX_RIPPLES; i++) ripples.push(0, 0, -99);
+
+  // Mouse tracking — smoothed via lerp in RAF
+  var mouseTarget = [-2, -2]; // off-screen default
+  var mouseSmooth = [-2, -2];
+
+  var hero = canvas.parentElement;
+  hero.addEventListener('mousemove', function(e) {
+    var r = hero.getBoundingClientRect();
+    mouseTarget[0] = (e.clientX - r.left) / r.width;
+    mouseTarget[1] = 1.0 - (e.clientY - r.top) / r.height;
+  });
+  hero.addEventListener('mouseleave', function() {
+    mouseTarget[0] = -2; mouseTarget[1] = -2;
+  });
+
+  hero.addEventListener('click', function(e) {
+    var r = canvas.getBoundingClientRect();
+    var uvx = (e.clientX - r.left) / r.width;
+    var uvy = 1.0 - (e.clientY - r.top) / r.height;
+    // Write into oldest slot (first 3 values, rotate)
+    ripples.splice(0, 3);
+    ripples.push(uvx, uvy, currentTime);
+  });
+
+  var SCALE = 4;
+  function resize() {
+    var r = hero.getBoundingClientRect();
+    canvas.width  = Math.floor(r.width  / SCALE);
+    canvas.height = Math.floor(r.height / SCALE);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var currentTime = 0;
+  function frame(t) {
+    requestAnimationFrame(frame);
+    currentTime = t * 0.001;
+    mouseSmooth[0] += (mouseTarget[0] - mouseSmooth[0]) * 0.08;
+    mouseSmooth[1] += (mouseTarget[1] - mouseSmooth[1]) * 0.08;
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, currentTime);
+    gl.uniform3fv(uRipples, new Float32Array(ripples));
+    gl.uniform2f(uMouse, mouseSmooth[0], mouseSmooth[1]);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  }
+  requestAnimationFrame(frame);
+})();
+
+</script>

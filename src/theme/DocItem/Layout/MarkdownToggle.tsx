@@ -21,9 +21,15 @@ function editUrlToRawUrl(editUrl: string): string {
 
 function MarkdownIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208 128" width="22" height="14" fill="currentColor" aria-hidden="true">
-      <rect width="198" height="118" x="5" y="5" rx="10" ry="10" stroke="currentColor" strokeWidth="10" fill="none"/>
-      <path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+      <title>markdown</title>
+      <g fill="currentColor" strokeLinecap="square" strokeLinejoin="miter" strokeMiterlimit="10">
+        <path d="M23 16.4999V10.9999" stroke="currentColor" strokeWidth="2" fill="none"/>
+        <path d="M31 26L31 6L1 6L0.999999 26L31 26Z" stroke="currentColor" strokeWidth="2" fill="none"/>
+        <path d="M19.9695 16.495L23 20.5357L26.0305 16.495" fill="currentColor" stroke="none"/>
+        <path d="M19.9695 16.495L23 20.5357L26.0305 16.495L19.9695 16.495Z" stroke="currentColor" strokeWidth="2" fill="none"/>
+        <path d="M6 21V11H7.125L10.5 15.8148L13.875 11H15V21" stroke="currentColor" strokeWidth="2" fill="none"/>
+      </g>
     </svg>
   );
 }

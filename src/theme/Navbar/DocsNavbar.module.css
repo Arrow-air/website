@@ -6,7 +6,7 @@
 
 .navbar {
   position: relative;
-  z-index: auto;
+  z-index: 301;
   background: #0943bf;
   border-bottom: none;
   height: 72px;
@@ -48,6 +48,22 @@
   opacity: 0.8;
   color: #ffffff;
   text-decoration: none;
+}
+
+.logoLabel {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: 'Departure Mono', 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+  line-height: 1;
+  position: relative;
+  top: 4px;
 }
 
 .navActions {
@@ -101,9 +117,24 @@
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
+.iconButtonLabeled {
+  width: auto;
+  padding: 0 10px;
+  gap: 6px;
+}
+
+.iconButtonLabel {
+  font-family: 'Departure Mono', 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .iconButton:hover {
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.14);
   text-decoration: none;
 }
 
@@ -216,11 +247,20 @@
   align-items: center;
 }
 
+.dropdownMenu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
 .dropdownMenu {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  z-index: 200;
+  z-index: 350;
   background: #0943bf;
   border: 1px solid rgba(255, 255, 255, 0.2);
   min-width: 140px;
@@ -439,9 +479,9 @@
   border-radius: 5px 5px 0 0;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-bottom-color: transparent;
-  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Departure Mono', 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.45);
@@ -483,6 +523,17 @@
   width: 16px;
   height: 16px;
   flex-shrink: 0;
+  color: #797C7D;
+  opacity: 1;
+}
+
+.subNavTabActive svg {
+  color: currentColor;
+}
+
+.subNavTab .smallIcon {
+  width: 14px;
+  height: 14px;
 }
 
 .subNavTabActive {

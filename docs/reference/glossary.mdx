@@ -1,0 +1,35 @@
+---
+draft: true
+sidebar_position: 3
+sidebar_custom_props:
+  icon: book
+---
+
+import { data, columns } from './GlossaryData'
+
+# Glossary
+:mag: *Use the search bar to see terms in this glossary from anywhere on the
+website!*
+
+<div>
+{
+data.map(
+  (entry) => (
+    <div>
+    <h3>{entry[0]}</h3>
+    <p style={{"color":"#333"}}>{entry[1]}</p>
+    <i style={{"color":"#aaa"}}>Links:</i>
+    <p>
+    {
+      Array.from(entry[2]).map((link) => (
+      <div>
+      <a href={link}>{link}</a>
+      </div>
+      ))
+    }
+    </p>
+    </div>
+  )
+)
+}
+</div>

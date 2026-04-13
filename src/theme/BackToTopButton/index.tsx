@@ -1,9 +1,27 @@
-import React from 'react';
-import {useBackToTopButton} from '@docusaurus/theme-common/internal';
+import React, {useEffect, useState} from 'react';
 import styles from './styles.module.css';
 
+function getScrollY(): number {
+  return (
+    window.scrollY ??
+    window.pageYOffset ??
+    document.documentElement.scrollTop ??
+    document.body.scrollTop ??
+    0
+  );
+}
+
 export default function BackToTopButton(): JSX.Element | null {
-  const {shown, scrollToTop} = useBackToTopButton({threshold: 300});
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShown(getScrollY() > 300);
+    window.addEventListener('scroll', onScroll, {passive: true});
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
   return (
     <button

@@ -1,0 +1,10 @@
+{
+  "label": "COMMUNITY",
+  "position": 4,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "doc",
+    "id": "community/index"
+  }
+}

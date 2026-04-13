@@ -1,8 +1,12 @@
 import React from 'react';
 export default function AdmonitionIconNote(props) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M5 2h16v20H3V2h2zm14 18V4H5v16h14zM7 6h10v2H7V6zm10 4H7v2h10v-2zM7 14h7v2H7v-2z" />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" {...props}>
+      <path d="M7 21H3V12H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+      <path d="M21 3H7V21H21V3Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+      <path d="M17 8H11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+      <path d="M17 12H11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+      <path d="M11 16H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
     </svg>
   );
 }

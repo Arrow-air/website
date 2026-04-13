@@ -1,8 +1,8 @@
 {
-  "label": "How to Contribute",
+  "label": "CONTRIBUTING",
   "position": 2,
-  "collapsible": false,
-  "collapsed": false,
+  "collapsible": true,
+  "collapsed": true,
   "link": {
     "type": "doc",
     "id": "contributing/index"

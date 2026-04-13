@@ -73,6 +73,9 @@ const config = {
 
   clientModules: [
     require.resolve('./src/js/imageCollapse.js'),
+    require.resolve('./src/js/sidebarScrollPosition.js'),
+    require.resolve('./src/js/routeClasses.js'),
+    require.resolve('./src/js/sidebarPoweredBy.js'),
   ],
 
   plugins: [
@@ -181,13 +184,13 @@ const config = {
       },
       docs: {
         sidebar: {
-          hideable: true
+          hideable: false
         }
       },
       navbar: {
         logo: {
           alt: "Arrow Logo",
-          src: "img/wordmark_gray.svg",
+          src: "img/brand/wordmark_gray.svg",
           href: "pathname:///",
         },
         items: [
@@ -213,10 +216,10 @@ const config = {
         style: "light",
         logo: {
           alt: "Arrow Logo",
-          src: "img/wordmark_gray.svg",
+          src: "img/brand/wordmark_gray.svg",
         },
         copyright:
-          'Built with <img src="/img/arrow-icon_love.svg" style="height:1rem" alt="love"/> by the Arrow Community',
+          'Built with <img src="/img/brand/arrow-icon_love.svg" style="height:1rem" alt="love"/> by the Arrow Community',
         links: [
           {
             title: "Community",
