@@ -1058,7 +1058,7 @@ figcaption {
   margin-top: 0;
   margin-left: -1.25rem;
   margin-right: .5rem;
-  transition: all .2s;
+  transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
 .form_checkbox-icon:hover {
@@ -1413,7 +1413,7 @@ figcaption {
   padding: .5rem .75rem;
   font-size: 1rem;
   line-height: 1.6;
-  transition: all .2s;
+  transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
 .form_input:hover {
@@ -1630,7 +1630,7 @@ figcaption {
   margin-top: 0;
   margin-left: -1.125rem;
   margin-right: .5rem;
-  transition: all .2s;
+  transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
 .form_radio-icon:hover {
@@ -2451,6 +2451,65 @@ figcaption {
   padding: 0;
 }
 
+/* ── Mega menu stagger animations ─────────────────────────────────────────
+   Columns are the primary stagger element — 70ms between each so the
+   left-to-right cascade is clearly perceptible. Links don't stagger
+   independently; they appear with their column so the menu stays readable.
+   ── */
+@keyframes megaMenuPanelIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes megaMenuItemIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.arrow-navbar_dropdown-list.w--open {
+  animation: megaMenuPanelIn 200ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* Columns stagger — 70ms spacing so each arrival is distinct */
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column:nth-child(1) {
+  animation: megaMenuItemIn 320ms cubic-bezier(0.23, 1, 0.32, 1) 30ms both;
+}
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column:nth-child(2) {
+  animation: megaMenuItemIn 320ms cubic-bezier(0.23, 1, 0.32, 1) 100ms both;
+}
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column:nth-child(3) {
+  animation: megaMenuItemIn 320ms cubic-bezier(0.23, 1, 0.32, 1) 170ms both;
+}
+
+/* Right-panel small links stagger — subtler, coordinated with column rhythm */
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-link-small.is-mega-menu:nth-child(1) {
+  animation: megaMenuItemIn 280ms cubic-bezier(0.23, 1, 0.32, 1) 80ms both;
+}
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-link-small.is-mega-menu:nth-child(2) {
+  animation: megaMenuItemIn 280ms cubic-bezier(0.23, 1, 0.32, 1) 120ms both;
+}
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-link-small.is-mega-menu:nth-child(3) {
+  animation: megaMenuItemIn 280ms cubic-bezier(0.23, 1, 0.32, 1) 160ms both;
+}
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-link-small.is-mega-menu:nth-child(4) {
+  animation: megaMenuItemIn 280ms cubic-bezier(0.23, 1, 0.32, 1) 200ms both;
+}
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-link-small.is-mega-menu:nth-child(5) {
+  animation: megaMenuItemIn 280ms cubic-bezier(0.23, 1, 0.32, 1) 240ms both;
+}
+.arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-link-small.is-mega-menu:nth-child(6) {
+  animation: megaMenuItemIn 280ms cubic-bezier(0.23, 1, 0.32, 1) 280ms both;
+}
+
+/* Suppress motion for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .arrow-navbar_dropdown-list.w--open,
+  .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column,
+  .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-link-small.is-mega-menu {
+    animation: none;
+  }
+}
+
 .arrow-navbar_dropdown-list.w--open {
   border-top: 1px solid var(--_primitives---opacity--white-10);
   border-bottom: var(--_ui-styles---stroke--divider-width) solid var(--color-scheme-1--border);
@@ -2678,7 +2737,7 @@ figcaption {
   border-radius: var(--_ui-styles---radius--large);
   position: relative;
   overflow: visible;
-  animation: heroFadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+  animation: heroFadeUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
 }
 
 .arrow-hero_image {
@@ -2962,7 +3021,7 @@ figcaption {
 .arrow-timeline_image {
   opacity: 0;
   transform: translateY(20px);
-  transition: transform 0.5s ease, opacity 0.6s ease;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
 
 .arrow-timeline_image.in-view {
@@ -4468,7 +4527,7 @@ figcaption {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   opacity: 0;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   box-shadow:
@@ -7910,7 +7969,7 @@ figcaption {
   display: grid;
   grid-template-rows: repeat(5, 36px);
   grid-auto-flow: column;
-  animation: graphReveal 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+  animation: graphReveal 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both;
   grid-auto-columns: 36px;
   gap: 3.6px;
   padding: 90px 8px 24px;
@@ -7921,11 +7980,13 @@ figcaption {
   height: 36px;
   border-radius: 5px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.2);
-  transition: transform 0.1s ease, filter 0.1s ease;
+  transition: transform 0.1s ease-out, filter 0.1s ease-out;
 }
-.ag-cell:hover {
-  transform: scale(1.15);
-  filter: brightness(1.5);
+@media (hover: hover) and (pointer: fine) {
+  .ag-cell:hover {
+    transform: scale(1.15);
+    filter: brightness(1.5);
+  }
 }
 .ag-level-0 { background: #171b22; }
 .ag-level-1 { background: #262A30; }
@@ -7991,18 +8052,32 @@ figcaption {
   transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
 
-.button:hover,
-.button.is-icon:hover,
-.button.is-secondary:hover,
-.button.is-secondary.is-icon:hover,
-.button.is-secondary.is-alternate:hover,
-.button.is-alternate:hover,
-.button.w-button:hover,
-.button.is-secondary.w-button:hover {
-  color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  background: rgba(0, 0, 0, 0.14) !important;
-  transform: none !important;
+@media (hover: hover) and (pointer: fine) {
+  .button:hover,
+  .button.is-icon:hover,
+  .button.is-secondary:hover,
+  .button.is-secondary.is-icon:hover,
+  .button.is-secondary.is-alternate:hover,
+  .button.is-alternate:hover,
+  .button.w-button:hover,
+  .button.is-secondary.w-button:hover {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    background: rgba(0, 0, 0, 0.14) !important;
+    transform: none !important;
+  }
+}
+
+.button:active,
+.button.is-icon:active,
+.button.is-secondary:active,
+.button.is-secondary.is-icon:active,
+.button.is-secondary.is-alternate:active,
+.button.is-alternate:active,
+.button.w-button:active,
+.button.is-secondary.w-button:active {
+  transform: scale(0.97) !important;
+  transition-duration: 100ms !important;
 }
 
 .button.is-blue {
@@ -8042,7 +8117,7 @@ figcaption {
 [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 [data-reveal].is-revealed {
@@ -8053,7 +8128,7 @@ figcaption {
 [data-reveal="fade"] {
   opacity: 0;
   transform: none;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.4s ease-out;
 }
 
 [data-reveal="fade"].is-revealed {
@@ -8168,3 +8243,38 @@ a[target="_blank"]:hover::after {
   }
 }
 
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: opacity 0.2s ease;
+    transform: none !important;
+  }
+
+  .arrow-timeline_image {
+    transition: opacity 0.2s ease;
+    transform: none !important;
+  }
+
+  .arrow-timeline_image.in-view:hover {
+    transform: none;
+  }
+
+  .solution-card-glass {
+    transition: opacity 0.2s ease;
+  }
+
+  .arrow-hero_image-wrapper {
+    animation: none;
+    opacity: 1;
+  }
+
+  .activity-graph {
+    animation: none;
+    clip-path: none;
+  }
+
+  .ag-cell {
+    transition: none;
+  }
+}

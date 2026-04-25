@@ -632,8 +632,9 @@ h1, .h1 {
   content: "";
   width: 0.65em;
   height: 0.65em;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
+  transform: scale(0.7);
+  opacity: 0;
+  transition: transform 120ms ease-out, opacity 100ms ease-out;
   box-shadow: inset 1em 1em #663399;
   transform-origin: bottom left;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
@@ -641,6 +642,7 @@ h1, .h1 {
 
 .sign-cla input[type="checkbox"]:checked::before {
   transform: scale(1);
+  opacity: 1;
 }
 
 .sign-cla .cla-scroll-box {
@@ -3963,9 +3965,7 @@ kbd[class*="searchHint"] {
   transition: filter 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-a.card--link:hover::before {
-  filter: saturate(1) opacity(1);
-}
+/* card hover rules consolidated below in @media (hover: hover) */
 
 .cards--cols-3 .card::before {
   background-image: url('/img/card-bayer-90.svg');
@@ -4037,9 +4037,7 @@ a.card--link:hover::before {
   transition: filter 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-a.card--link:hover .card__image {
-  filter: saturate(1) opacity(1);
-}
+/* card__image hover → consolidated below */
 
 /* Themed card images — 4 states: dark/light × unhover/hover */
 .card__image--dark-unhover,
@@ -4050,26 +4048,16 @@ a.card--link:hover .card__image {
   transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-a.card--link:hover .card__image--dark-unhover,
-a.card--link:hover .card__image--light-unhover,
-a.card--link:hover .card__image--hover {
-  filter: none;
-}
-
 /* Dark mode */
 [data-theme='dark'] .card__image--dark-unhover { opacity: 1; }
-[data-theme='dark'] a.card--link:hover .card__image--dark-unhover { opacity: 0; }
 
 /* Light mode */
 [data-theme='light'] .card__image--light-unhover { opacity: 1; }
-[data-theme='light'] a.card--link:hover .card__image--light-unhover { opacity: 0; }
 
 /* Fallback: if no light image provided, show dark in light mode too */
 :not([data-theme='light']) .card__image--dark-unhover { opacity: 1; }
-:not([data-theme='light']) a.card--link:hover .card__image--dark-unhover { opacity: 0; }
 
-/* Single hover image — both modes */
-a.card--link:hover .card__image--hover { opacity: 1; }
+/* themed image hover states → consolidated below */
 
 
 .card__media-icon {
@@ -4081,9 +4069,7 @@ a.card--link:hover .card__image--hover { opacity: 1; }
   transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-a.card--link:hover .card__media-icon {
-  opacity: 1;
-}
+/* card__media-icon hover → consolidated below */
 
 .card__media-icon svg {
   width: 40px;
@@ -4102,30 +4088,7 @@ a.card--link:hover .card__media-icon {
   transition: background 0.15s ease;
 }
 
-a.card--link:hover {
-  background: var(--card-hover-color);
-  border-color: #6D8ED9;
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-a.card--link:hover .card__media,
-a.card--link:hover .card__media-wrapper::before,
-a.card--link:hover .card__media-wrapper::after {
-  background-color: var(--docs-bg);
-}
-
-
-
-a.card--link:hover .card__media-wrapper::before,
-a.card--link:hover .card__media-wrapper::after,
-a.card--link:hover .card__media {
-  border-color: #A8BCE8;
-}
-
-a.card--link:hover .card__content {
-  background: transparent;
-}
+/* card main hover → consolidated below */
 
 @keyframes card-arrow-pulse {
   0%   { transform: translateX(0); }
@@ -4169,10 +4132,7 @@ a.card--link:hover .card__content {
   transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-a.card--link:hover .card__title-arrow {
-  opacity: 0.9;
-  animation: card-arrow-pulse 0.4s ease-out forwards;
-}
+/* card__title-arrow hover → consolidated below */
 
 .card__body,
 .card__body p {
@@ -4184,19 +4144,75 @@ a.card--link:hover .card__title-arrow {
   transition: color 0.15s ease;
 }
 
-a.card--link:hover .card__body,
-a.card--link:hover .card__body p {
-  color: #3d5270;
-}
-
 [data-theme='dark'] .card__body,
 [data-theme='dark'] .card__body p {
   color: var(--docs-text-muted);
 }
 
-[data-theme='dark'] a.card--link:hover .card__body,
-[data-theme='dark'] a.card--link:hover .card__body p {
-  color: var(--docs-text-secondary);
+/* card__body hover + dark card__body hover → consolidated below */
+
+/* ── Card hover effects (pointer devices only) ───────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  a.card--link:hover::before {
+    filter: saturate(1) opacity(1);
+  }
+
+  a.card--link:hover .card__image {
+    filter: saturate(1) opacity(1);
+  }
+
+  a.card--link:hover .card__image--dark-unhover,
+  a.card--link:hover .card__image--light-unhover,
+  a.card--link:hover .card__image--hover {
+    filter: none;
+  }
+
+  [data-theme='dark'] a.card--link:hover .card__image--dark-unhover { opacity: 0; }
+  [data-theme='light'] a.card--link:hover .card__image--light-unhover { opacity: 0; }
+  :not([data-theme='light']) a.card--link:hover .card__image--dark-unhover { opacity: 0; }
+  a.card--link:hover .card__image--hover { opacity: 1; }
+
+  a.card--link:hover .card__media-icon {
+    opacity: 1;
+  }
+
+  a.card--link:hover {
+    background: var(--card-hover-color);
+    border-color: #6D8ED9;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  a.card--link:hover .card__media,
+  a.card--link:hover .card__media-wrapper::before,
+  a.card--link:hover .card__media-wrapper::after {
+    background-color: var(--docs-bg);
+  }
+
+  a.card--link:hover .card__media-wrapper::before,
+  a.card--link:hover .card__media-wrapper::after,
+  a.card--link:hover .card__media {
+    border-color: #A8BCE8;
+  }
+
+  a.card--link:hover .card__content {
+    background: transparent;
+  }
+
+  a.card--link:hover .card__title-arrow {
+    opacity: 0.9;
+    animation: card-arrow-pulse 0.4s ease-out forwards;
+  }
+
+  a.card--link:hover .card__body,
+  a.card--link:hover .card__body p {
+    color: #3d5270;
+  }
+
+  [data-theme='dark'] a.card--link:hover .card__body,
+  [data-theme='dark'] a.card--link:hover .card__body p {
+    color: var(--docs-text-secondary);
+  }
 }
 
 /* ==========================================================================
@@ -4248,4 +4264,29 @@ a.card--link:hover .card__body p {
 /* Constitution page — extra heading spacing */
 .theme-doc-markdown:has(h2[id^="article-1"]) h3 {
   margin-top: 2.5rem;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  a.card--link,
+  .card__image,
+  .card__image--dark-unhover,
+  .card__image--light-unhover,
+  .card__image--hover,
+  .card__media-icon,
+  .card__title-arrow,
+  .card__body,
+  .card__body p,
+  .card__media,
+  .card__media-wrapper::before,
+  .card__media-wrapper::after,
+  .card__content {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .sign-cla input[type="checkbox"]::before {
+    transition-duration: 0.01ms !important;
+  }
 }
