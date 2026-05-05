@@ -86,6 +86,7 @@ const config = {
       path: 'docs/project-quiver',
       routeBasePath: 'quiver',
       sidebarPath: require.resolve('./sidebars-quiver.js'),
+      exclude: ['**/Archive/**'],
       editUrl: 'https://github.com/Arrow-air/project-quiver/edit/main/docs/',
       showLastUpdateTime: true,
     }],
