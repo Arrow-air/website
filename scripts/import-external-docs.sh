@@ -95,6 +95,30 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 			"$mdfile" 2>/dev/null || true
 	done
 
+	# Docusaurus processes Markdown image syntax into hashed build assets, but
+	# raw HTML <img src="..."> tags and links to binary assets keep their
+	# relative URLs. Mirror imported non-doc assets under the public route so
+	# those relative URLs resolve on the deployed site.
+	route_base=$(jq -r ".\"$key\".routeBasePath // empty" "$CONFIG_FILE")
+	if [ -z "$route_base" ]; then
+		if [ "$key" = "project-quiver" ]; then
+			route_base="quiver"
+		else
+			route_base="$key"
+		fi
+	fi
+
+	asset_static_path="static/$route_base"
+	echo "  Mirroring static assets to /$route_base/..."
+	rm -rf "$asset_static_path"
+	mkdir -p "$asset_static_path"
+	rsync -a \
+		--exclude='*.md' \
+		--exclude='*.mdx' \
+		--exclude='_category_.json' \
+		--exclude='.DS_Store' \
+		"$target_path/" "$asset_static_path/"
+
 	# Patch known upstream links that do not resolve cleanly in the website's
 	# Docusaurus route structure after import.
 	if [ "$key" = "project-quiver" ] && [ -f "$target_path/index.md" ]; then
