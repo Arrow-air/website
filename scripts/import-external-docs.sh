@@ -65,6 +65,14 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 		-e 's/<img \([^>]*[^/]\)>/<img \1 \/>/g' \
 		{} \;
 
+	# Project Quiver docs can reference repo-root bounty assets from inside docs/.
+	# The website imports only docs/, so rewrite those image paths to raw GitHub URLs.
+	if [ "$key" = "project-quiver" ]; then
+		find "$target_path" -name "*.md" -type f -exec $SED_INPLACE \
+			-e 's|](../../task-grant-bounty/|](https://raw.githubusercontent.com/Arrow-air/project-quiver/main/task-grant-bounty/|g' \
+			{} \;
+	fi
+
 	# Move HTML files to static folder (Docusaurus serves these as-is)
 	# Put under static/docs/ so URLs match the /docs/... path
 	static_path="static/docs/$key"
