@@ -25,7 +25,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
-          role-session-name: arrow-website-invalide-cloudfront
+          role-session-name: arrow-website-invalidate-cloudfront
           aws-region: "us-east-2"
       - name: Create Invalidation
         run: |
