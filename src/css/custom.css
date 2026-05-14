@@ -502,7 +502,7 @@ h1, .h1 {
         font-size: 1.75rem!important;
     }
     .theme-doc-markdown h3 {
-        font-size: 1.4rem!important;
+        font-size: 1.55rem!important;
     }
 }
 
@@ -511,7 +511,7 @@ h1, .h1 {
         font-size: 1.5rem!important;
     }
     .theme-doc-markdown h4 {
-        font-size: 1.1rem!important;
+        font-size: 1.4rem!important;
     }
 }
 
@@ -1763,34 +1763,32 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
 /* H3 — Subsection. Sans-serif with subtle underline */
 .theme-doc-markdown h3 {
   font-family: 'Neue Haas Grotesk', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--docs-text);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #000;
   margin: 2.5rem 0 1rem 0;
   padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--docs-border);
 }
 
-/* H4 — Label. Mono uppercase */
+/* H4 — Smaller than H3, bold, slate */
 .theme-doc-markdown h4 {
-  font-family: 'Jetbrainsmono', monospace;
-  font-size: 1.1rem;
+  font-family: 'Neue Haas Grotesk', sans-serif;
+  font-size: 1.4rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--docs-text);
-  margin: 2rem 0 0.75rem 0;
+  margin: 2.5rem 0 0.75rem 0;
 }
 
 /* H5 — Sublabel. Mono uppercase, primary accent */
 .theme-doc-markdown h5 {
-  font-family: 'Jetbrainsmono', monospace;
-  font-size: 12px;
-  font-weight: 600;
+  font-family: 'Neue Haas Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--docs-primary);
-  margin: 1.25rem 0 0.375rem 0;
+  margin: 2rem 0 0.375rem 0;
 }
 
 /* H6 — Fine print label */
