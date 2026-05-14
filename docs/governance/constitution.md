@@ -182,7 +182,7 @@ To form a Pod, at least one member must create a Pod Proposal using the Pod Form
 
 **Pod Improvement Proposals (PIPs)** — Pod proposals are discussed internally and voted on by Pod members via Snapshot. Members outside the Pod may not vote on PIPs.
 
-**Vote of no confidence** — Any Pod member may initiate a vote of no confidence in a Pod Facilitator by providing documented reasons of negligence or underperformance. This vote requires a supermajority of 75%. If passed, the Co-Facilitator will immediately take over as Interim Pod Facilitator.
+**Vote of no confidence** — Any Pod member may initiate a vote of no confidence in a Pod Facilitator by providing documented reasons of negligence or poor performance. This vote requires a supermajority of 75%. If passed, the Co-Facilitator will immediately take over as Interim Pod Facilitator.
 
 **Anonymity** — A Pod member who wants to maintain anonymity when initiating a vote of no confidence may call on the Growth and Ops Pod to initiate it on their behalf.
 
@@ -230,7 +230,7 @@ AIPs may originate from any stakeholder with 15,000 $ARROW tokens.
 
 **Step 1 — Discord to Forum:** Any individual with 15,000 $ARROW can post an AIP on the Forum. The commenting period lasts one week.
 
-**Step 2 — Forum to Snapshot:** To move from the Forum to Snapshot, the AIP must receive the required number of likes within the specified timeframe.
+**Step 2 — Forum to Snapshot:** To move from the Forum to Snapshot, the AIP must receive the required number of likes within the specified time frame.
 
 **Step 3 — Snapshot vote:** The vote occurs on Snapshot and lasts one week. The vote is announced in the Discord Announcement Channel within 24 hours of going live.
 

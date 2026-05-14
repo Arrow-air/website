@@ -39,4 +39,4 @@ All 9 proposals have passed. You can view the full vote history on the [Arrow Sn
 
 **AIP-008** codified Arrow's mission ("increase physical connectedness to the people and places you love") and a five-step product roadmap from small drones to manned air taxis.
 
-**AIP-009** proposed the decentralized manufacturing protocol: an on-chain shop with bonded manufacturers, slashable collateral, and open-source licensing for Arrow-designed products.
+**AIP-009** proposed the decentralized manufacturing protocol: an on-chain shop with bonded manufacturers, collateral that can be slashed, and open-source licensing for Arrow-designed products.

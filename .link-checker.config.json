@@ -38,6 +38,12 @@
     },
     {
       "pattern": "^\\.\\./[^)#]+(?:#[^)]+)?$"
+    },
+    {
+      "pattern": "https://logs.px4.io"
+    },
+    {
+      "pattern": "https://etherscan.io/address/"
     }
   ],
   "httpHeaders": [
