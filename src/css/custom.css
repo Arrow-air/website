@@ -1630,7 +1630,10 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
   }
-  .breadcrumbs {
+  /* Breadcrumb sits in <article> (outside .theme-doc-markdown), so without
+     its own padding it lands left of the title. Match the title's 0.5rem
+     inset so the chip background lines up with the content's left edge. */
+  ul.breadcrumbs.breadcrumbs {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
   }
@@ -1813,6 +1816,11 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
 .theme-doc-markdown strong {
   font-weight: 600;
   color: var(--docs-text);
+}
+
+/* Inside table headers, inherit the th's white color instead of forcing dark */
+.theme-doc-markdown th strong {
+  color: inherit;
 }
 
 .theme-doc-markdown em {
@@ -3298,11 +3306,32 @@ video {
   padding: 0;
 }
 
-/* Generated index pages - breadcrumbs match full-width card layout */
+/* Generated index pages (auto-generated category pages):
+   - Outer wrapper keeps upstream's 75% max-width so the right side has the
+     same ghost-TOC space as a regular doc page (.docItemCol).
+   - Direct children are constrained to --docs-content-max-width and
+     auto-centered, mirroring how .theme-doc-markdown sits inside .docItemCol
+     on regular doc pages — so content widths match /quiver/. */
+[class*="generatedIndexPage"] > * {
+  max-width: var(--docs-content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
 [class*="generatedIndexPage"] [class*="breadcrumbsContainer"] {
+  margin-bottom: 1.25rem;
+}
+
+[class*="generatedIndexPage"] .breadcrumbs,
+[class*="generatedIndexPage"] .pagination-nav {
   max-width: none;
-  margin: 0;
-  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .breadcrumbs {
@@ -4114,6 +4143,18 @@ a.card--link:hover .card__media-icon {
 .card__content {
   padding: 1rem 1.25rem;
   flex: 1;
+}
+
+/* Invisible hit-area extension below the card. Without it, translating the
+   card up on hover moves the bottom edge above the cursor, dropping hover
+   and causing flicker. The ::after keeps the cursor "inside" the link. */
+a.card--link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 8px;
 }
 
 a.card--link:hover {
