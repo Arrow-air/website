@@ -3946,7 +3946,7 @@ kbd[class*="searchHint"] {
   box-shadow: none;
   overflow: visible;
   will-change: transform;
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.2s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .card::before {
@@ -3960,14 +3960,29 @@ kbd[class*="searchHint"] {
   background-position: left bottom;
   background-size: 8px 130px;
   filter: saturate(0) opacity(0.15);
-  transition: filter 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: filter 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 a.card--link:hover::before {
   filter: saturate(1) opacity(1);
 }
 
-.cards--cols-3 .card::before {
+.cards .card:not(:has(.card__media-wrapper))::before,
+.row .card:not(:has(.card__media-wrapper))::before {
+  display: none;
+}
+
+.cards .card:not(:has(.card__media-wrapper)),
+.row .card:not(:has(.card__media-wrapper)) {
+  box-shadow: inset 0 -5px 0 rgba(8, 67, 191, 0.15);
+}
+
+.cards a.card--link:not(:has(.card__media-wrapper)):hover,
+.row a.card--link:not(:has(.card__media-wrapper)):hover {
+  box-shadow: inset 0 -5px 0 var(--ifm-color-primary), 0 10px 24px rgba(0, 0, 0, 0.13);
+}
+
+.cards--cols-3 .card:has(.card__media-wrapper)::before {
   background-image: url('/img/card-bayer-90.svg');
   background-size: 8px 90px;
 }
@@ -3999,7 +4014,7 @@ a.card--link:hover::before {
   border-top: 1px solid var(--card-border);
   border-left: 1px solid var(--card-border);
   border-top-left-radius: 6px;
-  transition: background-color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: background-color 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .card__media-wrapper::after {
@@ -4017,7 +4032,7 @@ a.card--link:hover::before {
   z-index: 1;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  transition: background-color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: background-color 0.2s cubic-bezier(0.23, 1, 0.32, 1);
   border-top: 1px solid var(--card-border);
   border-left: 1px solid var(--card-border);
   border-radius: 0;
@@ -4034,7 +4049,7 @@ a.card--link:hover::before {
   object-fit: cover;
   display: block;
   filter: saturate(0) opacity(0.15);
-  transition: filter 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: filter 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 a.card--link:hover .card__image {
@@ -4047,7 +4062,7 @@ a.card--link:hover .card__image {
 .card__image--hover {
   filter: none;
   opacity: 0;
-  transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 a.card--link:hover .card__image--dark-unhover,
@@ -4078,7 +4093,7 @@ a.card--link:hover .card__image--hover { opacity: 1; }
   left: 1.25rem;
   color: var(--docs-primary);
   opacity: 0.5;
-  transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 a.card--link:hover .card__media-icon {
@@ -4099,14 +4114,19 @@ a.card--link:hover .card__media-icon {
 .card__content {
   padding: 1rem 1.25rem;
   flex: 1;
-  transition: background 0.15s ease;
 }
 
 a.card--link:hover {
   background: var(--card-hover-color);
   border-color: #6D8ED9;
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.13);
+}
+
+a.card--link:active {
+  transform: translateY(-2px) scale(0.98);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition-duration: 0.1s;
 }
 
 a.card--link:hover .card__media,
@@ -4166,12 +4186,12 @@ a.card--link:hover .card__content {
   flex-shrink: 0;
   color: var(--docs-primary);
   opacity: 0.6;
-  transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1), transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 a.card--link:hover .card__title-arrow {
   opacity: 0.9;
-  animation: card-arrow-pulse 0.4s ease-out forwards;
+  animation: card-arrow-pulse 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 .card__body,
@@ -4181,7 +4201,7 @@ a.card--link:hover .card__title-arrow {
   font-size: 14px;
   color: #6a7c95;
   line-height: 1.55;
-  transition: color 0.15s ease;
+  transition: color 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 a.card--link:hover .card__body,
