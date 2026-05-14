@@ -12,22 +12,22 @@ export default function CLAText(): JSX.Element {
         className="c1">. &nbsp;Please read this document carefully before signing and keep a copy for Your records.</span>
     </p><p className="c6"><span className="c1">You accept and agree to the following terms and conditions for Your existing and future Contributions submitted to Arrow. &nbsp;This license is for your protection as a Contributor as well as the protection of Arrow and its users. &nbsp;Except for the license granted herein to Arrow and recipients of software, products, or other materials distributed by Arrow or its affiliates, You reserve all right, title, and interest in and to Your Contributions; this Agreement does not change your rights to use your own Contributions for any other purpose. </span>
     </p>
-        <ol className="c3 lst-kix_xdh80phlgwv-0 start" start="1">
+        <ol className="c3 lst-kix_xdh80phlgwv-0 start" start={1}>
         <li className="c0 li-bullet-0"><span className="c4">Definitions</span><span className="c1">.</span>
         </li>
         </ol>
-        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start="1">
+        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start={1}>
         <li className="c2 li-bullet-0"><span className="c1">&ldquo;Contribution&rdquo; shall mean any original work of authorship, including any modifications or additions to an existing work, that is intentionally submitted by You to Arrow for inclusion in, or documentation of, any of the products owned or managed by Arrow (the &ldquo;Work&rdquo;). &nbsp;For the purposes of this definition, &ldquo;submitted&rdquo; means any form of electronic, verbal, or written communication sent to Arrow or its representatives, including but not limited to communication on electronic mailing lists, source code control systems, and issue tracking systems that are managed by, or on behalf of, Arrow for the purpose of discussing and improving the Work, but excluding communication that is conspicuously marked or otherwise designated in writing by You as &ldquo;Not a Contribution.&rdquo;</span>
         </li>
         <li className="c2 li-bullet-0"><span
             className="c1">&ldquo;Contributor&rdquo; or &ldquo;You&rdquo; or &ldquo;Your&rdquo; means the copyright owner or legal entity authorized by the copyright owner that is making this Agreement with Arrow. &nbsp;If You are an employee and have created the Contribution as part of your employment, You also need to have Your employer sign this Agreement. &nbsp;For legal entities, the entity making a Contribution and all other entities that control, are controlled by, or are under common control with that entity are considered to be a single Contributor. &nbsp;For the purposes of this definition, &ldquo;control&rdquo; means (i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares, or (iii) beneficial ownership of such entity.</span>
         </li>
         </ol>
-        <ol className="c3 lst-kix_xdh80phlgwv-0" start="2">
+        <ol className="c3 lst-kix_xdh80phlgwv-0" start={2}>
         <li className="c0 li-bullet-0"><span className="c4">Licenses; Revocation</span><span
             className="c1">. &nbsp;</span></li>
         </ol>
-        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start="1">
+        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start={1}>
         <li className="c2 li-bullet-0"><span className="c7">Grant of Copyright License</span><span
             className="c1">. &nbsp;Subject to the terms and conditions of this Agreement, You hereby grant to Arrow, its affiliates, and to recipients of software distributed by Arrow or its affiliates, a perpetual, worldwide, non-exclusive, no-charge, royalty-free, sublicensable, irrevocable copyright license to reproduce, prepare derivative works of, publicly display, publicly perform, and distribute Your Contributions and such derivative works.</span>
         </li>
@@ -38,12 +38,12 @@ export default function CLAText(): JSX.Element {
             className="c1">. &nbsp;You reserve the right to revoke the patent license stated in Section 2.ii if We make any infringement claim that is targeted at your Contribution and not asserted for a Defensive Purpose. &nbsp;An assertion of claims of the Patents shall be considered for a &ldquo;Defensive Purpose&rdquo; if the claims are asserted against You or an entity that has filed, maintained, threatened, or voluntarily participated in a patent infringement lawsuit against Us or any of Our affiliates or licensees.</span>
         </li>
         </ol>
-        <ol className="c3 lst-kix_xdh80phlgwv-0" start="3">
+        <ol className="c3 lst-kix_xdh80phlgwv-0" start={3}>
         <li className="c0 li-bullet-0"><span className="c4">Representations</span><span
             className="c1">.</span>
         </li>
         </ol>
-        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start="1">
+        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start={1}>
         <li className="c2 li-bullet-0"><span className="c1">You represent that you are legally entitled to grant the above licenses. &nbsp;If your employer(s) has rights to intellectual property that you create that includes your Contributions, you represent that you have received permission to make Contributions on behalf of that employer, that your employer has waived such rights for your Contributions to Arrow, or that your employer has executed a separate contribution license agreement with Arrow.</span>
         </li>
         <li className="c2 li-bullet-0"><span className="c1">You represent that each of Your Contributions is Your original creation (see Section 4 for submissions on behalf of others) and that, to the best of Your knowledge, Your Contributions do not infringe the intellectual property or other rights of any third-party. &nbsp;You represent that Your Contribution submissions include complete details of any third-party license or other restriction (including, but not limited to, related patents and trademarks) of which you are personally aware and which are associated with any part of Your Contributions.</span>
@@ -51,7 +51,7 @@ export default function CLAText(): JSX.Element {
         <li className="c2 li-bullet-0"><span className="c1">You agree to notify Arrow of any facts or circumstances of which you become aware that would make these representations inaccurate in any respect.</span>
         </li>
         </ol>
-        <ol className="c3 lst-kix_xdh80phlgwv-0" start="4">
+        <ol className="c3 lst-kix_xdh80phlgwv-0" start={4}>
         <li className="c0 li-bullet-0"><span className="c4">Contributions on Behalf of Others</span><span
             className="c1">. &nbsp;Should You wish to submit work that is not Your original creation, You may submit it to Arrow separately from any Contribution, identifying the complete details of its source and of any license or other restriction (including, but not limited to, related patents, trademarks, and license agreements) of which you are personally aware, and conspicuously marking the work as &ldquo;Submitted on behalf of a third-party: [named here]&rdquo;.</span>
         </li>
@@ -62,7 +62,7 @@ export default function CLAText(): JSX.Element {
             className="c1">. </span>
         </li>
         </ol>
-        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start="1">
+        <ol className="c3 lst-kix_xdh80phlgwv-2 start" start={1}>
         <li className="c2 li-bullet-0"><span className="c1">Contributors are not independent contractors or employees of, or partners, agents, or joint venturers with Arrow. &nbsp;You elect to submit Your Contribution to Arrow voluntarily and are not entitled to any remuneration or consideration from Arrow, unless otherwise expressly stated in a mutually-signed separate written agreement between You and Arrow.</span>
         </li>
         <li className="c2 li-bullet-0"><span>This Agreement will be governed and construed under the laws of the State of </span><span>New York</span><span>&nbsp;without regard to conflicts of law provisions. &nbsp;Any suit or proceeding arising out of or relating to this Agreement will be brought in the federal or state courts, as applicable, in </span><span>New York County (Manhattan), New York</span><span
