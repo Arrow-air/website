@@ -36,6 +36,7 @@ static/dao.html
 # Imported external docs (pulled at build time via scripts/import-external-docs.sh or S3 sync in CI)
 docs/project-quiver/
 static/docs/project-quiver/
+static/quiver/
 
 # Shared about-arrow symlinks in multi-instance doc dirs
 docs-quiver/about-arrow
