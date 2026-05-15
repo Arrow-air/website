@@ -1712,6 +1712,15 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   border-bottom: 1px solid #c9cfd8;
 }
 
+/* BountyTable pill hover states. Hosted here (vs. inline `<style>` in
+   the component) so the rules are cacheable and not re-injected per render.
+   `!important` is required because the base pill colors are inline styles
+   on each `<span>`/`<a>`, which outrank a class selector. */
+.bt-pill-apply:hover  { background: #15803d !important; border-color: #14532d !important; }
+.bt-pill-claimed:hover { background: #92400e !important; border-color: #78350f !important; }
+.bt-pill-usdc:hover,
+.bt-pill-arrow:hover  { background: rgba(8,67,191,0.14) !important; border-color: rgba(8,67,191,0.6) !important; }
+
 .container {
   padding: 0 1.5rem;
 }
@@ -1765,7 +1774,7 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   font-family: 'Neue Haas Grotesk', sans-serif;
   font-size: 1.55rem;
   font-weight: 600;
-  color: #000;
+  color: var(--docs-text);
   margin: 2.5rem 0 1rem 0;
   padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--docs-border);
@@ -2133,6 +2142,12 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   margin: 0 0 1rem 0;
 }
 
+/* MDX renders header-less tables (`|  |  |` syntax) with an empty <thead>.
+   Hide it so the first <tbody> row sits flush instead of below a thin strip. */
+.theme-doc-markdown table > thead:not(:has(th:not(:empty))) {
+  display: none;
+}
+
 .theme-doc-markdown th {
   font-family: 'Departure Mono', 'Jetbrainsmono', monospace;
   font-size: 12px;
@@ -2165,7 +2180,9 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   border-right: 1px solid var(--docs-border);
 }
 
-.theme-doc-markdown tbody tr:first-child td {
+/* Only strip the first row's top border when the thead is rendered;
+   header-less tables need the top border so the table doesn't lose its top edge. */
+.theme-doc-markdown table:has(thead th:not(:empty)) tbody tr:first-child td {
   border-top: none;
 }
 

@@ -32,18 +32,6 @@ export type BountyRow = {
   image?: string;
 };
 
-const BADGE_STYLES: Record<BountyStatus, React.CSSProperties> = {
-  OPEN:    { background: '#0e7490', color: '#ffffff', border: '1px solid #0a6478' },
-  CLAIMED: { background: '#b45309', color: '#ffffff', border: '1px solid #92400e' },
-  CLOSED:  { background: 'rgba(107,114,128,0.1)', color: '#6b7280', border: '1px solid rgba(107,114,128,0.2)' },
-};
-
-const STATUS_CELL_BG: Record<BountyStatus, string> = {
-  OPEN:    'rgba(14,116,144,0.18)',
-  CLAIMED: 'rgba(180,130,0,0.18)',
-  CLOSED:  'transparent',
-};
-
 const PILL_BASE: React.CSSProperties = {
   fontFamily: "'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
   fontSize: '11px',
@@ -54,11 +42,11 @@ const PILL_BASE: React.CSSProperties = {
   textAlign: 'center',
 };
 
-const BADGE_BASE: React.CSSProperties = {
-  ...PILL_BASE,
-  padding: '4px 7px',
-  minWidth: '70px',
-};
+function formatExpires(input: string): string {
+  const d = new Date(input);
+  if (Number.isNaN(d.getTime())) return input;
+  return d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+}
 
 function PhotoPlaceholder({ size = 72 }: { size?: number }) {
   const scale = size / 72;
@@ -86,152 +74,144 @@ function PhotoPlaceholder({ size = 72 }: { size?: number }) {
 
 export default function BountyTable({ rows, hideClaimedToggle = false }: { rows: BountyRow[], hideClaimedToggle?: boolean }) {
   const [hideClaimed, setHideClaimed] = useState(false);
-  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+  const [hoveredRow, setHoveredRow] = useState<string | null>(null);
 
   const visibleRows = hideClaimed ? rows.filter(r => r.status !== 'CLAIMED') : rows;
 
   return (
     <div>
-      <style>{`
-        .bt-pill-apply:hover  { background: #15803d !important; border-color: #14532d !important; }
-        .bt-pill-claimed:hover { background: #92400e !important; border-color: #78350f !important; }
-        .bt-pill-usdc:hover  { background: rgba(8,67,191,0.14) !important; border-color: rgba(8,67,191,0.6) !important; }
-        .bt-pill-arrow:hover { background: rgba(8,67,191,0.14) !important; border-color: rgba(8,67,191,0.6) !important; }
-      `}</style>
-    <table style={{ width: '100%', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col />
-        <col style={{ width: '120px' }} />
-        <col style={{ width: '120px' }} />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>
-            <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '5px' }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"/><path d="M16 3H21V8" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M16 21H21V16" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M3 8L3 3L8 3" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M3 16L3 21L8 21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/></g></svg>
-              BOUNTY DESCRIPTION
-            </span>
-          </th>
-          <th style={{ textAlign: 'center' }}>
-            <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><g fill="currentColor"><path d="M3 7L3 5.19193L18 2H19V7" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M22 12H17V16H22" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M22 21L22 7L3 7L3 21L22 21Z" stroke="currentColor" strokeWidth="2" fill="none"/></g></svg>
-              REWARD
-            </span>
-          </th>
-          <th style={{ textAlign: 'center' }}>
-            <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 12H20.9999H20.4999" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M16.9999 16L20.9999 12L16.9999 8.00002" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M20 1V6.75781L18 4.75781V3H6V21H18V19.2422L20 17.2422V23H4V1H20Z" fill="currentColor" stroke="none"/></g></svg>
-              LINKS
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {visibleRows.map((row, i) => (
-          <tr
-            key={i}
-            onMouseEnter={() => setHoveredRow(i)}
-            onMouseLeave={() => setHoveredRow(null)}
-            style={{
-              background: hoveredRow === i ? '#e2e8f0' : i % 2 === 1 ? 'var(--docs-bg-subtle, #f3f6f9)' : 'transparent',
-            }}
-          >
-            <td>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                {row.image
-                  ? <span className="bt-img-wrapper" style={{ width: '56px', height: '56px', flexShrink: 0, display: 'block', background: 'var(--docs-bg-subtle, #e2e8f0)', padding: '2px', overflow: 'hidden', boxSizing: 'border-box', border: '1px solid var(--ifm-color-emphasis-400, #9ca3af)' }}>
-                      <img src={row.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                    </span>
-                  : <PhotoPlaceholder size={56} />}
-                <span style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: 0 }}>
-                  <span style={{ color: 'var(--docs-text-primary, #111827)', fontWeight: 500, fontSize: '15px' }}>{row.title}</span>
-                  <span style={{ color: 'var(--docs-text-secondary)', fontSize: '13px', lineHeight: '1.5' }}>
-                    {(() => {
-                      const MAX = 130;
-                      const isLong = row.description.length > MAX;
-                      const excerpt = isLong ? row.description.slice(0, MAX).trimEnd() : row.description;
-                      const expires = (() => {
-                        const d = new Date(row.expires);
-                        return d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
-                      })();
-                      return <>{excerpt}{isLong && <>{' '}...<a href={row.outline} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: 'inherit' }}>read more</a></>}{' '}<span style={{ fontWeight: 500, color: 'var(--docs-text-primary, #374151)' }}>| Expires {expires}</span></>;
-                    })()}
-                  </span>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', minWidth: '640px', tableLayout: 'fixed' }}>
+          <colgroup>
+            <col />
+            <col style={{ width: '120px' }} />
+            <col style={{ width: '120px' }} />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">
+                <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '5px' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"/><path d="M16 3H21V8" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M16 21H21V16" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M3 8L3 3L8 3" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M3 16L3 21L8 21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/></g></svg>
+                  BOUNTY DESCRIPTION
                 </span>
-              </span>
-            </td>
-            <td>
-              <span style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <span className="bt-pill-usdc" style={{
-                  ...PILL_BASE,
-                  padding: '4px 6px',
-                  border: '1px solid rgba(8,67,191,0.4)',
-                  color: '#0843BF',
-                  background: 'rgba(8,67,191,0.07)',
-                  cursor: 'default',
-                }}>{row.usdc} USDC</span>
-                <span className="bt-pill-arrow" style={{
-                  ...PILL_BASE,
-                  padding: '4px 6px',
-                  border: '1px solid rgba(8,67,191,0.4)',
-                  color: '#0843BF',
-                  background: 'rgba(8,67,191,0.07)',
-                  cursor: 'default',
-                }}>{row.arrow} $ARROW</span>
-              </span>
-            </td>
-            <td>
-              <span style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {row.status === 'CLAIMED' ? (
-                  <span className="bt-pill-claimed" style={{
-                    ...PILL_BASE,
-                    padding: '4px 6px',
-                    border: '1px solid #92400e',
-                    color: '#ffffff',
-                    background: '#b45309',
-                    letterSpacing: '-0.28px',
-                    cursor: 'default',
-                  }}>Claimed</span>
-                ) : row.apply && (
-                  <a
-                    href={row.apply}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bt-pill-apply"
-                    style={{
+              </th>
+              <th scope="col" style={{ textAlign: 'center' }}>
+                <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><path d="M3 7L3 5.19193L18 2H19V7" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M22 12H17V16H22" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M22 21L22 7L3 7L3 21L22 21Z" stroke="currentColor" strokeWidth="2" fill="none"/></g></svg>
+                  REWARD
+                </span>
+              </th>
+              <th scope="col" style={{ textAlign: 'center' }}>
+                <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><path d="M10 12H20.9999H20.4999" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M16.9999 16L20.9999 12L16.9999 8.00002" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"/><path d="M20 1V6.75781L18 4.75781V3H6V21H18V19.2422L20 17.2422V23H4V1H20Z" fill="currentColor" stroke="none"/></g></svg>
+                  LINKS
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {visibleRows.map((row, i) => (
+              <tr
+                key={row.title}
+                onMouseEnter={() => setHoveredRow(row.title)}
+                onMouseLeave={() => setHoveredRow(null)}
+                style={{
+                  background: hoveredRow === row.title ? '#e2e8f0' : i % 2 === 1 ? 'var(--docs-bg-subtle, #f3f6f9)' : 'transparent',
+                }}
+              >
+                <td>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    {row.image
+                      ? <span className="bt-img-wrapper" style={{ width: '56px', height: '56px', flexShrink: 0, display: 'block', background: 'var(--docs-bg-subtle, #e2e8f0)', padding: '2px', overflow: 'hidden', boxSizing: 'border-box', border: '1px solid var(--ifm-color-emphasis-400, #9ca3af)' }}>
+                          <img src={row.image} alt={row.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                        </span>
+                      : <PhotoPlaceholder size={56} />}
+                    <span style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: 0 }}>
+                      <span style={{ color: 'var(--docs-text-primary, #111827)', fontWeight: 500, fontSize: '15px' }}>{row.title}</span>
+                      <span style={{ color: 'var(--docs-text-secondary)', fontSize: '13px', lineHeight: '1.5' }}>
+                        {(() => {
+                          const MAX = 130;
+                          const isLong = row.description.length > MAX;
+                          const excerpt = isLong ? row.description.slice(0, MAX).trimEnd() : row.description;
+                          return <>{excerpt}{isLong && <>{' '}...<a href={row.outline} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: 'inherit' }}>read more</a></>}{' '}<span style={{ fontWeight: 500, color: 'var(--docs-text-primary, #374151)' }}>| Expires {formatExpires(row.expires)}</span></>;
+                        })()}
+                      </span>
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  <span style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <span className="bt-pill-usdc" style={{
                       ...PILL_BASE,
                       padding: '4px 6px',
-                      border: '1px solid #15803d',
-                      color: '#ffffff',
-                      background: '#16a34a',
-                      textDecoration: 'none',
-                      letterSpacing: '-0.28px',
-                    }}
-                  >Apply</a>
-                )}
-                {row.outline && (
-                  <a
-                    href={row.outline}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
+                      border: '1px solid rgba(8,67,191,0.4)',
+                      color: '#0843BF',
+                      background: 'rgba(8,67,191,0.07)',
+                      cursor: 'default',
+                    }}>{row.usdc} USDC</span>
+                    <span className="bt-pill-arrow" style={{
                       ...PILL_BASE,
                       padding: '4px 6px',
-                      border: '1px solid rgba(107,114,128,0.35)',
-                      color: 'var(--docs-text-secondary, #6b7280)',
-                      background: 'rgba(107,114,128,0.07)',
-                      textDecoration: 'none',
-                      letterSpacing: '-0.28px',
-                    }}
-                  >GitHub</a>
-                )}
-                {!row.outline && !row.apply && '—'}
-              </span>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                      border: '1px solid rgba(8,67,191,0.4)',
+                      color: '#0843BF',
+                      background: 'rgba(8,67,191,0.07)',
+                      cursor: 'default',
+                    }}>{row.arrow} $ARROW</span>
+                  </span>
+                </td>
+                <td>
+                  <span style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    {row.status === 'CLAIMED' ? (
+                      <span className="bt-pill-claimed" style={{
+                        ...PILL_BASE,
+                        padding: '4px 6px',
+                        border: '1px solid #92400e',
+                        color: '#ffffff',
+                        background: '#b45309',
+                        letterSpacing: '-0.28px',
+                        cursor: 'default',
+                      }}>Claimed</span>
+                    ) : row.apply && (
+                      <a
+                        href={row.apply}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bt-pill-apply"
+                        style={{
+                          ...PILL_BASE,
+                          padding: '4px 6px',
+                          border: '1px solid #15803d',
+                          color: '#ffffff',
+                          background: '#16a34a',
+                          textDecoration: 'none',
+                          letterSpacing: '-0.28px',
+                        }}
+                      >Apply</a>
+                    )}
+                    {row.outline && (
+                      <a
+                        href={row.outline}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          ...PILL_BASE,
+                          padding: '4px 6px',
+                          border: '1px solid rgba(107,114,128,0.35)',
+                          color: 'var(--docs-text-secondary, #6b7280)',
+                          background: 'rgba(107,114,128,0.07)',
+                          textDecoration: 'none',
+                          letterSpacing: '-0.28px',
+                        }}
+                      >GitHub</a>
+                    )}
+                    {!row.outline && !row.apply && '—'}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {hideClaimedToggle && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
           <button

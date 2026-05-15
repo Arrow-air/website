@@ -1,6 +1,7 @@
 ---
 sidebar_label: Video Guide
 hide_table_of_contents: true
+draft: true
 ---
 
 # Video Guide
