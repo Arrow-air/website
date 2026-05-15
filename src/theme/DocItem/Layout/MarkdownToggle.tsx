@@ -193,14 +193,16 @@ export default function MarkdownToggle({children}: Props): ReactNode {
     if (!rawContent && editUrl) {
       setFetchError(null);
       fetchPromise = (async () => {
+        const rawUrl = editUrlToRawUrl(editUrl);
         try {
-          const rawUrl = editUrlToRawUrl(editUrl);
           const resp = await fetch(rawUrl);
           if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText}`);
           const text = await resp.text();
           setRawContent(text);
         } catch (e) {
-          setFetchError(`Failed to fetch source: ${e instanceof Error ? e.message : String(e)}`);
+          const reason = e instanceof Error ? e.message : String(e);
+          console.error('[MarkdownToggle] fetch failed', {rawUrl, editUrl, reason});
+          setFetchError(`Failed to fetch ${rawUrl}\n${reason}`);
         }
       })();
     }
