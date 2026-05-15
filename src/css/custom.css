@@ -2456,9 +2456,16 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   text-overflow: ellipsis;
 }
 
+/* Zoom affordance for standalone docs images */
+.theme-doc-markdown p > img,
+.theme-doc-markdown figure > img {
+  cursor: zoom-in;
+}
+
 /* Minimize button — replaces ::after, now functional */
 .image-collapse-btn {
   position: absolute;
+  z-index: 1;
   top: 0;
   right: 0;
   height: 2rem;
