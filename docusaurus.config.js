@@ -41,9 +41,16 @@ const config = {
   url: "https://arrowair.com",
   baseUrl: "/",
   onBrokenLinks: "warn",
-  favicon: "images/favicon.png",
+  favicon: "img/favicons/favicon.ico",
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.
+
+  headTags: [
+    {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/img/favicons/favicon-32x32.png'}},
+    {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/img/favicons/favicon-16x16.png'}},
+    {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: '/img/favicons/apple-touch-icon.png'}},
+    {tagName: 'link', attributes: {rel: 'manifest', href: '/img/favicons/site.webmanifest'}},
+  ],
 
   markdown: {
     format: 'detect',
