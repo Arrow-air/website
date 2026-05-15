@@ -33,7 +33,7 @@ https://twitter.com/alexdada555
  * Embedded-C: Arm Cortex FreeRTOS and CMSIS-RTX-RTOS.
  * C++: Arduino, Teensy, PIC and STM32.
  * C#: Unity Game Development.
- * MCAD: Fusion 360, Solidworks.
+ * MCAD: Fusion 360, SolidWorks.
  * ECAD: Easy EDA, KiCAD, Eagle.
  * Tooling and Machining work.
 
