@@ -2462,6 +2462,15 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   cursor: zoom-in;
 }
 
+/* medium-zoom: lift overlay + zoomed image above Docusaurus' navbar
+   and sidebar (both use --ifm-z-index-fixed: 200). Without this the
+   dim overlay sits beneath the sidebar and the zoomed image is
+   visually clipped behind it. */
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 9999 !important;
+}
+
 /* Minimize button — replaces ::after, now functional */
 .image-collapse-btn {
   position: absolute;
