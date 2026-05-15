@@ -26,14 +26,11 @@ body {
  * and Firefox.
  * Correct `block` display not defined for `main` in IE 11.
  */
-article,
-aside,
-details,
+
 figcaption,
 figure,
 footer,
 header,
-hgroup,
 main,
 menu,
 nav,
@@ -91,9 +88,6 @@ a:hover {
 /**
  * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
  */
-abbr[title] {
-  border-bottom: 1px dotted;
-}
 /**
  * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
  */
@@ -104,9 +98,6 @@ strong {
 /**
  * Address styling not present in Safari and Chrome.
  */
-dfn {
-  font-style: italic;
-}
 /**
  * Address variable `h1` font-size and margin within `section` and `article`
  * contexts in Firefox 4+, Safari, and Chrome.
@@ -118,10 +109,6 @@ h1 {
 /**
  * Address styling not present in IE 8/9.
  */
-mark {
-  background: #ff0;
-  color: #000;
-}
 /**
  * Address inconsistent and variable font size in all browsers.
  */
@@ -131,15 +118,11 @@ small {
 /**
  * Prevent `sub` and `sup` affecting `line-height` in all browsers.
  */
-sub,
-sup {
+sub {
   font-size: 75%;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
 }
 sub {
   bottom: -0.25em;
@@ -169,10 +152,6 @@ figure {
 /**
  * Address differences between Firefox and other browsers.
  */
-hr {
-  box-sizing: content-box;
-  height: 0;
-}
 /**
  * Contain overflow in all browsers.
  */
@@ -203,7 +182,6 @@ samp {
  */
 button,
 input,
-optgroup,
 select,
 textarea {
   color: inherit;
@@ -312,21 +290,10 @@ input[type='search']::-webkit-search-decoration {
 /**
  * Define consistent border, margin, and padding.
  */
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
 /**
  * 1. Correct `color` not being inherited in IE 8/9/10/11.
  * 2. Remove padding so people aren't caught out if they zero out fieldsets.
  */
-legend {
-  border: 0;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-}
 /**
  * Remove default vertical scrollbar in IE 8/9/10/11.
  */
@@ -337,9 +304,6 @@ textarea {
  * Don't inherit the `font-weight` (applied by a rule above).
  * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
  */
-optgroup {
-  font-weight: bold;
-}
 /* Tables
    ========================================================================== */
 /**
@@ -349,7 +313,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-td,
-th {
+td {
   padding: 0;
 }
