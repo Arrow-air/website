@@ -41,7 +41,7 @@ Technical guidelines for contributing to Arrow's GitHub repositories.
    - Website repo: target `staging`
 
 2. **Confirm the `cla-signed` label** appears
-   - If you haven't signed the [CLA](./../sign-cla.mdx), the bot will block your PR
+   - If you haven't signed the [CLA](./sign-cla.mdx), the bot will block your PR
 
 3. **Confirm CI checks pass**
    - Checks vary by repository

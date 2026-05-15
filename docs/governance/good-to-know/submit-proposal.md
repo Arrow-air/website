@@ -8,7 +8,7 @@ Anyone can submit an Arrow Improvement Proposal. Here's how.
 
 ## 1. Read the existing AIPs
 
-Browse the [Proposal History](/docs/improvement-proposals/proposal-history) to understand what's already been proposed and adopted.
+Browse the [Proposal History](/docs/governance/aips/aip-index) to understand what's already been proposed and adopted.
 
 ## 2. Discuss your idea first
 

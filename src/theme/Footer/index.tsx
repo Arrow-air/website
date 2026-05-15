@@ -140,7 +140,6 @@ export default function Footer(): JSX.Element {
               <ul className={styles.linkList}>
                 <li><a href="https://snapshot.org/#/s:arrowair.eth" target="_blank" rel="noopener noreferrer">Snapshot</a></li>
                 <li><a href="https://github.com/Arrow-air/dao-aips" target="_blank" rel="noopener noreferrer">AIPs</a></li>
-                <li><a href="/dao.html">Overview</a></li>
               </ul>
             </div>
 

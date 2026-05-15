@@ -1,5 +1,24 @@
 // @ts-check
 
+const isDev = process.env.NODE_ENV !== 'production';
+
+/** @type {import('@docusaurus/plugin-content-docs').SidebarItemConfig[]} */
+const testCategory = isDev ? [{
+  type: 'category',
+  label: 'TEST',
+  collapsible: true,
+  collapsed: false,
+  items: [
+    { type: 'doc', id: 'cards-test', label: 'Cards Test' },
+    { type: 'doc', id: 'admonition-test', label: 'Admonition Test' },
+    { type: 'doc', id: 'steps-test', label: 'Steps Test' },
+    { type: 'doc', id: 'images-test', label: 'Images Test' },
+    { type: 'doc', id: 'demo-image-test', label: 'DemoImage Test' },
+    { type: 'doc', id: 'lists-test', label: 'Lists Test' },
+    { type: 'doc', id: 'tables-test', label: 'Tables Test' },
+  ],
+}] : [];
+
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
   ArrowSidebar: [
@@ -26,7 +45,7 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'contributing/intro', label: 'Getting Started' },
         { type: 'doc', id: 'contributing/how-we-work', label: 'How We Work' },
-        { type: 'doc', id: 'contributing/sign-cla', label: 'Sign the CLA' },
+        { type: 'doc', id: 'guides/sign-cla', label: 'Sign the CLA' },
         { type: 'doc', id: 'contributing/grants-bounties', label: 'Grants & Bounties' },
         {
           type: 'category',
@@ -96,22 +115,9 @@ const sidebars = {
       ],
     },
 
-    // TEST PAGES
-    {
-      type: 'category',
-      label: 'TEST',
-      collapsible: true,
-      collapsed: false,
-      items: [
-        { type: 'doc', id: 'cards-test', label: 'Cards Test' },
-        { type: 'doc', id: 'admonition-test', label: 'Admonition Test' },
-        { type: 'doc', id: 'steps-test', label: 'Steps Test' },
-        { type: 'doc', id: 'images-test', label: 'Images Test' },
-        { type: 'doc', id: 'demo-image-test', label: 'DemoImage Test' },
-        { type: 'doc', id: 'lists-test', label: 'Lists Test' },
-        { type: 'doc', id: 'tables-test', label: 'Tables Test' },
-      ],
-    },
+    // TEST PAGES — dev-only. Built above as `testCategory`. Each *-test.mdx
+    // also has `draft: true` front matter so the pages themselves don't ship.
+    ...testCategory,
 
     // RESOURCES
     {

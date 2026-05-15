@@ -19,7 +19,6 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'bounties/what-are-bounties', label: 'What are Bounties' },
         { type: 'doc', id: 'bounties/how-to-claim', label: 'How to Claim' },
-        { type: 'doc', id: 'bounties/video-guide', label: 'Video Guide' },
         { type: 'doc', id: 'bounties/previous-bounties', label: 'Previous Bounties' },
       ],
     },

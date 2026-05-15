@@ -1,5 +1,4 @@
 ---
-draft: true
 sidebar_position: 5
 description: The Grants & Bounties Committee — mandate, members, and election process.
 ---

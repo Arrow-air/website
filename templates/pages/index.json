@@ -2,7 +2,19 @@
   "output": "static/index.html",
   "title": "Arrow | Global Community Building Open Source Aircraft",
   "wfPageId": "686bc4649f23f7482c1e3649",
-  "metaTags": [],
+  "metaTags": [
+    "<meta name=\"description\" content=\"Arrow is a global community designing and building open-source aircraft together. Online, in the open. Start with drones, end with air taxis.\">",
+    "<link rel=\"canonical\" href=\"https://arrowair.com/\">",
+    "<meta property=\"og:type\" content=\"website\">",
+    "<meta property=\"og:url\" content=\"https://arrowair.com/\">",
+    "<meta property=\"og:title\" content=\"Arrow | Global Community Building Open Source Aircraft\">",
+    "<meta property=\"og:description\" content=\"Arrow is a global community designing and building open-source aircraft together. Online, in the open. Start with drones, end with air taxis.\">",
+    "<meta property=\"og:image\" content=\"https://arrowair.com/img/brand/brand-assets-discord-thumbnail@2x.png\">",
+    "<meta name=\"twitter:card\" content=\"summary_large_image\">",
+    "<meta name=\"twitter:title\" content=\"Arrow | Global Community Building Open Source Aircraft\">",
+    "<meta name=\"twitter:description\" content=\"Arrow is a global community designing and building open-source aircraft together. Online, in the open. Start with drones, end with air taxis.\">",
+    "<meta name=\"twitter:image\" content=\"https://arrowair.com/img/brand/brand-assets-discord-thumbnail@2x.png\">"
+  ],
   "extraHead": "",
   "bodyFile": "index.body.html",
   "extraScriptsFile": "index.scripts.html"

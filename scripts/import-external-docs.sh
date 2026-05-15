@@ -122,8 +122,10 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 	# Patch known upstream links that do not resolve cleanly in the website's
 	# Docusaurus route structure after import.
 	if [ "$key" = "project-quiver" ] && [ -f "$target_path/index.md" ]; then
+		# Engineering-Reports/_category_.json sets label "Reference / Engineering Reports",
+		# which Docusaurus slugifies to /quiver/category/reference--engineering-reports/.
 		$SED_INPLACE \
-			-e 's|\[Engineering Reports\](\./Engineering-Reports/)|[Engineering Reports](/quiver/category/engineering-reports/)|g' \
+			-e 's|\[Engineering Reports\](\./Engineering-Reports/)|[Engineering Reports](/quiver/category/reference--engineering-reports/)|g' \
 			"$target_path/index.md" 2>/dev/null || true
 	fi
 

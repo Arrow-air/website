@@ -16,4 +16,4 @@ An Arrow Improvement Proposal (AIP) is the formal mechanism for proposing change
 | **Informational** | Proposals that communicate information or establish guidelines without requiring a vote |
 | **Protocol** | Changes to smart contracts, the $ARROW token, or on-chain infrastructure |
 
-See [Submit a Proposal](/docs/governance/good-to-know/submit-proposal) for the full lifecycle, or browse the [Proposal History](/docs/improvement-proposals/proposal-history) to see all existing proposals.
+See [Submit a Proposal](/docs/governance/good-to-know/submit-proposal) for the full lifecycle, or browse the [Proposal History](/docs/governance/aips/aip-index) to see all existing proposals.

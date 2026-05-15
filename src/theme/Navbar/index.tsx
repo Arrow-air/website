@@ -125,6 +125,12 @@ function LinksDropdown() {
       {open && (
         <div className={styles.dropdownMenu}>
           <a
+            href="https://www.arrowair.com"
+            className={styles.dropdownItem}
+          >
+            <DocsIcon size={20} filled /> Homepage
+          </a>
+          <a
             href="https://github.com/Arrow-air"
             target="_blank"
             rel="noopener noreferrer"
