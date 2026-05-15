@@ -30,6 +30,7 @@ ECAD
 errrks
 esbenp
 extensionpack
+favicons
 Flesch
 Flesch-Kincaid
 fract
