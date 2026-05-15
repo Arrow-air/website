@@ -1,3 +1,7 @@
+---
+draft: true
+---
+
 # Tables
 
 ---
@@ -61,7 +65,7 @@
 |----------|-------------|
 | [DAO Forum](https://dao.arrowair.com) | Governance, bounties, and proposals |
 | [GitHub](https://github.com/Arrow-air) | Source code and hardware designs |
-| [Snapshot](https://snapshot.box/#/s:arrowair.eth) | On-chain voting |
+| [Snapshot](https://snapshot.org/#/s:arrowair.eth) | On-chain voting |
 | **Discord** | Day-to-day community chat |
 
 ---

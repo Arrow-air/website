@@ -7,7 +7,7 @@ description: The foundational document governing Arrow DAO — ratified June 202
 Arrow's Constitution was ratified by a DAO-wide Snapshot vote on **June 27, 2024**. It is the foundational governance document for Arrow DAO — covering vision, organizational structure, decision-making, conflict resolution, and distributed authority.
 
 :::note
-Some sections reference "Pods," the pre-2025 organizational structure. The Projects Framework introduced in [AIP-006](../aips/aip-index) updated how Arrow organizes contributor work. Where there is a conflict between this Constitution and a subsequently passed AIP, the AIP takes precedence.
+Some sections reference "Pods," the pre-2025 organizational structure. The Projects Framework introduced in [AIP-006](./aips/aip-index) updated how Arrow organizes contributor work. Where there is a conflict between this Constitution and a subsequently passed AIP, the AIP takes precedence.
 :::
 
 ---

@@ -25,7 +25,7 @@ Self-directed work is anything you take on because you think it matters. Fix a b
 | [Discord](https://discord.com/invite/arrow) | Day-to-day chat, questions, coordination, community calls |
 | [GitHub](https://github.com/Arrow-air) | Code, hardware designs, issues, pull requests |
 | [DAO Forum](https://dao.arrowair.com) | Governance, grants, bounties, proposals |
-| [Snapshot](https://snapshot.box/#/s:arrowair.eth) | On-chain voting |
+| [Snapshot](https://snapshot.org/#/s:arrowair.eth) | On-chain voting |
 
 Discord is home base - where the community lives, questions get answered, and informal decisions happen. But Discord is ephemeral. Anything important that happens there should be written up somewhere permanent: GitHub, the Forum, or the docs.
 
