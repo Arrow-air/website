@@ -87,7 +87,9 @@ const config = {
       routeBasePath: 'quiver',
       sidebarPath: require.resolve('./sidebars-quiver.js'),
       exclude: ['**/Archive/**'],
-      editUrl: 'https://github.com/Arrow-air/project-quiver/edit/main/docs/',
+      // Upstream repo holds files under docs/<docPath>, not docs/project-quiver/<docPath>.
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/project-quiver/edit/main/docs/${docPath}`,
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {
@@ -95,7 +97,8 @@ const config = {
       path: 'docs-spearhead',
       routeBasePath: 'spearhead',
       sidebarPath: require.resolve('./sidebars-spearhead.js'),
-      editUrl: 'https://github.com/Arrow-air/website/edit/staging/docs-spearhead/',
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/website/edit/staging/docs-spearhead/${docPath}`,
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {
@@ -103,7 +106,8 @@ const config = {
       path: 'docs-flight-tracking',
       routeBasePath: 'flight-tracking',
       sidebarPath: require.resolve('./sidebars-flight-tracking.js'),
-      editUrl: 'https://github.com/Arrow-air/website/edit/staging/docs-flight-tracking/',
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/website/edit/staging/docs-flight-tracking/${docPath}`,
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {
@@ -111,7 +115,8 @@ const config = {
       path: 'docs-bounty',
       routeBasePath: 'bounty',
       sidebarPath: require.resolve('./sidebars-bounty.js'),
-      editUrl: 'https://github.com/Arrow-air/website/edit/staging/docs-bounty/',
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/website/edit/staging/docs-bounty/${docPath}`,
       showLastUpdateTime: true,
     }],
   ],
@@ -130,7 +135,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           exclude: ['**/project-quiver/**'], // served by the separate quiver plugin instance
           showLastUpdateTime: true,
-          editUrl: ({ docPath }) => {
+          editUrl: (/** @type {{docPath: string}} */ { docPath }) => {
             // Check if this doc is from an external repo
             for (const [folder, config] of Object.entries(externalDocs)) {
               if (docPath.startsWith(`${folder}/`)) {
