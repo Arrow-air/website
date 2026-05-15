@@ -2,8 +2,6 @@
    FONT FACES
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-
 @font-face {
   font-family: 'Departure Mono';
   src: url('/fonts/DepartureMono-Regular.woff2') format('woff2');
@@ -912,7 +910,7 @@ h1, .h1 {
   padding-top: 0.01px;
 }
 
-/* TOP-LEVEL labels (categories and plain links) - IBM Plex Mono, allcaps, black */
+/* TOP-LEVEL labels (categories and plain links) - Jetbrainsmono, allcaps, black */
 /* Target first-level menu items (direct children of the main sidebar list).
    [data-sidebar-category] variants handle the icon wrapper div inserted between
    ul.theme-doc-sidebar-menu and the li. */
@@ -925,7 +923,7 @@ h1, .h1 {
 ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link,
 ul.theme-doc-sidebar-menu > [data-sidebar-category] > li > .menu__list-item-collapsible .menu__link,
 .theme-doc-sidebar-menu > .theme-doc-sidebar-item-link-level-1 > .menu__link {
-  font-family: 'IBM Plex Mono', 'Departure Mono', 'Jetbrainsmono', monospace !important;
+  font-family: 'Jetbrainsmono', 'Departure Mono', monospace !important;
   font-size: 14px !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
