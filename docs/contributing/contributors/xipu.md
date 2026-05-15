@@ -1,4 +1,5 @@
 ---
+draft: true # Inactive contributor - welcome to re-enable when active again
 tags:
   - contributors
   - smart contracts

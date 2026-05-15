@@ -1,81 +1,95 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
+title: Getting Started
+description: A step-by-step guide to getting oriented and making your first contribution to Arrow.
 ---
 
 # Getting Started
 
-The best way to get connected with the Arrow community and start working is to join our Discord server!
+Arrow is a global community building open-source aircraft. No gatekeeping, no approval process. If you want to contribute, you can start today.
 
-Introduce yourself in the `#general` channel and we'll all be happy to get you up to speed - we're a friendly bunch!
+:::tip
+You don't need permission to start. Just communicate with the community so you stay aligned on what's actually needed.
+:::
 
-:exclamation: As a general rule of culture, you don't need formal permission to start working on anything. However, it's best to communicate well with the community to keep us all aligned and working on high-impact tasks.
+<Steps>
 
-See the [Development Guide](./guides/development-guide.md) for contributions to our GitHub repositories.
+  <Step title="Read the docs">
+    Spend 20 minutes getting a basic picture of what Arrow is and how it operates before jumping into Discord or GitHub.
 
-To ensure that you have a smooth contributing experience (and get paid fairly 😊), we created this page to include every technology and documentation we used to establish our workflows and compensation frameworks.
+    - [What is Arrow?](/docs/overview/about-arrow) — Mission, structure, the short version
+    - [Our Projects](/docs/overview/our-projects) — Quiver, Spearhead, what's in development
+    - [How We Work](/docs/contributing/how-we-work) — Async culture and how decisions get made
+    - [Why a DAO?](/docs/governance/why-a-dao) — Why we're organized this way
+  </Step>
 
-## :busts_in_silhouette: Collaboration
+  <Step title="Join Discord">
+    [Discord](https://discord.com/invite/arrow) is where Arrow actually lives. Meetings, coordination, hardware updates, off-topic chatter. It all happens there. Drop into **#community-chat** and say hi.
 
-### [Discord](https://discord.com/invite/arrow)
+    We hold regular community calls announced in the events tab. These are the fastest way to get a feel for the project and meet people. No agenda required to attend.
 
-We use Discord to exchange ideas, schedule meetings, and send memes around. Arrow's Discord channel is the best place to keep up with Arrow's development and hang out with other contributors. All of our meetings happen and are scheduled through Discord - join them!
+    <DemoImage src="/img/getting-started_discord.png" alt="Arrow Discord server" />
+  </Step>
 
-### [GitHub](https://github.com/Arrow-air)
+  <Step title="Browse the DAO forum and YouTube">
+    Before jumping into work, read through some of the ongoing conversation.
 
-Everything we do is open-sourced. Software and hardware engineering works can be found from our repositories. 
+    The **[DAO Forum](https://dao.arrowair.com)** is where governance proposals, grants, and project discussions are posted publicly. Reading through a few recent AIPs shows you how Arrow actually makes decisions and what's getting attention right now.
 
-### [Dework](https://app.dework.xyz/arrow-air)
+    The **[YouTube channel](https://www.youtube.com/@ArrowAir)** has flight test footage, build videos, and demos. Seeing the hardware fly makes the whole thing feel less abstract.
 
-Dework is a web3-native collaboration platform that allows for tasks/bounties management. Contributors can sync up their Discord roles to Dework and get compensated. Dework is also a good place to see what people are working on and their progress.
+    <DemoImage src="/img/getting-started_dao-forum.png" alt="Arrow DAO Forum" />
+  </Step>
 
-## :money_with_wings: Compensation
+  <Step title="Find something to work on">
+    Arrow needs help across a wide range of areas. You don't have to be an aerospace engineer.
 
-There are multiple ways to get compensated:
+    We regularly need people with skills in mechanical design and CAD, electronics and PCB work, software (embedded, web, companion computer, ground control), flight testing, documentation, and video production. If you have a skill and want to use it, there's probably something useful you can do.
 
-* Bounties: Complete bounties on Dework will be paid in USDC or ARROW, or a mix of both. These will be specific tasks that have a defined scope ahead of time.
-* Grants: If you have an idea for something that you think would benefit Arrow, you can pitch it to us and we may give you a grant to work on it. Similar to a bounty, we will set milestones and USDC/ARROW payouts. We also strive to issue retroactive grants when contributions are made without any compensation plan set ahead of time. Send a message in `#general` if you have a grant idea or think someone deserves a retroactive grant.
-* Commitment Track: Our core contributors are paid by a combination of Arrow tokens and USDC stablecoins. Think of this as the "base salary" of a traditional job. Of course, we provide flexibility on your commitment level. See below for more information. If you're interested in progressing to commitment track, start with some bounties and grants first to get integrated with Arrow.
-* Bonus: Each regular contributor has 1,000 ARROW each month to "tip" other contributors to appreciate their works. This is done in Coordinape (see below).
+    **Don't have expensive tools?** Most design work happens in software — CAD tools like Fusion 360 and OnShape have free tiers, and all electronics work uses open source tooling. For hardware, most builds can be done with basic workshop tools or on-demand services like local makerspaces and PCB fabricators.
 
-:exclamation: As of now, we're still finalizing the details of our Arrow token, but we will make sure that all contributors are retroactively rewarded for all of their hard work. We strive to have a culture of merit - If you contribute something valuable, you will be rewarded.
+    **Not sure how much time you have?** However much you can give. Some contributors are here daily; others drop in once a month. Both are genuinely valuable. Arrow works because small contributions compound.
 
-### [Coordinape](https://app.coordinape.com/)
+    If you're not sure where to start, some genuinely easy first contributions: fix a typo in the docs, test a guide and report what's confusing, answer a question in Discord, or leave a comment on an open PR.
 
-Contributors can see what other contributors are doing/have done in a given month and have 1,000 ARROW tokens to allocate to other contributors to show their appreciation.
+    For funded work, browse open bounties on the [Bounty Board](/bounty) or the [DAO Forum](https://dao.arrowair.com). If you want to build hardware, we loan out Quiver dev-kits to contributors developing attachments. See the [Project Quiver](/quiver) docs for details.
+  </Step>
 
-### [LlamaPay](https://llamapay.io/)
+  <Step title="Sign the CLA">
+    One thing you do need before any PRs can be merged: sign the Contributor License Agreement. It takes about a minute and only needs to be done once.
 
-Contributors admitted to the Commitment Track will be able to receive USDC and Arrow token vesting through LlamaPay, a web3 product that pays you **per second**. It's super cool!
+    **[Sign the CLA](/docs/guides/sign-cla)**
+  </Step>
 
-## :scroll: Docs
+  <Step title="Read the guides">
+    If you're contributing code or documentation, these are worth reading before you submit anything.
 
-Contributors who are interested in the Commitment Track should monitor Discord for each period's sign-up announcements. Usually, the sign-up is done by filling out a Google Form.
+    - [Development Guide](/docs/guides/development-guide) — Git workflow, branching conventions, commit style, local setup
+    - [Writing Style Guide](/docs/guides/style-guides/writing) — How docs are written at Arrow
+    - [Code Style Guides](/docs/guides/style-guides) — Python, TypeScript, Rust conventions
+    - [Brand Guidelines](/docs/contributing/arrow-brand) — Logos, colors, how to represent Arrow
 
-[**Arrow Compensation Framework**](https://docs.google.com/document/d/1GbhslaFcHT1w2zCWbtLFafrsW_QIZ7fxcQXicGOa5Hw/edit?usp=sharing): The most detailed explanation of Arrow's compensation framework. This is the single source of truth from which compensation tools are configured.
+    **Tools:**
 
-[**Arrow Contributor Compensation Workbook**](https://docs.google.com/spreadsheets/d/1Mngt2VHdpZgCwRceVHUqXD9ufMx2gninVBPxm0RkXRQ/edit?usp=sharing): Outlines requirements for different levels of expertise and a brief compensation scenario analysis.
+    | Tool | What it's for |
+    |------|--------------|
+    | [Discord](https://discord.com/invite/arrow) | Chat, meetings, coordination |
+    | [GitHub](https://github.com/Arrow-air) | Code, hardware designs, issues |
+    | [DAO Forum](https://dao.arrowair.com) | Governance, grants, proposals |
+    | [Arrow Drive](https://drive.google.com/drive/folders/1efLrzqsiajzlxXiOUjxPT53CkfDGC0Yu?usp=sharing) | Presentations, brand assets |
+  </Step>
 
-[**ARROW Initial Allocation and Management [DRAFT]**](https://docs.google.com/document/d/19yGuWkonvxdYrXz8rXYAXg1EwEluPGvrLS64dcmEK6Y/edit?usp=sharing): Outlines the proposed token allocation for founding contributors. It also provides a breakdown of the use of the ARROW treasury.
+  <Step title="Add your contributor profile (a good first PR)">
+    Adding your profile to the [Contributors](/docs/contributing/contributors) page is a solid first PR. It gets you through the full contribution workflow without any pressure, and it puts your name in the record.
 
-## :link: Important Links
+    1. Copy the [contributor template](https://raw.githubusercontent.com/Arrow-air/website/main/docs/contributing/contributors/_template.md)
+    2. Go to the [contributors directory](https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors) on GitHub
+    3. Click **Add file**, then **Create new file**
+    4. Fill it out and open a PR against `staging`
+  </Step>
 
-### [HammerTime](https://hammertime.cyou/)
+</Steps>
 
-Our contributors are located across the globe! HammerTime allows you to share a date/time in the Discord and convert it to localized format, so that contributors can see the correct time in their respective timezones.
+---
 
-### [Arrow Drive](https://drive.google.com/drive/folders/1efLrzqsiajzlxXiOUjxPT53CkfDGC0Yu?usp=sharing)
-
-The Google Drive stores important paperwork, engineering concepts, presentations, brand artworks, and more. 
-
-## :wave: Contributor Introduction Pages
-
-Can't find your introduction page? You can add it yourself!
-
-1. Copy the contents of the [contributors template](https://raw.githubusercontent.com/Arrow-air/website/main/docs/contributing/contributors/_template.md)
-2. Go to [the contributors directory in GitHub](https://github.com/Arrow-air/website/tree/main/docs/contributing/contributors)
-3. Select `Add file` -> `Create new file`
-4. Paste the contents you copied from the template
-5. Fill out the template with your own information (you can use the `preview` to see if you're happy with the result)
-6. Create a PR from a new branch
-   ![image](/images/create_pr.jpg)
-7. Your PR will be reviewed for approval. If everything looks ok, your PR will be approved and merged.
+Questions? Ask in [Discord](https://discord.com/invite/arrow).

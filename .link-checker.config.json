@@ -11,11 +11,46 @@
     },
     {
       "pattern": "https://www.greencarcongress.com"
+    },
+    {
+      "pattern": "^#$"
+    },
+    {
+      "pattern": "via.placeholder.com"
+    },
+    {
+      "pattern": "openmotors.co"
+    },
+    {
+      "pattern": "^/docs/"
+    },
+    {
+      "pattern": "^/bounty"
+    },
+    {
+      "pattern": "^/flight-tracking/"
+    },
+    {
+      "pattern": "^/img/"
+    },
+    {
+      "pattern": "^\\./[^)#]+(?:#[^)]+)?$"
+    },
+    {
+      "pattern": "^\\.\\./[^)#]+(?:#[^)]+)?$"
+    },
+    {
+      "pattern": "https://logs.px4.io"
+    },
+    {
+      "pattern": "https://etherscan.io/address/"
     }
   ],
   "httpHeaders": [
     {
-      "urls": ["https://docs.github.com/"],
+      "urls": [
+        "https://docs.github.com/"
+      ],
       "headers": {
         "Accept-Encoding": "zstd, br, gzip, deflate"
       }

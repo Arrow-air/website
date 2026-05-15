@@ -1,0 +1,71 @@
+---
+sidebar_position: 4
+description: How Arrow engineers aircraft — tools, testing, and building hardware.
+---
+
+# Engineering
+
+Arrow builds aircraft the way open source software is built: distributed teams, shared repositories, and a contribution workflow anyone can join. Here's how that looks in practice.
+
+## Software & Tools
+
+Everything Arrow uses is open source or has a free tier. Files live on GitHub so anyone can open, fork, and improve them. You don't need an expensive setup to get started.
+
+### CAD
+
+**Fusion 360** or **OnShape** — both have free tiers for personal and open source use. Hardware designs are committed to GitHub the same way code is. You can open any Arrow design, make changes, and submit a pull request.
+
+<DemoImage src="/img/engineering_cad.png" alt="An Arrow hardware design open in Fusion 360 or OnShape" caption="CAD files live on GitHub — open, easy to fork, and improvable by anyone" />
+
+### Electronics
+
+**KiCad** for circuit board design. **PlatformIO** for firmware. Both are fully open source, and all board files and firmware live on GitHub alongside the rest of the hardware.
+
+<DemoImage src="/img/engineering_electronics.png" alt="An Arrow PCB design open in KiCad" caption="All Arrow PCB work uses KiCad — open source and GitHub-native" />
+
+### Simulation
+
+Before anything gets built, it gets simulated:
+
+- **Fusion 360 FEA** — structural analysis
+- **XFLR5** — aerodynamics
+- **Custom Python scripts** — flight dynamics
+
+<DemoImage src="/img/engineering_simulation.png" alt="Structural FEA simulation of an Arrow component in Fusion 360" caption="Simulation catches problems before they become expensive fabrication mistakes" />
+
+### Collaboration
+
+| Tool | What it's for |
+|------|---------------|
+| [GitHub](https://github.com/Arrow-air) | Code, hardware designs, issues, pull requests |
+| [Discord](https://discord.com/invite/arrow) | Daily chat, meetings, design reviews |
+| [DAO Forum](https://dao.arrowair.com) | Long-form discussion, governance, proposals |
+| Spatial / VR tools | Real-time 3D design reviews |
+
+## Testing
+
+We test everything before it flies.
+
+**Simulation → Bench testing → Ground testing → Flight testing**
+
+Each stage catches a different class of problem. Something that would take days to debug on the flight line often shows up in twenty minutes of simulation. Arrow moves fast — but methodically.
+
+Flight tests are live-streamed when possible. The whole community watches and learns together. It's one of the best ways to understand what Arrow is actually building, and to celebrate what works.
+
+<DemoImage src="/img/engineering_flight-test.png" alt="Arrow Quiver flight test footage" caption="Flight tests are streamed live when possible — the whole community tunes in" />
+
+## Building Hardware
+
+### Prototype Builds
+
+When a design is ready, we coordinate a build. Sometimes that means an in-person meetup — contributors traveling to put their hands on hardware together. Sometimes it's distributed: multiple people building the same design in their own workshops and streaming it simultaneously.
+
+<DemoImage src="/img/engineering_prototype-build.png" alt="Arrow contributors assembling hardware at a build meetup" caption="Builds happen in person or distributed — sometimes both at the same time" />
+
+### Build It Yourself
+
+You can manufacture any Arrow design locally. The instructions and bill of materials are in the docs — build it, document your results, and share what you learn. Improvements flow back via pull requests, the same as any other contribution.
+
+This is how Arrow scales hardware without owning a factory. Every local build makes the next one easier for everyone.
+
+See the [Project Quiver docs](/quiver) for assembly guides and sourcing information.

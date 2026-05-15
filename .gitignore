@@ -10,6 +10,7 @@
 
 # Misc
 .DS_Store
+CLAUDE.md
 .env.local
 .env.development.local
 .env.test.local
@@ -21,6 +22,24 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Imported external docs (pulled at build time)
+# Yarn (project uses npm; ignore yarn artifacts)
+.yarn/
+yarn.lock
+
+# Generated HTML pages (built from templates/)
+static/index.html
+static/quiver.html
+static/engineering.html
+static/community.html
+static/dao.html
+
+# Imported external docs (pulled at build time via scripts/import-external-docs.sh or S3 sync in CI)
 docs/project-quiver/
 static/docs/project-quiver/
+static/quiver/
+
+# Shared about-arrow symlinks in multi-instance doc dirs
+docs-quiver/about-arrow
+docs-spearhead/about-arrow
+docs-guides/about-arrow
+docs-bounty/about-arrow

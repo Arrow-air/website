@@ -1,0 +1,10 @@
+{
+  "label": "REPORTS",
+  "position": 4,
+  "collapsible": false,
+  "collapsed": false,
+  "link": {
+    "type": "doc",
+    "id": "reports/index"
+  }
+}

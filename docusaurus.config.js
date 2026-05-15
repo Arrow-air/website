@@ -1,12 +1,38 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+const path = require('path');
 const { themes } = require("prism-react-renderer");
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
 
 // External docs config - shared with import script (external-docs.json)
 const externalDocs = require('./external-docs.json');
+
+// Custom plugin: prevent docs/project-quiver/ files from being processed by the
+// main docs preset's MDX webpack loader (they are handled by the quiver plugin instance).
+function excludeProjectQuiverFromMainDocsLoader() {
+  const projectQuiverPath = path.resolve(__dirname, 'docs', 'project-quiver');
+  const docsPath = path.resolve(__dirname, 'docs') + path.sep;
+  return {
+    name: 'exclude-project-quiver-from-main-mdx-loader',
+    configureWebpack(config) {
+      for (const rule of (config.module?.rules ?? [])) {
+        if (!rule || typeof rule !== 'object' || !Array.isArray(rule.include)) continue;
+        // Identify the main docs MDX rule: includes 'docs/' but not 'project-quiver'
+        if (rule.include.some(d => d === docsPath) &&
+            !rule.include.some(d => typeof d === 'string' && d.includes('project-quiver'))) {
+          rule.exclude = (Array.isArray(rule.exclude)
+            ? rule.exclude
+            : rule.exclude ? [rule.exclude] : []
+          ).concat(projectQuiverPath);
+          break;
+        }
+      }
+      return {};
+    },
+  };
+}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -15,7 +41,7 @@ const config = {
   url: "https://arrowair.com",
   baseUrl: "/",
   onBrokenLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "images/favicon.png",
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.
 
@@ -35,7 +61,7 @@ const config = {
         indexDocs: true,
         indexBlog: true,
         blogDir: "blog/",
-        docsDir: "docs/",
+        docsDir: ["docs", "docs-quiver", "docs-spearhead", "docs-flight-tracking", "docs-bounty"],
         language: "en",
         searchResultLimits: 8,
         highlightSearchTermsOnTargetPage: true,
@@ -45,12 +71,60 @@ const config = {
     ],
   ],
 
+  clientModules: [
+    require.resolve('./src/js/imageCollapse.js'),
+    require.resolve('./src/js/sidebarScrollPosition.js'),
+    require.resolve('./src/js/routeClasses.js'),
+    require.resolve('./src/js/sidebarPoweredBy.js'),
+    require.resolve('./src/js/themeTransition.js'),
+  ],
+
+  plugins: [
+    excludeProjectQuiverFromMainDocsLoader,
+    require.resolve('./plugins/dev-homepage'),
+    ['@docusaurus/plugin-content-docs', {
+      id: 'quiver',
+      path: 'docs/project-quiver',
+      routeBasePath: 'quiver',
+      sidebarPath: require.resolve('./sidebars-quiver.js'),
+      exclude: ['**/Archive/**'],
+      // Upstream repo holds files under docs/<docPath>, not docs/project-quiver/<docPath>.
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/project-quiver/edit/main/docs/${docPath}`,
+      showLastUpdateTime: true,
+    }],
+    ['@docusaurus/plugin-content-docs', {
+      id: 'spearhead',
+      path: 'docs-spearhead',
+      routeBasePath: 'spearhead',
+      sidebarPath: require.resolve('./sidebars-spearhead.js'),
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/website/edit/staging/docs-spearhead/${docPath}`,
+      showLastUpdateTime: true,
+    }],
+    ['@docusaurus/plugin-content-docs', {
+      id: 'flight-tracking',
+      path: 'docs-flight-tracking',
+      routeBasePath: 'flight-tracking',
+      sidebarPath: require.resolve('./sidebars-flight-tracking.js'),
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/website/edit/staging/docs-flight-tracking/${docPath}`,
+      showLastUpdateTime: true,
+    }],
+    ['@docusaurus/plugin-content-docs', {
+      id: 'bounty',
+      path: 'docs-bounty',
+      routeBasePath: 'bounty',
+      sidebarPath: require.resolve('./sidebars-bounty.js'),
+      editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
+        `https://github.com/Arrow-air/website/edit/staging/docs-bounty/${docPath}`,
+      showLastUpdateTime: true,
+    }],
+  ],
+
   stylesheets: [
     { href: "https://fonts.googleapis.com", rel: "preconnect" },
     { href: "https://fonts.gstatic.com", rel: "preconnect" },
-    {
-      href: "https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Rubik:wght@400;700&display=swap",
-    },
   ],
 
   presets: [
@@ -60,7 +134,9 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: ({ docPath }) => {
+          exclude: ['**/project-quiver/**'], // served by the separate quiver plugin instance
+          showLastUpdateTime: true,
+          editUrl: (/** @type {{docPath: string}} */ { docPath }) => {
             // Check if this doc is from an external repo
             for (const [folder, config] of Object.entries(externalDocs)) {
               if (docPath.startsWith(`${folder}/`)) {
@@ -106,40 +182,37 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-        disableSwitch: true,
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
       },
       docs: {
         sidebar: {
-          hideable: true
+          hideable: false
         }
       },
       navbar: {
         logo: {
           alt: "Arrow Logo",
-          src: "img/wordmark_gray.svg",
+          src: "img/brand/wordmark_gray.svg",
           href: "pathname:///",
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
+            type: "search",
             position: "right",
-            label: "Docs",
-            className: "text-secondary",
           },
           {
-            to: "/blog",
+            href: "https://github.com/Arrow-air",
             position: "right",
-            label: "Blog",
-            className: "text-secondary",
-            image: "img/arrow-icon_blog.svg",
+            className: "navbar-icon navbar-icon--github",
+            "aria-label": "GitHub",
           },
           {
             href: "https://discord.com/invite/arrow",
             position: "right",
-            label: "Discord",
-            className: "text-secondary",
-            image: "img/arrow-icon_discord.svg",
+            className: "navbar-icon navbar-icon--discord",
+            "aria-label": "Discord",
           },
         ],
       },
@@ -147,10 +220,10 @@ const config = {
         style: "light",
         logo: {
           alt: "Arrow Logo",
-          src: "img/wordmark_gray.svg",
+          src: "img/brand/wordmark_gray.svg",
         },
         copyright:
-          'Built with <img src="/img/arrow-icon_love.svg" style="height:1rem" alt="love"/> by the Arrow Community',
+          'Built with <img src="/img/brand/arrow-icon_love.svg" style="height:1rem" alt="love"/> by the Arrow Community',
         links: [
           {
             title: "Community",

@@ -1,0 +1,11 @@
+{
+  "label": "Arrow Contracts",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "reference/contracts/index"
+  },
+  "customProps": {
+    "icon": "cube"
+  }
+}

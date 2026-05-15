@@ -1,4 +1,10 @@
 {
-  "label": "Contribute",
-  "position": 2
+  "label": "CONTRIBUTING",
+  "position": 2,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "doc",
+    "id": "contributing/index"
+  }
 }

@@ -1,0 +1,283 @@
+---
+draft: true
+---
+
+# Cards Test
+
+## Image only
+
+<Cards cols={2}>
+  <Card
+    title="Project Quiver"
+    href="/quiver"
+    imageDarkUnhover="/img/card-quiver_dark-unhover.png"
+    imageLightUnhover="/img/card-quiver_light-unhover.png"
+    imageHover="/img/card-quiver_hover.png"
+  >
+    Our open source quadcopter platform for autonomous aerial mobility.
+  </Card>
+  <Card
+    title="Project Spearhead"
+    href="/spearhead"
+    imageDarkUnhover="/img/card-spearhead_dark-unhover.png"
+    imageLightUnhover="/img/card-spearhead_light-unhover.png"
+    imageHover="/img/card-spearhead_dark-hover.png"
+  >
+    Real-time flight data, telemetry analysis, and route visualisation.
+  </Card>
+</Cards>
+
+---
+
+## Image + icon
+
+<Cards cols={2}>
+  <Card
+    title="Project Quiver"
+    href="/quiver"
+    imageDarkUnhover="/img/card-quiver_dark-unhover.png"
+    imageLightUnhover="/img/card-quiver_light-unhover.png"
+    imageHover="/img/card-quiver_hover.png"
+    icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M2 3V20H22V6H13L10 3H2Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>}
+  >
+    Our open source quadcopter platform for autonomous aerial mobility.
+  </Card>
+  <Card
+    title="Project Spearhead"
+    href="/spearhead"
+    imageDarkUnhover="/img/card-spearhead_dark-unhover.png"
+    imageLightUnhover="/img/card-spearhead_light-unhover.png"
+    imageHover="/img/card-spearhead_dark-hover.png"
+    icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>}
+  >
+    Real-time flight data, telemetry analysis, and route visualisation.
+  </Card>
+</Cards>
+
+---
+
+## Icon only (media area)
+
+<Cards cols={3}>
+  <Card
+    title="Contributing"
+    href="/docs/contributing/intro"
+    icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>}
+  >
+    How to get involved and start contributing to Arrow.
+  </Card>
+  <Card
+    title="Governance"
+    href="/docs/governance"
+    icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>}
+  >
+    The Arrow DAO, ARROW token, and on-chain governance.
+  </Card>
+  <Card
+    title="Guides"
+    href="/docs/guides"
+    icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>}
+  >
+    Dev guide, style guides, and code of conduct.
+  </Card>
+</Cards>
+
+---
+
+## Icon + title — 2 col
+
+<Cards cols={2}>
+  <Card title="Getting Started" href="/docs/contributing/intro" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>} />
+  <Card title="How We Work" href="/docs/contributing/how-we-work" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>} />
+  <Card title="Grants & Bounties" href="/docs/contributing/grants-bounties" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>} />
+  <Card title="Contributors" href="/docs/contributing/contributors" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>} />
+</Cards>
+
+---
+
+## Icon + title — 3 col
+
+<Cards cols={3}>
+  <Card title="Dev Guide" href="/docs/guides" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>} />
+  <Card title="Governance" href="/docs/governance" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>} />
+  <Card title="Contributing" href="/docs/contributing/intro" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>} />
+  <Card title="Community" href="/docs/community" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>} />
+  <Card title="Overview" href="/docs/overview" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>} />
+  <Card title="Guides" href="/docs/guides" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>} />
+</Cards>
+
+---
+
+## Icon + title — 4 col
+
+<Cards cols={4}>
+  <Card title="Overview" href="/docs/overview" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>} />
+  <Card title="Contributing" href="/docs/contributing/intro" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>} />
+  <Card title="Community" href="/docs/community" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>} />
+  <Card title="Governance" href="/docs/governance" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>} />
+</Cards>
+
+---
+
+## Icon + title + description — 2 col
+
+<Cards cols={2}>
+  <Card title="Getting Started" href="/docs/contributing/intro" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>}>
+    Everything you need to start contributing to Arrow. Read this first before opening a PR.
+  </Card>
+  <Card title="How We Work" href="/docs/contributing/how-we-work" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>}>
+    Our async culture, decision-making processes, and how teams coordinate across time zones.
+  </Card>
+  <Card title="Grants & Bounties" href="/docs/contributing/grants-bounties" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>}>
+    Get paid to contribute. Browse open bounties and learn how to claim rewards.
+  </Card>
+  <Card title="Contributors" href="/docs/contributing/contributors" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>}>
+    Meet the people building Arrow and learn how to join the contributor program.
+  </Card>
+</Cards>
+
+---
+
+## Icon + title + description — 3 col
+
+<Cards cols={3}>
+  <Card title="Dev Guide" href="/docs/guides" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>}>
+    Set up your local environment and learn the development workflow end to end.
+  </Card>
+  <Card title="Governance" href="/docs/governance" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>}>
+    The Arrow DAO, ARROW token, and on-chain governance.
+  </Card>
+  <Card title="Contributing" href="/docs/contributing/intro" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>}>
+    How to get involved and start contributing to Arrow.
+  </Card>
+</Cards>
+
+---
+
+## Icon + title + description — 4 col
+
+<Cards cols={4}>
+  <Card title="Overview" href="/docs/overview" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>}>
+    What Arrow is, what we're building, and why it matters.
+  </Card>
+  <Card title="Contributing" href="/docs/contributing/intro" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2V10H4" stroke="currentColor" strokeWidth="2" fill="none"></path><path d="M14 18L22 18" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M18 14V22" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M20 10V2H10.5919L4 8.58984V22H11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path></g></svg>}>
+    How to get involved and start shipping code with the team.
+  </Card>
+  <Card title="Community" href="/docs/community" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3V21" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M2 17H6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path><path d="M21 3L4 3L4 21L21 21L21 3Z" stroke="currentColor" strokeWidth="2" fill="none"></path></g></svg>}>
+    Values, calls, events, and how the Arrow community operates.
+  </Card>
+  <Card title="Governance" href="/docs/governance" titleIcon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10 3L10 10L3 10L3 3L10 3Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M21 14L21 21L14 21L14 14L21 14Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"></path><path d="M21 6.5L14 6.5" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path><path d="M17.495 3C17.495 5.34315 17.495 7.65685 17.495 10" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path></g></svg>}>
+    The Arrow DAO, ARROW token, AIPs, and on-chain voting.
+  </Card>
+</Cards>
+
+---
+
+## Title only — 2 col
+
+<Cards cols={2}>
+  <Card title="Getting Started" href="/docs/contributing/intro" />
+  <Card title="How We Work" href="/docs/contributing/how-we-work" />
+  <Card title="Grants & Bounties" href="/docs/contributing/grants-bounties" />
+  <Card title="Contributors" href="/docs/contributing/contributors" />
+</Cards>
+
+---
+
+## Title only — 3 col
+
+<Cards cols={3}>
+  <Card title="Dev Guide" href="/docs/guides" />
+  <Card title="Code of Conduct" href="/docs/community" />
+  <Card title="Brand Guidelines" href="/docs/contributing/arrow-brand" />
+  <Card title="Discord Setup" href="/docs/community" />
+  <Card title="Style Guides" href="/docs/guides" />
+  <Card title="TypeScript" href="/docs/guides" />
+</Cards>
+
+---
+
+## Title only — 4 col
+
+<Cards cols={4}>
+  <Card title="Overview" href="/docs/overview" />
+  <Card title="Contributing" href="/docs/contributing/intro" />
+  <Card title="Community" href="/docs/community" />
+  <Card title="Governance" href="/docs/governance" />
+</Cards>
+
+---
+
+## Title + description — 2 col
+
+<Cards cols={2}>
+  <Card title="Getting Started" href="/docs/contributing/intro">
+    Everything you need to start contributing to Arrow. Read this first before opening a PR.
+  </Card>
+  <Card title="How We Work" href="/docs/contributing/how-we-work">
+    Our async culture, decision-making processes, and how teams coordinate across time zones.
+  </Card>
+  <Card title="Grants & Bounties" href="/docs/contributing/grants-bounties">
+    Get paid to contribute. Browse open bounties and learn how to claim rewards.
+  </Card>
+  <Card title="Contributors" href="/docs/contributing/contributors">
+    Meet the people building Arrow and learn how to join the contributor program.
+  </Card>
+</Cards>
+
+---
+
+## Title + description — 3 col
+
+<Cards cols={3}>
+  <Card title="Dev Guide" href="/docs/guides">
+    Set up your local environment and learn the development workflow end to end.
+  </Card>
+  <Card title="Code of Conduct" href="/docs/community">
+    How we treat each other. Required reading for all contributors and community members.
+  </Card>
+  <Card title="Brand Guidelines" href="/docs/contributing/arrow-brand">
+    Logos, colors, fonts, and tone of voice for all Arrow communications.
+  </Card>
+  <Card title="Discord Setup" href="/docs/community">
+    How to navigate the Arrow Discord, which channels to use, and community norms.
+  </Card>
+  <Card title="Style Guides" href="/docs/guides">
+    Coding and writing standards across Python, TypeScript, Rust, and documentation.
+  </Card>
+  <Card title="TypeScript" href="/docs/guides">
+    Arrow-specific TypeScript conventions, linting config, and common patterns.
+  </Card>
+</Cards>
+
+---
+
+## Title + description — 4 col
+
+<Cards cols={4}>
+  <Card title="Overview" href="/docs/overview">
+    What Arrow is, what we're building, and why it matters.
+  </Card>
+  <Card title="Contributing" href="/docs/contributing/intro">
+    How to get involved and start shipping code with the team.
+  </Card>
+  <Card title="Community" href="/docs/community">
+    Values, calls, events, and how the Arrow community operates.
+  </Card>
+  <Card title="Governance" href="/docs/governance">
+    The Arrow DAO, ARROW token, AIPs, and on-chain voting.
+  </Card>
+</Cards>
+
+---
+
+## Static (no link)
+
+<Cards cols={2}>
+  <Card title="Open Source">
+    Arrow is fully open source. Every line of code, every design file, every decision is public.
+  </Card>
+  <Card title="Decentralized">
+    No single company owns Arrow. Governance is on-chain via the ARROW token and DAO proposals.
+  </Card>
+</Cards>

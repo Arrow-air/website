@@ -1,0 +1,192 @@
+---
+title: Steps Component Test
+description: A reference page for styling and testing the Steps component across different content types.
+draft: true
+---
+
+# Steps Component Test
+
+Use this page to style and test the `<Steps>` component.
+
+---
+
+## Example 1 — Simple text steps
+
+<Steps>
+  <Step title="Install the CLI">
+    Run the following command in your terminal to install the Arrow CLI globally.
+  </Step>
+  <Step title="Create a personal access token">
+    Go to **Settings → API Tokens** and click **Generate token**. Copy it somewhere safe — you won't see it again.
+  </Step>
+  <Step title="Authenticate">
+    Log in using your new token. You're ready to go.
+  </Step>
+</Steps>
+
+---
+
+## Example 2 — Steps with code blocks
+
+<Steps>
+  <Step title="Install dependencies">
+    ```bash
+    npm install -g @arrow/cli
+    ```
+  </Step>
+  <Step title="Initialize your project">
+    ```bash
+    arrow init my-project
+    cd my-project
+    ```
+  </Step>
+  <Step title="Start the dev server">
+    ```bash
+    arrow dev
+    ```
+
+    The server will be available at `http://localhost:3000`.
+  </Step>
+</Steps>
+
+---
+
+## Example 3 — Steps with mixed content
+
+<Steps>
+  <Step title="Fork the repository">
+    Go to the [Arrow GitHub org](https://github.com/Arrow-air) and fork the repo you want to contribute to.
+  </Step>
+  <Step title="Clone and branch">
+    ```bash
+    git clone https://github.com/YOUR_USERNAME/website.git
+    cd website
+    git checkout -b my-feature
+    ```
+  </Step>
+  <Step title="Make your changes">
+    Edit files, add docs, fix bugs. Follow the style guides in the **Guides** section.
+
+    :::tip
+    Run `npm start` to preview your changes locally before submitting.
+    :::
+  </Step>
+  <Step title="Open a pull request">
+    Push your branch and open a PR against `staging`. Fill in the PR template and request a review.
+  </Step>
+</Steps>
+
+---
+
+## Example 4 — Long step with a list inside
+
+<Steps>
+  <Step title="Configure your environment">
+    Make sure you have the following installed:
+
+    - Node.js 18+
+    - Git
+    - A code editor (VS Code recommended)
+
+    Then copy `.env.example` to `.env` and fill in your values.
+  </Step>
+  <Step title="Run the build">
+    ```bash
+    npm run build
+    ```
+
+    This will output a production build to the `build/` directory.
+  </Step>
+</Steps>
+
+---
+
+## Example 5 — Steps with images
+
+<Steps>
+  <Step title="Open the Arrow dashboard">
+    Navigate to your Arrow workspace and click **New Project** in the top right corner.
+
+    ![Arrow community hero](/img/community-hero.jpg)
+  </Step>
+  <Step title="Select a template">
+    Choose from one of the available project templates. For most use cases, start with **Standard**.
+
+    ![Arrow hero image](/img/hero-image.png)
+  </Step>
+  <Step title="Name your project and confirm">
+    Give your project a name, set the visibility, and click **Create**. You'll be taken to the project dashboard.
+  </Step>
+</Steps>
+
+---
+
+## Example 6 — Steps with all admonition types
+
+<Steps>
+  <Step title="Back up your data">
+    Export a copy of your current configuration before making any changes.
+
+    :::danger
+    Skipping this step may result in unrecoverable data loss. Do not proceed without a backup.
+    :::
+  </Step>
+  <Step title="Apply the migration">
+    Run the migration script against your environment.
+
+    ```bash
+    arrow migrate --env production
+    ```
+
+    :::warning
+    This operation will cause a brief downtime of approximately 2 minutes.
+    :::
+  </Step>
+  <Step title="Verify the output">
+    Check that all services are healthy after the migration completes.
+
+    :::note
+    It may take up to 60 seconds for all services to report a healthy status.
+    :::
+  </Step>
+  <Step title="Enable the new features">
+    Once verified, flip the feature flag to enable the new functionality for your users.
+
+    :::tip
+    Roll out to a small percentage of users first to catch any edge cases before a full release.
+    :::
+  </Step>
+</Steps>
+
+---
+
+## Example 7 — Steps with images and admonitions mixed
+
+<Steps>
+  <Step title="Download the desktop app">
+    Get the latest version of the Arrow desktop app from the releases page.
+
+    :::note
+    Minimum system requirements: macOS 12+, Windows 10, or Ubuntu 20.04.
+    :::
+  </Step>
+  <Step title="Run the installer">
+    Open the downloaded file and follow the on-screen instructions.
+
+    ![Arrow software engineering](/img/software-engineering@2x.png)
+
+    :::tip
+    On macOS you may need to allow the app in **System Settings → Privacy & Security**.
+    :::
+  </Step>
+  <Step title="Sign in with your account">
+    Launch the app and sign in. If you don't have an account yet, click **Create account** on the login screen.
+  </Step>
+  <Step title="Connect to your workspace">
+    Enter your workspace URL and click **Connect**. Your projects will sync automatically.
+
+    :::warning
+    If you're behind a corporate firewall, ask your IT team to allowlist `*.arrowair.com`.
+    :::
+  </Step>
+</Steps>

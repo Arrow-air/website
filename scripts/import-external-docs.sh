@@ -35,7 +35,7 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 	sidebar_label=$(jq -r ".\"$key\".sidebarLabel // \"$key\"" "$CONFIG_FILE")
 	sidebar_position=$(jq -r ".\"$key\".sidebarPosition // 99" "$CONFIG_FILE")
 
-	target_path="docs/$key"
+	target_path=$(jq -r ".\"$key\".targetPath // \"docs/$key\"" "$CONFIG_FILE")
 
 	echo "Importing docs from $repo ($branch)..."
 
@@ -95,20 +95,73 @@ for key in $(jq -r 'keys[]' "$CONFIG_FILE"); do
 			"$mdfile" 2>/dev/null || true
 	done
 
-	# Create _category_.json for sidebar if it doesn't exist in source
-	if [ ! -f "$target_path/_category_.json" ]; then
-		cat > "$target_path/_category_.json" << EOF
+	# Docusaurus processes Markdown image syntax into hashed build assets, but
+	# raw HTML <img src="..."> tags and links to binary assets keep their
+	# relative URLs. Mirror imported non-doc assets under the public route so
+	# those relative URLs resolve on the deployed site.
+	route_base=$(jq -r ".\"$key\".routeBasePath // empty" "$CONFIG_FILE")
+	if [ -z "$route_base" ]; then
+		if [ "$key" = "project-quiver" ]; then
+			route_base="quiver"
+		else
+			route_base="$key"
+		fi
+	fi
+
+	asset_static_path="static/$route_base"
+	echo "  Mirroring static assets to /$route_base/..."
+	rm -rf "$asset_static_path"
+	mkdir -p "$asset_static_path"
+	rsync -a \
+		--exclude='*.md' \
+		--exclude='*.mdx' \
+		--exclude='_category_.json' \
+		--exclude='.DS_Store' \
+		"$target_path/" "$asset_static_path/"
+
+	# Patch known upstream links that do not resolve cleanly in the website's
+	# Docusaurus route structure after import.
+	if [ "$key" = "project-quiver" ] && [ -f "$target_path/index.md" ]; then
+		# Engineering-Reports/_category_.json sets label "Reference / Engineering Reports",
+		# which Docusaurus slugifies to /quiver/category/reference--engineering-reports/.
+		$SED_INPLACE \
+			-e 's|\[Engineering Reports\](\./Engineering-Reports/)|[Engineering Reports](/quiver/category/reference--engineering-reports/)|g' \
+			"$target_path/index.md" 2>/dev/null || true
+	fi
+
+	# Create _category_.json for sidebar only when importing into the default docs/ subfolder
+	# (not needed for top-level plugin roots specified via targetPath)
+	custom_target=$(jq -r ".\"$key\".targetPath // \"\"" "$CONFIG_FILE")
+	if [ -z "$custom_target" ] && [ ! -f "$target_path/_category_.json" ]; then
+		if [ -f "$target_path/index.md" ] || [ -f "$target_path/index.mdx" ]; then
+			cat > "$target_path/_category_.json" << EOF
 {
 	"label": "${sidebar_label}",
 	"position": ${sidebar_position},
-	"collapsed": true,
+	"collapsible": false,
+	"collapsed": false,
+	"link": {
+		"type": "doc",
+		"id": "${key}/index"
+	}
+}
+EOF
+			echo "  Created _category_.json (linked to index doc)"
+		else
+			cat > "$target_path/_category_.json" << EOF
+{
+	"label": "${sidebar_label}",
+	"position": ${sidebar_position},
+	"collapsible": false,
+	"collapsed": false,
 	"link": {
 		"type": "generated-index",
 		"description": "Documentation for ${sidebar_label}"
 	}
 }
 EOF
-		echo "  Created _category_.json for sidebar"
+			echo "  Created _category_.json (generated index)"
+		fi
 	fi
 
 	# Cleanup
