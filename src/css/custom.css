@@ -62,6 +62,13 @@
    BASE STYLES
    ========================================================================== */
 
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+    transition: none !important;
+}
+
 html, body {
     height: 100%;
     color: var(--bs-dark);

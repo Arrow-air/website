@@ -76,6 +76,7 @@ const config = {
     require.resolve('./src/js/sidebarScrollPosition.js'),
     require.resolve('./src/js/routeClasses.js'),
     require.resolve('./src/js/sidebarPoweredBy.js'),
+    require.resolve('./src/js/themeTransition.js'),
   ],
 
   plugins: [
@@ -183,7 +184,7 @@ const config = {
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
-        respectPrefersColorScheme: false,
+        respectPrefersColorScheme: true,
       },
       docs: {
         sidebar: {
