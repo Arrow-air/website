@@ -936,7 +936,7 @@ ul.theme-doc-sidebar-menu > [data-sidebar-category] > li > .menu__list-item-coll
   text-transform: uppercase !important;
   letter-spacing: 0.04em !important;
   color: #000000 !important;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.75rem;
   padding-left: 1.75rem !important;
   position: relative;
 }
