@@ -428,7 +428,7 @@ function BountyActiveIcon() {
 }
 
 const SUBNAV_TABS = [
-  { label: 'HOME',                path: '/docs',             to: '/docs/intro',       icon: <DocsIcon />, activeIcon: <DocsActiveIcon /> },
+  { label: 'HOME',                path: '/docs',             to: '/docs',       icon: <DocsIcon />, activeIcon: <DocsActiveIcon /> },
   { label: 'Quiver',              path: '/quiver',           to: '/quiver',           icon: <QuiverIcon />, activeIcon: <QuiverActiveIcon /> },
   { label: 'Spearhead',           path: '/spearhead',        to: '/spearhead',        icon: <SpearheadIcon />, activeIcon: <SpearheadActiveIcon /> },
   { label: 'Flight Tracking App', path: '/flight-tracking',  to: '/flight-tracking',  icon: <FlightTrackingIcon />, activeIcon: <FlightTrackingActiveIcon /> },
@@ -547,7 +547,7 @@ function DocsNavbar() {
         </button>
 
         {/* Logo */}
-        <Link to="/docs/intro" className={styles.logo}>
+        <Link to="/docs" className={styles.logo}>
           <ArrowLogo />
           <span className={styles.logoLabel}>Docs</span>
         </Link>
@@ -563,7 +563,7 @@ function DocsNavbar() {
             <span className={styles.iconButtonLabel}>Homepage</span>
           </a>
           <Link
-            to="/docs/intro"
+            to="/docs"
             className={`${styles.iconButton} ${styles.iconButtonLabeled} ${styles.desktopOnly}`}
             aria-label="Docs Home"
           >
