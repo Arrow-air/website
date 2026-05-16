@@ -17,7 +17,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "start:local-docs": "node scripts/build-html.js && bash scripts/import-external-docs.sh && (node scripts/build-html.js --watch & bash scripts/import-external-docs.sh --watch & docusaurus start)"
+    "start:local-docs": "bash scripts/start-local-docs.sh"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.1",

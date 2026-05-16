@@ -14,6 +14,9 @@ set -euo pipefail
 #
 # The environment variable name is generated from the external-docs.json key:
 # project-quiver -> EXTERNAL_DOCS_LOCAL_PROJECT_QUIVER.
+#
+# Local paths are intentionally env-var only, not external-docs.json config, so
+# nobody accidentally commits a machine-specific path.
 
 WATCH_MODE=0
 if [ "${1:-}" = "--watch" ]; then
@@ -52,46 +55,72 @@ local_env_name() {
 	echo "EXTERNAL_DOCS_LOCAL_$1" | tr '[:lower:]' '[:upper:]' | sed 's/[^A-Z0-9_]/_/g'
 }
 
-# Return the optional local source path for a docs key.
-# Priority:
-#   1. Environment variable, useful for local one-off testing
-#   2. external-docs.json localPath, useful if we ever want a checked-in default
+# Return the optional local source path for a docs key. This only reads an
+# environment variable so local machine paths never end up in external-docs.json.
 local_source_for_key() {
 	local key="$1"
 	local env_name
 	env_name="$(local_env_name "$key")"
 
-	if [ -n "${!env_name:-}" ]; then
-		echo "${!env_name}"
-		return
-	fi
-
-	jq -r ".\"$key\".localPath // \"\"" "$CONFIG_FILE"
+	echo "${!env_name:-}"
 }
 
 # Accept either a repo root (/path/to/project-quiver) or the docs folder itself
-# (/path/to/project-quiver/docs).
+# (/path/to/project-quiver/docs). Refuse arbitrary folders that do not look like
+# a Docusaurus docs tree; this prevents accidentally importing ~/Documents.
 resolve_docs_source() {
 	local configured_path="$1"
 	local docs_path="$2"
+	local source_dir
 
 	if [ -d "$configured_path/$docs_path" ]; then
-		echo "$configured_path/$docs_path"
+		source_dir="$configured_path/$docs_path"
 	elif [ -d "$configured_path" ]; then
-		echo "$configured_path"
+		source_dir="$configured_path"
 	else
 		echo "Error: Local docs path does not exist: $configured_path" >&2
 		return 1
 	fi
+
+	if ! looks_like_docs_tree "$source_dir"; then
+		echo "Error: Local docs path does not look like a docs folder: $source_dir" >&2
+		echo "Expected markdown/MDX docs or _category_.json. Pass the repo root or its docs folder." >&2
+		return 1
+	fi
+
+	echo "$source_dir"
 }
 
-# Hash the source tree so watch mode can notice changes without extra tools like
-# fswatch/inotifywait. This is simple and portable, but intentionally not magic:
-# every few seconds we hash the docs files and compare with the previous hash.
+looks_like_docs_tree() {
+	local source_dir="$1"
+	find "$source_dir" -maxdepth 3 -type f \( \
+		-name '*.md' -o \
+		-name '*.mdx' -o \
+		-name '_category_.json' \
+	\) -print -quit | grep -q .
+}
+
+# Hash the files that affect the docs preview so watch mode can notice changes
+# without extra tools like fswatch/inotifywait. Do not hash heavy CAD archives,
+# STEP files, zips, etc. every two seconds; importing will still copy those assets
+# when a watched docs/content file changes.
 source_fingerprint() {
 	local source_dir="$1"
 
-	find "$source_dir" -type f \
+	find "$source_dir" -type f \( \
+		-name '*.md' -o \
+		-name '*.mdx' -o \
+		-name '*.html' -o \
+		-name '*.json' -o \
+		-name '*.yml' -o \
+		-name '*.yaml' -o \
+		-name '*.png' -o \
+		-name '*.jpg' -o \
+		-name '*.jpeg' -o \
+		-name '*.gif' -o \
+		-name '*.webp' -o \
+		-name '*.svg' \
+	\) \
 		! -name '.DS_Store' \
 		! -name 'mkdocs.yaml' \
 		! -name 'mkdocs.yml' \
