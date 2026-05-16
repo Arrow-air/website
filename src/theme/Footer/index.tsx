@@ -122,7 +122,7 @@ export default function Footer(): JSX.Element {
               <ul className={styles.linkList}>
                 <li><Link to="/quiver">Project Quiver</Link></li>
                 <li><a href="https://github.com/Arrow-air" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><Link to="/docs/intro">Documentation</Link></li>
+                <li><Link to="/docs">Documentation</Link></li>
               </ul>
             </div>
 
