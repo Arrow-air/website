@@ -931,7 +931,7 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link,
 ul.theme-doc-sidebar-menu > [data-sidebar-category] > li > .menu__list-item-collapsible .menu__link,
 .theme-doc-sidebar-menu > .theme-doc-sidebar-item-link-level-1 > .menu__link {
   font-family: 'Jetbrainsmono', 'Departure Mono', monospace !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.04em !important;
