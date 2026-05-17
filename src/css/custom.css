@@ -2456,9 +2456,36 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   text-overflow: ellipsis;
 }
 
+/* Zoom affordance for standalone docs images */
+.theme-doc-markdown p > img,
+.theme-doc-markdown figure > img {
+  cursor: zoom-in;
+}
+
+/* medium-zoom: lift overlay + zoomed image above Docusaurus' navbar
+   and sidebar (both use --ifm-z-index-fixed: 200). Without this the
+   dim overlay sits beneath the sidebar and the zoomed image is
+   visually clipped behind it. */
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 9999 !important;
+}
+
+/* Disable medium-zoom on mobile: native pinch-zoom is sufficient there,
+   and the overlay gets in the way. `pointer-events: none` blocks the
+   click handler medium-zoom binds to each img. */
+@media (max-width: 996px) {
+  .theme-doc-markdown p > img,
+  .theme-doc-markdown figure > img {
+    cursor: auto;
+    pointer-events: none;
+  }
+}
+
 /* Minimize button — replaces ::after, now functional */
 .image-collapse-btn {
   position: absolute;
+  z-index: 1;
   top: 0;
   right: 0;
   height: 2rem;

@@ -87,6 +87,7 @@ const config = {
   ],
 
   plugins: [
+    require.resolve('docusaurus-plugin-image-zoom'),
     excludeProjectQuiverFromMainDocsLoader,
     require.resolve('./plugins/dev-homepage'),
     ['@docusaurus/plugin-content-docs', {
@@ -188,6 +189,23 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      zoom: {
+        selector: '.theme-doc-markdown p:not(td p) > img, .theme-doc-markdown figure > img',
+        background: {
+          light: 'rgba(255, 255, 255, 0.96)',
+          dark: 'rgba(17, 24, 39, 0.96)',
+        },
+        // medium-zoom's `config` object is passed straight through by
+        // docusaurus-plugin-image-zoom to mediumZoom(selector, config).
+        // `margin: 48` insets the zoomed image 48px from each viewport edge.
+        // Do NOT add `container` here — passing a tall scrolling container
+        // (e.g. [class^="docMainContainer"]) makes medium-zoom translate to
+        // the article's geometric center, which is far below the viewport,
+        // so the image animates downward instead of zooming in place.
+        config: {
+          margin: 48,
+        },
+      },
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
