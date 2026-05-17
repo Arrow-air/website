@@ -72,5 +72,5 @@ export default function EndBar(): ReactNode {
 
   if (!portalTarget) return null;
 
-  return createPortal(<EndBarContent editUrl={editUrl} />, portalTarget);
+  return createPortal(<EndBarContent editUrl={editUrl ?? undefined} />, portalTarget);
 }

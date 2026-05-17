@@ -4,6 +4,7 @@
   "include": ["src/"],
   "compilerOptions": {
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "noEmit": true,
     "skipLibCheck": true
   }
