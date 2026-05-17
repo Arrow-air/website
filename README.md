@@ -22,6 +22,16 @@ $ yarn start
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
+#### Local external docs development
+
+To preview website changes while editing docs in a local checkout of `project-quiver`, point the importer at that checkout and run the local-docs dev script:
+
+```bash
+EXTERNAL_DOCS_LOCAL_PROJECT_QUIVER=/path/to/project-quiver yarn start:local-docs
+```
+
+You can pass either the repository root or its `docs` directory. The script imports once, starts Docusaurus, and watches the local docs for changes so edits are copied into the website dev server without re-cloning GitHub.
+
 ### Build
 
 ```
