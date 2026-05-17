@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css'
 
-export default function CLAText(): JSX.Element {
+export default function CLAText(): React.JSX.Element {
   return (
     <div className="cla-text">
         <p className="c12"><span className="c1">Arrow Air Contributor License Agreement</span></p><p

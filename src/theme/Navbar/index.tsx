@@ -610,7 +610,7 @@ function DocsNavbar() {
   );
 }
 
-export default function Navbar(props): JSX.Element {
+export default function Navbar(props: React.ComponentProps<typeof NavbarOriginal>): React.JSX.Element {
   return (
     <>
       <div className={styles.stickyHeader}>

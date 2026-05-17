@@ -99,7 +99,7 @@ function FooterThemeToggle() {
   );
 }
 
-export default function Footer(): JSX.Element {
+export default function Footer(): React.JSX.Element {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerInner}>

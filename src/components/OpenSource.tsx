@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-export default function OpenSource(): JSX.Element {
+export default function OpenSource(): React.JSX.Element {
   return (
     <React.Fragment>
     <article className="row justify-content-center text-center bg-lavender bg-opensource text-navy border-bottom border-navy">
