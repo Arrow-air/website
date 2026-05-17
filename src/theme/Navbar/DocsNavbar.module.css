@@ -257,7 +257,7 @@
 .dropdownMenu {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
+  left: -1.5rem;
   z-index: 350;
   background: #0943bf;
   border: 1px solid rgba(255, 255, 255, 0.2);
