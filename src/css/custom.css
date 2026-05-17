@@ -2471,6 +2471,17 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   z-index: 9999 !important;
 }
 
+/* Disable medium-zoom on mobile: native pinch-zoom is sufficient there,
+   and the overlay gets in the way. `pointer-events: none` blocks the
+   click handler medium-zoom binds to each img. */
+@media (max-width: 996px) {
+  .theme-doc-markdown p > img,
+  .theme-doc-markdown figure > img {
+    cursor: auto;
+    pointer-events: none;
+  }
+}
+
 /* Minimize button — replaces ::after, now functional */
 .image-collapse-btn {
   position: absolute;
