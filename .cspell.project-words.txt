@@ -35,6 +35,7 @@ Flesch
 Flesch-Kincaid
 fract
 frontmatter
+fswatch
 fullwidth
 gatekeeping
 Goodluck
@@ -49,6 +50,7 @@ IEND
 IHDR
 imag
 incentivizing
+inotifywait
 INPLACE
 interoperating
 johnsoncodehk
@@ -76,6 +78,7 @@ openframes
 opensource
 Owlot
 permissionless
+PIDS
 phlgwv
 Photoshop
 PIXKIT
@@ -115,6 +118,7 @@ Videography
 visualisation
 webdevelopers
 Webflow
+webp
 Wireframes
 wordmark
 XFLR

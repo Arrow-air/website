@@ -30,7 +30,7 @@ To preview website changes while editing docs in a local checkout of `project-qu
 EXTERNAL_DOCS_LOCAL_PROJECT_QUIVER=/path/to/project-quiver yarn start:local-docs
 ```
 
-You can pass either the repository root or its `docs` directory. The script imports once, starts Docusaurus, and watches the local docs for changes so edits are copied into the website dev server without recloning GitHub.
+You can pass either the repository root or its `docs` directory. The script imports once, starts Docusaurus, and watches the local docs for changes so edits are copied into the website dev server without re-cloning GitHub.
 
 ### Build
 
