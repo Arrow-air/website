@@ -44,6 +44,12 @@
     },
     {
       "pattern": "https://etherscan.io/address/"
+    },
+    {
+      "pattern": "https://ree.auto/"
+    },
+    {
+      "pattern": "https://autoware.org/open-ad-kit/"
     }
   ],
   "httpHeaders": [

@@ -246,6 +246,56 @@
               background-color: var(--color-scheme-1--text) !important;
               opacity: 1 !important;
             }
+
+            /* #159: mobile hamburger menu — DOCS+DISCORD CTAs at top,
+              nav links below as larger left-aligned Neue Haas links */
+            @media (max-width: 991px) {
+              /* Webflow forces display:block on the open menu — switch to flex
+                column so we can reorder children with `order`. */
+              .arrow-navbar_menu[data-nav-menu-open] {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                text-align: left !important;
+              }
+              /* Hoist DOCS + DISCORD to the top */
+              .arrow-navbar_menu-right {
+                order: -1;
+                flex-direction: row !important;
+                gap: 0.5rem;
+                margin-top: 0 !important;
+                margin-bottom: 1.5rem;
+                width: 100%;
+              }
+              .arrow-navbar_menu-right .button {
+                flex: 1;
+                justify-content: center;
+              }
+              /* Left-align the link column */
+              .arrow-navbar_menu-left {
+                align-items: flex-start !important;
+                width: 100%;
+              }
+              /* Restyle the nav links + Quicklinks toggle */
+              .arrow-navbar_link,
+              .arrow-navbar_dropdown-toggle {
+                font-family: 'Neue Haas Grotesk', sans-serif !important;
+                text-transform: none !important;
+                font-size: 1.25rem !important;
+                text-align: left !important;
+                justify-content: flex-start !important;
+                padding-left: 0 !important;
+                width: 100%;
+              }
+              /* Items inside the Quicklinks dropdown when expanded */
+              .arrow-navbar_dropdown-link,
+              .arrow-navbar_dropdown-link .text-weight-semibold.is-mega-menu {
+                font-family: 'Neue Haas Grotesk', sans-serif !important;
+                text-align: left !important;
+                justify-content: flex-start !important;
+                font-size: 1.125rem !important;
+              }
+            }
           </style>
       </div>
     </div>
