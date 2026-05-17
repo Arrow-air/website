@@ -618,6 +618,15 @@
   .tooltip {
     display: none;
   }
+
+  /* Anchor dropdowns to the right edge of their button so they grow
+     leftward and stay within the viewport on small screens. */
+  .dropdownMenu {
+    left: auto;
+    right: 0;
+    transform-origin: top right;
+    max-width: calc(100vw - 16px);
+  }
 }
 
 @media (max-width: 576px) {
