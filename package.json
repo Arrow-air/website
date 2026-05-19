@@ -8,7 +8,7 @@
     "watch-templates": "node scripts/build-html.js --watch",
     "prebuild": "node scripts/build-html.js && bash scripts/import-external-docs.sh",
     "docusaurus": "docusaurus",
-    "start": "node scripts/build-html.js --watch & docusaurus start",
+    "start": "bash scripts/start-dev.sh",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
