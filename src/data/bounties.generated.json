@@ -1,0 +1,195 @@
+{
+  "engineering": [
+    {
+      "title": "Quiver Payload Attachment Design",
+      "description": "Design a modular payload attachment system for the PT3 airframe. The solution should allow quick-swap of payloads up to 500g, integrate with existing mounting points, and be manufacturable with standard tools. Deliverable: CAD files + assembly guide.",
+      "status": "OPEN",
+      "usdc": "$500",
+      "arrow": "2,000",
+      "posted": "Apr 28, 2026",
+      "expires": "Jun 15, 2026",
+      "skills": [
+        "CAD",
+        "Research"
+      ],
+      "image": "/img/quiver-3d.png",
+      "issueUrl": "https://github.com/Arrow-air/project-quiver",
+      "applyUrl": "https://github.com/Arrow-air/project-quiver"
+    },
+    {
+      "title": "Landing Gear Iteration — PT3",
+      "description": "Redesign the PT3 landing gear to improve ground clearance for payload operations and reduce weight by at least 15% compared to the current design. Must survive a 1.5m drop test. Deliverable: updated CAD + drop test video.",
+      "status": "OPEN",
+      "usdc": "$600",
+      "arrow": "2,500",
+      "posted": "May 5, 2026",
+      "expires": "Jun 25, 2026",
+      "skills": [
+        "CAD",
+        "Testing"
+      ],
+      "image": "/img/quiver-01.jpg",
+      "issueUrl": "https://github.com/Arrow-air/project-quiver",
+      "applyUrl": "https://github.com/Arrow-air/project-quiver"
+    },
+    {
+      "title": "Flight Controller Tuning Guide",
+      "description": "Write a step-by-step tuning guide for the PT3 flight controller covering initial setup, PID tuning methodology, and common failure modes. Must be reproducible by a new contributor with no prior FC experience.",
+      "status": "CLAIMED",
+      "usdc": "$300",
+      "arrow": "1,000",
+      "posted": "Apr 10, 2026",
+      "expires": "May 30, 2026",
+      "skills": [
+        "Writing",
+        "Testing"
+      ],
+      "image": "/img/pixel-quiver.png",
+      "issueUrl": "https://github.com/Arrow-air/project-quiver"
+    }
+  ],
+  "software": [
+    {
+      "title": "Spearhead Airframe Stress Analysis",
+      "description": "Perform structural analysis on the Spearhead airframe under 3.8g positive and 1.5g negative load cases. Identify critical members and propose reinforcement if margins are below 1.5. Deliverable: analysis report + updated CAD.",
+      "status": "OPEN",
+      "usdc": "$750",
+      "arrow": "3,000",
+      "posted": "Apr 20, 2026",
+      "expires": "Jun 10, 2026",
+      "skills": [
+        "FEA",
+        "CAD"
+      ],
+      "image": "/img/spearhead.png",
+      "issueUrl": "https://github.com/Arrow-air/project-spearhead",
+      "applyUrl": "https://github.com/Arrow-air/project-spearhead"
+    },
+    {
+      "title": "Wing Profile CFD Simulation",
+      "description": "Run CFD simulations on the Spearhead wing profile at cruise AoA range (−2° to +8°) and generate Cl/Cd polars. Compare at least 2 NACA profiles. Deliverable: simulation files + polar data + recommendation.",
+      "status": "OPEN",
+      "usdc": "$900",
+      "arrow": "4,000",
+      "posted": "May 1, 2026",
+      "expires": "Jun 20, 2026",
+      "skills": [
+        "CFD",
+        "Research"
+      ],
+      "image": "/img/spearhead-card.png",
+      "issueUrl": "https://github.com/Arrow-air/project-spearhead",
+      "applyUrl": "https://github.com/Arrow-air/project-spearhead"
+    },
+    {
+      "title": "Spearhead Weight Budget Analysis",
+      "description": "Compile a full weight budget for the Spearhead prototype including all subsystems. Identify top contributors and propose design changes to meet the target MTOW.",
+      "status": "CLAIMED",
+      "usdc": "$400",
+      "arrow": "1,500",
+      "posted": "Apr 5, 2026",
+      "expires": "May 25, 2026",
+      "skills": [
+        "Research",
+        "Writing"
+      ],
+      "image": "/img/spearhead-card.png",
+      "issueUrl": "https://github.com/Arrow-air/project-spearhead"
+    }
+  ],
+  "growthMedia": [
+    {
+      "title": "Cross-Project Telemetry Dashboard",
+      "description": "Build a dashboard that aggregates live and logged telemetry from Quiver and Spearhead flight sessions. Must support MAVLink and display altitude, battery, and GPS track. Deliverable: open-source repo + demo video.",
+      "status": "OPEN",
+      "usdc": "$600",
+      "arrow": "2,500",
+      "posted": "May 3, 2026",
+      "expires": "Jun 20, 2026",
+      "skills": [
+        "Software",
+        "Testing"
+      ],
+      "image": "/img/software-engineering@2x.png",
+      "issueUrl": "https://github.com/Arrow-air",
+      "applyUrl": "https://github.com/Arrow-air"
+    },
+    {
+      "title": "Engineering Wiki — Getting Started Guide",
+      "description": "Write a getting-started guide for new engineering contributors covering: repo structure, tooling setup (CAD, simulation, firmware), contribution workflow, and where to ask questions. Target audience: mechanical or software engineer with no prior Arrow experience.",
+      "status": "OPEN",
+      "usdc": "$250",
+      "arrow": "800",
+      "posted": "Apr 25, 2026",
+      "expires": "Jun 12, 2026",
+      "skills": [
+        "Documentation"
+      ],
+      "image": "/img/software-engineering@2x.png",
+      "issueUrl": "https://github.com/Arrow-air",
+      "applyUrl": "https://github.com/Arrow-air"
+    },
+    {
+      "title": "CI/CD Pipeline Documentation",
+      "description": "Document the existing CI/CD pipelines across Arrow repos — what runs on each trigger, how to interpret failures, and how to add new checks. Includes firmware, simulation, and website pipelines.",
+      "status": "CLAIMED",
+      "usdc": "$300",
+      "arrow": "1,000",
+      "posted": "Apr 12, 2026",
+      "expires": "May 28, 2026",
+      "skills": [
+        "Software",
+        "Documentation"
+      ],
+      "image": "/img/software-engineering@2x.png",
+      "issueUrl": "https://github.com/Arrow-air"
+    }
+  ],
+  "generalDao": [
+    {
+      "title": "Ground Station UI Wireframes",
+      "description": "Design wireframes for a ground station UI supporting live flight monitoring of Quiver and Spearhead. Cover: pre-flight checklist, live telemetry view, mission planning map, and post-flight log review. Deliverable: Figma or equivalent file.",
+      "status": "OPEN",
+      "usdc": "$450",
+      "arrow": "1,800",
+      "posted": "May 8, 2026",
+      "expires": "Jun 30, 2026",
+      "skills": [
+        "Design"
+      ],
+      "image": "/img/sky-grey-01.png",
+      "issueUrl": "https://github.com/Arrow-air/project-quiver",
+      "applyUrl": "https://github.com/Arrow-air/project-quiver"
+    },
+    {
+      "title": "Translate Docs to Spanish",
+      "description": "Translate the Arrow contributing docs and project overview into Spanish. Target audience: Spanish-speaking engineers and makers in Latin America and Spain who want to contribute but prefer reading in their native language.",
+      "status": "OPEN",
+      "usdc": "$300",
+      "arrow": "1,000",
+      "posted": "Apr 22, 2026",
+      "expires": "Jun 25, 2026",
+      "skills": [
+        "Documentation",
+        "Writing"
+      ],
+      "image": "/img/global@2x.png",
+      "issueUrl": "https://github.com/Arrow-air/project-quiver",
+      "applyUrl": "https://github.com/Arrow-air/project-quiver"
+    },
+    {
+      "title": "Project Quiver Build Video",
+      "description": "Create a full build video documenting the PT3 assembly process from raw components to maiden flight.",
+      "status": "CLAIMED",
+      "usdc": "$500",
+      "arrow": "2,000",
+      "posted": "Apr 1, 2026",
+      "expires": "May 20, 2026",
+      "skills": [
+        "Media"
+      ],
+      "image": "/img/quiver-01.jpg",
+      "issueUrl": "https://github.com/Arrow-air/project-quiver"
+    }
+  ]
+}
