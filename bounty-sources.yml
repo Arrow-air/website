@@ -1,9 +1,7 @@
 # Repositories scanned by scripts/sync-bounties.mjs.
-# Add repos here when their issues should be eligible for the public bounty board.
+# V1 uses the website repo as the centralized bounty admin surface.
+# Project-specific deliverables should be linked from the bounty issue body.
 repos:
-  - Arrow-air/project-longshot
-  - Arrow-air/project-quiver
-  - Arrow-air/project-spearhead
   - Arrow-air/website
 
 labels:
