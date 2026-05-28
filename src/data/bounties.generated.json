@@ -116,9 +116,8 @@
     },
     {
       "title": "Engineering Wiki — Getting Started Guide",
-      "description": "Write a getting-started guide for new engineering contributors covering: repo structure, tooling setup (CAD, simulation, firmware), contribution workflow, and where to ask questions. Target audience: mechanical or software engineer with no prior Arrow experience.",
+      "description": "Write an ARROW-only demo getting-started guide for new engineering contributors covering: repo structure, tooling setup (CAD, simulation, firmware), contribution workflow, and where to ask questions. Target audience: mechanical or software engineer with no prior Arrow experience.",
       "status": "OPEN",
-      "usdc": "$250",
       "arrow": "800",
       "posted": "Apr 25, 2026",
       "expires": "Jun 12, 2026",
@@ -131,10 +130,9 @@
     },
     {
       "title": "CI/CD Pipeline Documentation",
-      "description": "Document the existing CI/CD pipelines across Arrow repos — what runs on each trigger, how to interpret failures, and how to add new checks. Includes firmware, simulation, and website pipelines.",
+      "description": "Document the existing CI/CD pipelines as a USDC-only demo across Arrow repos — what runs on each trigger, how to interpret failures, and how to add new checks. Includes firmware, simulation, and website pipelines.",
       "status": "CLAIMED",
       "usdc": "$300",
-      "arrow": "1,000",
       "posted": "Apr 12, 2026",
       "expires": "May 28, 2026",
       "skills": [
@@ -164,11 +162,11 @@
     {
       "title": "Translate Docs to Spanish",
       "description": "Translate the Arrow contributing docs and project overview into Spanish. Target audience: Spanish-speaking engineers and makers in Latin America and Spain who want to contribute but prefer reading in their native language.",
-      "status": "OPEN",
+      "status": "EXPIRED",
       "usdc": "$300",
       "arrow": "1,000",
       "posted": "Apr 22, 2026",
-      "expires": "Jun 25, 2026",
+      "expires": "2026-05-01",
       "skills": [
         "Documentation",
         "Writing"
