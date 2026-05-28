@@ -1,0 +1,12 @@
+# Repositories scanned by scripts/sync-bounties.mjs.
+# Add repos here when their issues should be eligible for the public bounty board.
+repos:
+  - Arrow-air/project-longshot
+  - Arrow-air/project-quiver
+  - Arrow-air/project-spearhead
+  - Arrow-air/website
+
+labels:
+  bounty: bounty
+  completed: bounty:completed
+  cancelled: bounty:cancelled
