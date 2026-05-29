@@ -1,6 +1,5 @@
 name: Bounty
 description: Create a bounty-backed work item
-title: "[Bounty]: "
 labels: ["bounty"]
 body:
   - type: markdown
