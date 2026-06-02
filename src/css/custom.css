@@ -4357,3 +4357,22 @@ a.card--link:hover .card__body p {
 .theme-doc-markdown:has(h2[id^="article-1"]) h3 {
   margin-top: 2.5rem;
 }
+
+/* Fix mobile menu dropdown cutoff at right edge of viewport (Issue #158) */
+@media screen and (max-width: 991px) {
+  .arrow-navbar_menu {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+  
+  .arrow-navbar_dropdown-list.w--open {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+}
