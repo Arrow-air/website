@@ -4376,3 +4376,40 @@ a.card--link:hover .card__body p {
     overflow-x: hidden !important;
   }
 }
+
+/* Rework mobile menu and quicklinks alignment for touch/ergonomic support (Issue #159) */
+@media screen and (max-width: 991px) {
+  /* Left align the mobile links and drop menu */
+  .arrow-navbar_menu-left {
+    align-items: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+  }
+
+  .arrow-navbar_link,
+  .arrow-navbar_dropdown-toggle {
+    justify-content: flex-start !important;
+    align-items: center !important;
+    text-align: left !important;
+    width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Increase touch targets for mobile fingers */
+  .arrow-navbar_link,
+  .arrow-navbar_dropdown-toggle {
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+    font-size: 1.25rem !important; /* Larger fonts for readability */
+  }
+
+  /* Correct Chevron position on right edge when left-aligned */
+  .dropdown-chevron {
+    position: absolute !important;
+    right: 1.5rem !important;
+    left: auto !important;
+    inset: auto 1.5rem auto auto !important;
+  }
+}
