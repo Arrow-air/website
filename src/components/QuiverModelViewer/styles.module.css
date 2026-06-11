@@ -69,8 +69,10 @@
   position: absolute;
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
-  background: var(--ifm-color-emphasis-900);
-  color: var(--ifm-background-color);
+  /* Explicit colors: --ifm-background-color is `transparent` in light mode,
+     which made the chip text invisible. */
+  background: rgba(15, 18, 24, 0.85);
+  color: #ffffff;
   font-size: 0.8rem;
   font-family: var(--ifm-font-family-monospace);
   pointer-events: none;
