@@ -24,12 +24,15 @@ CMSIS
 CONOPS
 Coordinape
 counterparty
+dedup
 devkit
 Dework
 docsmsft
 Docstrings
 docwright
 Dogue
+Draco
+drei
 eamodio
 easyops
 ECAD
@@ -45,6 +48,8 @@ frontmatter
 fswatch
 fullwidth
 gatekeeping
+GLTF
+gltf
 Goodluck
 gpgsign
 Gündoğan
@@ -117,6 +122,8 @@ stablecoins
 Standardised
 stkb
 struct
+subassemblies
+subassembly
 sublicensable
 supermajority
 svgs
