@@ -22,9 +22,9 @@ interface Manifest {
   categories: ManifestCategory[];
 }
 
-/** "3112-Propeller_1" -> "3112 Propeller" (drops dedup suffixes). */
+/** "3112_propeller_1" -> "3112 propeller" (drops dedup suffixes). */
 function prettyName(raw: string): string {
-  return raw.replace(/_\d+$/, '').replace(/-/g, ' ');
+  return raw.replace(/_\d+$/, '').replace(/[-_]/g, ' ');
 }
 
 function SubassemblyModel({
