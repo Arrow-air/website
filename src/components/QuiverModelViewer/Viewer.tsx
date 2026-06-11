@@ -22,9 +22,9 @@ interface Manifest {
   categories: ManifestCategory[];
 }
 
-/** "3111-Motor" -> "3111 Motor" for the hover tooltip. */
+/** "3112-Propeller_1" -> "3112 Propeller" (drops dedup suffixes). */
 function prettyName(raw: string): string {
-  return raw.replace(/-/g, ' ');
+  return raw.replace(/_\d+$/, '').replace(/-/g, ' ');
 }
 
 function SubassemblyModel({
@@ -59,8 +59,8 @@ function SubassemblyModel({
         clearHighlight();
         restore.current.set(mesh, mesh.material);
         const highlighted = (mesh.material as THREE.MeshStandardMaterial).clone();
-        highlighted.emissive.set('#2563eb');
-        highlighted.emissiveIntensity = 0.45;
+        highlighted.emissive.set('#3b82f6');
+        highlighted.emissiveIntensity = 1.0;
         mesh.material = highlighted;
         onHover(mesh.name ? prettyName(mesh.name) : null);
       }}
@@ -84,6 +84,21 @@ export default function Viewer({
   const [error, setError] = useState<string | null>(null);
   const [hidden, setHidden] = useState<Set<string>>(new Set());
   const [hoverName, setHoverName] = useState<string | null>(null);
+  const [treeOpen, setTreeOpen] = useState(true);
+  const cursor = useRef({ x: 0, y: 0 });
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  const trackCursor = (e: React.PointerEvent) => {
+    const rect = wrapRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    cursor.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    const tip = tooltipRef.current;
+    if (tip) {
+      tip.style.left = `${cursor.current.x + 14}px`;
+      tip.style.top = `${cursor.current.y + 14}px`;
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -122,7 +137,10 @@ export default function Viewer({
   }
 
   return (
-    <div className={styles.viewer} style={{ height }}>
+    // quiver-model-viewer is a stable global hook used by custom.css to lift
+    // the docs content-width caps on pages embedding the viewer.
+    <div className={`${styles.viewer} quiver-model-viewer`} style={{ height }}>
+      {treeOpen && (
       <aside className={styles.sidebar}>
         <div className={styles.sidebarActions}>
           <button type="button" onClick={() => toggle(allFiles, true)}>
@@ -165,7 +183,15 @@ export default function Viewer({
           );
         })}
       </aside>
-      <div className={styles.canvasWrap}>
+      )}
+      <div className={styles.canvasWrap} ref={wrapRef} onPointerMove={trackCursor}>
+        <button
+          type="button"
+          className={styles.treeToggle}
+          onClick={() => setTreeOpen((open) => !open)}
+        >
+          {treeOpen ? '⟨ hide parts' : '⟩ parts'}
+        </button>
         <Canvas camera={{ position: [1.7, 0.8, 1.7], fov: 40 }}>
           <ambientLight intensity={0.9} />
           <directionalLight position={[4, 6, 4]} intensity={1.6} />
@@ -182,7 +208,15 @@ export default function Viewer({
           </Suspense>
           <OrbitControls makeDefault target={[0, -0.15, 0]} maxDistance={8} minDistance={0.3} />
         </Canvas>
-        {hoverName && <div className={styles.hoverLabel}>{hoverName}</div>}
+        {hoverName && (
+          <div
+            ref={tooltipRef}
+            className={styles.hoverLabel}
+            style={{ left: cursor.current.x + 14, top: cursor.current.y + 14 }}
+          >
+            {hoverName}
+          </div>
+        )}
         <div className={styles.hint}>drag to orbit · scroll to zoom · hover to identify</div>
       </div>
     </div>
