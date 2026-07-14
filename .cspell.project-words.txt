@@ -18,6 +18,7 @@ CICD
 CMSIS
 CONOPS
 Coordinape
+counterparty
 devkit
 Dework
 docsmsft
