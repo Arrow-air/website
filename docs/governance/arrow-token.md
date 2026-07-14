@@ -7,7 +7,9 @@ description: The $ARROW token — supply, utilities, treasury deployment, and ro
 
 $ARROW is Arrow DAO's governance and utility token. Its framework is defined by [AIP-010 (Tokenomics V1)](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-010.md).
 
-$ARROW is not an investment product. Holders have no entitlement to profit, dividends, or distributions — the token's value derives from the utility of governing and participating in the Arrow network.
+:::warning[$ARROW is not an investment product]
+Holders have no entitlement to profit, dividends, or distributions — the token's value derives from the utility of governing and participating in the Arrow network.
+:::
 
 ## Token parameters
 
@@ -37,7 +39,7 @@ Under [AIP-009](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-009.md)
 
 ### 3. Contributor compensation
 
-Every grant or bounty includes at least 10% of its value in $ARROW, priced at a $0.30 reference with a 1.5× multiplier ([AIP-004](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-004.md)). Contributor tokens are issued through on-chain vesting contracts on Optimism.
+Contributors can take part of their compensation in $ARROW, and token-heavy blends are incentivized with a 1.5× multiplier on the token portion ([AIP-004](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-004.md)). Contributor tokens are issued through on-chain vesting contracts on Optimism.
 
 ## Annual treasury deployment cap
 
