@@ -1,0 +1,103 @@
+{
+  "$schema": "./contributors.schema.json",
+  "$comment": "DEMO DATA ONLY — every entry below is a placeholder for layout/art direction and is removed before launch. Real people appear here exclusively via the opt-in /new-contributor Discord command (spec: Arrow-air/website#180).",
+  "contributors": [
+    {
+      "id": "demo-kestrel",
+      "name": "Demo Kestrel",
+      "country": "United States",
+      "city": "Houston",
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "tz": "America/Chicago",
+      "disciplines": ["Electronics/PCB", "Docs"],
+      "blurb": "Placeholder contributor. Wires things, documents the wiring, then rewires them anyway.",
+      "joined": "2021-11",
+      "demo": true
+    },
+    {
+      "id": "demo-harrier",
+      "name": "Demo Harrier",
+      "country": "United States",
+      "city": "Houston",
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "tz": "America/Chicago",
+      "disciplines": ["Flight Test"],
+      "blurb": "Placeholder contributor. Flies the things other demo entries build.",
+      "joined": "2023-04",
+      "demo": true
+    },
+    {
+      "id": "demo-osprey",
+      "name": "Demo Osprey",
+      "country": "United States",
+      "city": "Austin",
+      "lat": 30.2672,
+      "lng": -97.7431,
+      "tz": "America/Chicago",
+      "disciplines": ["Mechanical/CAD", "Manufacturing"],
+      "blurb": "Placeholder contributor. CAD by day, 3D-printer babysitter by night.",
+      "joined": "2022-07",
+      "demo": true
+    },
+    {
+      "id": "demo-merlin",
+      "name": "Demo Merlin",
+      "country": "United Kingdom",
+      "city": "Belfast",
+      "lat": 54.5973,
+      "lng": -5.9301,
+      "tz": "Europe/London",
+      "disciplines": ["Design/Media", "Community"],
+      "blurb": "Placeholder contributor. Makes the pixels line up and the newcomers feel welcome.",
+      "joined": "2021-11",
+      "demo": true
+    },
+    {
+      "id": "demo-falcon",
+      "name": "Demo Falcon",
+      "country": "Turkey",
+      "city": "Istanbul",
+      "lat": 41.0082,
+      "lng": 28.9784,
+      "tz": "Europe/Istanbul",
+      "disciplines": ["Aero", "Flight Test"],
+      "blurb": "Placeholder contributor. Argues with the wind tunnel, usually wins.",
+      "joined": "2022-01",
+      "demo": true
+    },
+    {
+      "id": "demo-goshawk",
+      "name": "Demo Goshawk",
+      "country": "Germany",
+      "tz": "Europe/Berlin",
+      "disciplines": ["Electronics/PCB", "Firmware/Autopilot"],
+      "blurb": "Placeholder contributor. Country-level privacy, board-level precision.",
+      "joined": "2022-03",
+      "demo": true
+    },
+    {
+      "id": "demo-kite",
+      "name": "Demo Kite",
+      "country": "Australia",
+      "disciplines": ["Software/Tools"],
+      "blurb": "Placeholder contributor. Somewhere on a very large continent, shipping CLI tools.",
+      "joined": "2024-09",
+      "demo": true
+    },
+    {
+      "id": "demo-buzzard",
+      "name": "Demo Buzzard",
+      "country": "China",
+      "city": "Shenzhen",
+      "lat": 22.5429,
+      "lng": 114.0596,
+      "tz": "Asia/Shanghai",
+      "disciplines": ["Mechanical/CAD"],
+      "blurb": "Placeholder contributor. Lives twenty minutes from every component on the BOM.",
+      "joined": "2025-02",
+      "demo": true
+    }
+  ]
+}

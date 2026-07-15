@@ -10,6 +10,7 @@ Aseprite
 autoplay
 autosquash
 Autoware
+bbox
 bierner
 Chakra
 checkin
@@ -94,6 +95,7 @@ rideshare
 roadmaps
 sanitychecks
 screenshare
+Shenzhen
 SIMULINK
 SITL
 slugifies
@@ -107,9 +109,13 @@ svgs
 tamasfe
 Thomasg
 Tokenomics
+topo
+topojson
 typecheck
+Türkiye
 Unhover
 unixtimestamp
+unzoomed
 UUPS
 vertiport
 vertiports
@@ -125,3 +131,4 @@ XFLR
 Xipu
 yapf
 Zeynep
+Šavrič

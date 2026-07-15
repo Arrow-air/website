@@ -1,0 +1,467 @@
+/* ContributorMap — dark instrument-panel map, brand-accent dots.
+   The map panel is intentionally dark in both site themes (spec #180);
+   the table follows the site theme. Sharp corners per Arrow brand. */
+
+.wrapper {
+  --cm-map-bg: #17181d;
+  --cm-land: #262932;
+  --cm-land-stroke: #31353f;
+  --cm-accent: #4d7ef7;
+  --cm-accent-strong: #7ba0ff;
+  --cm-text-on-dark: #e8eaf0;
+  --cm-muted-on-dark: #9aa0ac;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.mapPanel {
+  position: relative;
+  background: var(--cm-map-bg);
+  border: 1px solid var(--cm-land-stroke);
+  overflow: hidden;
+}
+
+.mapSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+  cursor: grab;
+}
+
+.mapSvg.dragging {
+  cursor: grabbing;
+}
+
+.land {
+  fill: var(--cm-land);
+  stroke: var(--cm-land-stroke);
+  stroke-width: 0.5;
+}
+
+.dot {
+  cursor: pointer;
+  outline: none;
+}
+
+.dotCircle {
+  fill: var(--cm-accent);
+  stroke: var(--cm-map-bg);
+  stroke-width: 1.25;
+  transition: fill 120ms ease;
+}
+
+.dot:hover .dotCircle,
+.dot:focus-visible .dotCircle {
+  fill: var(--cm-accent-strong);
+}
+
+.dot:focus-visible .dotCircle {
+  stroke: var(--cm-text-on-dark);
+  stroke-width: 1.5;
+}
+
+/* Country-only (approximate) locations: hollow ring, honest about precision */
+.dotApprox .dotCircle {
+  fill: rgba(77, 126, 247, 0.18);
+  stroke: var(--cm-accent);
+  stroke-width: 1.25;
+  stroke-dasharray: 2.5 1.8;
+}
+
+.dotApprox:hover .dotCircle,
+.dotApprox:focus-visible .dotCircle {
+  fill: rgba(123, 160, 255, 0.3);
+  stroke: var(--cm-accent-strong);
+}
+
+.dotSelected .dotCircle {
+  stroke: var(--cm-text-on-dark);
+  stroke-width: 1.75;
+}
+
+.selectionRing {
+  fill: none;
+  stroke: var(--cm-accent-strong);
+  stroke-width: 1.25;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .selectionRing {
+    animation: cmPulse 2s ease-out infinite;
+  }
+}
+
+@keyframes cmPulse {
+  0% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+.dotCount {
+  fill: #fff;
+  font-family: var(--ifm-font-family-base);
+  font-weight: 600;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+.zoomControls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+
+.zoomButton {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--cm-land-stroke);
+  background: rgba(23, 24, 29, 0.9);
+  color: var(--cm-text-on-dark);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.zoomButton:hover {
+  border-color: var(--cm-accent);
+  color: var(--cm-accent-strong);
+}
+
+.zoomButton:focus-visible {
+  outline: 2px solid var(--cm-accent);
+  outline-offset: 1px;
+}
+
+.mapHint {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  font-size: 11px;
+  color: var(--cm-muted-on-dark);
+  font-family: var(--ifm-font-family-base);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---------- Profile card ---------- */
+
+.card {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 262px;
+  max-width: calc(100% - 20px);
+  background: rgba(23, 24, 29, 0.96);
+  border: 1px solid var(--cm-land-stroke);
+  color: var(--cm-text-on-dark);
+  padding: 14px;
+  z-index: 3;
+  font-size: 13px;
+}
+
+.cardHeader {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.cardAvatar {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: block;
+}
+
+.cardName {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--cm-text-on-dark);
+}
+
+.cardPlace {
+  color: var(--cm-muted-on-dark);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.cardApprox {
+  font-style: italic;
+}
+
+.cardTime {
+  margin-top: 6px;
+  font-family: 'Jetbrainsmono', monospace;
+  font-size: 12px;
+  color: var(--cm-accent-strong);
+}
+
+.cardBlurb {
+  margin: 10px 0 0;
+  line-height: 1.45;
+  color: var(--cm-text-on-dark);
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.cardTag {
+  border: 1px solid var(--cm-accent);
+  color: var(--cm-accent-strong);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.cardMeta {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--cm-muted-on-dark);
+}
+
+.cardLinks {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.cardLinks a {
+  color: var(--cm-accent-strong);
+  font-size: 12px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(123, 160, 255, 0.4);
+}
+
+.cardLinks a:hover {
+  border-bottom-color: var(--cm-accent-strong);
+}
+
+.cardClose {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--cm-muted-on-dark);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cardClose:hover {
+  color: var(--cm-text-on-dark);
+}
+
+.cardClose:focus-visible {
+  outline: 2px solid var(--cm-accent);
+}
+
+.cardPager {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--cm-land-stroke);
+}
+
+.cardPagerLabel {
+  font-size: 11px;
+  color: var(--cm-muted-on-dark);
+}
+
+.pagerButton {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--cm-land-stroke);
+  background: transparent;
+  color: var(--cm-text-on-dark);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0;
+}
+
+.pagerButton:hover:not(:disabled) {
+  border-color: var(--cm-accent);
+}
+
+.pagerButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pagerButton:focus-visible {
+  outline: 2px solid var(--cm-accent);
+}
+
+@media (max-width: 640px) {
+  .card {
+    position: static;
+    width: 100%;
+    max-width: none;
+    border-top: none;
+  }
+}
+
+/* ---------- Directory table ---------- */
+
+.tableSection {
+  margin-top: 1.25rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  display: table;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  border-bottom: 2px solid var(--ifm-color-emphasis-300);
+  padding: 8px 10px;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.sortButton {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sortButton:hover {
+  color: var(--ifm-color-primary);
+}
+
+.sortButton:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: -2px;
+}
+
+.rowSelected {
+  background: var(--ifm-color-emphasis-100);
+  box-shadow: inset 3px 0 0 var(--ifm-color-primary);
+}
+
+.rowName {
+  font-weight: 500;
+}
+
+.rowTime {
+  font-family: 'Jetbrainsmono', monospace;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.rowTzAbbr {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 11px;
+  margin-left: 6px;
+}
+
+.tableFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.pageControls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.pageButton {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: none;
+  color: var(--ifm-font-color-base);
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pageButton:hover:not(:disabled) {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pageButton:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.demoNotice {
+  font-size: 12px;
+  color: var(--ifm-color-emphasis-600);
+  margin-top: 6px;
+}

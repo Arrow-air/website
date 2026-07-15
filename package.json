@@ -41,7 +41,9 @@
     "@types/react-dom": "^19.2.3",
     "gts": "^7.0.0",
     "playwright": "^1.60.0",
-    "typescript": "^6.0.3"
+    "topojson-client": "^3.1.0",
+    "typescript": "^6.0.3",
+    "world-atlas": "^2.0.2"
   },
   "browserslist": {
     "production": [
