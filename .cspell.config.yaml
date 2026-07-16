@@ -28,6 +28,9 @@ ignorePaths:
   - "docs/project-quiver"
   - "docs/*-test.mdx"
   - "docs/kitchen-sink.md"
+  # Generated map geometry — Natural Earth country names trip the checker
+  - "src/data/world-map-geometry.json"
+  - "src/data/world-globe-geometry.json"
   - "target"
   - "logs"
   - "out"
