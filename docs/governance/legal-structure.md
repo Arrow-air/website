@@ -32,6 +32,8 @@ Arrow Air's Articles of Association prohibit distributing profits or assets to m
 
 This "non-inurement" principle is not just philosophy; it is a structural legal commitment that shapes how the DAO handles its treasury, compensation, and token.
 
+**Nonprofit does not mean tax-exempt.** Arrow Air is a *taxable* nonprofit: it files regular US federal income tax returns and pays tax on any net income, like any other business entity. It has not sought 501(c)(3) charitable status, and contributions to Arrow are not tax-deductible donations. The nonprofit commitment is about where money can never go — into members' pockets as profit — not about receiving special tax treatment.
+
 ## How governance and the legal entity fit together
 
 **Token holders are the top of the org chart.** All meaningful decisions are made through [AIPs](/docs/governance/aips) voted on Snapshot.
