@@ -17,7 +17,7 @@ import {
 } from './common';
 import styles from './styles.module.css';
 
-/* Contributor map + directory table for /docs/community.
+/* Contributor map + list panel for /docs/community/contributor-map.
   Spec: https://github.com/Arrow-air/website/issues/180
 
   SSR notes: everything rendered here is a pure function of the two JSON
@@ -88,7 +88,7 @@ function placeContributors(list: Contributor[]): Placed[] {
   }
   for (const [country, members] of countryOnly) {
     const centroid = centroidFor(country);
-    if (!centroid) continue; // unknown country: table-only, no dot
+    if (!centroid) continue; // unknown country: list-only, no dot
     members.sort((a, b) => a.id.localeCompare(b.id));
     const [r1] = hashFloats(`country:${country}`, 1);
     for (let i = 0; i < members.length; i++) {
@@ -233,66 +233,54 @@ function formatLocalTime(
   }
 }
 
-/* Deterministic dithered-gradient avatar — the fallback when no snapshot or
-  GitHub avatar exists. Seeded by contributor id: stable per person. */
-function GeneratedAvatar({
-  id,
+/* One icon per entry type (hexagon family, matching the map key colors):
+  contributors get the hexagon-user, workspaces the plain hexagon, and
+  manufacturers a hexagon with a bolt-hole — a nut. */
+const TYPE_ICON_PATH: Record<EntryType, string> = {
+  contributor:
+    'M30 8.16267L16 0.35498L2 8.16267V23.8373L16 31.645L30 23.8373V8.16267ZM20.5 14.5C20.5 16.9853 18.4853 19 16 19C13.5147 19 11.5 16.9853 11.5 14.5C11.5 12.0147 13.5147 10 16 10C18.4853 10 20.5 12.0147 20.5 14.5ZM16 29.5L24.4814 24.9146C22.4618 22.5212 19.4091 21 15.9999 21C12.5908 21 9.53811 22.5212 7.51849 24.9146L16 29.5Z',
+  workspace:
+    'M30 8.16267L16 0.35498L2 8.16267V23.8373L16 31.645L30 23.8373V8.16267Z',
+  manufacturer:
+    'M30 8.16267L16 0.35498L2 8.16267V23.8373L16 31.645L30 23.8373V8.16267ZM16 22C19.3137 22 22 19.3137 22 16C22 12.6863 19.3137 10 16 10C12.6863 10 10 12.6863 10 16C10 19.3137 12.6863 22 16 22Z',
+};
+
+const TYPE_AVATAR_BG: Record<EntryType, string> = {
+  contributor: 'var(--cm-accent)',
+  workspace: 'var(--cm-workspace)',
+  manufacturer: 'var(--cm-manufacturer)',
+};
+
+/* Fallback avatar when no snapshot or GitHub avatar exists: the entry
+  type's key color with its icon at 0.4 opacity. */
+function TypeAvatar({
+  type,
   size,
   className,
 }: {
-  id: string;
+  type: EntryType;
   size: number;
   className?: string;
 }) {
-  const [r1, r2, r3] = hashFloats(`avatar:${id}`, 3);
-  const palettes: Array<[string, string]> = [
-    ['#0843BF', '#218191'],
-    ['#218191', '#7ba0ff'],
-    ['#052d85', '#4d7ef7'],
-    ['#0843BF', '#9aa0ac'],
-  ];
-  const [c1, c2] = palettes[Math.floor(r1 * palettes.length)];
-  const angle = Math.floor(r2 * 360);
-  const seed = Math.floor(r3 * 1000);
-  const gid = `cm-av-${id.replace(/[^a-zA-Z0-9-]/g, '')}`;
   return (
     <svg
       className={className}
       width={size}
       height={size}
-      viewBox="0 0 44 44"
+      viewBox="0 0 32 32"
       role="img"
       aria-hidden="true"
     >
-      <defs>
-        <linearGradient
-          id={`${gid}-g`}
-          gradientTransform={`rotate(${angle} 0.5 0.5)`}
-        >
-          <stop offset="0%" stopColor={c1} />
-          <stop offset="100%" stopColor={c2} />
-        </linearGradient>
-        <filter id={`${gid}-d`}>
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.9"
-            numOctaves="2"
-            seed={seed}
-            stitchTiles="stitch"
-          />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.35 0.35 0.35 0 0"
-          />
-          <feComposite operator="over" in2="SourceGraphic" />
-        </filter>
-      </defs>
-      <rect
-        width="44"
-        height="44"
-        fill={`url(#${gid}-g)`}
-        filter={`url(#${gid}-d)`}
-      />
+      <rect width="32" height="32" fill={TYPE_AVATAR_BG[type]} />
+      <g transform="translate(6.4 6.4) scale(0.6)">
+        <path
+          d={TYPE_ICON_PATH[type]}
+          fill="#fff"
+          opacity="0.4"
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+      </g>
     </svg>
   );
 }
@@ -323,7 +311,11 @@ function Avatar({person, size}: {person: Contributor; size: number}) {
     );
   }
   return (
-    <GeneratedAvatar id={person.id} size={size} className={styles.cardAvatar} />
+    <TypeAvatar
+      type={typeOf(person)}
+      size={size}
+      className={styles.cardAvatar}
+    />
   );
 }
 
@@ -477,7 +469,7 @@ function AnchoredCard({
 }
 
 /* Store-locator-style panel beside the map (desktop only; CSS hides it on
-  narrow viewports where the floating card + table cover the same ground).
+  stacks below the map on narrow viewports).
   Tabs per entry type → searchable list synced with the dots; the selected
   entry expands at the top. */
 function MapSidebar({
@@ -486,17 +478,27 @@ function MapSidebar({
   selectedId,
   selectedPerson,
   onPick,
+  onCollapse,
+  panelWidth,
+  onPanelWidth,
 }: {
   contributors: Contributor[];
   now: Date | null;
   selectedId: string | null;
   selectedPerson: Contributor | undefined;
   onPick: (id: string) => void;
+  onCollapse: () => void;
+  panelWidth: number;
+  onPanelWidth: (width: number) => void;
 }) {
   const [tab, setTab] = useState<EntryType>('contributor');
   const [query, setQuery] = useState('');
+  const [sortBy, setSortBy] = useState<'name' | 'joined' | 'place' | 'time'>(
+    'name',
+  );
+  const resizeRef = useRef<{startX: number; startW: number} | null>(null);
 
-  /* Selecting a dot of another type (map click, table row) follows it. */
+  /* Selecting a dot of another type (e.g. a map click) follows it. */
   useEffect(() => {
     if (selectedPerson) setTab(typeOf(selectedPerson));
   }, [selectedPerson]);
@@ -508,8 +510,32 @@ function MapSidebar({
     );
   }, [contributors]);
 
+  /* Current minutes-since-midnight in an entry's timezone, for the local
+    time sort; entries without a tz sort last. */
+  const localMinutes = useCallback(
+    (c: Contributor): number => {
+      if (!c.tz || !now) return Number.POSITIVE_INFINITY;
+      try {
+        const parts = new Intl.DateTimeFormat('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hourCycle: 'h23',
+          timeZone: c.tz,
+        }).formatToParts(now);
+        const get = (t: string) =>
+          Number(parts.find(p => p.type === t)?.value ?? 0);
+        return get('hour') * 60 + get('minute');
+      } catch {
+        return Number.POSITIVE_INFINITY;
+      }
+    },
+    [now],
+  );
+
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
+    const place = (c: Contributor) =>
+      c.city ? `${c.city}, ${c.country}` : c.country;
     return contributors
       .filter(c => typeOf(c) === tab)
       .filter(c => {
@@ -519,8 +545,18 @@ function MapSidebar({
           .toLowerCase()
           .includes(q);
       })
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [contributors, tab, query]);
+      .sort((a, b) => {
+        let cmp = 0;
+        if (sortBy === 'joined') {
+          cmp = b.joined.localeCompare(a.joined); // newest first
+        } else if (sortBy === 'place') {
+          cmp = place(a).localeCompare(place(b));
+        } else if (sortBy === 'time') {
+          cmp = localMinutes(a) - localMinutes(b);
+        }
+        return cmp || a.name.localeCompare(b.name);
+      });
+  }, [contributors, tab, query, sortBy, localMinutes]);
 
   return (
     <div className={styles.sidePanel}>
@@ -555,14 +591,66 @@ function MapSidebar({
           </button>
         ))}
       </div>
-      <input
-        type="search"
-        className={styles.sideSearch}
-        placeholder={`Search ${TYPE_NOUN[tab][1]}…`}
-        aria-label={`Search ${TYPE_NOUN[tab][1]}`}
-        value={query}
-        onChange={e => setQuery(e.target.value)}
+      <button
+        type="button"
+        className={styles.sideCollapseButton}
+        aria-label="Hide list panel"
+        title="Hide list panel"
+        onClick={onCollapse}
+      >
+        ‹
+      </button>
+      {/* Invisible drag strip along the divider: resize the panel. */}
+      <div
+        className={styles.sideResizer}
+        role="separator"
+        aria-orientation="vertical"
+        aria-label="Resize list panel"
+        onPointerDown={e => {
+          e.preventDefault();
+          try {
+            (e.target as Element).setPointerCapture?.(e.pointerId);
+          } catch {
+            // synthetic/stale pointer id — capture is best-effort
+          }
+          resizeRef.current = {startX: e.clientX, startW: panelWidth};
+        }}
+        onPointerMove={e => {
+          const r = resizeRef.current;
+          if (!r) return;
+          onPanelWidth(
+            Math.min(440, Math.max(200, r.startW + e.clientX - r.startX)),
+          );
+        }}
+        onPointerUp={() => {
+          resizeRef.current = null;
+        }}
+        onPointerCancel={() => {
+          resizeRef.current = null;
+        }}
       />
+      <div className={styles.sideControls}>
+        <input
+          type="search"
+          className={styles.sideSearch}
+          placeholder={`Search ${TYPE_NOUN[tab][1]}…`}
+          aria-label={`Search ${TYPE_NOUN[tab][1]}`}
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+        />
+        <select
+          className={styles.sideSort}
+          aria-label="Sort list by"
+          title="Sort list by"
+          value={sortBy}
+          onChange={e => setSortBy(e.target.value as typeof sortBy)}
+        >
+          <option value="name">Name</option>
+          <option value="joined">Joined</option>
+          <option value="place">Place</option>
+          <option value="time">Local time</option>
+        </select>
+      </div>
       <ul className={styles.sideList} aria-label={LEGEND_LABEL[tab]}>
         {list.map(c => {
           const lt = formatLocalTime(c.tz, now);
@@ -602,10 +690,6 @@ const SIDE_TAB_LABEL: Record<EntryType, string> = {
   manufacturer: 'Makers',
 };
 
-type SortKey = 'name' | 'country' | 'joined';
-
-const PAGE_SIZE = 15;
-
 export default function ContributorMap(): React.ReactElement {
   const contributors = (contributorsFile as {contributors: Contributor[]})
     .contributors;
@@ -619,8 +703,13 @@ export default function ContributorMap(): React.ReactElement {
   const [transform, setTransform] = useState<Transform>({k: 1, x: 0, y: 0});
   const [selection, setSelection] = useState<Selection | null>(null);
   const [dragging, setDragging] = useState(false);
+  /* The dot-anchored card hides during fly-to animations — anchored to a
+    moving dot it sweeps and flips erratically; it fades in on arrival. */
+  const [camAnimating, setCamAnimating] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [view, setView] = useState<'flat' | 'globe'>('flat');
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelWidth, setPanelWidth] = useState(264);
   const globeRef = useRef<GlobeHandle | null>(null);
 
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -651,6 +740,18 @@ export default function ContributorMap(): React.ReactElement {
     ).matches;
   }, []);
 
+  /* Below 1280px the panel stacks under the map and has no reopen grip, so
+    entering that layout with the panel collapsed would strand it hidden. */
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1279px)');
+    const onChange = () => {
+      if (mq.matches) setPanelOpen(true);
+    };
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
   /* Expanded (modal) mode: lock body scroll, close on Escape. */
   useEffect(() => {
     if (!expanded) return undefined;
@@ -667,8 +768,8 @@ export default function ContributorMap(): React.ReactElement {
   }, [expanded]);
 
   /* Legend checkboxes double as type filters: everything is shown by
-    default, unchecking a type hides its dots (the table stays complete —
-    it is the canonical text equivalent). */
+    default, unchecking a type hides its dots (the list panel stays
+    complete — it is the canonical text equivalent). */
   const [hiddenTypes, setHiddenTypes] = useState<ReadonlySet<EntryType>>(
     () => new Set(),
   );
@@ -704,6 +805,7 @@ export default function ContributorMap(): React.ReactElement {
       cancelAnimationFrame(animRef.current);
       animRef.current = null;
     }
+    setCamAnimating(false);
   }, []);
 
   const animateTo = useCallback(
@@ -717,6 +819,7 @@ export default function ContributorMap(): React.ReactElement {
       const from = {...transformRef.current};
       const start = performance.now();
       const dur = 350;
+      setCamAnimating(true);
       const step = (ts: number) => {
         const t = Math.min(1, (ts - start) / dur);
         const e = 1 - Math.pow(1 - t, 3);
@@ -725,8 +828,12 @@ export default function ContributorMap(): React.ReactElement {
           x: from.x + (clamped.x - from.x) * e,
           y: from.y + (clamped.y - from.y) * e,
         });
-        if (t < 1) animRef.current = requestAnimationFrame(step);
-        else animRef.current = null;
+        if (t < 1) {
+          animRef.current = requestAnimationFrame(step);
+        } else {
+          animRef.current = null;
+          setCamAnimating(false);
+        }
       };
       animRef.current = requestAnimationFrame(step);
     },
@@ -779,7 +886,11 @@ export default function ContributorMap(): React.ReactElement {
   const onPointerDown = useCallback(
     (e: React.PointerEvent<SVGSVGElement>) => {
       stopAnim();
-      (e.target as Element).setPointerCapture?.(e.pointerId);
+      try {
+        (e.target as Element).setPointerCapture?.(e.pointerId);
+      } catch {
+        // synthetic/stale pointer id — capture is best-effort
+      }
       pointers.current.set(e.pointerId, {x: e.clientX, y: e.clientY});
       gesture.current = {
         startT: {...transformRef.current},
@@ -848,15 +959,16 @@ export default function ContributorMap(): React.ReactElement {
   );
 
   /* Release-glide: velocity from the last ~100ms of drag (in map units)
-    decays exponentially (τ = 325ms, the d3-zoom feel). Clamping still
-    applies each frame, so a glide into an edge just stops there. */
+    decays exponentially. Damped launch + short τ keep the total glide to a
+    modest fraction of the drag speed — full velocity catapults the map.
+    Clamping still applies each frame, so a glide into an edge stops there. */
   const startInertia = useCallback(
     (vx: number, vy: number) => {
       if (reducedMotion.current) return;
-      if (Math.hypot(vx, vy) < 0.05) return; // map-units/ms — reads as a stop
+      if (Math.hypot(vx, vy) < 0.08) return; // map-units/ms — reads as a stop
       let last = performance.now();
-      let cvx = vx;
-      let cvy = vy;
+      let cvx = vx * 0.45;
+      let cvy = vy * 0.45;
       const step = (ts: number) => {
         const dt = ts - last;
         last = ts;
@@ -864,7 +976,7 @@ export default function ContributorMap(): React.ReactElement {
         setTransform(
           clampTransform({k: t.k, x: t.x + cvx * dt, y: t.y + cvy * dt}),
         );
-        const decay = Math.exp(-dt / 325);
+        const decay = Math.exp(-dt / 200);
         cvx *= decay;
         cvy *= decay;
         if (Math.hypot(cvx, cvy) > 0.01) {
@@ -921,7 +1033,7 @@ export default function ContributorMap(): React.ReactElement {
     (id: string) => {
       const p = placedById.get(id);
       if (!p) return;
-      // A table-row click re-shows the person's type if it was filtered out
+      // A list-row click re-shows the person's type if it was filtered out
       // — jumping to an invisible dot would look broken.
       setHiddenTypes(prev => {
         if (!prev.has(typeOf(p))) return prev;
@@ -1011,22 +1123,40 @@ export default function ContributorMap(): React.ReactElement {
         className={`${styles.mapPanel} ${
           expanded ? styles.mapPanelExpanded : ''
         }`}
+        style={{'--cm-panel-w': `${panelWidth}px`} as React.CSSProperties}
         onKeyDown={onMapKeyDown}
       >
-        <MapSidebar
-          contributors={contributors}
-          now={now}
-          selectedId={selection ? selection.ids[selection.index] : null}
-          selectedPerson={selectedPerson}
-          onPick={zoomToPerson}
-        />
+        {panelOpen && (
+          <MapSidebar
+            contributors={contributors}
+            now={now}
+            selectedId={selection ? selection.ids[selection.index] : null}
+            selectedPerson={selectedPerson}
+            onPick={zoomToPerson}
+            onCollapse={() => setPanelOpen(false)}
+            panelWidth={panelWidth}
+            onPanelWidth={setPanelWidth}
+          />
+        )}
         <div className={styles.mapArea}>
+          {!panelOpen && (
+            <button
+              type="button"
+              className={styles.panelOpenButton}
+              aria-label="Show list panel"
+              title="Show list panel"
+              onClick={() => setPanelOpen(true)}
+            >
+              ›
+            </button>
+          )}
         {view === 'globe' ? (
           <Globe
             ref={globeRef}
             visible={contributors.filter(c => !hiddenTypes.has(typeOf(c)))}
             selectedIds={selectedIds}
             onSelectCluster={ids => setSelection({ids, index: 0})}
+            onBackgroundClick={() => setSelection(null)}
             anchoredCard={
               dotCard && selectedPerson
                 ? (ax, ay) => (
@@ -1047,11 +1177,17 @@ export default function ContributorMap(): React.ReactElement {
           className={`${styles.mapSvg} ${dragging ? styles.dragging : ''}`}
           viewBox={`0 ${-PAD_Y} ${MAP_W} ${VIEW_H}`}
           role="group"
-          aria-label="World map of Arrow contributors, workspaces, and manufacturers. The same information is available in the table below."
+          aria-label="World map of Arrow contributors, workspaces, and manufacturers. The same information is available in the list panel."
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endPointer}
           onPointerCancel={endPointer}
+          onClick={() => {
+            // Click on empty map (not a drag, not a dot — dots stop
+            // propagation) dismisses the profile card.
+            if (gesture.current?.moved) return;
+            setSelection(null);
+          }}
           onDoubleClick={e => {
             const {x: px, y: py} = toMapPoint(e.clientX, e.clientY);
             zoomAt(px, py, 2, true);
@@ -1103,7 +1239,8 @@ export default function ContributorMap(): React.ReactElement {
                   role="button"
                   tabIndex={0}
                   aria-label={cluster.label}
-                  onClick={() => {
+                  onClick={e => {
+                    e.stopPropagation();
                     if (gesture.current?.moved) return;
                     selectCluster(cluster);
                   }}
@@ -1250,7 +1387,7 @@ export default function ContributorMap(): React.ReactElement {
           </div>
         )}
 
-        {dotCard && selectedPerson && flatCardAnchor && (
+        {dotCard && selectedPerson && flatCardAnchor && !camAnimating && (
           <AnchoredCard
             ax={flatCardAnchor.ax}
             ay={flatCardAnchor.ay}
@@ -1269,195 +1406,12 @@ export default function ContributorMap(): React.ReactElement {
       {expanded && <div className={styles.mapPlaceholder} aria-hidden="true" />}
       {expanded ? createPortal(mapPanelNode, document.body) : mapPanelNode}
 
-      <DirectoryTable
-        contributors={contributors}
-        now={now}
-        selectedId={selection ? selection.ids[selection.index] : null}
-        onRowClick={zoomToPerson}
-      />
       {contributors.some(c => c.demo) && (
         <p className={styles.demoNotice}>
           Showing placeholder demo data — real contributors will appear here via
           the opt-in <code>/new-contributor</code> Discord command.
         </p>
       )}
-    </div>
-  );
-}
-
-function DirectoryTable({
-  contributors,
-  now,
-  selectedId,
-  onRowClick,
-}: {
-  contributors: Contributor[];
-  now: Date | null;
-  selectedId: string | null;
-  onRowClick: (id: string) => void;
-}) {
-  const [sortKey, setSortKey] = useState<SortKey>('name');
-  const [sortAsc, setSortAsc] = useState(true);
-  const [page, setPage] = useState(0);
-
-  const sorted = useMemo(() => {
-    const arr = [...contributors];
-    arr.sort((a, b) => {
-      let cmp = 0;
-      if (sortKey === 'country') {
-        cmp =
-          a.country.localeCompare(b.country) || a.name.localeCompare(b.name);
-      } else if (sortKey === 'joined') {
-        cmp = a.joined.localeCompare(b.joined) || a.name.localeCompare(b.name);
-      } else {
-        cmp = a.name.localeCompare(b.name);
-      }
-      return sortAsc ? cmp : -cmp;
-    });
-    return arr;
-  }, [contributors, sortKey, sortAsc]);
-
-  const pageCount = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
-  const clampedPage = Math.min(page, pageCount - 1);
-  const rows = sorted.slice(
-    clampedPage * PAGE_SIZE,
-    clampedPage * PAGE_SIZE + PAGE_SIZE,
-  );
-
-  const setSort = (key: SortKey, defaultAsc: boolean) => {
-    if (sortKey === key) {
-      setSortAsc(!sortAsc);
-    } else {
-      setSortKey(key);
-      setSortAsc(defaultAsc);
-    }
-    setPage(0);
-  };
-
-  const ariaSort = (key: SortKey): 'ascending' | 'descending' | 'none' =>
-    sortKey === key ? (sortAsc ? 'ascending' : 'descending') : 'none';
-
-  const arrow = (key: SortKey) =>
-    sortKey === key ? (sortAsc ? ' ↑' : ' ↓') : '';
-
-  return (
-    <div className={styles.tableSection}>
-      <table className={styles.table}>
-        <caption className={styles.srOnly}>
-          Arrow contributors: names, locations, and local times. Click a row to
-          highlight that contributor on the map above.
-        </caption>
-        <thead>
-          <tr>
-            <th aria-sort={ariaSort('name')}>
-              <button
-                type="button"
-                className={styles.sortButton}
-                onClick={() => setSort('name', true)}
-              >
-                Name{arrow('name')}
-              </button>
-            </th>
-            <th aria-sort={ariaSort('country')}>
-              <button
-                type="button"
-                className={styles.sortButton}
-                onClick={() => setSort('country', true)}
-              >
-                Place{arrow('country')}
-              </button>
-            </th>
-            <th aria-sort={ariaSort('joined')}>
-              <button
-                type="button"
-                className={styles.sortButton}
-                onClick={() => setSort('joined', false)}
-              >
-                Joined{arrow('joined')}
-              </button>
-            </th>
-            <th>Local time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(c => {
-            const lt = formatLocalTime(c.tz, now);
-            return (
-              <tr
-                key={c.id}
-                className={`${styles.row} ${
-                  selectedId === c.id ? styles.rowSelected : ''
-                }`}
-                tabIndex={0}
-                onClick={() => onRowClick(c.id)}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onRowClick(c.id);
-                  }
-                }}
-                aria-label={`Show ${c.name} on the map`}
-              >
-                <td className={styles.rowName}>
-                  {c.name}
-                  {typeOf(c) !== 'contributor' && (
-                    <span
-                      className={[
-                        styles.rowTypeChip,
-                        typeOf(c) === 'workspace'
-                          ? styles.rowTypeChipWorkspace
-                          : styles.rowTypeChipManufacturer,
-                      ].join(' ')}
-                    >
-                      {typeOf(c)}
-                    </span>
-                  )}
-                </td>
-                <td>{c.city ? `${c.city}, ${c.country}` : c.country}</td>
-                <td>{formatJoined(c.joined)}</td>
-                <td className={styles.rowTime}>
-                  {lt ? lt.time : '—'}
-                  {lt && <span className={styles.rowTzAbbr}>{lt.abbr}</span>}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <div className={styles.tableFooter}>
-        <span>
-          {(['contributor', 'workspace', 'manufacturer'] as EntryType[])
-            .map(t => {
-              const n = sorted.filter(c => typeOf(c) === t).length;
-              return n > 0 ? `${n} ${TYPE_NOUN[t][n === 1 ? 0 : 1]}` : null;
-            })
-            .filter(Boolean)
-            .join(' · ')}
-        </span>
-        {pageCount > 1 && (
-          <div className={styles.pageControls}>
-            <button
-              type="button"
-              className={styles.pageButton}
-              disabled={clampedPage === 0}
-              onClick={() => setPage(clampedPage - 1)}
-            >
-              ‹ Prev
-            </button>
-            <span>
-              Page {clampedPage + 1} of {pageCount}
-            </span>
-            <button
-              type="button"
-              className={styles.pageButton}
-              disabled={clampedPage >= pageCount - 1}
-              onClick={() => setPage(clampedPage + 1)}
-            >
-              Next ›
-            </button>
-          </div>
-        )}
-      </div>
     </div>
   );
 }

@@ -2781,6 +2781,25 @@ video {
 [class*="docRoot"]:has(.contributor-map-page) .theme-doc-markdown {
   max-width: none;
 }
+/* Breadcrumbs are normally centered at 900px to match the prose column;
+   on this full-width page, align them with the title's 2rem inset instead.
+   Both the container and the inner ul carry centering/max-width rules. */
+[class*="docRoot"]:has(.contributor-map-page) [class*="breadcrumbsContainer"] {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+[class*="docRoot"]:has(.contributor-map-page) ul.breadcrumbs {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  /* the base .breadcrumbs padding is !important — counter it, as the
+     generatedIndexPage rules do */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 
 /* Bounty board: expand content column to full width */
 [class*="docRoot"]:has(aside a[href^="/bounty"]) [class*="docItemCol"] {

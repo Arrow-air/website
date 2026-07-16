@@ -65,6 +65,8 @@ interface GlobeProps {
   visible: Contributor[];
   selectedIds: ReadonlySet<string>;
   onSelectCluster: (ids: string[]) => void;
+  /* Click on empty globe (not a drag, not a dot) — dismisses the card. */
+  onBackgroundClick?: () => void;
   /* Renders the selected dot's tooltip card; called with the dot's position
     as fractions of the view. Skipped while the dot is behind the horizon. */
   anchoredCard?: (ax: number, ay: number) => React.ReactNode;
@@ -117,12 +119,15 @@ function placeContributorsLL(list: Contributor[]): PlacedLL[] {
 }
 
 export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
-  {visible, selectedIds, onSelectCluster, anchoredCard},
+  {visible, selectedIds, onSelectCluster, onBackgroundClick, anchoredCard},
   ref,
 ) {
   const [rotation, setRotation] = useState<[number, number]>(HOME_ROTATION);
   const [zoom, setZoom] = useState(1);
   const [dragging, setDragging] = useState(false);
+  /* Anchored card hides during fly-to rotations (it would sweep/flip while
+    tracking the moving dot) and reappears on arrival. */
+  const [camAnimating, setCamAnimating] = useState(false);
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const rotationRef = useRef(rotation);
@@ -152,6 +157,7 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
       cancelAnimationFrame(animRef.current);
       animRef.current = null;
     }
+    setCamAnimating(false);
   }, []);
   useEffect(() => stopAnim, [stopAnim]);
 
@@ -269,6 +275,7 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
       const fromZoom = zoomRef.current;
       const start = performance.now();
       const dur = 600;
+      setCamAnimating(true);
       const step = (ts: number) => {
         const t = Math.min(1, (ts - start) / dur);
         const e = 1 - Math.pow(1 - t, 3);
@@ -277,8 +284,12 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
           from[1] + (to[1] - from[1]) * e,
         ]);
         setZoom(fromZoom + (toZoom - fromZoom) * e);
-        if (t < 1) animRef.current = requestAnimationFrame(step);
-        else animRef.current = null;
+        if (t < 1) {
+          animRef.current = requestAnimationFrame(step);
+        } else {
+          animRef.current = null;
+          setCamAnimating(false);
+        }
       };
       animRef.current = requestAnimationFrame(step);
     },
@@ -340,7 +351,11 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
   const onPointerDown = useCallback(
     (e: React.PointerEvent<SVGSVGElement>) => {
       stopAnim();
-      (e.target as Element).setPointerCapture?.(e.pointerId);
+      try {
+        (e.target as Element).setPointerCapture?.(e.pointerId);
+      } catch {
+        // synthetic/stale pointer id — capture is best-effort
+      }
       pointers.current.set(e.pointerId, {x: e.clientX, y: e.clientY});
       gesture.current = {
         startRotation: [...rotationRef.current],
@@ -388,21 +403,22 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
   }, [degPerPx]);
 
   /* Flick to spin: velocity from the last ~100ms of pointer travel decays
-    exponentially (τ = 325ms, the d3-zoom feel). */
+    exponentially. Damped launch + short τ so a small flick nudges rather
+    than catapults. */
   const startInertia = useCallback(
     (vx: number, vy: number) => {
       if (reducedMotion.current) return;
       const speed = Math.hypot(vx, vy);
-      if (speed < 0.05) return; // px/ms — below this it reads as a stop
+      if (speed < 0.08) return; // px/ms — below this it reads as a stop
       let last = performance.now();
-      let cvx = vx;
-      let cvy = vy;
+      let cvx = vx * 0.45;
+      let cvy = vy * 0.45;
       const step = (ts: number) => {
         const dt = ts - last;
         last = ts;
         const s = degPerPx();
         setRotation(r => [r[0] + cvx * dt * s, clampLat(r[1] - cvy * dt * s)]);
-        const decay = Math.exp(-dt / 325);
+        const decay = Math.exp(-dt / 200);
         cvx *= decay;
         cvy *= decay;
         if (Math.hypot(cvx, cvy) > 0.01) {
@@ -447,9 +463,10 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
     [startInertia],
   );
 
-  const selectedCluster = anchoredCard
-    ? clusters.find(c => c.members.some(m => selectedIds.has(m.id)))
-    : undefined;
+  const selectedCluster =
+    anchoredCard && !camAnimating
+      ? clusters.find(c => c.members.some(m => selectedIds.has(m.id)))
+      : undefined;
 
   return (
     <>
@@ -458,11 +475,15 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
       className={`${styles.mapSvg} ${dragging ? styles.dragging : ''}`}
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       role="group"
-      aria-label="Globe of Arrow contributors, workspaces, and manufacturers. Drag to rotate. The same information is available in the table below."
+      aria-label="Globe of Arrow contributors, workspaces, and manufacturers. Drag to rotate. The same information is available in the list panel."
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endPointer}
       onPointerCancel={endPointer}
+      onClick={() => {
+        if (gesture.current?.moved) return;
+        onBackgroundClick?.();
+      }}
       onDoubleClick={() => {
         stopAnim();
         setZoom(z => Math.min(z * 2, MAX_ZOOM));
@@ -491,7 +512,8 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
               role="button"
               tabIndex={0}
               aria-label={cluster.label}
-              onClick={() => {
+              onClick={e => {
+                e.stopPropagation();
                 if (gesture.current?.moved) return;
                 onSelectCluster(cluster.members.map(m => m.id));
               }}

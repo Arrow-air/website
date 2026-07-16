@@ -26,7 +26,7 @@ export const typeOf = (c: Contributor): EntryType => c.type ?? 'contributor';
 /* Display nouns per entry type (cluster labels, table footer). */
 export const TYPE_NOUN: Record<EntryType, [string, string]> = {
   contributor: ['contributor', 'contributors'],
-  workspace: ['Arrow workspace', 'Arrow workspaces'],
+  workspace: ['workspace', 'workspaces'],
   manufacturer: ['manufacturer', 'manufacturers'],
 };
 
