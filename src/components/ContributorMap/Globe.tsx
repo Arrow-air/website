@@ -29,8 +29,8 @@ import styles from './styles.module.css';
   so server render and hydration agree. */
 
 const VIEW_W = 960;
-const VIEW_H = 600; // matches the flat map's padded viewBox height
-const BASE_R = 270; // sphere radius at zoom 1, fits VIEW_H with padding
+const VIEW_H = 680; // matches the flat map's padded viewBox height
+const BASE_R = 306; // sphere radius at zoom 1, fits VIEW_H with padding
 const MAX_ZOOM = 8;
 const CLUSTER_PX = 18;
 /* Initial view: mid-Atlantic, slight northern tilt — most contributors are

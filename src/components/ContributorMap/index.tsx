@@ -15,6 +15,7 @@ import {
   hashFloats,
   typeOf,
 } from './common';
+import 'flag-icons/css/flag-icons.min.css';
 import styles from './styles.module.css';
 
 /* Contributor map + list panel for /docs/community/contributor-map.
@@ -31,7 +32,7 @@ const MAP_H: number = geometry.height;
 /* Extra viewBox height above/below the projected map (960×500 is a wide
   letterbox; the panel reads better taller). The pan clamp + pointer math
   account for it. */
-const PAD_Y = 50;
+const PAD_Y = 90;
 const VIEW_H = MAP_H + 2 * PAD_Y;
 const MAX_ZOOM = 12;
 const CLUSTER_PX = 18;
@@ -343,6 +344,9 @@ function DotCard({
   approx?: boolean;
 }) {
   const lt = formatLocalTime(person.tz, now);
+  const iso2 = geometry.iso2 as Record<string, string>;
+  const flagCode =
+    iso2[person.country] ?? iso2[COUNTRY_ALIASES[person.country] ?? ''];
   return (
     <>
       <button
@@ -353,30 +357,46 @@ function DotCard({
       >
         ×
       </button>
-      <p className={styles.cardName}>
-        {person.name}
-        {typeOf(person) !== 'contributor' && (
-          <span
-            className={[
-              styles.cardTypeBadge,
-              typeOf(person) === 'workspace'
-                ? styles.cardTypeBadgeWorkspace
-                : styles.cardTypeBadgeManufacturer,
-            ].join(' ')}
-          >
-            {TYPE_NOUN[typeOf(person)][0]}
-          </span>
-        )}
-      </p>
+      <span
+        className={[
+          styles.cardTypeBadge,
+          {
+            contributor: styles.cardTypeBadgeContributor,
+            workspace: styles.cardTypeBadgeWorkspace,
+            manufacturer: styles.cardTypeBadgeManufacturer,
+          }[typeOf(person)],
+        ].join(' ')}
+      >
+        {TYPE_NOUN[typeOf(person)][0]}
+      </span>
+      <p className={styles.cardName}>{person.name}</p>
       <div className={styles.cardPlace}>
         {person.city ? `${person.city}, ${person.country}` : person.country}
+        {flagCode && (
+          <span
+            className={`fi fi-${flagCode} ${styles.cardFlag}`}
+            aria-hidden="true"
+          />
+        )}
         {approx && <span className={styles.cardApprox}> · approx.</span>}
       </div>
-      <div className={styles.cardTime}>
-        {lt ? `${lt.time} ${lt.abbr}` : '— local'} ·{' '}
-        {typeOf(person) === 'contributor' ? 'joined' : 'since'}{' '}
-        {formatJoined(person.joined)}
+      <div className={styles.cardMeta}>
+        <div>
+          <div className={styles.cardMetaLabel}>Local time</div>
+          <div className={styles.cardMetaValue}>
+            {lt ? `${lt.time} ${lt.abbr}` : '—'}
+          </div>
+        </div>
+        <div>
+          <div className={styles.cardMetaLabel}>
+            {typeOf(person) === 'contributor' ? 'Joined' : 'Since'}
+          </div>
+          <div className={styles.cardMetaValue}>
+            {formatJoined(person.joined)}
+          </div>
+        </div>
       </div>
+      {person.blurb && <p className={styles.cardBlurb}>{person.blurb}</p>}
       {(person.disciplines?.length ?? 0) > 0 && (
         <div className={styles.cardTags}>
           {person.disciplines!.map(d => (
@@ -417,7 +437,9 @@ function DotCard({
               >
                 ‹
               </button>
-              {selection.index + 1}/{selection.ids.length}
+              <span className={styles.pagerCount}>
+                {selection.index + 1}/{selection.ids.length}
+              </span>
               <button
                 type="button"
                 className={styles.pagerButton}
@@ -584,7 +606,7 @@ function MapSidebar({
                 .filter(Boolean)
                 .join(' ')}
             />
-            {SIDE_TAB_LABEL[t]}
+            <span className={styles.sideTabLabel}>{SIDE_TAB_LABEL[t]}</span>
             <span className={styles.sideTabCount}>
               {contributors.filter(c => typeOf(c) === t).length}
             </span>

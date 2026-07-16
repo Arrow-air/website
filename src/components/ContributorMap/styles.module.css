@@ -200,7 +200,8 @@
 }
 
 .sideTab {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0; /* let segments shrink with the panel instead of overflowing */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,6 +229,12 @@
   color: var(--cm-text-on-dark);
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.sideTabLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sideTabCount {
@@ -534,13 +541,13 @@
 .card {
   position: absolute;
   width: max-content;
-  max-width: 230px;
+  max-width: 250px;
   background: rgba(8, 67, 191, 0.96);
   border: 1px solid var(--cm-accent);
   color: #fff;
   padding: 9px 30px 9px 11px;
   z-index: 3;
-  font-size: 12px;
+  font-size: 13px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   pointer-events: auto;
 }
@@ -605,7 +612,7 @@
    higher specificity than a lone CSS-module class — scope under .card. */
 .card .cardName {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.25;
   margin: 0;
   color: #fff;
@@ -615,20 +622,55 @@
 
 .cardPlace {
   color: rgba(255, 255, 255, 0.78);
-  font-size: 11px;
+  font-size: 12px;
   margin-top: 1px;
+}
+
+/* flag-icons sizes via em (width 1.333em), so font-size sets the flag size. */
+.cardPlace .cardFlag {
+  margin-left: 6px;
+  font-size: 10px;
+  vertical-align: 1px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 
 .cardApprox {
   font-style: italic;
 }
 
-.cardTime {
-  margin-top: 4px;
+/* Two-column labeled stats (LOCAL TIME / JOINED) — replaces the old
+   one-line "19:42 GMT+3 · joined Feb 2024" string, which read as raw
+   output and wrapped mid-phrase. */
+.cardMeta {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.cardMetaLabel {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cardMetaValue {
+  margin-top: 2px;
   font-family: 'Jetbrainsmono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   color: #dbe7ff;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.card .cardBlurb {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+  overflow-wrap: break-word;
 }
 
 .cardTags {
@@ -643,7 +685,7 @@
   border-radius: 4px;
   background: #0f101333;
   color: #ffffff;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 2px 6px;
@@ -656,7 +698,7 @@
   align-items: center;
   gap: 10px;
   margin-top: 7px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .cardFooter a {
@@ -669,12 +711,22 @@
   border-bottom-color: #fff;
 }
 
+/* Compact pager: two square arrow buttons flanking a fixed-width count, so
+   the group holds its shape and alignment as the index changes. */
 .cardPagerCompact {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 2px;
   margin-left: auto;
+}
+
+.pagerCount {
+  min-width: 30px;
+  text-align: center;
+  font-family: 'Jetbrainsmono', monospace;
+  font-size: 11px;
   font-weight: 600;
+  color: #dbe7ff;
   font-variant-numeric: tabular-nums;
 }
 
@@ -702,15 +754,20 @@
 }
 
 .pagerButton {
-  padding: 2px 7px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0 0 2px; /* optical: ‹/› glyphs sit low in the box */
+  border: none;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.14);
   color: #fff;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1;
-  white-space: nowrap;
 }
 
 .pagerButton:hover:not(:disabled) {
@@ -889,26 +946,30 @@
 
 /* ---------- Entry-type badges (profile card) ---------- */
 
+/* Filled chip above the name, keyed to the entry-type dot colors. */
 .cardTypeBadge {
   display: inline-block;
-  margin-left: 6px;
-  padding: 1px 6px;
-  font-size: 10px;
-  font-weight: 600;
+  margin-bottom: 6px;
+  padding: 2px 6px;
+  font-size: 9px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  vertical-align: middle;
-  border: 1px solid;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  border-radius: 2px;
+  color: #0f1729;
+}
+
+.cardTypeBadgeContributor {
+  background: var(--cm-accent-strong);
 }
 
 .cardTypeBadgeWorkspace {
-  color: var(--cm-workspace-strong);
-  border-color: var(--cm-workspace);
+  background: var(--cm-workspace);
 }
 
 .cardTypeBadgeManufacturer {
-  color: var(--cm-manufacturer-strong);
-  border-color: var(--cm-manufacturer);
+  background: var(--cm-manufacturer);
 }
 
 /* ---------- Expanded (modal) map ---------- */
@@ -947,17 +1008,17 @@
   margin: 0;
 }
 
-/* Fit the 960x600 map (plus the side panel) to the viewport in both
+/* Fit the 960x680 map (plus the side panel) to the viewport in both
    dimensions. */
 .mapPanelExpanded {
-  width: min(94vw, calc(150vh + var(--cm-panel-w, 264px)));
+  width: min(94vw, calc(133vh + var(--cm-panel-w, 264px)));
   max-height: 94vh;
 }
 
 /* Holds the map's spot in the page flow while the panel is in the modal,
    so the document doesn't reflow behind the dimmed backdrop. */
 .mapPlaceholder {
-  aspect-ratio: 960 / 600;
+  aspect-ratio: 960 / 680;
   background: var(--cm-map-bg);
   border: 1px solid var(--cm-land-stroke);
 }

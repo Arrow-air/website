@@ -288,6 +288,39 @@ for (const f of countriesGeo.features) {
 
 countries.sort((a, b) => a.name.localeCompare(b.name));
 
+// --- ISO 3166-1 alpha-2 codes ---------------------------------------------
+// world-atlas strips NE properties down to `name`, so codes come from the
+// raw NE countries file, matched by any of its name fields. ISO_A2_EH first:
+// plain ISO_A2 is '-99' for France, Norway, and a few others. Codes drive
+// the flag icon on the contributor card; a country without one just shows
+// no flag.
+const iso2 = {};
+{
+    const neCountries = await fetchNe('ne_50m_admin_0_countries.geojson');
+    const byName = new Map();
+    for (const f of neCountries.features) {
+        const p = f.properties ?? {};
+        const code = [p.ISO_A2_EH, p.ISO_A2].find(
+            c => typeof c === 'string' && /^[A-Za-z]{2}$/.test(c),
+        );
+        if (!code) continue;
+        for (const key of [p.NAME, p.NAME_LONG, p.ADMIN, p.BRK_NAME]) {
+            if (key && !byName.has(key)) byName.set(key, code.toLowerCase());
+        }
+    }
+    // world-atlas predates NE's rename; N. Cyprus, Somaliland, and Siachen
+    // Glacier have no ISO code and get no flag.
+    if (!byName.has('Macedonia') && byName.has('North Macedonia')) {
+        byName.set('Macedonia', byName.get('North Macedonia'));
+    }
+    for (const {name} of countries) {
+        const code = byName.get(name);
+        if (code) iso2[name] = code;
+    }
+    const missing = countries.filter(c => !iso2[c.name]).map(c => c.name);
+    if (missing.length) console.log(`No ISO2 code for: ${missing.join(', ')}`);
+}
+
 // --- Internal admin borders ------------------------------------------------
 // 1. NE admin-1 boundary lines for every country the 50m dataset covers.
 let borders = '';
@@ -348,7 +381,7 @@ const gb = subunits.features.filter(f => f.properties.ADM0_A3 === 'GBR');
     }
 }
 
-const out = {width: WIDTH, height, fit, countries, centroids, borders};
+const out = {width: WIDTH, height, fit, countries, centroids, iso2, borders};
 const outPath = join(__dirname, '..', 'src', 'data', 'world-map-geometry.json');
 writeFileSync(outPath, JSON.stringify(out));
 console.log(
