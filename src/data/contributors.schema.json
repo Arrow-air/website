@@ -15,12 +15,23 @@
     "contributor": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "country", "disciplines", "joined"],
+      "required": ["id", "name", "country", "joined"],
+      "if": {
+        "anyOf": [
+          {"not": {"required": ["type"]}},
+          {"properties": {"type": {"const": "contributor"}}}
+        ]
+      },
+      "then": {"required": ["disciplines"]},
       "properties": {
         "id": {
           "type": "string",
-          "description": "Discord user ID (snowflake). Stable key for edits/removal and the seed for deterministic scatter/avatar generation. Demo entries use demo-*.",
-          "pattern": "^(\\d{15,21}|demo-[a-z0-9-]+)$"
+          "description": "Discord user ID (snowflake). Stable key for edits/removal and the seed for deterministic scatter/avatar generation. Demo entries use demo-*. Workspace/manufacturer entries use a stable slug.",
+          "pattern": "^(\\d{15,21}|demo-[a-z0-9-]+|(ws|mfg)-[a-z0-9-]+)$"
+        },
+        "type": {
+          "enum": ["contributor", "workspace", "manufacturer"],
+          "description": "Entry kind, rendered as different dot colors with a map key. Absent = contributor (a person). 'workspace' = an Arrow workshop/workspace location; 'manufacturer' = a manufacturing partner (AIP-009). disciplines is required for contributors only."
         },
         "name": {
           "type": "string",
@@ -98,7 +109,7 @@
         },
         "github": {
           "type": "string",
-          "description": "GitHub username, for the profile-card link and avatar fallback.",
+          "description": "GitHub username, for the profile-card link and avatar fallback. Asked for explicitly by the bot (optional prompt) — it cannot be derived from a Discord identity.",
           "pattern": "^[A-Za-z0-9-]{1,39}$"
         },
         "avatar": {

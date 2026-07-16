@@ -1,13 +1,20 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {createPortal} from 'react-dom';
 import contributorsFile from '@site/src/data/contributors.json';
 import geometry from '@site/src/data/world-map-geometry.json';
 import {projectLngLat} from './projection';
+import Globe, {GlobeHandle} from './Globe';
+import {
+  Contributor,
+  COUNTRY_ALIASES,
+  EntryType,
+  GOLDEN_ANGLE,
+  LEGEND_LABEL,
+  TYPE_NOUN,
+  clusterLabel,
+  hashFloats,
+  typeOf,
+} from './common';
 import styles from './styles.module.css';
 
 /* Contributor map + directory table for /docs/community.
@@ -24,23 +31,6 @@ const MAP_H: number = geometry.height;
 const MAX_ZOOM = 12;
 const CLUSTER_PX = 18;
 
-interface Contributor {
-  id: string;
-  name: string;
-  country: string;
-  city?: string;
-  lat?: number;
-  lng?: number;
-  tz?: string;
-  disciplines: string[];
-  blurb?: string;
-  joined: string;
-  discord?: string;
-  github?: string;
-  avatar?: string;
-  demo?: boolean;
-}
-
 interface Placed extends Contributor {
   x: number;
   y: number;
@@ -51,8 +41,11 @@ interface Cluster {
   key: string;
   x: number; // base (unzoomed) map coords of the anchor location
   y: number;
+  ox: number; // screen-px offset, separates same-place clusters of
+  oy: number; // different types (they never merge)
   members: Placed[];
   approx: boolean; // true when every member is country-only
+  type: EntryType;
   label: string;
 }
 
@@ -62,16 +55,6 @@ interface Transform {
   y: number;
 }
 
-/* Natural Earth 110m uses long-form names for a few countries people
-  will more likely type/store in short form. */
-const COUNTRY_ALIASES: Record<string, string> = {
-  'United States': 'United States of America',
-  USA: 'United States of America',
-  UK: 'United Kingdom',
-  Czechia: 'Czech Republic',
-  Türkiye: 'Turkey',
-};
-
 function centroidFor(country: string): [number, number] | undefined {
   const centroids = geometry.centroids as unknown as Record<
     string,
@@ -80,56 +63,52 @@ function centroidFor(country: string): [number, number] | undefined {
   return centroids[country] ?? centroids[COUNTRY_ALIASES[country] ?? ''];
 }
 
-/* Small deterministic hash → [0,1) floats, seeded by contributor id, so
-  country-only scatter is stable across builds and SSR-safe. */
-function hashFloats(seedStr: string, n: number): number[] {
-  let h = 2166136261;
-  for (let i = 0; i < seedStr.length; i++) {
-    h ^= seedStr.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  const out: number[] = [];
-  for (let i = 0; i < n; i++) {
-    h ^= h << 13;
-    h ^= h >>> 17;
-    h ^= h << 5;
-    h |= 0;
-    out.push(((h >>> 0) % 100000) / 100000);
-  }
-  return out;
-}
-
+/* Country-only entries render as regular dots scattered around the country
+  centroid. Placement is a golden-angle spiral over the country's entries
+  (sorted by id, so it is deterministic across builds and SSR-safe) — spiral
+  spacing guarantees co-country dots do not overlap, and a per-country
+  id-hashed base angle keeps different countries from sharing a pattern. */
 function placeContributors(list: Contributor[]): Placed[] {
   const placed: Placed[] = [];
+  const countryOnly = new Map<string, Contributor[]>();
   for (const c of list) {
     if (typeof c.lat === 'number' && typeof c.lng === 'number') {
       const [x, y] = projectLngLat(c.lng, c.lat, geometry.fit);
       placed.push({...c, x, y, approx: false});
       continue;
     }
-    const centroid = centroidFor(c.country);
+    const arr = countryOnly.get(c.country);
+    if (arr) arr.push(c);
+    else countryOnly.set(c.country, [c]);
+  }
+  for (const [country, members] of countryOnly) {
+    const centroid = centroidFor(country);
     if (!centroid) continue; // unknown country: table-only, no dot
-    const [r1, r2] = hashFloats(c.id, 2);
-    const angle = r1 * Math.PI * 2;
-    const radius = 4 + r2 * 8;
-    placed.push({
-      ...c,
-      x: centroid[0] + Math.cos(angle) * radius,
-      y: centroid[1] + Math.sin(angle) * radius,
-      approx: true,
-    });
+    members.sort((a, b) => a.id.localeCompare(b.id));
+    const [r1] = hashFloats(`country:${country}`, 1);
+    for (let i = 0; i < members.length; i++) {
+      const angle = r1 * Math.PI * 2 + i * GOLDEN_ANGLE;
+      const radius = 5 + 6 * Math.sqrt(i);
+      placed.push({
+        ...members[i],
+        x: centroid[0] + Math.cos(angle) * radius,
+        y: centroid[1] + Math.sin(angle) * radius,
+        approx: true,
+      });
+    }
   }
   return placed;
 }
 
 /* Group by exact place first (same city => one dot), then greedily merge
-  anything closer than CLUSTER_PX on screen at the current zoom. */
+  anything closer than CLUSTER_PX on screen at the current zoom. Entry types
+  never share a cluster — a dot's color must stay unambiguous. */
 function clusterPlaced(placed: Placed[], k: number): Cluster[] {
   const byPlace = new Map<string, Placed[]>();
   for (const p of placed) {
     const key = p.approx
       ? `person:${p.id}` // country-only people never share a "place"
-      : `city:${p.country}|${p.city}`;
+      : `city:${typeOf(p)}|${p.country}|${p.city}`;
     const arr = byPlace.get(key);
     if (arr) arr.push(p);
     else byPlace.set(key, [p]);
@@ -146,7 +125,9 @@ function clusterPlaced(placed: Placed[], k: number): Cluster[] {
     y: members[0].y,
     members,
   }));
-  locs.sort((a, b) => b.members.length - a.members.length || a.key.localeCompare(b.key));
+  locs.sort(
+    (a, b) => b.members.length - a.members.length || a.key.localeCompare(b.key),
+  );
 
   const used = new Array(locs.length).fill(false);
   const clusters: Cluster[] = [];
@@ -154,9 +135,11 @@ function clusterPlaced(placed: Placed[], k: number): Cluster[] {
     if (used[i]) continue;
     used[i] = true;
     const anchor = locs[i];
+    const anchorType = typeOf(anchor.members[0]);
     const members = [...anchor.members];
     for (let j = i + 1; j < locs.length; j++) {
       if (used[j]) continue;
+      if (typeOf(locs[j].members[0]) !== anchorType) continue;
       const dx = (locs[j].x - anchor.x) * k;
       const dy = (locs[j].y - anchor.y) * k;
       if (dx * dx + dy * dy < CLUSTER_PX * CLUSTER_PX) {
@@ -164,21 +147,35 @@ function clusterPlaced(placed: Placed[], k: number): Cluster[] {
         members.push(...locs[j].members);
       }
     }
-    const approx = members.every((m) => m.approx);
-    const places = Array.from(
-      new Set(members.map((m) => (m.city ? `${m.city}, ${m.country}` : m.country))),
-    );
     clusters.push({
       key: anchor.key,
       x: anchor.x,
       y: anchor.y,
+      ox: 0,
+      oy: 0,
       members,
-      approx,
-      label:
-        places.length === 1
-          ? `${places[0]} — ${members.length} contributor${members.length > 1 ? 's' : ''}`
-          : `${members.length} contributors near ${places[0]}`,
+      approx: members.every(m => m.approx),
+      type: anchorType,
+      label: clusterLabel(members, anchorType),
     });
+  }
+  // Different-type clusters at the same place (e.g. a workspace in a city
+  // that also has contributors) would render concentric — fan them out a
+  // few screen pixels instead. Deterministic: order is cluster build order.
+  const byPoint = new Map<string, Cluster[]>();
+  for (const c of clusters) {
+    const key = `${c.x},${c.y}`;
+    const arr = byPoint.get(key);
+    if (arr) arr.push(c);
+    else byPoint.set(key, [c]);
+  }
+  for (const group of byPoint.values()) {
+    if (group.length < 2) continue;
+    for (let i = 1; i < group.length; i++) {
+      const angle = -Math.PI / 4 + ((i - 1) * Math.PI) / 2;
+      group[i].ox = Math.cos(angle) * 15;
+      group[i].oy = Math.sin(angle) * 15;
+    }
   }
   return clusters;
 }
@@ -214,8 +211,7 @@ function formatLocalTime(
       timeZone: tz,
       timeZoneName: 'short',
     }).formatToParts(now);
-    const get = (type: string) =>
-      parts.find((p) => p.type === type)?.value ?? '';
+    const get = (type: string) => parts.find(p => p.type === type)?.value ?? '';
     return {
       time: `${get('hour')}:${get('minute')}`,
       abbr: get('timeZoneName'),
@@ -272,11 +268,19 @@ function GeneratedAvatar({
             seed={seed}
             stitchTiles="stitch"
           />
-          <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.35 0.35 0.35 0 0" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.35 0.35 0.35 0 0"
+          />
           <feComposite operator="over" in2="SourceGraphic" />
         </filter>
       </defs>
-      <rect width="44" height="44" fill={`url(#${gid}-g)`} filter={`url(#${gid}-d)`} />
+      <rect
+        width="44"
+        height="44"
+        fill={`url(#${gid}-g)`}
+        filter={`url(#${gid}-d)`}
+      />
     </svg>
   );
 }
@@ -306,7 +310,9 @@ function Avatar({person, size}: {person: Contributor; size: number}) {
       />
     );
   }
-  return <GeneratedAvatar id={person.id} size={size} className={styles.cardAvatar} />;
+  return (
+    <GeneratedAvatar id={person.id} size={size} className={styles.cardAvatar} />
+  );
 }
 
 interface Selection {
@@ -331,6 +337,9 @@ export default function ContributorMap(): React.ReactElement {
   const [transform, setTransform] = useState<Transform>({k: 1, x: 0, y: 0});
   const [selection, setSelection] = useState<Selection | null>(null);
   const [dragging, setDragging] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [view, setView] = useState<'flat' | 'globe'>('flat');
+  const globeRef = useRef<GlobeHandle | null>(null);
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const transformRef = useRef(transform);
@@ -343,6 +352,8 @@ export default function ContributorMap(): React.ReactElement {
     moved: boolean;
   } | null>(null);
   const reducedMotion = useRef(false);
+  /* Recent single-pointer samples for release-glide inertia. */
+  const trail = useRef<Array<{t: number; x: number; y: number}>>([]);
 
   // Live clock: client-only by design (SSR renders the placeholder).
   const [now, setNow] = useState<Date | null>(null);
@@ -358,10 +369,53 @@ export default function ContributorMap(): React.ReactElement {
     ).matches;
   }, []);
 
-  const clusters = useMemo(
-    () => clusterPlaced(placed, transform.k),
-    [placed, transform.k],
+  /* Expanded (modal) mode: lock body scroll, close on Escape. */
+  useEffect(() => {
+    if (!expanded) return undefined;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setExpanded(false);
+    };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [expanded]);
+
+  /* Legend checkboxes double as type filters: everything is shown by
+    default, unchecking a type hides its dots (the table stays complete —
+    it is the canonical text equivalent). */
+  const [hiddenTypes, setHiddenTypes] = useState<ReadonlySet<EntryType>>(
+    () => new Set(),
   );
+  const toggleType = useCallback((t: EntryType) => {
+    setHiddenTypes(prev => {
+      const next = new Set(prev);
+      if (next.has(t)) next.delete(t);
+      else next.add(t);
+      return next;
+    });
+  }, []);
+
+  const visiblePlaced = useMemo(
+    () => placed.filter(p => !hiddenTypes.has(typeOf(p))),
+    [placed, hiddenTypes],
+  );
+
+  const clusters = useMemo(
+    () => clusterPlaced(visiblePlaced, transform.k),
+    [visiblePlaced, transform.k],
+  );
+
+  /* Legend rows: entry types present in the data (in canonical order). */
+  const legendTypes = useMemo(() => {
+    const present = new Set(contributors.map(typeOf));
+    return (['contributor', 'workspace', 'manufacturer'] as EntryType[]).filter(
+      t => present.has(t),
+    );
+  }, [contributors]);
 
   const stopAnim = useCallback(() => {
     if (animRef.current !== null) {
@@ -450,6 +504,7 @@ export default function ContributorMap(): React.ReactElement {
         startPts: Array.from(pointers.current.values()),
         moved: false,
       };
+      trail.current = [{t: performance.now(), x: e.clientX, y: e.clientY}];
       if (pointers.current.size === 1) setDragging(true);
     },
     [stopAnim],
@@ -500,37 +555,103 @@ export default function ContributorMap(): React.ReactElement {
             y: g.startT.y + dy,
           }),
         );
+        const now = performance.now();
+        trail.current.push({t: now, x: pts[0].x, y: pts[0].y});
+        while (trail.current.length > 2 && now - trail.current[0].t > 100) {
+          trail.current.shift();
+        }
       }
     },
     [toMapPoint],
   );
 
-  const endPointer = useCallback((e: React.PointerEvent<SVGSVGElement>) => {
-    pointers.current.delete(e.pointerId);
-    if (pointers.current.size === 0) {
-      setDragging(false);
-      // keep gesture.moved readable by the click handler for one tick
-      setTimeout(() => {
-        gesture.current = null;
-      }, 0);
-    } else if (gesture.current) {
-      gesture.current = {
-        startT: {...transformRef.current},
-        startPts: Array.from(pointers.current.values()),
-        moved: gesture.current.moved,
+  /* Release-glide: velocity from the last ~100ms of drag (in map units)
+    decays exponentially (τ = 325ms, the d3-zoom feel). Clamping still
+    applies each frame, so a glide into an edge just stops there. */
+  const startInertia = useCallback(
+    (vx: number, vy: number) => {
+      if (reducedMotion.current) return;
+      if (Math.hypot(vx, vy) < 0.05) return; // map-units/ms — reads as a stop
+      let last = performance.now();
+      let cvx = vx;
+      let cvy = vy;
+      const step = (ts: number) => {
+        const dt = ts - last;
+        last = ts;
+        const t = transformRef.current;
+        setTransform(
+          clampTransform({k: t.k, x: t.x + cvx * dt, y: t.y + cvy * dt}),
+        );
+        const decay = Math.exp(-dt / 325);
+        cvx *= decay;
+        cvy *= decay;
+        if (Math.hypot(cvx, cvy) > 0.01) {
+          animRef.current = requestAnimationFrame(step);
+        } else {
+          animRef.current = null;
+        }
       };
-    }
-  }, []);
+      stopAnim();
+      animRef.current = requestAnimationFrame(step);
+    },
+    [stopAnim],
+  );
+
+  const endPointer = useCallback(
+    (e: React.PointerEvent<SVGSVGElement>) => {
+      pointers.current.delete(e.pointerId);
+      if (pointers.current.size === 0) {
+        setDragging(false);
+        if (gesture.current?.moved && trail.current.length >= 2) {
+          const first = trail.current[0];
+          const lastPt = trail.current[trail.current.length - 1];
+          const dt = lastPt.t - first.t;
+          const svg = svgRef.current;
+          if (dt > 0 && svg) {
+            const sx = MAP_W / svg.getBoundingClientRect().width;
+            startInertia(
+              ((lastPt.x - first.x) * sx) / dt,
+              ((lastPt.y - first.y) * sx) / dt,
+            );
+          }
+        }
+        trail.current = [];
+        // keep gesture.moved readable by the click handler for one tick
+        setTimeout(() => {
+          gesture.current = null;
+        }, 0);
+      } else if (gesture.current) {
+        gesture.current = {
+          startT: {...transformRef.current},
+          startPts: Array.from(pointers.current.values()),
+          moved: gesture.current.moved,
+        };
+      }
+    },
+    [startInertia],
+  );
 
   const selectCluster = useCallback((cluster: Cluster) => {
-    setSelection({ids: cluster.members.map((m) => m.id), index: 0});
+    setSelection({ids: cluster.members.map(m => m.id), index: 0});
   }, []);
 
   const zoomToPerson = useCallback(
     (id: string) => {
       const p = placedById.get(id);
       if (!p) return;
+      // A table-row click re-shows the person's type if it was filtered out
+      // — jumping to an invisible dot would look broken.
+      setHiddenTypes(prev => {
+        if (!prev.has(typeOf(p))) return prev;
+        const next = new Set(prev);
+        next.delete(typeOf(p));
+        return next;
+      });
       setSelection({ids: [id], index: 0});
+      if (view === 'globe') {
+        globeRef.current?.focusById(id);
+        return;
+      }
       const k = Math.max(transformRef.current.k, 4);
       animateTo({
         k,
@@ -538,16 +659,20 @@ export default function ContributorMap(): React.ReactElement {
         y: MAP_H / 2 - p.y * k,
       });
     },
-    [placedById, animateTo],
+    [placedById, animateTo, view],
   );
 
-  const selectedIds = useMemo(
-    () => new Set(selection?.ids ?? []),
-    [selection],
-  );
+  const selectedIds = useMemo(() => new Set(selection?.ids ?? []), [selection]);
   const selectedPerson: Placed | undefined = selection
     ? placedById.get(selection.ids[selection.index])
     : undefined;
+
+  /* Hiding a type also dismisses a card belonging to it. */
+  useEffect(() => {
+    if (selectedPerson && hiddenTypes.has(typeOf(selectedPerson))) {
+      setSelection(null);
+    }
+  }, [hiddenTypes, selectedPerson]);
 
   const onMapKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Escape') setSelection(null);
@@ -555,47 +680,94 @@ export default function ContributorMap(): React.ReactElement {
 
   const {k, x, y} = transform;
 
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.mapPanel} onKeyDown={onMapKeyDown}>
+  /* Expanded mode anchors the card to the selected dot (arrow pointing at
+    it) instead of the fixed top-left corner. Position is the dot's map
+    coords as a percentage of the panel, so the card tracks pan/zoom. Flips
+    below the dot when it sits in the top part of the map. */
+  const cardAnchor = useMemo(() => {
+    // Globe view: dot positions live inside <Globe>; use the corner card.
+    if (view !== 'flat') return null;
+    if (!expanded || !selectedPerson) return null;
+    const cluster = clusters.find(cl =>
+      cl.members.some(m => m.id === selectedPerson.id),
+    );
+    if (!cluster) return null;
+    const ax = (cluster.x * k + x + cluster.ox) / MAP_W;
+    const ay = (cluster.y * k + y + cluster.oy) / MAP_H;
+    if (ax < 0.02 || ax > 0.98 || ay < 0.02 || ay > 0.98) return null;
+    return {ax, ay, below: ay < 0.45};
+  }, [view, expanded, selectedPerson, clusters, k, x, y]);
+
+  /* When expanded, the panel is portaled to <body>: the docs layout creates
+    stacking contexts (sticky navbar et al.) that an in-place overlay cannot
+    reliably sit above. styles.modalOverlay composes the theme variables the
+    panel needs outside the .wrapper subtree. */
+  const mapPanelNode = (
+    <div
+      className={expanded ? styles.modalOverlay : undefined}
+      onClick={
+        expanded
+          ? (e: React.MouseEvent) => {
+              if (e.target === e.currentTarget) setExpanded(false);
+            }
+          : undefined
+      }
+      role={expanded ? 'dialog' : undefined}
+      aria-modal={expanded || undefined}
+      aria-label={expanded ? 'Expanded contributor map' : undefined}
+    >
+      <div
+        className={`${styles.mapPanel} ${
+          expanded ? styles.mapPanelExpanded : ''
+        }`}
+        onKeyDown={onMapKeyDown}
+      >
+        {view === 'globe' ? (
+          <Globe
+            ref={globeRef}
+            visible={contributors.filter(c => !hiddenTypes.has(typeOf(c)))}
+            selectedIds={selectedIds}
+            onSelectCluster={ids => setSelection({ids, index: 0})}
+          />
+        ) : (
         <svg
           ref={svgRef}
           className={`${styles.mapSvg} ${dragging ? styles.dragging : ''}`}
           viewBox={`0 0 ${MAP_W} ${MAP_H}`}
           role="group"
-          aria-label="World map of Arrow contributors. The same information is available in the table below."
+          aria-label="World map of Arrow contributors, workspaces, and manufacturers. The same information is available in the table below."
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endPointer}
           onPointerCancel={endPointer}
-          onDoubleClick={(e) => {
+          onDoubleClick={e => {
             const {x: px, y: py} = toMapPoint(e.clientX, e.clientY);
             zoomAt(px, py, 2, true);
           }}
         >
           <g transform={`translate(${x} ${y}) scale(${k})`}>
-            {(geometry.countries as Array<{name: string; d: string}>).map(
-              (c) => (
-                <path key={c.name} className={styles.land} d={c.d} />
-              ),
+            {(geometry.countries as Array<{name: string; d: string}>).map(c => (
+              <path key={c.name} className={styles.land} d={c.d} />
+            ))}
+            {'borders' in geometry && (
+              <path
+                className={styles.adminBorders}
+                d={(geometry as {borders: string}).borders}
+                vectorEffect="non-scaling-stroke"
+              />
             )}
           </g>
           {/* Dots render in screen space so their size/labels stay crisp. */}
           <g>
-            {clusters.map((cluster) => {
-              const cx = cluster.x * k + x;
-              const cy = cluster.y * k + y;
-              if (
-                cx < -20 ||
-                cx > MAP_W + 20 ||
-                cy < -20 ||
-                cy > MAP_H + 20
-              ) {
+            {clusters.map(cluster => {
+              const cx = cluster.x * k + x + cluster.ox;
+              const cy = cluster.y * k + y + cluster.oy;
+              if (cx < -20 || cx > MAP_W + 20 || cy < -20 || cy > MAP_H + 20) {
                 return null;
               }
               const n = cluster.members.length;
-              const r = n > 1 ? 7 + 2.2 * Math.sqrt(n - 1) : 5;
-              const isSelected = cluster.members.some((m) =>
+              const r = n > 1 ? 9 + 2.4 * Math.sqrt(n - 1) : 6.5;
+              const isSelected = cluster.members.some(m =>
                 selectedIds.has(m.id),
               );
               return (
@@ -603,7 +775,10 @@ export default function ContributorMap(): React.ReactElement {
                   key={cluster.key}
                   className={[
                     styles.dot,
-                    cluster.approx ? styles.dotApprox : '',
+                    cluster.type === 'workspace' ? styles.dotWorkspace : '',
+                    cluster.type === 'manufacturer'
+                      ? styles.dotManufacturer
+                      : '',
                     isSelected ? styles.dotSelected : '',
                   ]
                     .filter(Boolean)
@@ -615,7 +790,7 @@ export default function ContributorMap(): React.ReactElement {
                     if (gesture.current?.moved) return;
                     selectCluster(cluster);
                   }}
-                  onKeyDown={(e) => {
+                  onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       selectCluster(cluster);
@@ -624,7 +799,12 @@ export default function ContributorMap(): React.ReactElement {
                 >
                   <title>{cluster.label}</title>
                   {isSelected && (
-                    <circle className={styles.selectionRing} cx={cx} cy={cy} r={r + 4} />
+                    <circle
+                      className={styles.selectionRing}
+                      cx={cx}
+                      cy={cy}
+                      r={r + 4}
+                    />
                   )}
                   <circle className={styles.dotCircle} cx={cx} cy={cy} r={r} />
                   {n > 1 && (
@@ -632,8 +812,8 @@ export default function ContributorMap(): React.ReactElement {
                       className={styles.dotCount}
                       x={cx}
                       y={cy}
-                      dy="3.2"
-                      fontSize="9"
+                      dy="3.6"
+                      fontSize="10"
                     >
                       {n}
                     </text>
@@ -643,13 +823,48 @@ export default function ContributorMap(): React.ReactElement {
             })}
           </g>
         </svg>
+        )}
+
+        <img
+          className={styles.watermark}
+          src="/img/brand/SVGs/arrow-lockup-white.svg"
+          alt=""
+          aria-hidden="true"
+          width={96}
+          height={32}
+          loading="lazy"
+        />
 
         <div className={styles.zoomControls}>
           <button
             type="button"
             className={styles.zoomButton}
+            aria-label={expanded ? 'Close expanded map' : 'Expand map'}
+            title={expanded ? 'Close expanded map' : 'Expand map'}
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? '×' : '⛶'}
+          </button>
+          <button
+            type="button"
+            className={`${styles.zoomButton} ${styles.viewToggleButton}`}
+            aria-label={
+              view === 'globe' ? 'Switch to flat map' : 'Switch to globe'
+            }
+            title={view === 'globe' ? 'Switch to flat map' : 'Switch to globe'}
+            onClick={() => setView(view === 'globe' ? 'flat' : 'globe')}
+          >
+            {view === 'globe' ? '2D' : '3D'}
+          </button>
+          <button
+            type="button"
+            className={styles.zoomButton}
             aria-label="Zoom in"
-            onClick={() => zoomAt(MAP_W / 2, MAP_H / 2, 1.6, true)}
+            onClick={() =>
+              view === 'globe'
+                ? globeRef.current?.zoomBy(1.6)
+                : zoomAt(MAP_W / 2, MAP_H / 2, 1.6, true)
+            }
           >
             +
           </button>
@@ -657,7 +872,11 @@ export default function ContributorMap(): React.ReactElement {
             type="button"
             className={styles.zoomButton}
             aria-label="Zoom out"
-            onClick={() => zoomAt(MAP_W / 2, MAP_H / 2, 1 / 1.6, true)}
+            onClick={() =>
+              view === 'globe'
+                ? globeRef.current?.zoomBy(1 / 1.6)
+                : zoomAt(MAP_W / 2, MAP_H / 2, 1 / 1.6, true)
+            }
           >
             −
           </button>
@@ -667,22 +886,70 @@ export default function ContributorMap(): React.ReactElement {
             aria-label="Reset zoom"
             onClick={() => {
               setSelection(null);
-              animateTo({k: 1, x: 0, y: 0});
+              if (view === 'globe') globeRef.current?.reset();
+              else animateTo({k: 1, x: 0, y: 0});
             }}
           >
             ⌂
           </button>
         </div>
 
+        {legendTypes.length > 1 && (
+          <ul className={styles.legend} aria-label="Map key and filters">
+            {legendTypes.map(t => (
+              <li key={t} className={styles.legendItem}>
+                <label className={styles.legendLabel}>
+                  <input
+                    type="checkbox"
+                    className={styles.legendCheckbox}
+                    checked={!hiddenTypes.has(t)}
+                    onChange={() => toggleType(t)}
+                    aria-label={`Show ${TYPE_NOUN[t][1]}`}
+                  />
+                  <span
+                    className={[
+                      styles.legendSwatch,
+                      t === 'workspace' ? styles.legendSwatchWorkspace : '',
+                      t === 'manufacturer'
+                        ? styles.legendSwatchManufacturer
+                        : '',
+                      hiddenTypes.has(t) ? styles.legendSwatchOff : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  />
+                  {LEGEND_LABEL[t]}
+                </label>
+              </li>
+            ))}
+          </ul>
+        )}
+
         {!selectedPerson && (
           <div className={styles.mapHint} aria-hidden="true">
-            drag to pan · scroll or pinch to zoom · click a dot
+            {view === 'globe'
+              ? 'drag to spin · scroll or pinch to zoom · click a dot'
+              : 'drag to pan · scroll or pinch to zoom · click a dot'}
           </div>
         )}
 
         {selectedPerson && selection && (
           <div
-            className={styles.card}
+            className={[
+              styles.card,
+              cardAnchor ? styles.cardAnchored : '',
+              cardAnchor?.below ? styles.cardAnchoredBelow : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            style={
+              cardAnchor
+                ? {
+                    left: `${cardAnchor.ax * 100}%`,
+                    top: `${cardAnchor.ay * 100}%`,
+                  }
+                : undefined
+            }
             role="dialog"
             aria-label={`Profile: ${selectedPerson.name}`}
           >
@@ -697,7 +964,21 @@ export default function ContributorMap(): React.ReactElement {
             <div className={styles.cardHeader}>
               <Avatar person={selectedPerson} size={44} />
               <div>
-                <p className={styles.cardName}>{selectedPerson.name}</p>
+                <p className={styles.cardName}>
+                  {selectedPerson.name}
+                  {typeOf(selectedPerson) !== 'contributor' && (
+                    <span
+                      className={[
+                        styles.cardTypeBadge,
+                        typeOf(selectedPerson) === 'workspace'
+                          ? styles.cardTypeBadgeWorkspace
+                          : styles.cardTypeBadgeManufacturer,
+                      ].join(' ')}
+                    >
+                      {TYPE_NOUN[typeOf(selectedPerson)][0]}
+                    </span>
+                  )}
+                </p>
                 <div className={styles.cardPlace}>
                   {selectedPerson.city
                     ? `${selectedPerson.city}, ${selectedPerson.country}`
@@ -719,15 +1000,18 @@ export default function ContributorMap(): React.ReactElement {
             {selectedPerson.blurb && (
               <p className={styles.cardBlurb}>{selectedPerson.blurb}</p>
             )}
-            <div className={styles.cardTags}>
-              {selectedPerson.disciplines.map((d) => (
-                <span key={d} className={styles.cardTag}>
-                  {d}
-                </span>
-              ))}
-            </div>
+            {(selectedPerson.disciplines?.length ?? 0) > 0 && (
+              <div className={styles.cardTags}>
+                {selectedPerson.disciplines!.map(d => (
+                  <span key={d} className={styles.cardTag}>
+                    {d}
+                  </span>
+                ))}
+              </div>
+            )}
             <div className={styles.cardMeta}>
-              Joined {formatJoined(selectedPerson.joined)}
+              {typeOf(selectedPerson) === 'contributor' ? 'Joined' : 'Since'}{' '}
+              {formatJoined(selectedPerson.joined)}
             </div>
             {(selectedPerson.discord || selectedPerson.github) && (
               <div className={styles.cardLinks}>
@@ -762,7 +1046,7 @@ export default function ContributorMap(): React.ReactElement {
                     setSelection({...selection, index: selection.index - 1})
                   }
                 >
-                  ‹
+                  ‹ Prev
                 </button>
                 <span className={styles.cardPagerLabel}>
                   {selection.index + 1} of {selection.ids.length} here
@@ -776,13 +1060,20 @@ export default function ContributorMap(): React.ReactElement {
                     setSelection({...selection, index: selection.index + 1})
                   }
                 >
-                  ›
+                  Next ›
                 </button>
               </div>
             )}
           </div>
         )}
       </div>
+    </div>
+  );
+
+  return (
+    <div className={styles.wrapper}>
+      {expanded && <div className={styles.mapPlaceholder} aria-hidden="true" />}
+      {expanded ? createPortal(mapPanelNode, document.body) : mapPanelNode}
 
       <DirectoryTable
         contributors={contributors}
@@ -790,10 +1081,10 @@ export default function ContributorMap(): React.ReactElement {
         selectedId={selection ? selection.ids[selection.index] : null}
         onRowClick={zoomToPerson}
       />
-      {contributors.some((c) => c.demo) && (
+      {contributors.some(c => c.demo) && (
         <p className={styles.demoNotice}>
-          Showing placeholder demo data — real contributors will appear here
-          via the opt-in <code>/new-contributor</code> Discord command.
+          Showing placeholder demo data — real contributors will appear here via
+          the opt-in <code>/new-contributor</code> Discord command.
         </p>
       )}
     </div>
@@ -870,7 +1161,7 @@ function DirectoryTable({
                 className={styles.sortButton}
                 onClick={() => setSort('name', true)}
               >
-                Discord name{arrow('name')}
+                Name{arrow('name')}
               </button>
             </th>
             <th aria-sort={ariaSort('country')}>
@@ -895,7 +1186,7 @@ function DirectoryTable({
           </tr>
         </thead>
         <tbody>
-          {rows.map((c) => {
+          {rows.map(c => {
             const lt = formatLocalTime(c.tz, now);
             return (
               <tr
@@ -905,7 +1196,7 @@ function DirectoryTable({
                 }`}
                 tabIndex={0}
                 onClick={() => onRowClick(c.id)}
-                onKeyDown={(e) => {
+                onKeyDown={e => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     onRowClick(c.id);
@@ -913,7 +1204,21 @@ function DirectoryTable({
                 }}
                 aria-label={`Show ${c.name} on the map`}
               >
-                <td className={styles.rowName}>{c.name}</td>
+                <td className={styles.rowName}>
+                  {c.name}
+                  {typeOf(c) !== 'contributor' && (
+                    <span
+                      className={[
+                        styles.rowTypeChip,
+                        typeOf(c) === 'workspace'
+                          ? styles.rowTypeChipWorkspace
+                          : styles.rowTypeChipManufacturer,
+                      ].join(' ')}
+                    >
+                      {typeOf(c)}
+                    </span>
+                  )}
+                </td>
                 <td>{c.city ? `${c.city}, ${c.country}` : c.country}</td>
                 <td>{formatJoined(c.joined)}</td>
                 <td className={styles.rowTime}>
@@ -927,7 +1232,13 @@ function DirectoryTable({
       </table>
       <div className={styles.tableFooter}>
         <span>
-          {sorted.length} contributor{sorted.length === 1 ? '' : 's'}
+          {(['contributor', 'workspace', 'manufacturer'] as EntryType[])
+            .map(t => {
+              const n = sorted.filter(c => typeOf(c) === t).length;
+              return n > 0 ? `${n} ${TYPE_NOUN[t][n === 1 ? 0 : 1]}` : null;
+            })
+            .filter(Boolean)
+            .join(' · ')}
         </span>
         {pageCount > 1 && (
           <div className={styles.pageControls}>

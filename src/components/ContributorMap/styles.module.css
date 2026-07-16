@@ -2,14 +2,24 @@
    The map panel is intentionally dark in both site themes (spec #180);
    the table follows the site theme. Sharp corners per Arrow brand. */
 
-.wrapper {
+/* Shared theme variables. Lives on its own class (not just .wrapper) because
+   the expanded map is portaled to <body>, outside the .wrapper subtree. */
+.themeVars {
   --cm-map-bg: #17181d;
   --cm-land: #262932;
   --cm-land-stroke: #31353f;
   --cm-accent: #4d7ef7;
   --cm-accent-strong: #7ba0ff;
+  --cm-workspace: #f0a53c;
+  --cm-workspace-strong: #ffc46e;
+  --cm-manufacturer: #3fbf8f;
+  --cm-manufacturer-strong: #74e0b8;
   --cm-text-on-dark: #e8eaf0;
   --cm-muted-on-dark: #9aa0ac;
+}
+
+.wrapper {
+  composes: themeVars;
   margin: 1.5rem 0 2.5rem;
 }
 
@@ -58,20 +68,6 @@
 .dot:focus-visible .dotCircle {
   stroke: var(--cm-text-on-dark);
   stroke-width: 1.5;
-}
-
-/* Country-only (approximate) locations: hollow ring, honest about precision */
-.dotApprox .dotCircle {
-  fill: rgba(77, 126, 247, 0.18);
-  stroke: var(--cm-accent);
-  stroke-width: 1.25;
-  stroke-dasharray: 2.5 1.8;
-}
-
-.dotApprox:hover .dotCircle,
-.dotApprox:focus-visible .dotCircle {
-  fill: rgba(123, 160, 255, 0.3);
-  stroke: var(--cm-accent-strong);
 }
 
 .dotSelected .dotCircle {
@@ -159,24 +155,64 @@
 
 /* ---------- Profile card ---------- */
 
+/* Brand-blue card: the dark-on-dark version disappeared into the map. */
 .card {
   position: absolute;
   top: 10px;
   left: 10px;
   width: 262px;
   max-width: calc(100% - 20px);
-  background: rgba(23, 24, 29, 0.96);
-  border: 1px solid var(--cm-land-stroke);
-  color: var(--cm-text-on-dark);
-  padding: 14px;
+  background: rgba(8, 67, 191, 0.96);
+  border: 1px solid var(--cm-accent);
+  color: #fff;
+  padding: 16px;
   z-index: 3;
   font-size: 13px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Expanded (modal) mode: card anchors to the selected dot. left/top come
+   from inline styles (percentages of the panel); the transform lifts the
+   card above the dot and centers it, with a triangle pointing back down. */
+.cardAnchored {
+  transform: translate(-50%, calc(-100% - 26px));
+}
+
+.cardAnchored::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid rgba(8, 67, 191, 0.96);
+}
+
+/* Dot near the top of the map: flip the card below it, triangle on top. */
+.cardAnchoredBelow {
+  transform: translate(-50%, 26px);
+}
+
+.cardAnchoredBelow::after {
+  bottom: auto;
+  top: -9px;
+  border-top: none;
+  border-bottom: 9px solid rgba(8, 67, 191, 0.96);
 }
 
 .cardHeader {
   display: flex;
   gap: 10px;
   align-items: flex-start;
+}
+
+/* Let the name/place column shrink so long names wrap instead of
+   overflowing the card (flex children default to min-width: auto). */
+.cardHeader > div:last-child {
+  min-width: 0;
 }
 
 .cardAvatar {
@@ -186,16 +222,21 @@
   display: block;
 }
 
-.cardName {
+/* .cardName and .cardBlurb are <p> elements, and the site theme styles
+   .theme-doc-markdown p (margin-bottom, 1rem font, secondary color) at
+   higher specificity than a lone CSS-module class — scope under .card. */
+.card .cardName {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.25;
   margin: 0;
-  color: var(--cm-text-on-dark);
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .cardPlace {
-  color: var(--cm-muted-on-dark);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 12px;
   margin-top: 2px;
 }
@@ -205,16 +246,19 @@
 }
 
 .cardTime {
-  margin-top: 6px;
+  margin-top: 8px;
   font-family: 'Jetbrainsmono', monospace;
   font-size: 12px;
-  color: var(--cm-accent-strong);
+  color: #dbe7ff;
+  font-variant-numeric: tabular-nums;
 }
 
-.cardBlurb {
+.card .cardBlurb {
   margin: 10px 0 0;
+  font-size: 13px;
   line-height: 1.45;
-  color: var(--cm-text-on-dark);
+  color: #fff;
+  overflow-wrap: break-word;
 }
 
 .cardTags {
@@ -225,8 +269,8 @@
 }
 
 .cardTag {
-  border: 1px solid var(--cm-accent);
-  color: var(--cm-accent-strong);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
   font-size: 10px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -237,7 +281,7 @@
 .cardMeta {
   margin-top: 10px;
   font-size: 11px;
-  color: var(--cm-muted-on-dark);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .cardLinks {
@@ -247,14 +291,14 @@
 }
 
 .cardLinks a {
-  color: var(--cm-accent-strong);
+  color: #fff;
   font-size: 12px;
   text-decoration: none;
-  border-bottom: 1px solid rgba(123, 160, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .cardLinks a:hover {
-  border-bottom-color: var(--cm-accent-strong);
+  border-bottom-color: #fff;
 }
 
 .cardClose {
@@ -265,7 +309,7 @@
   height: 24px;
   border: none;
   background: transparent;
-  color: var(--cm-muted-on-dark);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
@@ -273,41 +317,44 @@
 }
 
 .cardClose:hover {
-  color: var(--cm-text-on-dark);
+  color: #fff;
 }
 
 .cardClose:focus-visible {
-  outline: 2px solid var(--cm-accent);
+  outline: 2px solid #fff;
 }
 
 .cardPager {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   margin-top: 12px;
   padding-top: 10px;
-  border-top: 1px solid var(--cm-land-stroke);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .cardPagerLabel {
   font-size: 11px;
-  color: var(--cm-muted-on-dark);
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
 }
 
 .pagerButton {
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--cm-land-stroke);
-  background: transparent;
-  color: var(--cm-text-on-dark);
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
   cursor: pointer;
   font-size: 12px;
+  font-weight: 600;
   line-height: 1;
-  padding: 0;
+  white-space: nowrap;
 }
 
 .pagerButton:hover:not(:disabled) {
-  border-color: var(--cm-accent);
+  background: rgba(255, 255, 255, 0.26);
 }
 
 .pagerButton:disabled {
@@ -316,7 +363,7 @@
 }
 
 .pagerButton:focus-visible {
-  outline: 2px solid var(--cm-accent);
+  outline: 2px solid #fff;
 }
 
 @media (max-width: 640px) {
@@ -464,4 +511,258 @@
   font-size: 12px;
   color: var(--ifm-color-emphasis-600);
   margin-top: 6px;
+}
+
+/* ---------- Internal admin borders (US states, UK home nations, …) ---------- */
+
+/* Stroke stays 1px at every zoom (vector-effect: non-scaling-stroke on the
+   path), sitting visually below the country outlines, which do scale. */
+.adminBorders {
+  fill: none;
+  stroke: var(--cm-land-stroke);
+  stroke-width: 1;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* ---------- Globe view ---------- */
+
+.viewToggleButton {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.globeOcean {
+  fill: var(--cm-map-bg);
+  stroke: none;
+}
+
+.globeGraticule {
+  fill: none;
+  stroke: var(--cm-land-stroke);
+  stroke-width: 0.5;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.globeOutline {
+  fill: none;
+  stroke: var(--cm-land-stroke);
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+
+/* ---------- Entry-type dot colors ---------- */
+
+.dotWorkspace .dotCircle {
+  fill: var(--cm-workspace);
+}
+
+.dotWorkspace:hover .dotCircle,
+.dotWorkspace:focus-visible .dotCircle {
+  fill: var(--cm-workspace-strong);
+}
+
+.dotWorkspace .selectionRing {
+  stroke: var(--cm-workspace-strong);
+}
+
+.dotManufacturer .dotCircle {
+  fill: var(--cm-manufacturer);
+}
+
+.dotManufacturer:hover .dotCircle,
+.dotManufacturer:focus-visible .dotCircle {
+  fill: var(--cm-manufacturer-strong);
+}
+
+.dotManufacturer .selectionRing {
+  stroke: var(--cm-manufacturer-strong);
+}
+
+/* ---------- Legend ---------- */
+
+.legend {
+  position: absolute;
+  left: 10px;
+  bottom: 28px; /* above .mapHint; bottom-left sits over open ocean */
+  margin: 0;
+  padding: 6px 10px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(23, 24, 29, 0.85);
+  border: 1px solid var(--cm-land-stroke);
+  font-size: 11px;
+  color: var(--cm-muted-on-dark);
+  font-family: var(--ifm-font-family-base);
+  z-index: 2;
+  user-select: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none; /* the site theme styles li markers; none leak through */
+  margin: 0;
+}
+
+.legendItem::marker {
+  content: '';
+}
+
+/* The Arrow theme decorates markdown li with a square ::before
+   (.theme-doc-markdown ul > li::before) — out-specify it here. */
+.legend > .legendItem::before {
+  content: none;
+}
+
+.legend > .legendItem {
+  padding: 0;
+}
+
+.legendLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.legendLabel:hover {
+  color: var(--cm-text-on-dark);
+}
+
+.legendCheckbox {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  accent-color: var(--cm-accent);
+  cursor: pointer;
+}
+
+.legendSwatchOff {
+  opacity: 0.3;
+}
+
+.legendSwatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cm-accent);
+  flex: 0 0 9px;
+}
+
+.legendSwatchWorkspace {
+  background: var(--cm-workspace);
+}
+
+.legendSwatchManufacturer {
+  background: var(--cm-manufacturer);
+}
+
+/* ---------- Entry-type badges (profile card + table) ---------- */
+
+.cardTypeBadge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  border: 1px solid;
+}
+
+.cardTypeBadgeWorkspace {
+  color: var(--cm-workspace-strong);
+  border-color: var(--cm-workspace);
+}
+
+.cardTypeBadgeManufacturer {
+  color: var(--cm-manufacturer-strong);
+  border-color: var(--cm-manufacturer);
+}
+
+.rowTypeChip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  border: 1px solid currentColor;
+}
+
+/* Chips sit on the site-themed table background, so they follow the theme
+   toggle: darker tones for light mode, brighter for dark mode. */
+.rowTypeChipWorkspace {
+  color: #c07a10;
+}
+
+.rowTypeChipManufacturer {
+  color: #1f9469;
+}
+
+:global(html[data-theme='dark']) .rowTypeChipWorkspace {
+  color: var(--cm-workspace-strong);
+}
+
+:global(html[data-theme='dark']) .rowTypeChipManufacturer {
+  color: var(--cm-manufacturer-strong);
+}
+
+/* ---------- Expanded (modal) map ---------- */
+
+.modalOverlay {
+  composes: themeVars;
+  position: fixed;
+  inset: 0;
+  z-index: 4000; /* portaled to <body>, above all site chrome */
+  background: rgba(9, 10, 13, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3vh 3vw;
+  overscroll-behavior: contain;
+}
+
+/* Brand watermark, bottom-right of the map panel. */
+.watermark {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  width: 96px;
+  height: 32px;
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* .theme-doc-markdown img adds a border + drop shadow to every doc image;
+   images inside the map panel are UI, not content — undo it. */
+.mapPanel .watermark,
+.mapPanel .cardAvatar {
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+/* Fit the 960x500 panel to the viewport in both dimensions. */
+.mapPanelExpanded {
+  width: min(94vw, 168vh);
+  max-height: 94vh;
+}
+
+/* Holds the map's spot in the page flow while the panel is in the modal,
+   so the document doesn't reflow behind the dimmed backdrop. */
+.mapPlaceholder {
+  aspect-ratio: 960 / 500;
+  background: var(--cm-map-bg);
+  border: 1px solid var(--cm-land-stroke);
 }
