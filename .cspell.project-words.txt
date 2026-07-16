@@ -106,6 +106,7 @@ supermajority
 svgs
 tamasfe
 Thomasg
+Tokenholders
 Tokenomics
 typecheck
 Unhover
