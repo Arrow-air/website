@@ -34,7 +34,7 @@ This "non-inurement" principle is not just philosophy; it is a structural legal 
 
 **Nonprofit does not mean tax-exempt.** Arrow Air is a *taxable* nonprofit: it files regular US federal income tax returns and pays tax on any net income, like any other business entity. It has not sought 501(c)(3) charitable status, and contributions to Arrow are not tax-deductible donations. The nonprofit commitment is about where money can never go — into members' pockets as profit — not about receiving special tax treatment.
 
-**Nonprofit also does not mean the token can't be valuable.** $ARROW can appreciate the way membership in any growing network does: more aircraft flying, more manufacturers and builders participating, and more activity governed by the DAO all increase demand for a voice in it. What the nonprofit structure rules out is one specific thing — the DAO paying holders (dividends, revenue share, redemptions). Value comes from what the network does, not from a claim on its treasury.
+**Nonprofit also does not mean the token can't be valuable.** [$ARROW](/docs/governance/arrow-token) can appreciate the way membership in any growing network does: more aircraft flying, more manufacturers and builders participating, and more activity governed by the DAO all increase demand for a voice in it. What the nonprofit structure rules out is one specific thing — the DAO paying holders (dividends, revenue share, redemptions). Value comes from what the network does, not from a claim on its treasury.
 
 ## How governance and the legal entity fit together
 
