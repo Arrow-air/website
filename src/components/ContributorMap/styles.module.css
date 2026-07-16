@@ -25,9 +25,227 @@
 
 .mapPanel {
   position: relative;
+  display: flex;
+  align-items: stretch;
   background: var(--cm-map-bg);
   border: 1px solid var(--cm-land-stroke);
   overflow: hidden;
+}
+
+/* The map (svg/globe) plus every overlay anchored to it. */
+.mapArea {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- Side panel (store-locator style) ---------- */
+
+/* Hidden on narrow viewports: the floating card + table below cover the
+   same ground there. */
+.sidePanel {
+  display: none;
+}
+
+/* Absolutely anchored so the map alone sets the panel height; the list
+   scrolls inside whatever height that gives. */
+@media (min-width: 997px) {
+  .sidePanel {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 264px;
+    border-right: 1px solid var(--cm-land-stroke);
+    background: rgba(23, 24, 29, 0.6);
+    font-family: var(--ifm-font-family-base);
+    z-index: 3;
+  }
+
+  .mapArea {
+    margin-left: 264px;
+  }
+}
+
+/* Segmented control, shadcn-style: muted track, elevated active segment. */
+.sideTabs {
+  display: flex;
+  gap: 2px;
+  margin: 8px 8px 0;
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--cm-land-stroke);
+  border-radius: 6px;
+}
+
+.sideTab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 4px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--cm-muted-on-dark);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sideTab:hover {
+  color: var(--cm-text-on-dark);
+}
+
+.sideTab:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -2px;
+}
+
+.sideTabActive {
+  color: var(--cm-text-on-dark);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.sideTabCount {
+  font-weight: 400;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.sideSearch {
+  margin: 8px;
+  padding: 6px 9px;
+  border: 1px solid var(--cm-land-stroke);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--cm-text-on-dark);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.sideSearch::placeholder {
+  color: var(--cm-muted-on-dark);
+}
+
+.sideSearch:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -1px;
+}
+
+/* Inset to the same 8px gutter as the tabs and search box, so row edges
+   sit flush with them. Scoped under .sidePanel to out-specify the site
+   theme's `.theme-doc-markdown ul` padding. */
+.sidePanel .sideList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0 8px 6px;
+  list-style: none;
+}
+
+.sideItem {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Out-specify the site theme's markdown li markers (same trick as legend). */
+.sideList > .sideItem::before,
+.sideList > .sideEmpty::before {
+  content: none;
+}
+
+.sideItem::marker,
+.sideEmpty::marker {
+  content: '';
+}
+
+/* Dense single-line rows, table-like. */
+.sideItemButton {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 4px 6px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--cm-text-on-dark);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Subtle zebra striping; hover and selected states sit above it. */
+.sideItem:nth-child(even) .sideItemButton {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.sideItemButton:hover,
+.sideItem:nth-child(even) .sideItemButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sideItemButton:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -2px;
+}
+
+.sideItemSelected,
+.sideItem:nth-child(even) .sideItemButton.sideItemSelected {
+  background: rgba(77, 126, 247, 0.16);
+}
+
+.sideItemButton .cardAvatar {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: none;
+  margin: 0;
+}
+
+.sideItemName {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sideItemPlace {
+  flex: 1;
+  min-width: 0;
+  color: var(--cm-muted-on-dark);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sideItemTime {
+  flex: none;
+  color: var(--cm-muted-on-dark);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sideEmpty {
+  list-style: none;
+  padding: 10px;
+  color: var(--cm-muted-on-dark);
+  font-size: 12px;
 }
 
 .mapSvg {
@@ -156,63 +374,51 @@
 /* ---------- Profile card ---------- */
 
 /* Brand-blue card: the dark-on-dark version disappeared into the map. */
+/* Dense tooltip card, anchored to the selected dot. */
 .card {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 262px;
-  max-width: calc(100% - 20px);
+  width: max-content;
+  max-width: 230px;
   background: rgba(8, 67, 191, 0.96);
   border: 1px solid var(--cm-accent);
   color: #fff;
-  padding: 16px;
+  padding: 9px 30px 9px 11px;
   z-index: 3;
-  font-size: 13px;
+  font-size: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
 }
 
-/* Expanded (modal) mode: card anchors to the selected dot. left/top come
-   from inline styles (percentages of the panel); the transform lifts the
-   card above the dot and centers it, with a triangle pointing back down. */
+/* left/top come from inline styles (percentages of the map area); the
+   transform lifts the card above the dot and centers it, with a triangle
+   pointing back down. */
 .cardAnchored {
-  transform: translate(-50%, calc(-100% - 26px));
+  transform: translate(-50%, calc(-100% - 18px));
 }
 
 .cardAnchored::after {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -9px;
+  bottom: -8px;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 9px solid rgba(8, 67, 191, 0.96);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgba(8, 67, 191, 0.96);
 }
 
 /* Dot near the top of the map: flip the card below it, triangle on top. */
 .cardAnchoredBelow {
-  transform: translate(-50%, 26px);
+  transform: translate(-50%, 18px);
 }
 
 .cardAnchoredBelow::after {
   bottom: auto;
-  top: -9px;
+  top: -8px;
   border-top: none;
-  border-bottom: 9px solid rgba(8, 67, 191, 0.96);
-}
-
-.cardHeader {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-/* Let the name/place column shrink so long names wrap instead of
-   overflowing the card (flex children default to min-width: auto). */
-.cardHeader > div:last-child {
-  min-width: 0;
+  border-bottom: 8px solid rgba(8, 67, 191, 0.96);
 }
 
 .cardAvatar {
@@ -227,7 +433,7 @@
    higher specificity than a lone CSS-module class — scope under .card. */
 .card .cardName {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1.25;
   margin: 0;
   color: #fff;
@@ -237,8 +443,8 @@
 
 .cardPlace {
   color: rgba(255, 255, 255, 0.78);
-  font-size: 12px;
-  margin-top: 2px;
+  font-size: 11px;
+  margin-top: 1px;
 }
 
 .cardApprox {
@@ -246,26 +452,18 @@
 }
 
 .cardTime {
-  margin-top: 8px;
+  margin-top: 4px;
   font-family: 'Jetbrainsmono', monospace;
-  font-size: 12px;
+  font-size: 11px;
   color: #dbe7ff;
   font-variant-numeric: tabular-nums;
-}
-
-.card .cardBlurb {
-  margin: 10px 0 0;
-  font-size: 13px;
-  line-height: 1.45;
-  color: #fff;
-  overflow-wrap: break-word;
 }
 
 .cardTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 10px;
+  gap: 3px;
+  margin-top: 6px;
 }
 
 .cardTag {
@@ -278,27 +476,32 @@
   white-space: nowrap;
 }
 
-.cardMeta {
-  margin-top: 10px;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.78);
-}
-
-.cardLinks {
+/* Links + compact pager on one line at the card's foot. */
+.cardFooter {
   display: flex;
+  align-items: center;
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 7px;
+  font-size: 11px;
 }
 
-.cardLinks a {
+.cardFooter a {
   color: #fff;
-  font-size: 12px;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.45);
 }
 
-.cardLinks a:hover {
+.cardFooter a:hover {
   border-bottom-color: #fff;
+}
+
+.cardPagerCompact {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .cardClose {
@@ -324,25 +527,8 @@
   outline: 2px solid #fff;
 }
 
-.cardPager {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.cardPagerLabel {
-  font-size: 11px;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-}
-
 .pagerButton {
-  padding: 5px 10px;
+  padding: 2px 7px;
   border: 1px solid rgba(255, 255, 255, 0.7);
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
@@ -366,14 +552,6 @@
   outline: 2px solid #fff;
 }
 
-@media (max-width: 640px) {
-  .card {
-    position: static;
-    width: 100%;
-    max-width: none;
-    border-top: none;
-  }
-}
 
 /* ---------- Directory table ---------- */
 
@@ -753,16 +931,17 @@
   margin: 0;
 }
 
-/* Fit the 960x500 panel to the viewport in both dimensions. */
+/* Fit the 960x600 map (plus the 264px side panel) to the viewport in both
+   dimensions. */
 .mapPanelExpanded {
-  width: min(94vw, 168vh);
+  width: min(94vw, calc(150vh + 264px));
   max-height: 94vh;
 }
 
 /* Holds the map's spot in the page flow while the panel is in the modal,
    so the document doesn't reflow behind the dimmed backdrop. */
 .mapPlaceholder {
-  aspect-ratio: 960 / 500;
+  aspect-ratio: 960 / 600;
   background: var(--cm-map-bg);
   border: 1px solid var(--cm-land-stroke);
 }

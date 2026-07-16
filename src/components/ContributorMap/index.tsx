@@ -28,6 +28,11 @@ import styles from './styles.module.css';
 
 const MAP_W: number = geometry.width;
 const MAP_H: number = geometry.height;
+/* Extra viewBox height above/below the projected map (960×500 is a wide
+  letterbox; the panel reads better taller). The pan clamp + pointer math
+  account for it. */
+const PAD_Y = 50;
+const VIEW_H = MAP_H + 2 * PAD_Y;
 const MAX_ZOOM = 12;
 const CLUSTER_PX = 18;
 
@@ -182,10 +187,17 @@ function clusterPlaced(placed: Placed[], k: number): Cluster[] {
 
 function clampTransform(t: Transform): Transform {
   const k = Math.min(Math.max(t.k, 1), MAX_ZOOM);
+  // Vertically: while the scaled map is shorter than the padded viewport
+  // (-PAD_Y .. MAP_H+PAD_Y), keep it centered; once it's taller, clamp so it
+  // always covers the viewport.
+  const y =
+    MAP_H * k <= VIEW_H
+      ? (MAP_H - MAP_H * k) / 2
+      : Math.min(-PAD_Y, Math.max(MAP_H + PAD_Y - MAP_H * k, t.y));
   return {
     k,
     x: Math.min(0, Math.max(MAP_W - MAP_W * k, t.x)),
-    y: Math.min(0, Math.max(MAP_H - MAP_H * k, t.y)),
+    y,
   };
 }
 
@@ -319,6 +331,276 @@ interface Selection {
   ids: string[];
   index: number;
 }
+
+/* Dense tooltip-style card content: name, place, local time, join date,
+  and skill tags — nothing that makes it tall. Rendered inside an
+  <AnchoredCard> pointing at the selected dot. */
+function DotCard({
+  person,
+  now,
+  selection,
+  onPage,
+  onClose,
+  approx,
+}: {
+  person: Contributor;
+  now: Date | null;
+  selection: Selection;
+  onPage: (index: number) => void;
+  onClose: () => void;
+  approx?: boolean;
+}) {
+  const lt = formatLocalTime(person.tz, now);
+  return (
+    <>
+      <button
+        type="button"
+        className={styles.cardClose}
+        aria-label="Close profile"
+        onClick={onClose}
+      >
+        ×
+      </button>
+      <p className={styles.cardName}>
+        {person.name}
+        {typeOf(person) !== 'contributor' && (
+          <span
+            className={[
+              styles.cardTypeBadge,
+              typeOf(person) === 'workspace'
+                ? styles.cardTypeBadgeWorkspace
+                : styles.cardTypeBadgeManufacturer,
+            ].join(' ')}
+          >
+            {TYPE_NOUN[typeOf(person)][0]}
+          </span>
+        )}
+      </p>
+      <div className={styles.cardPlace}>
+        {person.city ? `${person.city}, ${person.country}` : person.country}
+        {approx && <span className={styles.cardApprox}> · approx.</span>}
+      </div>
+      <div className={styles.cardTime}>
+        {lt ? `${lt.time} ${lt.abbr}` : '— local'} ·{' '}
+        {typeOf(person) === 'contributor' ? 'joined' : 'since'}{' '}
+        {formatJoined(person.joined)}
+      </div>
+      {(person.disciplines?.length ?? 0) > 0 && (
+        <div className={styles.cardTags}>
+          {person.disciplines!.map(d => (
+            <span key={d} className={styles.cardTag}>
+              {d}
+            </span>
+          ))}
+        </div>
+      )}
+      {(person.discord || person.github || selection.ids.length > 1) && (
+        <div className={styles.cardFooter}>
+          {person.discord && (
+            <a
+              href={`https://discord.com/users/${person.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Discord
+            </a>
+          )}
+          {person.github && (
+            <a
+              href={`https://github.com/${person.github}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          )}
+          {selection.ids.length > 1 && (
+            <span className={styles.cardPagerCompact}>
+              <button
+                type="button"
+                className={styles.pagerButton}
+                aria-label="Previous contributor here"
+                disabled={selection.index === 0}
+                onClick={() => onPage(selection.index - 1)}
+              >
+                ‹
+              </button>
+              {selection.index + 1}/{selection.ids.length}
+              <button
+                type="button"
+                className={styles.pagerButton}
+                aria-label="Next contributor here"
+                disabled={selection.index === selection.ids.length - 1}
+                onClick={() => onPage(selection.index + 1)}
+              >
+                ›
+              </button>
+            </span>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+/* Positions its children as a tooltip pointing at a dot. ax/ay are the
+  dot's position as fractions of the map area; the card flips below the dot
+  when it sits near the top and hides when the dot leaves the viewport. */
+function AnchoredCard({
+  ax,
+  ay,
+  label,
+  children,
+}: {
+  ax: number;
+  ay: number;
+  label: string;
+  children: React.ReactNode;
+}) {
+  if (ax < 0.02 || ax > 0.98 || ay < 0.02 || ay > 0.98) return null;
+  return (
+    <div
+      className={[
+        styles.card,
+        styles.cardAnchored,
+        ay < 0.45 ? styles.cardAnchoredBelow : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      style={{left: `${ax * 100}%`, top: `${ay * 100}%`}}
+      role="dialog"
+      aria-label={label}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* Store-locator-style panel beside the map (desktop only; CSS hides it on
+  narrow viewports where the floating card + table cover the same ground).
+  Tabs per entry type → searchable list synced with the dots; the selected
+  entry expands at the top. */
+function MapSidebar({
+  contributors,
+  now,
+  selectedId,
+  selectedPerson,
+  onPick,
+}: {
+  contributors: Contributor[];
+  now: Date | null;
+  selectedId: string | null;
+  selectedPerson: Contributor | undefined;
+  onPick: (id: string) => void;
+}) {
+  const [tab, setTab] = useState<EntryType>('contributor');
+  const [query, setQuery] = useState('');
+
+  /* Selecting a dot of another type (map click, table row) follows it. */
+  useEffect(() => {
+    if (selectedPerson) setTab(typeOf(selectedPerson));
+  }, [selectedPerson]);
+
+  const tabs = useMemo(() => {
+    const present = new Set(contributors.map(typeOf));
+    return (['contributor', 'workspace', 'manufacturer'] as EntryType[]).filter(
+      t => present.has(t),
+    );
+  }, [contributors]);
+
+  const list = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return contributors
+      .filter(c => typeOf(c) === tab)
+      .filter(c => {
+        if (!q) return true;
+        return [c.name, c.city ?? '', c.country, ...(c.disciplines ?? [])]
+          .join(' ')
+          .toLowerCase()
+          .includes(q);
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [contributors, tab, query]);
+
+  return (
+    <div className={styles.sidePanel}>
+      <div
+        className={styles.sideTabs}
+        role="group"
+        aria-label="Entry type list"
+      >
+        {tabs.map(t => (
+          <button
+            key={t}
+            type="button"
+            className={`${styles.sideTab} ${
+              tab === t ? styles.sideTabActive : ''
+            }`}
+            aria-pressed={tab === t}
+            onClick={() => setTab(t)}
+          >
+            <span
+              className={[
+                styles.legendSwatch,
+                t === 'workspace' ? styles.legendSwatchWorkspace : '',
+                t === 'manufacturer' ? styles.legendSwatchManufacturer : '',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            />
+            {SIDE_TAB_LABEL[t]}
+            <span className={styles.sideTabCount}>
+              {contributors.filter(c => typeOf(c) === t).length}
+            </span>
+          </button>
+        ))}
+      </div>
+      <input
+        type="search"
+        className={styles.sideSearch}
+        placeholder={`Search ${TYPE_NOUN[tab][1]}…`}
+        aria-label={`Search ${TYPE_NOUN[tab][1]}`}
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+      />
+      <ul className={styles.sideList} aria-label={LEGEND_LABEL[tab]}>
+        {list.map(c => {
+          const lt = formatLocalTime(c.tz, now);
+          return (
+            <li key={c.id} className={styles.sideItem}>
+              <button
+                type="button"
+                className={`${styles.sideItemButton} ${
+                  selectedId === c.id ? styles.sideItemSelected : ''
+                }`}
+                aria-current={selectedId === c.id || undefined}
+                title={c.city ? `${c.city}, ${c.country}` : c.country}
+                onClick={() => onPick(c.id)}
+              >
+                <Avatar person={c} size={18} />
+                <span className={styles.sideItemName}>{c.name}</span>
+                <span className={styles.sideItemPlace}>
+                  {c.city ? `${c.city}, ${c.country}` : c.country}
+                </span>
+                {lt && <span className={styles.sideItemTime}>{lt.time}</span>}
+              </button>
+            </li>
+          );
+        })}
+        {list.length === 0 && (
+          <li className={styles.sideEmpty}>No matches.</li>
+        )}
+      </ul>
+    </div>
+  );
+}
+
+/* Short tab labels — the full branded names don't fit three-up. */
+const SIDE_TAB_LABEL: Record<EntryType, string> = {
+  contributor: 'People',
+  workspace: 'Spaces',
+  manufacturer: 'Makers',
+};
 
 type SortKey = 'name' | 'country' | 'joined';
 
@@ -460,7 +742,7 @@ export default function ContributorMap(): React.ReactElement {
     const rect = svg.getBoundingClientRect();
     return {
       x: ((clientX - rect.left) / rect.width) * MAP_W,
-      y: ((clientY - rect.top) / rect.height) * MAP_H,
+      y: ((clientY - rect.top) / rect.height) * VIEW_H - PAD_Y,
     };
   }, []);
 
@@ -680,23 +962,32 @@ export default function ContributorMap(): React.ReactElement {
 
   const {k, x, y} = transform;
 
-  /* Expanded mode anchors the card to the selected dot (arrow pointing at
-    it) instead of the fixed top-left corner. Position is the dot's map
-    coords as a percentage of the panel, so the card tracks pan/zoom. Flips
-    below the dot when it sits in the top part of the map. */
-  const cardAnchor = useMemo(() => {
-    // Globe view: dot positions live inside <Globe>; use the corner card.
-    if (view !== 'flat') return null;
-    if (!expanded || !selectedPerson) return null;
+  /* The selected dot's card renders as a tooltip anchored to the dot. The
+    card content is shared; each view supplies the dot's screen position
+    (the flat map here, the globe via its anchoredCard callback). */
+  const dotCard =
+    selectedPerson && selection ? (
+      <DotCard
+        person={selectedPerson}
+        now={now}
+        selection={selection}
+        onPage={index => setSelection({...selection, index})}
+        onClose={() => setSelection(null)}
+        approx={selectedPerson.approx}
+      />
+    ) : null;
+
+  const flatCardAnchor = useMemo(() => {
+    if (view !== 'flat' || !selectedPerson) return null;
     const cluster = clusters.find(cl =>
       cl.members.some(m => m.id === selectedPerson.id),
     );
     if (!cluster) return null;
-    const ax = (cluster.x * k + x + cluster.ox) / MAP_W;
-    const ay = (cluster.y * k + y + cluster.oy) / MAP_H;
-    if (ax < 0.02 || ax > 0.98 || ay < 0.02 || ay > 0.98) return null;
-    return {ax, ay, below: ay < 0.45};
-  }, [view, expanded, selectedPerson, clusters, k, x, y]);
+    return {
+      ax: (cluster.x * k + x + cluster.ox) / MAP_W,
+      ay: (cluster.y * k + y + cluster.oy + PAD_Y) / VIEW_H,
+    };
+  }, [view, selectedPerson, clusters, k, x, y]);
 
   /* When expanded, the panel is portaled to <body>: the docs layout creates
     stacking contexts (sticky navbar et al.) that an in-place overlay cannot
@@ -722,18 +1013,39 @@ export default function ContributorMap(): React.ReactElement {
         }`}
         onKeyDown={onMapKeyDown}
       >
+        <MapSidebar
+          contributors={contributors}
+          now={now}
+          selectedId={selection ? selection.ids[selection.index] : null}
+          selectedPerson={selectedPerson}
+          onPick={zoomToPerson}
+        />
+        <div className={styles.mapArea}>
         {view === 'globe' ? (
           <Globe
             ref={globeRef}
             visible={contributors.filter(c => !hiddenTypes.has(typeOf(c)))}
             selectedIds={selectedIds}
             onSelectCluster={ids => setSelection({ids, index: 0})}
+            anchoredCard={
+              dotCard && selectedPerson
+                ? (ax, ay) => (
+                    <AnchoredCard
+                      ax={ax}
+                      ay={ay}
+                      label={`Profile: ${selectedPerson.name}`}
+                    >
+                      {dotCard}
+                    </AnchoredCard>
+                  )
+                : undefined
+            }
           />
         ) : (
         <svg
           ref={svgRef}
           className={`${styles.mapSvg} ${dragging ? styles.dragging : ''}`}
-          viewBox={`0 0 ${MAP_W} ${MAP_H}`}
+          viewBox={`0 ${-PAD_Y} ${MAP_W} ${VIEW_H}`}
           role="group"
           aria-label="World map of Arrow contributors, workspaces, and manufacturers. The same information is available in the table below."
           onPointerDown={onPointerDown}
@@ -762,7 +1074,12 @@ export default function ContributorMap(): React.ReactElement {
             {clusters.map(cluster => {
               const cx = cluster.x * k + x + cluster.ox;
               const cy = cluster.y * k + y + cluster.oy;
-              if (cx < -20 || cx > MAP_W + 20 || cy < -20 || cy > MAP_H + 20) {
+              if (
+                cx < -20 ||
+                cx > MAP_W + 20 ||
+                cy < -PAD_Y - 20 ||
+                cy > MAP_H + PAD_Y + 20
+              ) {
                 return null;
               }
               const n = cluster.members.length;
@@ -933,139 +1250,16 @@ export default function ContributorMap(): React.ReactElement {
           </div>
         )}
 
-        {selectedPerson && selection && (
-          <div
-            className={[
-              styles.card,
-              cardAnchor ? styles.cardAnchored : '',
-              cardAnchor?.below ? styles.cardAnchoredBelow : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-            style={
-              cardAnchor
-                ? {
-                    left: `${cardAnchor.ax * 100}%`,
-                    top: `${cardAnchor.ay * 100}%`,
-                  }
-                : undefined
-            }
-            role="dialog"
-            aria-label={`Profile: ${selectedPerson.name}`}
+        {dotCard && selectedPerson && flatCardAnchor && (
+          <AnchoredCard
+            ax={flatCardAnchor.ax}
+            ay={flatCardAnchor.ay}
+            label={`Profile: ${selectedPerson.name}`}
           >
-            <button
-              type="button"
-              className={styles.cardClose}
-              aria-label="Close profile"
-              onClick={() => setSelection(null)}
-            >
-              ×
-            </button>
-            <div className={styles.cardHeader}>
-              <Avatar person={selectedPerson} size={44} />
-              <div>
-                <p className={styles.cardName}>
-                  {selectedPerson.name}
-                  {typeOf(selectedPerson) !== 'contributor' && (
-                    <span
-                      className={[
-                        styles.cardTypeBadge,
-                        typeOf(selectedPerson) === 'workspace'
-                          ? styles.cardTypeBadgeWorkspace
-                          : styles.cardTypeBadgeManufacturer,
-                      ].join(' ')}
-                    >
-                      {TYPE_NOUN[typeOf(selectedPerson)][0]}
-                    </span>
-                  )}
-                </p>
-                <div className={styles.cardPlace}>
-                  {selectedPerson.city
-                    ? `${selectedPerson.city}, ${selectedPerson.country}`
-                    : selectedPerson.country}
-                  {selectedPerson.approx && (
-                    <span className={styles.cardApprox}> · approx.</span>
-                  )}
-                </div>
-              </div>
-            </div>
-            {(() => {
-              const lt = formatLocalTime(selectedPerson.tz, now);
-              return (
-                <div className={styles.cardTime}>
-                  🕐 {lt ? `${lt.time} local` : '— local'}
-                </div>
-              );
-            })()}
-            {selectedPerson.blurb && (
-              <p className={styles.cardBlurb}>{selectedPerson.blurb}</p>
-            )}
-            {(selectedPerson.disciplines?.length ?? 0) > 0 && (
-              <div className={styles.cardTags}>
-                {selectedPerson.disciplines!.map(d => (
-                  <span key={d} className={styles.cardTag}>
-                    {d}
-                  </span>
-                ))}
-              </div>
-            )}
-            <div className={styles.cardMeta}>
-              {typeOf(selectedPerson) === 'contributor' ? 'Joined' : 'Since'}{' '}
-              {formatJoined(selectedPerson.joined)}
-            </div>
-            {(selectedPerson.discord || selectedPerson.github) && (
-              <div className={styles.cardLinks}>
-                {selectedPerson.discord && (
-                  <a
-                    href={`https://discord.com/users/${selectedPerson.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Discord
-                  </a>
-                )}
-                {selectedPerson.github && (
-                  <a
-                    href={`https://github.com/${selectedPerson.github}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    GitHub
-                  </a>
-                )}
-              </div>
-            )}
-            {selection.ids.length > 1 && (
-              <div className={styles.cardPager}>
-                <button
-                  type="button"
-                  className={styles.pagerButton}
-                  aria-label="Previous contributor here"
-                  disabled={selection.index === 0}
-                  onClick={() =>
-                    setSelection({...selection, index: selection.index - 1})
-                  }
-                >
-                  ‹ Prev
-                </button>
-                <span className={styles.cardPagerLabel}>
-                  {selection.index + 1} of {selection.ids.length} here
-                </span>
-                <button
-                  type="button"
-                  className={styles.pagerButton}
-                  aria-label="Next contributor here"
-                  disabled={selection.index === selection.ids.length - 1}
-                  onClick={() =>
-                    setSelection({...selection, index: selection.index + 1})
-                  }
-                >
-                  Next ›
-                </button>
-              </div>
-            )}
-          </div>
+            {dotCard}
+          </AnchoredCard>
         )}
+        </div>
       </div>
     </div>
   );

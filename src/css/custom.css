@@ -2765,10 +2765,21 @@ video {
     flex-basis: 25% !important;
   }
   /* hide_table_of_contents: true omits docItemCol class entirely — constrain to 75% via container scope */
-  [class*="docRoot"]:not(:has(aside a[href^="/bounty"])) .row:has([class*="docItemContainer"]) > .col:only-child {
+  [class*="docRoot"]:not(:has(aside a[href^="/bounty"])):not(:has(.contributor-map-page))
+    .row:has([class*="docItemContainer"])
+    > .col:only-child {
     max-width: 75% !important;
     flex-basis: 75% !important;
   }
+}
+
+/* Contributor map page (marker div in contributor-map.mdx): full-width
+   content — no TOC column, and none of the usual prose width caps. */
+[class*="docRoot"]:has(.contributor-map-page) [class*="docItemContainer"] {
+  max-width: none;
+}
+[class*="docRoot"]:has(.contributor-map-page) .theme-doc-markdown {
+  max-width: none;
 }
 
 /* Bounty board: expand content column to full width */

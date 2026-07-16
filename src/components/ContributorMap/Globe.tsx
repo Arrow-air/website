@@ -29,8 +29,8 @@ import styles from './styles.module.css';
   so server render and hydration agree. */
 
 const VIEW_W = 960;
-const VIEW_H = 500;
-const BASE_R = 225; // sphere radius at zoom 1, fits VIEW_H with padding
+const VIEW_H = 600; // matches the flat map's padded viewBox height
+const BASE_R = 270; // sphere radius at zoom 1, fits VIEW_H with padding
 const MAX_ZOOM = 8;
 const CLUSTER_PX = 18;
 /* Initial view: mid-Atlantic, slight northern tilt — most contributors are
@@ -65,6 +65,9 @@ interface GlobeProps {
   visible: Contributor[];
   selectedIds: ReadonlySet<string>;
   onSelectCluster: (ids: string[]) => void;
+  /* Renders the selected dot's tooltip card; called with the dot's position
+    as fractions of the view. Skipped while the dot is behind the horizon. */
+  anchoredCard?: (ax: number, ay: number) => React.ReactNode;
 }
 
 function centroidLLFor(country: string): [number, number] | undefined {
@@ -114,7 +117,7 @@ function placeContributorsLL(list: Contributor[]): PlacedLL[] {
 }
 
 export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
-  {visible, selectedIds, onSelectCluster},
+  {visible, selectedIds, onSelectCluster, anchoredCard},
   ref,
 ) {
   const [rotation, setRotation] = useState<[number, number]>(HOME_ROTATION);
@@ -444,7 +447,12 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
     [startInertia],
   );
 
+  const selectedCluster = anchoredCard
+    ? clusters.find(c => c.members.some(m => selectedIds.has(m.id)))
+    : undefined;
+
   return (
+    <>
     <svg
       ref={svgRef}
       className={`${styles.mapSvg} ${dragging ? styles.dragging : ''}`}
@@ -525,5 +533,9 @@ export default forwardRef<GlobeHandle, GlobeProps>(function Globe(
         })}
       </g>
     </svg>
+    {anchoredCard &&
+      selectedCluster &&
+      anchoredCard(selectedCluster.sx / VIEW_W, selectedCluster.sy / VIEW_H)}
+    </>
   );
 });
