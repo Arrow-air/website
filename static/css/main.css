@@ -335,6 +335,13 @@
   }
 }
 
+/* Declare this page as dark so the browser paints its pre-CSS/navigation
+   canvas dark instead of the default white (white flash on refresh in
+   Brave, and when navigating to/from the page). */
+html {
+  color-scheme: dark;
+}
+
 body {
   background-color: var(--color-scheme-1--background);
   font-family: var(--_typography---font-styles--body);
