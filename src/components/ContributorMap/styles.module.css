@@ -1,0 +1,1024 @@
+/* ContributorMap — dark instrument-panel map, brand-accent dots.
+   The map panel is intentionally dark in both site themes (spec #180);
+   Sharp corners per Arrow brand. */
+
+/* Shared theme variables. Lives on its own class (not just .wrapper) because
+   the expanded map is portaled to <body>, outside the .wrapper subtree. */
+.themeVars {
+  --cm-map-bg: #17181d;
+  --cm-ocean: #0f1014; /* map area only — darker than panel/docs chrome */
+  --cm-land: #262932;
+  --cm-land-stroke: #31353f;
+  --cm-accent: #4d7ef7;
+  --cm-accent-strong: #7ba0ff;
+  --cm-workspace: #f0a53c;
+  --cm-workspace-strong: #ffc46e;
+  --cm-manufacturer: #3fbf8f;
+  --cm-manufacturer-strong: #74e0b8;
+  --cm-text-on-dark: #e8eaf0;
+  --cm-muted-on-dark: #9aa0ac;
+}
+
+.wrapper {
+  composes: themeVars;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.mapPanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: 1.5rem;
+  background: var(--cm-map-bg);
+  border: 1px solid var(--cm-land-stroke);
+  overflow: hidden;
+}
+
+/* The map (svg/globe) plus every overlay anchored to it. Darker than the
+   side panel and docs background so the map region reads as its own layer. */
+.mapArea {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  background: var(--cm-ocean);
+}
+
+/* ---------- Side panel (store-locator style) ---------- */
+
+/* Below 1280px the panel stacks BELOW the map, full width; the map always
+   renders first (flex order — the panel is first in the DOM). */
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  order: 2;
+  width: 100%;
+  border-top: 1px solid var(--cm-land-stroke);
+  background: rgba(23, 24, 29, 0.6);
+  font-family: var(--ifm-font-family-base);
+}
+
+.mapArea {
+  order: 1;
+}
+
+/* ≥1280px: beside the map, absolutely anchored so the map alone sets the
+   panel height; the list scrolls inside whatever height that gives. */
+@media (min-width: 1280px) {
+  .sidePanel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    order: initial;
+    width: var(--cm-panel-w, 264px);
+    border-top: none;
+    border-right: 1px solid var(--cm-land-stroke);
+    z-index: 3;
+  }
+
+  /* Only shift the map when the panel is actually rendered (it can be
+     collapsed via its ‹ grip). */
+  .sidePanel + .mapArea {
+    margin-left: var(--cm-panel-w, 264px);
+  }
+}
+
+/* Segmented control, shadcn-style: muted track, elevated active segment. */
+.sideTabs {
+  display: flex;
+  gap: 2px;
+  margin: 8px 8px 0;
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--cm-land-stroke);
+}
+
+/* Slim grip handle straddling the panel/map divider, vertically centered —
+   split-pane style, out of the header's way. Side-by-side layout only. */
+.sideCollapseButton {
+  display: none;
+  position: absolute;
+  right: -13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 13px;
+  height: 52px;
+  border: 1px solid var(--cm-land-stroke);
+  border-left: none;
+  background: rgba(23, 24, 29, 0.9);
+  color: var(--cm-muted-on-dark);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  z-index: 3;
+}
+
+.sideCollapseButton:hover {
+  color: var(--cm-text-on-dark);
+  border-color: var(--cm-accent);
+}
+
+.sideCollapseButton:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -2px;
+}
+
+/* Full-height drag strip on the divider (under the grip, which stays the
+   click target). Invisible until hovered/dragged: a 2px accent seam.
+   Side-by-side layout only. */
+.sideResizer {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 7px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 2;
+  touch-action: none;
+}
+
+.sideResizer:hover::after,
+.sideResizer:active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 2px;
+  height: 100%;
+  background: var(--cm-accent);
+  opacity: 0.6;
+}
+
+/* Reopen grip — the collapse handle's mirror image, attached to the map's
+   left edge while the panel is collapsed. Side-by-side layout only. */
+.panelOpenButton {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 13px;
+  height: 52px;
+  border: 1px solid var(--cm-land-stroke);
+  border-left: none;
+  background: rgba(23, 24, 29, 0.9);
+  color: var(--cm-muted-on-dark);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.panelOpenButton:hover {
+  border-color: var(--cm-accent);
+  color: var(--cm-accent-strong);
+}
+
+.panelOpenButton:focus-visible {
+  outline: 2px solid var(--cm-accent);
+  outline-offset: 1px;
+}
+
+/* Shown only in the side-by-side layout. Must come after the base
+   display:none above — same specificity, cascade order decides. */
+@media (min-width: 1280px) {
+  .panelOpenButton {
+    display: block;
+  }
+
+  .sideCollapseButton {
+    display: block;
+  }
+
+  .sideResizer {
+    display: block;
+  }
+}
+
+.sideTab {
+  flex: 1 1 0;
+  min-width: 0; /* let segments shrink with the panel instead of overflowing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 4px;
+  border: none;
+  background: transparent;
+  color: var(--cm-muted-on-dark);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sideTab:hover {
+  color: var(--cm-text-on-dark);
+}
+
+.sideTab:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -2px;
+}
+
+.sideTabActive {
+  color: var(--cm-text-on-dark);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.sideTabLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sideTabCount {
+  font-weight: 400;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.sideControls {
+  display: flex;
+  gap: 6px;
+  margin: 8px;
+}
+
+.sideSearch {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 9px;
+  border: 1px solid var(--cm-land-stroke);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--cm-text-on-dark);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+/* Sort dropdown, styled to match the search field. */
+.sideSort {
+  flex: none;
+  max-width: 92px;
+  padding: 6px 5px;
+  border: 1px solid var(--cm-land-stroke);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--cm-muted-on-dark);
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.sideSort:hover {
+  color: var(--cm-text-on-dark);
+}
+
+.sideSort:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -1px;
+}
+
+.sideSort option {
+  background: var(--cm-map-bg);
+  color: var(--cm-text-on-dark);
+}
+
+.sideSearch::placeholder {
+  color: var(--cm-muted-on-dark);
+}
+
+.sideSearch:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -1px;
+}
+
+/* Inset to the same 8px gutter as the tabs and search box, so row edges
+   sit flush with them. Scoped under .sidePanel to out-specify the site
+   theme's `.theme-doc-markdown ul` padding. */
+.sidePanel .sideList {
+  flex: 1;
+  min-height: 0;
+  max-height: 320px; /* stacked mode: cap + scroll */
+  overflow-y: auto;
+  margin: 0;
+  padding: 0 8px 6px;
+  list-style: none;
+}
+
+@media (min-width: 1280px) {
+  .sidePanel .sideList {
+    max-height: none; /* side mode: the map's height is the cap */
+  }
+}
+
+.sideItem {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Out-specify the site theme's markdown li markers (same trick as legend). */
+.sideList > .sideItem::before,
+.sideList > .sideEmpty::before {
+  content: none;
+}
+
+.sideItem::marker,
+.sideEmpty::marker {
+  content: '';
+}
+
+/* Dense single-line rows, table-like. */
+.sideItemButton {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 4px 6px;
+  border: none;
+  background: transparent;
+  color: var(--cm-text-on-dark);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Subtle zebra striping; hover and selected states sit above it. */
+.sideItem:nth-child(even) .sideItemButton {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.sideItemButton:hover,
+.sideItem:nth-child(even) .sideItemButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sideItemButton:focus-visible {
+  outline: 2px solid var(--cm-accent-strong);
+  outline-offset: -2px;
+}
+
+.sideItemSelected,
+.sideItem:nth-child(even) .sideItemButton.sideItemSelected {
+  background: rgba(77, 126, 247, 0.16);
+}
+
+.sideItemButton .cardAvatar {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+.sideItemName {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sideItemPlace {
+  flex: 1;
+  min-width: 0;
+  color: var(--cm-muted-on-dark);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sideItemTime {
+  flex: none;
+  color: var(--cm-muted-on-dark);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sideEmpty {
+  list-style: none;
+  padding: 10px;
+  color: var(--cm-muted-on-dark);
+  font-size: 12px;
+}
+
+.mapSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+  cursor: grab;
+}
+
+.mapSvg.dragging {
+  cursor: grabbing;
+}
+
+.land {
+  fill: var(--cm-land);
+  stroke: var(--cm-land-stroke);
+  stroke-width: 0.5;
+}
+
+.dot {
+  cursor: pointer;
+  outline: none;
+}
+
+.dotCircle {
+  fill: var(--cm-accent);
+  stroke: var(--cm-map-bg);
+  stroke-width: 1.25;
+  transition: fill 120ms ease;
+}
+
+.dot:hover .dotCircle,
+.dot:focus-visible .dotCircle {
+  fill: var(--cm-accent-strong);
+}
+
+.dot:focus-visible .dotCircle {
+  stroke: var(--cm-text-on-dark);
+  stroke-width: 1.5;
+}
+
+.dotSelected .dotCircle {
+  stroke: var(--cm-text-on-dark);
+  stroke-width: 1.75;
+}
+
+.selectionRing {
+  fill: none;
+  stroke: var(--cm-accent-strong);
+  stroke-width: 1.25;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .selectionRing {
+    animation: cmPulse 2s ease-out infinite;
+  }
+}
+
+@keyframes cmPulse {
+  0% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+.dotCount {
+  fill: #fff;
+  font-family: var(--ifm-font-family-base);
+  font-weight: 600;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+.zoomControls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+
+.zoomButton {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--cm-land-stroke);
+  background: rgba(23, 24, 29, 0.9);
+  color: var(--cm-text-on-dark);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.zoomButton:hover {
+  border-color: var(--cm-accent);
+  color: var(--cm-accent-strong);
+}
+
+.zoomButton:focus-visible {
+  outline: 2px solid var(--cm-accent);
+  outline-offset: 1px;
+}
+
+.mapHint {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  font-size: 11px;
+  color: var(--cm-muted-on-dark);
+  font-family: var(--ifm-font-family-base);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---------- Profile card ---------- */
+
+/* Brand-blue card: the dark-on-dark version disappeared into the map. */
+/* Dense tooltip card, anchored to the selected dot. */
+.card {
+  position: absolute;
+  width: max-content;
+  max-width: 250px;
+  background: rgba(8, 67, 191, 0.96);
+  border: 1px solid var(--cm-accent);
+  color: #fff;
+  padding: 9px 30px 9px 11px;
+  z-index: 3;
+  font-size: 13px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+}
+
+/* left/top come from inline styles (percentages of the map area); the
+   transform lifts the card above the dot and centers it, with a triangle
+   pointing back down. */
+.cardAnchored {
+  transform: translate(-50%, calc(-100% - 18px));
+}
+
+/* Fade in on arrival — the card mounts after fly-to animations settle. */
+@media (prefers-reduced-motion: no-preference) {
+  .cardAnchored {
+    animation: cmCardIn 160ms ease-out;
+  }
+}
+
+@keyframes cmCardIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cardAnchored::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgba(8, 67, 191, 0.96);
+}
+
+/* Dot near the top of the map: flip the card below it, triangle on top. */
+.cardAnchoredBelow {
+  transform: translate(-50%, 18px);
+}
+
+.cardAnchoredBelow::after {
+  bottom: auto;
+  top: -8px;
+  border-top: none;
+  border-bottom: 8px solid rgba(8, 67, 191, 0.96);
+}
+
+.cardAvatar {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: block;
+}
+
+/* .cardName and .cardBlurb are <p> elements, and the site theme styles
+   .theme-doc-markdown p (margin-bottom, 1rem font, secondary color) at
+   higher specificity than a lone CSS-module class — scope under .card. */
+.card .cardName {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.25;
+  margin: 0;
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.cardPlace {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+/* flag-icons sizes via em (width 1.333em), so font-size sets the flag size. */
+.cardPlace .cardFlag {
+  margin-left: 6px;
+  font-size: 10px;
+  vertical-align: 1px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.cardApprox {
+  font-style: italic;
+}
+
+/* Two-column labeled stats (LOCAL TIME / JOINED) — replaces the old
+   one-line "19:42 GMT+3 · joined Feb 2024" string, which read as raw
+   output and wrapped mid-phrase. */
+.cardMeta {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.cardMetaLabel {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cardMetaValue {
+  margin-top: 2px;
+  font-family: 'Jetbrainsmono', monospace;
+  font-size: 12px;
+  color: #dbe7ff;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.card .cardBlurb {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+  overflow-wrap: break-word;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+.cardTag {
+  border: none;
+  border-radius: 4px;
+  background: #0f101333;
+  color: #ffffff;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+/* Links + compact pager on one line at the card's foot. */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 7px;
+  font-size: 12px;
+}
+
+.cardFooter a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.cardFooter a:hover {
+  border-bottom-color: #fff;
+}
+
+/* Compact pager: two square arrow buttons flanking a fixed-width count, so
+   the group holds its shape and alignment as the index changes. */
+.cardPagerCompact {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.pagerCount {
+  min-width: 30px;
+  text-align: center;
+  font-family: 'Jetbrainsmono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #dbe7ff;
+  font-variant-numeric: tabular-nums;
+}
+
+.cardClose {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cardClose:hover {
+  color: #fff;
+}
+
+.cardClose:focus-visible {
+  outline: 2px solid #fff;
+}
+
+.pagerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0 0 2px; /* optical: ‹/› glyphs sit low in the box */
+  border: none;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.pagerButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.pagerButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pagerButton:focus-visible {
+  outline: 2px solid #fff;
+}
+
+
+.demoNotice {
+  font-size: 12px;
+  color: var(--ifm-color-emphasis-600);
+  margin-top: 6px;
+}
+
+/* ---------- Internal admin borders (US states, UK home nations, …) ---------- */
+
+/* Stroke stays 1px at every zoom (vector-effect: non-scaling-stroke on the
+   path), sitting visually below the country outlines, which do scale. */
+.adminBorders {
+  fill: none;
+  stroke: var(--cm-land-stroke);
+  stroke-width: 1;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* ---------- Globe view ---------- */
+
+.viewToggleButton {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Sphere stays panel-toned so it stands out against the darker "space"
+   (.mapArea) behind it. */
+.globeOcean {
+  fill: var(--cm-map-bg);
+  stroke: none;
+}
+
+.globeGraticule {
+  fill: none;
+  stroke: var(--cm-land-stroke);
+  stroke-width: 0.5;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.globeOutline {
+  fill: none;
+  stroke: var(--cm-land-stroke);
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+
+/* ---------- Entry-type dot colors ---------- */
+
+.dotWorkspace .dotCircle {
+  fill: var(--cm-workspace);
+}
+
+.dotWorkspace:hover .dotCircle,
+.dotWorkspace:focus-visible .dotCircle {
+  fill: var(--cm-workspace-strong);
+}
+
+.dotWorkspace .selectionRing {
+  stroke: var(--cm-workspace-strong);
+}
+
+.dotManufacturer .dotCircle {
+  fill: var(--cm-manufacturer);
+}
+
+.dotManufacturer:hover .dotCircle,
+.dotManufacturer:focus-visible .dotCircle {
+  fill: var(--cm-manufacturer-strong);
+}
+
+.dotManufacturer .selectionRing {
+  stroke: var(--cm-manufacturer-strong);
+}
+
+/* ---------- Legend ---------- */
+
+/* Doubled class out-specifies the theme's `.theme-doc-markdown ul`
+   padding-left, which otherwise wins over a single module class. */
+.legend.legend {
+  position: absolute;
+  left: 10px;
+  bottom: 28px; /* above .mapHint; bottom-left sits over open ocean */
+  margin: 0;
+  padding: 6px 10px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(23, 24, 29, 0.85);
+  border: 1px solid var(--cm-land-stroke);
+  font-size: 11px;
+  color: var(--cm-muted-on-dark);
+  font-family: var(--ifm-font-family-base);
+  z-index: 2;
+  user-select: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none; /* the site theme styles li markers; none leak through */
+  margin: 0;
+}
+
+.legendItem::marker {
+  content: '';
+}
+
+/* The Arrow theme decorates markdown li with a square ::before
+   (.theme-doc-markdown ul > li::before) — out-specify it here. */
+.legend > .legendItem::before {
+  content: none;
+}
+
+.legend > .legendItem {
+  padding: 0;
+}
+
+.legendLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.legendLabel:hover {
+  color: var(--cm-text-on-dark);
+}
+
+.legendCheckbox {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  accent-color: var(--cm-accent);
+  cursor: pointer;
+}
+
+.legendSwatchOff {
+  opacity: 0.3;
+}
+
+.legendSwatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cm-accent);
+  flex: 0 0 9px;
+}
+
+.legendSwatchWorkspace {
+  background: var(--cm-workspace);
+}
+
+.legendSwatchManufacturer {
+  background: var(--cm-manufacturer);
+}
+
+/* ---------- Entry-type badges (profile card) ---------- */
+
+/* Filled chip above the name, keyed to the entry-type dot colors. */
+.cardTypeBadge {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 2px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  border-radius: 2px;
+  color: #0f1729;
+}
+
+.cardTypeBadgeContributor {
+  background: var(--cm-accent-strong);
+}
+
+.cardTypeBadgeWorkspace {
+  background: var(--cm-workspace);
+}
+
+.cardTypeBadgeManufacturer {
+  background: var(--cm-manufacturer);
+}
+
+/* ---------- Expanded (modal) map ---------- */
+
+.modalOverlay {
+  composes: themeVars;
+  position: fixed;
+  inset: 0;
+  z-index: 4000; /* portaled to <body>, above all site chrome */
+  background: rgba(9, 10, 13, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3vh 3vw;
+  overscroll-behavior: contain;
+}
+
+/* Brand watermark, bottom-right of the map panel. */
+.watermark {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  width: 96px;
+  height: 32px;
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* .theme-doc-markdown img adds a border + drop shadow to every doc image;
+   images inside the map panel are UI, not content — undo it. */
+.mapPanel .watermark,
+.mapPanel .cardAvatar {
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+/* Fit the 960x680 map (plus the side panel) to the viewport in both
+   dimensions. */
+.mapPanelExpanded {
+  width: min(94vw, calc(133vh + var(--cm-panel-w, 264px)));
+  max-height: 94vh;
+}
+
+/* Holds the map's spot in the page flow while the panel is in the modal,
+   so the document doesn't reflow behind the dimmed backdrop. */
+.mapPlaceholder {
+  aspect-ratio: 960 / 680;
+  background: var(--cm-map-bg);
+  border: 1px solid var(--cm-land-stroke);
+}

@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arrowair.com/schemas/contributors.schema.json",
+  "title": "Arrow Contributor Map data",
+  "description": "Opt-in contributor directory rendered as the map + table on /docs/community. Entries are added via the /new-contributor Discord command (bot opens a PR) and removed via /remove-me. See https://github.com/Arrow-air/website/issues/180 for the full spec.",
+  "type": "object",
+  "required": ["contributors"],
+  "properties": {
+    "contributors": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/contributor" }
+    }
+  },
+  "$defs": {
+    "contributor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "country", "joined"],
+      "if": {
+        "anyOf": [
+          {"not": {"required": ["type"]}},
+          {"properties": {"type": {"const": "contributor"}}}
+        ]
+      },
+      "then": {"required": ["disciplines"]},
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Discord user ID (snowflake). Stable key for edits/removal and the seed for deterministic scatter/avatar generation. Demo entries use demo-*. Workspace/manufacturer entries use a stable slug.",
+          "pattern": "^(\\d{15,21}|demo-[a-z0-9-]+|(ws|mfg)-[a-z0-9-]+)$"
+        },
+        "type": {
+          "enum": ["contributor", "workspace", "manufacturer"],
+          "description": "Entry kind, rendered as different dot colors with a map key. Absent = contributor (a person). 'workspace' = an Arrow workshop/workspace location; 'manufacturer' = a manufacturing partner (AIP-009). disciplines is required for contributors only."
+        },
+        "name": {
+          "type": "string",
+          "description": "Discord display name as shown on the map and table.",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "country": {
+          "type": "string",
+          "description": "Country display name. Must match a country name in world-map-geometry.json (Natural Earth naming) so the centroid lookup works.",
+          "minLength": 2,
+          "maxLength": 64
+        },
+        "city": {
+          "type": "string",
+          "description": "Optional city/town — contributor's choice of granularity. When present, lat/lng must also be present.",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "City latitude, resolved from GeoNames at submission time."
+        },
+        "lng": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "City longitude, resolved from GeoNames at submission time."
+        },
+        "tz": {
+          "type": "string",
+          "description": "IANA timezone (e.g. America/Chicago). Derived from city lat/lng, or optionally chosen by country-only contributors. Omit = no local time shown.",
+          "pattern": "^[A-Za-z_]+(/[A-Za-z0-9_+-]+){1,2}$"
+        },
+        "disciplines": {
+          "type": "array",
+          "description": "1-3 disciplines from the canonical list.",
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "Mechanical/CAD",
+              "Electronics/PCB",
+              "Firmware/Autopilot",
+              "Software/Tools",
+              "Flight Test",
+              "Aero",
+              "Manufacturing",
+              "Docs",
+              "Design/Media",
+              "Community",
+              "Governance/Ops",
+              "Business/Legal"
+            ]
+          }
+        },
+        "blurb": {
+          "type": "string",
+          "description": "Free-text intro. Max 140 chars, no URLs (enforced by the bot; the card already links Discord/GitHub).",
+          "maxLength": 140,
+          "not": { "pattern": "https?://|www\\." }
+        },
+        "joined": {
+          "type": "string",
+          "description": "Month the person joined the Arrow community (from Discord guild joined_at, manual override allowed). Displayed as e.g. 'Nov 2021'.",
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+        },
+        "discord": {
+          "type": "string",
+          "description": "Discord username, for the profile-card link.",
+          "maxLength": 40
+        },
+        "github": {
+          "type": "string",
+          "description": "GitHub username, for the profile-card link and avatar fallback. Asked for explicitly by the bot (optional prompt) — it cannot be derived from a Discord identity.",
+          "pattern": "^[A-Za-z0-9-]{1,39}$"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Site-relative path to the committed 128px avatar snapshot (e.g. /img/contributors/<id>.webp). Omit = GitHub avatar if github set, else generated gradient.",
+          "pattern": "^/img/contributors/"
+        },
+        "signupAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Metadata: when the map entry itself was created. Not displayed."
+        },
+        "demo": {
+          "type": "boolean",
+          "description": "Marks placeholder demo data. All demo entries are removed before launch — real people appear only via /new-contributor."
+        }
+      },
+      "dependentRequired": {
+        "city": ["lat", "lng"],
+        "lat": ["city", "lng"],
+        "lng": ["city", "lat"]
+      }
+    }
+  }
+}
