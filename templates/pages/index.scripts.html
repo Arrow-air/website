@@ -185,11 +185,16 @@
   });
 
   var SCALE = 4;
+  gl.clearColor(0, 0, 0, 1);
   function resize() {
     var r = hero.getBoundingClientRect();
     canvas.width  = Math.floor(r.width  / SCALE);
     canvas.height = Math.floor(r.height / SCALE);
     gl.viewport(0, 0, canvas.width, canvas.height);
+    // Setting canvas.width/height blanks the drawing buffer; present an
+    // opaque black frame right away so the canvas never composites white
+    // in the gap before the first requestAnimationFrame draw.
+    gl.clear(gl.COLOR_BUFFER_BIT);
   }
   resize();
   window.addEventListener('resize', resize);
@@ -205,6 +210,9 @@
     gl.uniform3fv(uRipples, new Float32Array(ripples));
     gl.uniform2f(uMouse, mouseSmooth[0], mouseSmooth[1]);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
+    // Reveal only once real pixels exist — the canvas is opacity:0 in CSS
+    // because Chromium can composite a content-less canvas layer as white.
+    canvas.classList.add('is-live');
   }
   requestAnimationFrame(frame);
 })();
