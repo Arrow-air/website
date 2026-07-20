@@ -46,6 +46,10 @@ const config = {
   projectName: "arrow", // Usually your repo name.
 
   headTags: [
+    // Parsed before the render-blocking stylesheet, so the browser paints a
+    // scheme-matched canvas (not white) while CSS is still loading — prevents
+    // a white flash when navigating here from the dark homepage.
+    {tagName: 'meta', attributes: {name: 'color-scheme', content: 'dark light'}},
     {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/img/favicons/favicon-32x32.png'}},
     {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/img/favicons/favicon-16x16.png'}},
     {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: '/img/favicons/apple-touch-icon.png'}},
