@@ -2765,10 +2765,40 @@ video {
     flex-basis: 25% !important;
   }
   /* hide_table_of_contents: true omits docItemCol class entirely — constrain to 75% via container scope */
-  [class*="docRoot"]:not(:has(aside a[href^="/bounty"])) .row:has([class*="docItemContainer"]) > .col:only-child {
+  [class*="docRoot"]:not(:has(aside a[href^="/bounty"])):not(:has(.contributor-map-page))
+    .row:has([class*="docItemContainer"])
+    > .col:only-child {
     max-width: 75% !important;
     flex-basis: 75% !important;
   }
+}
+
+/* Contributor map page (marker div in contributor-map.mdx): full-width
+   content — no TOC column, and none of the usual prose width caps. */
+[class*="docRoot"]:has(.contributor-map-page) [class*="docItemContainer"] {
+  max-width: none;
+}
+[class*="docRoot"]:has(.contributor-map-page) .theme-doc-markdown {
+  max-width: none;
+}
+/* Breadcrumbs are normally centered at 900px to match the prose column;
+   on this full-width page, align them with the title's 2rem inset instead.
+   Both the container and the inner ul carry centering/max-width rules. */
+[class*="docRoot"]:has(.contributor-map-page) [class*="breadcrumbsContainer"] {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+[class*="docRoot"]:has(.contributor-map-page) ul.breadcrumbs {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  /* the base .breadcrumbs padding is !important — counter it, as the
+     generatedIndexPage rules do */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 /* Bounty board: expand content column to full width */
