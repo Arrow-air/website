@@ -106,8 +106,10 @@ const config = {
       path: 'docs-spearhead',
       routeBasePath: 'spearhead',
       sidebarPath: require.resolve('./sidebars-spearhead.js'),
+      // Content is imported from the project-spearhead repo at build time
+      // (see external-docs.json), so edits belong upstream.
       editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
-        `https://github.com/Arrow-air/website/edit/staging/docs-spearhead/${docPath}`,
+        `https://github.com/Arrow-air/project-spearhead/edit/main/docs/${docPath}`,
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {

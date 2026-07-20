@@ -5,5 +5,13 @@
     "docsPath": "docs",
     "sidebarLabel": "Project Quiver",
     "sidebarPosition": 1
+  },
+  "project-spearhead": {
+    "repo": "Arrow-air/project-spearhead",
+    "branch": "main",
+    "docsPath": "docs",
+    "sidebarLabel": "Spearhead",
+    "targetPath": "docs-spearhead",
+    "routeBasePath": "spearhead"
   }
 }
