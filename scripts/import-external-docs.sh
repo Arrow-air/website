@@ -254,6 +254,35 @@ patch_known_route_mismatches() {
 			-e 's|\[Engineering Reports\](\./Engineering-Reports/)|[Engineering Reports](/quiver/category/reference--engineering-reports/)|g' \
 			"$target_path/index.md" 2>/dev/null || true
 	fi
+
+	if [ "$key" = "project-spearhead" ]; then
+		local repo_url="https://github.com/Arrow-air/project-spearhead"
+
+		# Root-relative links into the source repo tree (/src/...) have no
+		# route on this site; point them at GitHub.
+		find "$target_path" -name '*.md' -type f | while read -r mdfile; do
+			sed_inplace \
+				-e "s|](/src/|](${repo_url}/blob/main/src/|g" \
+				"$mdfile" 2>/dev/null || true
+		done
+
+		# Bare directory links (cases/, figures/) have no doc route either.
+		local stability_note="$target_path/information-note/phase-1/Flight-Dynamics/0001-Preliminary-Fixed-Wing-Stability-Analysis/information-note.md"
+		if [ -f "$stability_note" ]; then
+			local stability_tree="$repo_url/tree/main/docs/information-note/phase-1/Flight-Dynamics/0001-Preliminary-Fixed-Wing-Stability-Analysis"
+			sed_inplace \
+				-e "s|\[cases/\](cases/)|[cases/](${stability_tree}/cases/)|g" \
+				-e "s|\[figures/\](figures/)|[figures/](${stability_tree}/figures/)|g" \
+				"$stability_note" 2>/dev/null || true
+		fi
+
+		# Stale TOC anchor: the heading dropped its "(Stubs)" suffix upstream.
+		if [ -f "$target_path/electrical-master.md" ]; then
+			sed_inplace \
+				-e 's|(#5-phase-2-hybrid-integration-stubs)|(#5-phase-2-hybrid-integration)|g' \
+				"$target_path/electrical-master.md" 2>/dev/null || true
+		fi
+	fi
 }
 
 # If the imported docs folder does not define a Docusaurus category, create a
@@ -300,6 +329,34 @@ EOF
 	fi
 }
 
+# Dedicated docs instances (custom targetPath) serve their route root from an
+# index doc. If the source repo does not ship one, create a stub so the route
+# (e.g. /spearhead) does not 404.
+ensure_root_index() {
+	local target_path="$1"
+	local sidebar_label="$2"
+	local repo="$3"
+
+	if [ -f "$target_path/index.md" ] || [ -f "$target_path/index.mdx" ]; then
+		return
+	fi
+
+	cat > "$target_path/index.md" << EOF
+---
+title: ${sidebar_label}
+sidebar_position: 1
+---
+
+# ${sidebar_label}
+
+Documentation for ${sidebar_label}, imported from
+[${repo}](https://github.com/${repo}).
+
+Browse the sections in the sidebar to get started.
+EOF
+	echo "  Created stub index.md (source repo has no docs index)"
+}
+
 # Import one entry from external-docs.json.
 import_key() {
 	local key="$1"
@@ -331,6 +388,9 @@ import_key() {
 	mirror_static_assets "$key" "$target_path" "$route_base"
 	patch_known_route_mismatches "$key" "$target_path"
 	create_default_category_if_needed "$key" "$target_path" "$sidebar_label" "$sidebar_position" "$custom_target"
+	if [ -n "$custom_target" ]; then
+		ensure_root_index "$target_path" "$sidebar_label" "$repo"
+	fi
 
 	echo "✓ Imported $repo -> $target_path"
 }
