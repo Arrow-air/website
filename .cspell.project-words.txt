@@ -119,6 +119,7 @@ supermajority
 svgs
 tamasfe
 Thomasg
+Tokenholders
 Tokenomics
 topo
 topojson
