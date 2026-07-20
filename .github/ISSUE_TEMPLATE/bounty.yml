@@ -59,22 +59,51 @@ body:
       description: Use if this bounty should expire or be reviewed after a calendar date.
       placeholder: "2026-06-30"
 
-  - type: checkboxes
+  - type: dropdown
     id: skills
     attributes:
       label: Skills / tags
-      description: Select any that apply.
+      description: Select any that apply. Standard Arrow contributor disciplines (see src/data/disciplines.json).
+      multiple: true
       options:
-        - label: Engineering
-        - label: CAD
-        - label: Electronics
-        - label: Software
-        - label: Documentation
-        - label: Design
-        - label: Media
-        - label: Research
-        - label: Testing
-        - label: Governance
+        - Engineering · Mechanical
+        - Engineering · CAD
+        - Engineering · Electrical
+        - Engineering · Firmware
+        - Engineering · Software
+        - Engineering · Aerodynamics
+        - Engineering · Power
+        - Engineering · Simulation
+        - Flight Ops · Piloting
+        - Flight Ops · Flight Test
+        - Flight Ops · Maintenance
+        - Flight Ops · Airspace
+        - Flight Ops · Missions
+        - Manufacturing · 3D Printing
+        - Manufacturing · Machining
+        - Manufacturing · Composites
+        - Manufacturing · Assembly
+        - Manufacturing · Sourcing
+        - Manufacturing · Quality
+        - Design · Industrial
+        - Design · Interface
+        - Design · Graphics
+        - Content · Documentation
+        - Content · Media
+        - Content · Social Media
+        - Growth · Marketing
+        - Growth · Community
+        - Growth · Business Development
+        - Growth · Investment
+        - Local · Chapters
+        - Local · Ventures
+        - Local · Infrastructure
+        - Local · Logistics
+        - Operations · Governance
+        - Operations · Treasury
+        - Operations · Tokenomics
+        - Operations · Coordination
+        - Operations · Legal
 
   - type: input
     id: thumbnail

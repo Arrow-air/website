@@ -1,0 +1,92 @@
+{
+  "$comment": "Canonical Arrow contributor discipline taxonomy (v0.6). Single source of truth for the contributor map, contributor CRM, and bounty board skill tags. Slugs are stable identifiers and globally unique; display names may change, slugs must not. Designed in Discord thread #arrow-disciplines, Jul 2026.",
+  "version": "0.6",
+  "categories": [
+    {
+      "slug": "engineering",
+      "name": "Engineering",
+      "disciplines": [
+        { "slug": "mechanical", "name": "Mechanical" },
+        { "slug": "cad", "name": "CAD" },
+        { "slug": "electrical", "name": "Electrical" },
+        { "slug": "firmware", "name": "Firmware" },
+        { "slug": "software", "name": "Software" },
+        { "slug": "aerodynamics", "name": "Aerodynamics" },
+        { "slug": "power", "name": "Power" },
+        { "slug": "simulation", "name": "Simulation" }
+      ]
+    },
+    {
+      "slug": "flight-ops",
+      "name": "Flight Ops",
+      "disciplines": [
+        { "slug": "piloting", "name": "Piloting" },
+        { "slug": "flight-test", "name": "Flight Test" },
+        { "slug": "maintenance", "name": "Maintenance" },
+        { "slug": "airspace", "name": "Airspace" },
+        { "slug": "missions", "name": "Missions" }
+      ]
+    },
+    {
+      "slug": "manufacturing",
+      "name": "Manufacturing",
+      "disciplines": [
+        { "slug": "3d-printing", "name": "3D Printing" },
+        { "slug": "machining", "name": "Machining" },
+        { "slug": "composites", "name": "Composites" },
+        { "slug": "assembly", "name": "Assembly" },
+        { "slug": "sourcing", "name": "Sourcing" },
+        { "slug": "quality", "name": "Quality" }
+      ]
+    },
+    {
+      "slug": "design",
+      "name": "Design",
+      "disciplines": [
+        { "slug": "industrial", "name": "Industrial" },
+        { "slug": "interface", "name": "Interface" },
+        { "slug": "graphics", "name": "Graphics" }
+      ]
+    },
+    {
+      "slug": "content",
+      "name": "Content",
+      "disciplines": [
+        { "slug": "documentation", "name": "Documentation" },
+        { "slug": "media", "name": "Media" },
+        { "slug": "social-media", "name": "Social Media" }
+      ]
+    },
+    {
+      "slug": "growth",
+      "name": "Growth",
+      "disciplines": [
+        { "slug": "marketing", "name": "Marketing" },
+        { "slug": "community", "name": "Community" },
+        { "slug": "business-development", "name": "Business Development" },
+        { "slug": "investment", "name": "Investment" }
+      ]
+    },
+    {
+      "slug": "local",
+      "name": "Local",
+      "disciplines": [
+        { "slug": "chapters", "name": "Chapters" },
+        { "slug": "ventures", "name": "Ventures" },
+        { "slug": "infrastructure", "name": "Infrastructure" },
+        { "slug": "logistics", "name": "Logistics" }
+      ]
+    },
+    {
+      "slug": "operations",
+      "name": "Operations",
+      "disciplines": [
+        { "slug": "governance", "name": "Governance" },
+        { "slug": "treasury", "name": "Treasury" },
+        { "slug": "tokenomics", "name": "Tokenomics" },
+        { "slug": "coordination", "name": "Coordination" },
+        { "slug": "legal", "name": "Legal" }
+      ]
+    }
+  ]
+}
