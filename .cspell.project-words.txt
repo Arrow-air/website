@@ -24,6 +24,7 @@ CICD
 CMSIS
 CONOPS
 Coordinape
+counterparty
 devkit
 Dework
 docsmsft
@@ -55,6 +56,7 @@ IDAT
 IEND
 IHDR
 imag
+incentivized
 incentivizing
 inotifywait
 INPLACE
@@ -124,6 +126,7 @@ Tokenomics
 topo
 topojson
 typecheck
+undeployed
 Türkiye
 Unhover
 unixtimestamp

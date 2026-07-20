@@ -18,8 +18,9 @@ All Arrow Improvement Proposals are stored in the [dao-aips repository](https://
 | [AIP-007](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-007.md) | Create Projects List | Informational | Living | 2025-02-21 |
 | [AIP-008](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-008.md) | Mission and Broad Roadmap | Operational | Final | 2025-04-22 |
 | [AIP-009](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-009.md) | Manufacturing Protocol Basic Design | Protocol | Final | 2025-11-15 |
+| [AIP-010](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-010.md) | Tokenomics V1 | Protocol | Final | 2026-07-21 |
 
-All 9 proposals have passed. You can view the full vote history on the [Arrow Snapshot space](https://snapshot.org/#/s:arrowair.eth).
+All 10 proposals have passed. You can view the full vote history on the [Arrow Snapshot space](https://snapshot.org/#/s:arrowair.eth).
 
 ## Summary
 
@@ -40,3 +41,5 @@ All 9 proposals have passed. You can view the full vote history on the [Arrow Sn
 **AIP-008** codified Arrow's mission ("increase physical connectedness to the people and places you love") and a five-step product roadmap from small drones to manned air taxis.
 
 **AIP-009** proposed the decentralized manufacturing protocol: an on-chain shop with bonded manufacturers, collateral that can be slashed, and open-source licensing for Arrow-designed products.
+
+**AIP-010** established Tokenomics V1: fixed 100M $ARROW supply with no minting, three active token utilities (governance, manufacturing bonds, contributor compensation), and an annual treasury deployment cap approved by governance vote each year. See [The $ARROW Token](../arrow-token) for the full framework.
