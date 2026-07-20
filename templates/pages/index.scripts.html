@@ -212,6 +212,9 @@
   window.addEventListener('pagehide', hideNow);
   window.addEventListener('beforeunload', hideNow);
   document.addEventListener('click', function (e) {
+    // Modified/middle clicks open a new tab — this page never navigates, so
+    // hiding here would blank the hero for good (no pageshow to restore it).
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (a && a.target !== '_blank' && (a.getAttribute('href') || '').charAt(0) !== '#') hideNow();
   }, true);

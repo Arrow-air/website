@@ -19,10 +19,10 @@
   <link rel="manifest" href="/img/favicons/site.webmanifest">
   <style>
       /* Inline (not in main.css) so it can't be defeated by a stale cached
-         stylesheet: the hero WebGL canvas must never be composited without
-         valid content — browsers paint such layers opaque WHITE, flashing
-         over the black hero on load and during navigation. The script adds
-         .is-live after the first drawn frame and removes it on navigation. */
+        stylesheet: the hero WebGL canvas must never be composited without
+        valid content — browsers paint such layers opaque WHITE, flashing
+        over the black hero on load and during navigation. The script adds
+        .is-live after the first drawn frame and removes it on navigation. */
       #hero-dither-canvas {
         background-color: #000;
         opacity: 0;
