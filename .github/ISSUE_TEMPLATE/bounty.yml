@@ -1,6 +1,6 @@
 name: Bounty
-description: Create a bounty-backed work item
-labels: ["bounty"]
+description: Propose a bounty-backed work item. Goes live on the bounty board once approved (label flipped to "bounty") by an authorized maintainer.
+labels: ["bounty:proposal"]
 body:
   - type: markdown
     attributes:
