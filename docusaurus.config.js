@@ -72,7 +72,7 @@ const config = {
         indexDocs: true,
         indexBlog: true,
         blogDir: "blog/",
-        docsDir: ["docs", "docs-quiver", "docs-spearhead", "docs-flight-tracking", "docs-bounty"],
+        docsDir: ["docs", "docs-quiver", "docs-spearhead", "docs-caribou", "docs-bounty"],
         language: "en",
         searchResultLimits: 8,
         highlightSearchTermsOnTargetPage: true,
@@ -117,12 +117,14 @@ const config = {
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {
-      id: 'flight-tracking',
-      path: 'docs-flight-tracking',
-      routeBasePath: 'flight-tracking',
-      sidebarPath: require.resolve('./sidebars-flight-tracking.js'),
+      id: 'caribou',
+      path: 'docs-caribou',
+      routeBasePath: 'caribou',
+      sidebarPath: require.resolve('./sidebars-caribou.js'),
+      // Content is imported from the project-caribou repo at build time
+      // (see external-docs.json), so edits belong upstream.
       editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
-        `https://github.com/Arrow-air/website/edit/staging/docs-flight-tracking/${docPath}`,
+        `https://github.com/Arrow-air/project-caribou/edit/main/docs/${docPath}`,
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {

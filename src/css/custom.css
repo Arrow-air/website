@@ -1411,7 +1411,7 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
    Encode < as %3C, > as %3E. Add !important to both properties.
    ========================================================================== */
 
-/* OVERVIEW (note: used in both main docs and flight tracking sidebars) */
+/* OVERVIEW */
 .theme-doc-sidebar-menu .menu__link:has(span[title="OVERVIEW"])::before {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath d='M12 12H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 5H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 19H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 12H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 5H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 19H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 12H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 19H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 5H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3C/g%3E%3C/svg%3E") !important;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath d='M12 12H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 5H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 19H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 12H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 5H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 19H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 12H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 19H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 5H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3C/g%3E%3C/svg%3E") !important;
@@ -1474,40 +1474,6 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4,19.2h16v2.8H4v-2.8Z' fill='black' stroke='black' stroke-width='2' stroke-linecap='square' stroke-miterlimit='10'/%3E%3Cpath d='M16.45 12.05L13.7 11.44 12 15.37 10.3 11.44 7.55 12.05 12 5.49 16.45 12.05z' fill='black'/%3E%3Cpath d='M4 2H20V22H4z' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4,19.2h16v2.8H4v-2.8Z' fill='black' stroke='black' stroke-width='2' stroke-linecap='square' stroke-miterlimit='10'/%3E%3Cpath d='M16.45 12.05L13.7 11.44 12 15.37 10.3 11.44 7.55 12.05 12 5.49 16.45 12.05z' fill='black'/%3E%3Cpath d='M4 2H20V22H4z' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
 }
-
-/* ── Flight Tracking sidebar ─────────────────────────────────────────────── */
-
-/* ENGINEERING */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="ENGINEERING"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
-
-/* GUIDES */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="GUIDES"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
-
-/* REPORTS */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="REPORTS"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
-
-/* CONTRIBUTE */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="CONTRIBUTE"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
 
 /* ==========================================================================
    SIDEBAR BOTTOM LABEL

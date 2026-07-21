@@ -13,5 +13,13 @@
     "sidebarLabel": "Spearhead",
     "targetPath": "docs-spearhead",
     "routeBasePath": "spearhead"
+  },
+  "project-caribou": {
+    "repo": "Arrow-air/project-caribou",
+    "branch": "main",
+    "docsPath": "docs",
+    "sidebarLabel": "Caribou",
+    "targetPath": "docs-caribou",
+    "routeBasePath": "caribou"
   }
 }
