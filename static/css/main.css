@@ -5420,7 +5420,9 @@ a[target="_blank"]:hover::after {
 
 @media screen and (max-width: 991px) {
   .arrow-navbar_dropdown-link:hover {
-    border: none;
+    /* border: none removed the 1px box and made the card shrink 2px on
+      hover, shifting every card below it. Keep the box, hide the color. */
+    border-color: transparent;
   }
 
   .arrow-navbar_link::after,
