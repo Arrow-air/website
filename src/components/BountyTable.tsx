@@ -138,6 +138,13 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
             </tr>
           </thead>
           <tbody>
+            {visibleRows.length === 0 && (
+              <tr>
+                <td colSpan={3} style={{ textAlign: 'center', padding: '28px 16px', color: 'var(--docs-text-secondary)' }}>
+                  No open bounties in this category yet — fresh bounties are coming soon.
+                </td>
+              </tr>
+            )}
             {visibleRows.map((row, i) => (
               <tr
                 key={row.title}
@@ -267,7 +274,7 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
           </tbody>
         </table>
       </div>
-      {hideClaimedToggle && (
+      {hideClaimedToggle && rows.length > 0 && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
           <button
             onClick={() => setHideClaimed(v => !v)}
