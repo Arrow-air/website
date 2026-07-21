@@ -43,7 +43,7 @@
       "pattern": "https://logs.px4.io"
     },
     {
-      "pattern": "https://etherscan.io/address/"
+      "pattern": "https://etherscan.io/"
     },
     {
       "pattern": "https://ree.auto/"
