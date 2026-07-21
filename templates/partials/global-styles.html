@@ -295,6 +295,50 @@
                 justify-content: flex-start !important;
                 font-size: 1.125rem !important;
               }
+              /* The inner .drop-menu-title re-applies mono + uppercase
+                (main.css) — neutralize so QUICKLINKS matches the other links */
+              .arrow-navbar_dropdown-toggle .drop-menu-title {
+                font-family: 'Neue Haas Grotesk', sans-serif !important;
+                text-transform: none !important;
+              }
+              /* Tone down the dropdown section headings (ENGINEERING etc):
+                no mono/uppercase, no bullet icon — plain muted labels */
+              .arrow-navbar_dropdown-list .menu-title-bullet {
+                display: none !important;
+              }
+              .arrow-navbar_dropdown-list .text-size-small.is-mega-menu.title {
+                font-family: 'Neue Haas Grotesk', sans-serif !important;
+                text-transform: none !important;
+                color: var(--_primitives---opacity--white-60) !important;
+              }
+              /* The dropdown wrapper computes to a flex row, so the expanded
+                panel renders beside the toggle and overflows off-screen —
+                stack toggle + panel and let the panel fill the drawer */
+              .arrow-navbar_menu-dropdown {
+                flex-direction: column !important;
+                width: 100% !important;
+              }
+              .arrow-navbar_dropdown-list {
+                width: 100% !important;
+                min-width: 0 !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+              }
+              .arrow-navbar_dropdown-list .arrow-navbar_container {
+                width: 100% !important;
+                max-width: none !important;
+              }
+              /* Webflow's mobile open-state class only sets position:static;
+                visibility normally comes from the desktop hover animation,
+                which is unreliable on taps (stale inline opacity:0). Tie
+                visibility directly to the open state instead. */
+              .w--nav-dropdown-open .arrow-navbar_dropdown-list {
+                display: block !important;
+                opacity: 1 !important;
+                /* Kill Webflow's default #ddd dropdown background — the
+                  drawer behind it is already the right color */
+                background-color: transparent !important;
+              }
             }
           </style>
       </div>
