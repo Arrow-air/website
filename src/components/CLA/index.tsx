@@ -6,7 +6,7 @@ const GITHUB_CLIENT_ID_PRD = '825ac8e5815ccf3fa411';
 const GITHUB_CLIENT_ID_STG = '9830b30b4d8e0f1bba78';
 const SIGN_API_URL = '/api/v1/cla/user/sign';
 
-export default function CLA(): JSX.Element {
+export default function CLA(): React.JSX.Element {
   const [acceptedCLA, setAcceptedCLA ]= useState(false);
   const [ghCode, setGhCode ]= useState('');
 

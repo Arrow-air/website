@@ -28,7 +28,7 @@
       "pattern": "^/bounty"
     },
     {
-      "pattern": "^/flight-tracking/"
+      "pattern": "^/caribou"
     },
     {
       "pattern": "^/img/"
@@ -43,7 +43,13 @@
       "pattern": "https://logs.px4.io"
     },
     {
-      "pattern": "https://etherscan.io/address/"
+      "pattern": "https://etherscan.io/"
+    },
+    {
+      "pattern": "https://ree.auto/"
+    },
+    {
+      "pattern": "https://autoware.org/open-ad-kit/"
     }
   ],
   "httpHeaders": [

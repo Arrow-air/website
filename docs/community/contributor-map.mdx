@@ -1,0 +1,59 @@
+---
+sidebar_position: 2
+title: Contributor Map
+sidebar_label: Contributor Map
+description: Arrow contributors around the world — see who's where, and put yourself on the map.
+hide_table_of_contents: true
+---
+
+import ContributorMap from '@site/src/components/ContributorMap';
+
+<div className="contributor-map-page">
+
+Arrow contributors, around the world. Click a dot or a row to see who's there.
+
+<ContributorMap />
+
+## Put yourself on the map
+
+The map is opt-in: you only appear on it by registering yourself through the
+Discord bot. Location granularity is your choice. Country is enough, and a
+city makes your dot precise.
+
+<Steps>
+  <Step title="Run the command">
+    In any channel on the [Arrow Discord](https://discord.com/invite/arrow), type:
+
+    ```
+    /new-contributor
+    ```
+  </Step>
+  <Step title="Pick your location">
+    Choose your **country** from the list. Optionally add your **city or town**
+    by typing and picking from the autocomplete. City is optional on purpose: if
+    you'd rather not share it, your dot is placed in the general area of your
+    country instead.
+  </Step>
+  <Step title="Choose your disciplines">
+    Select up to **3 disciplines**, the things you actually work on, from
+    Mechanical/CAD to Governance/Ops. These show as tags on your profile card.
+  </Step>
+  <Step title="Write a short blurb">
+    One line about what you do (140 characters max). No links needed, since your
+    Discord and GitHub are linked from the card already.
+  </Step>
+  <Step title="Add your GitHub username">
+    Optional, but recommended if you contribute code or CAD. The bot knows who
+    you are on Discord, but it can't work out your GitHub handle from that, so
+    this is where you tell it. It becomes the GitHub link on your profile card
+    and the avatar fallback if your Discord avatar can't be used.
+  </Step>
+  <Step title="Confirm and wait for the merge">
+    The bot snapshots your Discord avatar and opens a pull request with your
+    entry. Once a maintainer merges it, your dot is live on this page. Change of
+    plans later? Run `/new-contributor` again to update your entry, or
+    `/remove-me` to come off the map entirely.
+  </Step>
+</Steps>
+
+</div>

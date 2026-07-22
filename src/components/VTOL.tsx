@@ -4,7 +4,7 @@ import clsx from 'clsx';
 type VTOLItem = {
   title: string;
   image: string;
-  description: JSX.Element;
+  description: React.JSX.Element;
   index?: number;
 };
 
@@ -59,7 +59,7 @@ function VTOLItemRender({title, image, description, index}: VTOLItem) {
   );
 }
 
-export default function VTOL(): JSX.Element {
+export default function VTOL(): React.JSX.Element {
   return (
     <React.Fragment>
     <article className="row justify-content-center text-center bg-navy bg-future text-white border-bottom border-orange">

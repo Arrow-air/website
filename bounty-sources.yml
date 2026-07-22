@@ -1,0 +1,10 @@
+# Repositories scanned by scripts/sync-bounties.mjs.
+# V1 uses the website repo as the centralized bounty admin surface.
+# Project-specific deliverables should be linked from the bounty issue body.
+repos:
+  - Arrow-air/website
+
+labels:
+  bounty: bounty
+  completed: bounty:completed
+  cancelled: bounty:cancelled

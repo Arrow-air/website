@@ -8,7 +8,7 @@
     "watch-templates": "node scripts/build-html.js --watch",
     "prebuild": "node scripts/build-html.js && bash scripts/import-external-docs.sh",
     "docusaurus": "docusaurus",
-    "start": "node scripts/build-html.js --watch & docusaurus start",
+    "start": "bash scripts/start-dev.sh",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -16,30 +16,37 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "start:local-docs": "bash scripts/start-local-docs.sh"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.1",
     "@docusaurus/preset-classic": "^3.10.1",
-    "@easyops-cn/docusaurus-search-local": "^0.44.6",
+    "@easyops-cn/docusaurus-search-local": "^0.55.1",
     "@mdx-js/react": "^3.1.1",
     "clsx": "^2.1.1",
+    "d3-geo": "^3.1.1",
+    "docusaurus-plugin-image-zoom": "^3.0.1",
+    "flag-icons": "^7.5.0",
     "lottie-web": "^5.13.0",
     "motion": "^12.38.0",
     "prism-react-renderer": "^2.4.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "react-hot-toast": "^2.6.0",
     "redocusaurus": "^2.5.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.10.1",
     "@tsconfig/docusaurus": "2.0.9",
-    "@types/react": "^18.3.28",
-    "@types/react-dom": "^18.3.7",
+    "@types/d3-geo": "^3.1.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "gts": "^7.0.0",
     "playwright": "^1.60.0",
-    "typescript": "^5.9.3"
+    "topojson-client": "^3.1.0",
+    "typescript": "^6.0.3",
+    "world-atlas": "^2.0.2"
   },
   "browserslist": {
     "production": [

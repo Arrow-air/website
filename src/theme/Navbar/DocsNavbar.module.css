@@ -257,7 +257,7 @@
 .dropdownMenu {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
+  left: -1.5rem;
   z-index: 350;
   background: #0943bf;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -468,7 +468,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 16px;
+  padding: 0px 12px;
   height: 33px;
   margin-top: 8px;
   margin-right: 4px;
@@ -477,8 +477,8 @@
   border-radius: 5px 5px 0 0;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-bottom-color: transparent;
-  font-family: 'Jetbrainsmono', 'Departure Mono', monospace;
-  font-size: 0.75rem;
+  font-family: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -617,6 +617,15 @@
 
   .tooltip {
     display: none;
+  }
+
+  /* Anchor dropdowns to the right edge of their button so they grow
+     leftward and stay within the viewport on small screens. */
+  .dropdownMenu {
+    left: auto;
+    right: 0;
+    transform-origin: top right;
+    max-width: calc(100vw - 16px);
   }
 }
 

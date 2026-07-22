@@ -930,13 +930,13 @@ h1, .h1 {
 ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link,
 ul.theme-doc-sidebar-menu > [data-sidebar-category] > li > .menu__list-item-collapsible .menu__link,
 .theme-doc-sidebar-menu > .theme-doc-sidebar-item-link-level-1 > .menu__link {
-  font-family: 'Jetbrainsmono', 'Departure Mono', monospace !important;
-  font-size: 14px !important;
+  font-family: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.04em !important;
   color: #000000 !important;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.75rem;
   padding-left: 1.75rem !important;
   position: relative;
 }
@@ -1411,7 +1411,7 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
    Encode < as %3C, > as %3E. Add !important to both properties.
    ========================================================================== */
 
-/* OVERVIEW (note: used in both main docs and flight tracking sidebars) */
+/* OVERVIEW */
 .theme-doc-sidebar-menu .menu__link:has(span[title="OVERVIEW"])::before {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath d='M12 12H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 5H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 19H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 12H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 5H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 19H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 12H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 19H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 5H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3C/g%3E%3C/svg%3E") !important;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath d='M12 12H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 5H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M12 19H12.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 12H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 5H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M19 19H19.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 12H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 19H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3Cpath d='M5 5H5.01' stroke='black' stroke-width='3' stroke-linecap='square'/%3E%3C/g%3E%3C/svg%3E") !important;
@@ -1474,40 +1474,6 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4,19.2h16v2.8H4v-2.8Z' fill='black' stroke='black' stroke-width='2' stroke-linecap='square' stroke-miterlimit='10'/%3E%3Cpath d='M16.45 12.05L13.7 11.44 12 15.37 10.3 11.44 7.55 12.05 12 5.49 16.45 12.05z' fill='black'/%3E%3Cpath d='M4 2H20V22H4z' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4,19.2h16v2.8H4v-2.8Z' fill='black' stroke='black' stroke-width='2' stroke-linecap='square' stroke-miterlimit='10'/%3E%3Cpath d='M16.45 12.05L13.7 11.44 12 15.37 10.3 11.44 7.55 12.05 12 5.49 16.45 12.05z' fill='black'/%3E%3Cpath d='M4 2H20V22H4z' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
 }
-
-/* ── Flight Tracking sidebar ─────────────────────────────────────────────── */
-
-/* ENGINEERING */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="ENGINEERING"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
-
-/* GUIDES */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="GUIDES"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
-
-/* REPORTS */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="REPORTS"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
-
-/* CONTRIBUTE */
-/*
-.theme-doc-sidebar-menu .menu__link:has(span[title="CONTRIBUTE"])::before {
-  mask-image: url("data:image/svg+xml, ... ") !important;
-  -webkit-mask-image: url("data:image/svg+xml, ... ") !important;
-}
-*/
 
 /* ==========================================================================
    SIDEBAR BOTTOM LABEL
@@ -2456,9 +2422,36 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
   text-overflow: ellipsis;
 }
 
+/* Zoom affordance for standalone docs images */
+.theme-doc-markdown p > img,
+.theme-doc-markdown figure > img {
+  cursor: zoom-in;
+}
+
+/* medium-zoom: lift overlay + zoomed image above Docusaurus' navbar
+   and sidebar (both use --ifm-z-index-fixed: 200). Without this the
+   dim overlay sits beneath the sidebar and the zoomed image is
+   visually clipped behind it. */
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 9999 !important;
+}
+
+/* Disable medium-zoom on mobile: native pinch-zoom is sufficient there,
+   and the overlay gets in the way. `pointer-events: none` blocks the
+   click handler medium-zoom binds to each img. */
+@media (max-width: 996px) {
+  .theme-doc-markdown p > img,
+  .theme-doc-markdown figure > img {
+    cursor: auto;
+    pointer-events: none;
+  }
+}
+
 /* Minimize button — replaces ::after, now functional */
 .image-collapse-btn {
   position: absolute;
+  z-index: 1;
   top: 0;
   right: 0;
   height: 2rem;
@@ -2738,10 +2731,40 @@ video {
     flex-basis: 25% !important;
   }
   /* hide_table_of_contents: true omits docItemCol class entirely — constrain to 75% via container scope */
-  [class*="docRoot"]:not(:has(aside a[href^="/bounty"])) .row:has([class*="docItemContainer"]) > .col:only-child {
+  [class*="docRoot"]:not(:has(aside a[href^="/bounty"])):not(:has(.contributor-map-page))
+    .row:has([class*="docItemContainer"])
+    > .col:only-child {
     max-width: 75% !important;
     flex-basis: 75% !important;
   }
+}
+
+/* Contributor map page (marker div in contributor-map.mdx): full-width
+   content — no TOC column, and none of the usual prose width caps. */
+[class*="docRoot"]:has(.contributor-map-page) [class*="docItemContainer"] {
+  max-width: none;
+}
+[class*="docRoot"]:has(.contributor-map-page) .theme-doc-markdown {
+  max-width: none;
+}
+/* Breadcrumbs are normally centered at 900px to match the prose column;
+   on this full-width page, align them with the title's 2rem inset instead.
+   Both the container and the inner ul carry centering/max-width rules. */
+[class*="docRoot"]:has(.contributor-map-page) [class*="breadcrumbsContainer"] {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+[class*="docRoot"]:has(.contributor-map-page) ul.breadcrumbs {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  /* the base .breadcrumbs padding is !important — counter it, as the
+     generatedIndexPage rules do */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 /* Bounty board: expand content column to full width */

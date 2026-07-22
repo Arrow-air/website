@@ -8,17 +8,13 @@ Arrow's treasury is held on-chain in a Gnosis Safe multisig on Ethereum mainnet.
 
 **Treasury address:** [`0x03b5Dc2CE78a7bEe9F66DD619b291595a2E166BB`](https://etherscan.io/address/0x03b5Dc2CE78a7bEe9F66DD619b291595a2E166BB)
 
-## Current holdings
+## Holdings
 
-| Asset | Balance | Notes |
-|-------|--------:|-------|
-| USDC | ~$203,000 | Primary operating currency |
-| ETH | ~3.24 ETH | Kept for gas |
-| ARROW | ~76,500,000 | DAO's own token reserve |
+The treasury holds three kinds of assets: **USDC** (the primary operating currency for contributor grants, GBC disbursements, and project budgets), a small amount of **ETH** for gas, and roughly **76.5M $ARROW** — the DAO's own token reserve, about 76% of total supply. Live balances are always visible at the address above.
 
-*Figures as of March 2026. Live balance at the address above.*
+## $ARROW deployment
 
-The USDC balance is the operational runway: contributor grants, GBC disbursements, and project budgets. The ARROW reserve is held for future incentives, grants, and ecosystem development. It isn't counted as liquid operating capital.
+How the token reserve can be used is governed by [AIP-010 (Tokenomics V1)](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-010.md): each year the DAO votes on a deployment cap splitting authorized $ARROW across grants, manufacturing rewards, and project funding. The Year 1 (2026) cap is 5,000,000 $ARROW. Any conversion of treasury $ARROW to USDC requires its own governance vote covering the mechanics of the transaction. See [The $ARROW Token](../arrow-token) for details.
 
 ## How the treasury has been managed
 
@@ -41,12 +37,9 @@ No money leaves the main treasury without a Snapshot vote. The quorum threshold 
 
 This applies to everything: swapping $8K of rETH, launching a six-month project with a monthly budget, or approving a retroactive token allocation. The full vote history is on [Arrow's Snapshot space](https://snapshot.org/#/s:arrowair.eth) and summarized on the [Voting History](../good-to-know/dao-voting) page.
 
-## Runway
+## Funding operations
 
-:::note Placeholder
-This section will be updated with current runway calculations once spending rate figures are confirmed.
-:::
+Arrow doesn't have protocol revenue yet, so operations are funded from treasury reserves. Two paths exist:
 
-The liquid USDC balance covers approximately **[X months]** of operations at a burn rate of approximately **[$Y/month]**.
-
-Arrow has no protocol revenue yet. That changes if [AIP-009](../aips/aip-index#summary)'s manufacturing protocol ships: on-chain sales of Arrow-designed hardware would route a DAO commission back to the treasury.
+1. **Authorized $ARROW sales** — under AIP-010, the DAO can vote to convert treasury $ARROW from the project funding bucket into USDC to finance approved project budgets.
+2. **Manufacturing commissions** — once [AIP-009](../aips/aip-index#summary)'s manufacturing protocol is fully live, on-chain sales of Arrow-designed hardware route a DAO commission back to the treasury.

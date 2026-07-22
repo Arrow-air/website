@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type BountyStatus = 'OPEN' | 'CLAIMED' | 'CLOSED';
+type BountyStatus = 'OPEN' | 'CLAIMED' | 'EXPIRED' | 'CLOSED';
 
 export type SkillTag =
   | 'CAD'
@@ -10,11 +10,15 @@ export type SkillTag =
   | 'TypeScript'
   | 'Rust'
   | 'Electronics'
+  | 'Software'
   | 'DevOps'
   | 'Writing'
+  | 'Documentation'
   | 'Translation'
   | 'Design'
+  | 'Media'
   | 'Video'
+  | 'Governance'
   | 'Research'
   | 'Testing';
 
@@ -22,12 +26,18 @@ export type BountyRow = {
   title: string;
   description: string;
   status: BountyStatus;
-  usdc: string;
-  arrow: string;
-  expires: string;
+  usdc?: string;
+  arrow?: string;
+  expires?: string;
+  expectedWindow?: string;
   skills?: SkillTag[];
   posted?: string;
+  issueUrl?: string;
+  applyUrl?: string;
+  detailUrl?: string;
+  /** @deprecated Use issueUrl instead. */
   outline?: string;
+  /** @deprecated Use applyUrl instead. */
   apply?: string;
   image?: string;
 };
@@ -46,6 +56,24 @@ function formatExpires(input: string): string {
   const d = new Date(input);
   if (Number.isNaN(d.getTime())) return input;
   return d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+}
+
+function getReadMoreUrl(row: BountyRow): string | undefined {
+  return row.detailUrl ?? row.issueUrl ?? row.outline;
+}
+
+function getIssueUrl(row: BountyRow): string | undefined {
+  return row.issueUrl ?? row.outline;
+}
+
+function getApplyUrl(row: BountyRow): string | undefined {
+  return row.applyUrl ?? row.apply;
+}
+
+function getTimingLabel(row: BountyRow): string | undefined {
+  if (row.expires) return `Expires ${formatExpires(row.expires)}`;
+  if (row.expectedWindow) return row.expectedWindow;
+  return undefined;
 }
 
 function PhotoPlaceholder({ size = 72 }: { size?: number }) {
@@ -110,6 +138,13 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
             </tr>
           </thead>
           <tbody>
+            {visibleRows.length === 0 && (
+              <tr>
+                <td colSpan={3} style={{ textAlign: 'center', padding: '28px 16px', color: 'var(--docs-text-secondary)' }}>
+                  No open bounties in this category yet — fresh bounties are coming soon.
+                </td>
+              </tr>
+            )}
             {visibleRows.map((row, i) => (
               <tr
                 key={row.title}
@@ -133,7 +168,9 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
                           const MAX = 130;
                           const isLong = row.description.length > MAX;
                           const excerpt = isLong ? row.description.slice(0, MAX).trimEnd() : row.description;
-                          return <>{excerpt}{isLong && <>{' '}...<a href={row.outline} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: 'inherit' }}>read more</a></>}{' '}<span style={{ fontWeight: 500, color: 'var(--docs-text-primary, #374151)' }}>| Expires {formatExpires(row.expires)}</span></>;
+                          const readMoreUrl = getReadMoreUrl(row);
+                          const timing = getTimingLabel(row);
+                          return <>{excerpt}{isLong && readMoreUrl && <>{' '}...<a href={readMoreUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: 'inherit' }}>read more</a></>}{timing && <> <span style={{ fontWeight: 500, color: 'var(--docs-text-primary, #374151)' }}>| {timing}</span></>}</>;
                         })()}
                       </span>
                     </span>
@@ -141,22 +178,27 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
                 </td>
                 <td>
                   <span style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <span className="bt-pill-usdc" style={{
-                      ...PILL_BASE,
-                      padding: '4px 6px',
-                      border: '1px solid rgba(8,67,191,0.4)',
-                      color: '#0843BF',
-                      background: 'rgba(8,67,191,0.07)',
-                      cursor: 'default',
-                    }}>{row.usdc} USDC</span>
-                    <span className="bt-pill-arrow" style={{
-                      ...PILL_BASE,
-                      padding: '4px 6px',
-                      border: '1px solid rgba(8,67,191,0.4)',
-                      color: '#0843BF',
-                      background: 'rgba(8,67,191,0.07)',
-                      cursor: 'default',
-                    }}>{row.arrow} $ARROW</span>
+                    {row.usdc && (
+                      <span className="bt-pill-usdc" style={{
+                        ...PILL_BASE,
+                        padding: '4px 6px',
+                        border: '1px solid rgba(8,67,191,0.4)',
+                        color: '#0843BF',
+                        background: 'rgba(8,67,191,0.07)',
+                        cursor: 'default',
+                      }}>{row.usdc} USDC</span>
+                    )}
+                    {row.arrow && (
+                      <span className="bt-pill-arrow" style={{
+                        ...PILL_BASE,
+                        padding: '4px 6px',
+                        border: '1px solid rgba(8,67,191,0.4)',
+                        color: '#0843BF',
+                        background: 'rgba(8,67,191,0.07)',
+                        cursor: 'default',
+                      }}>{row.arrow} $ARROW</span>
+                    )}
+                    {!row.usdc && !row.arrow && '—'}
                   </span>
                 </td>
                 <td>
@@ -171,9 +213,29 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
                         letterSpacing: '-0.28px',
                         cursor: 'default',
                       }}>Claimed</span>
-                    ) : row.apply && (
+                    ) : row.status === 'EXPIRED' ? (
+                      <span className="bt-pill-expired" style={{
+                        ...PILL_BASE,
+                        padding: '4px 6px',
+                        border: '1px solid rgba(107,114,128,0.45)',
+                        color: 'var(--docs-text-secondary, #6b7280)',
+                        background: 'rgba(107,114,128,0.12)',
+                        letterSpacing: '-0.28px',
+                        cursor: 'default',
+                      }}>Expired</span>
+                    ) : row.status === 'CLOSED' ? (
+                      <span className="bt-pill-closed" style={{
+                        ...PILL_BASE,
+                        padding: '4px 6px',
+                        border: '1px solid rgba(107,114,128,0.45)',
+                        color: 'var(--docs-text-secondary, #6b7280)',
+                        background: 'rgba(107,114,128,0.07)',
+                        letterSpacing: '-0.28px',
+                        cursor: 'default',
+                      }}>Closed</span>
+                    ) : getApplyUrl(row) && (
                       <a
-                        href={row.apply}
+                        href={getApplyUrl(row)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bt-pill-apply"
@@ -188,9 +250,9 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
                         }}
                       >Apply</a>
                     )}
-                    {row.outline && (
+                    {getIssueUrl(row) && (
                       <a
-                        href={row.outline}
+                        href={getIssueUrl(row)}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
@@ -204,7 +266,7 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
                         }}
                       >GitHub</a>
                     )}
-                    {!row.outline && !row.apply && '—'}
+                    {!getIssueUrl(row) && !getApplyUrl(row) && '—'}
                   </span>
                 </td>
               </tr>
@@ -212,7 +274,7 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
           </tbody>
         </table>
       </div>
-      {hideClaimedToggle && (
+      {hideClaimedToggle && rows.length > 0 && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
           <button
             onClick={() => setHideClaimed(v => !v)}

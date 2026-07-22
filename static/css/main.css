@@ -335,6 +335,13 @@
   }
 }
 
+/* Declare this page as dark so the browser paints its pre-CSS/navigation
+   canvas dark instead of the default white (white flash on refresh in
+   Brave, and when navigating to/from the page). */
+html {
+  color-scheme: dark;
+}
+
 body {
   background-color: var(--color-scheme-1--background);
   font-family: var(--_typography---font-styles--body);
@@ -1629,6 +1636,16 @@ figcaption {
   display: block;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  background-color: #000;
+  /* Hidden until the first WebGL frame is presented (script adds .is-live).
+     Chromium can composite a content-less canvas layer as white, so the
+     canvas must not be visible before it has real pixels. */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#hero-dither-canvas.is-live {
+  opacity: 1;
 }
 
 /* Hard guard: `.arrow-hero_image` paints beyond its layout box via
@@ -5403,7 +5420,9 @@ a[target="_blank"]:hover::after {
 
 @media screen and (max-width: 991px) {
   .arrow-navbar_dropdown-link:hover {
-    border: none;
+    /* border: none removed the 1px box and made the card shrink 2px on
+      hover, shifting every card below it. Keep the box, hide the color. */
+    border-color: transparent;
   }
 
   .arrow-navbar_link::after,

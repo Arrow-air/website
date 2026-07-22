@@ -374,27 +374,29 @@ function QuickLinksDropdown() {
   );
 }
 
-function FlightTrackingIcon() {
+function CaribouIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
-      <title>itinerary-2</title>
-      <g fill="currentColor">
-        <path d="M5 21C6.65685 21 8 19.6569 8 18C8 16.3431 6.65685 15 5 15C3.34315 15 2 16.3431 2 18C2 19.6569 3.34315 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path>
-        <path d="M19 9C20.6569 9 22 7.65685 22 6C22 4.34315 20.6569 3 19 3C17.3431 3 16 4.34315 16 6C16 7.65685 17.3431 9 19 9Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path>
-        <path d="M5 11V3H11L13 21H19V13" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>box-3</title>
+      <g fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M6.45084 4.76019L17.8905 11" />
+        <path d="M13 14V22" />
+        <path d="M22 8.5L13 14L2 8" />
+        <path d="M22 8V16.5L13 22L2 16V7.5L11 2L22 8Z" strokeLinecap="round" />
       </g>
     </svg>
   );
 }
 
-function FlightTrackingActiveIcon() {
+function CaribouActiveIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
-      <title>itinerary-2</title>
-      <g fill="currentColor">
-        <path d="M5 21C6.65685 21 8 19.6569 8 18C8 16.3431 6.65685 15 5 15C3.34315 15 2 16.3431 2 18C2 19.6569 3.34315 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square"></path>
-        <path d="M19 9C20.6569 9 22 7.65685 22 6C22 4.34315 20.6569 3 19 3C17.3431 3 16 4.34315 16 6C16 7.65685 17.3431 9 19 9Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square"></path>
-        <path d="M5 11V3H11L13 21H19V13" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>box-3</title>
+      <g>
+        <path d="M2 8L13 14L22 8.5V16.5L13 22L2 16Z" fill="currentColor" stroke="none" />
+        <path d="M13 14V22" fill="none" stroke="currentColor" strokeWidth="2" />
+        <path d="M22 8.5L13 14L2 8" fill="none" stroke="currentColor" strokeWidth="2" />
+        <path d="M22 8V16.5L13 22L2 16V7.5L11 2L22 8Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </g>
     </svg>
   );
@@ -428,10 +430,10 @@ function BountyActiveIcon() {
 }
 
 const SUBNAV_TABS = [
-  { label: 'HOME',                path: '/docs',             to: '/docs/intro',       icon: <DocsIcon />, activeIcon: <DocsActiveIcon /> },
+  { label: 'HOME',                path: '/docs',             to: '/docs',       icon: <DocsIcon />, activeIcon: <DocsActiveIcon /> },
   { label: 'Quiver',              path: '/quiver',           to: '/quiver',           icon: <QuiverIcon />, activeIcon: <QuiverActiveIcon /> },
   { label: 'Spearhead',           path: '/spearhead',        to: '/spearhead',        icon: <SpearheadIcon />, activeIcon: <SpearheadActiveIcon /> },
-  { label: 'Flight Tracking App', path: '/flight-tracking',  to: '/flight-tracking',  icon: <FlightTrackingIcon />, activeIcon: <FlightTrackingActiveIcon /> },
+  { label: 'Caribou',             path: '/caribou',          to: '/caribou',          icon: <CaribouIcon />, activeIcon: <CaribouActiveIcon /> },
   { label: 'Bounty Board',        path: '/bounty',           to: '/bounty',           icon: <BountyIcon />, activeIcon: <BountyActiveIcon /> },
 ];
 
@@ -547,7 +549,7 @@ function DocsNavbar() {
         </button>
 
         {/* Logo */}
-        <Link to="/docs/intro" className={styles.logo}>
+        <Link to="/docs" className={styles.logo}>
           <ArrowLogo />
           <span className={styles.logoLabel}>Docs</span>
         </Link>
@@ -563,7 +565,7 @@ function DocsNavbar() {
             <span className={styles.iconButtonLabel}>Homepage</span>
           </a>
           <Link
-            to="/docs/intro"
+            to="/docs"
             className={`${styles.iconButton} ${styles.iconButtonLabeled} ${styles.desktopOnly}`}
             aria-label="Docs Home"
           >
@@ -610,7 +612,7 @@ function DocsNavbar() {
   );
 }
 
-export default function Navbar(props): JSX.Element {
+export default function Navbar(props: React.ComponentProps<typeof NavbarOriginal>): React.JSX.Element {
   return (
     <>
       <div className={styles.stickyHeader}>

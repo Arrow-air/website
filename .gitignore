@@ -37,9 +37,14 @@ static/dao.html
 docs/project-quiver/
 static/docs/project-quiver/
 static/quiver/
+docs-spearhead/
+static/docs/project-spearhead/
+static/spearhead/
+docs-caribou/
+static/docs/project-caribou/
+static/caribou/
 
 # Shared about-arrow symlinks in multi-instance doc dirs
 docs-quiver/about-arrow
-docs-spearhead/about-arrow
 docs-guides/about-arrow
 docs-bounty/about-arrow

@@ -46,6 +46,10 @@ const config = {
   projectName: "arrow", // Usually your repo name.
 
   headTags: [
+    // Parsed before the render-blocking stylesheet, so the browser paints a
+    // scheme-matched canvas (not white) while CSS is still loading — prevents
+    // a white flash when navigating here from the dark homepage.
+    {tagName: 'meta', attributes: {name: 'color-scheme', content: 'dark light'}},
     {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/img/favicons/favicon-32x32.png'}},
     {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/img/favicons/favicon-16x16.png'}},
     {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: '/img/favicons/apple-touch-icon.png'}},
@@ -68,7 +72,7 @@ const config = {
         indexDocs: true,
         indexBlog: true,
         blogDir: "blog/",
-        docsDir: ["docs", "docs-quiver", "docs-spearhead", "docs-flight-tracking", "docs-bounty"],
+        docsDir: ["docs", "docs-quiver", "docs-spearhead", "docs-caribou", "docs-bounty"],
         language: "en",
         searchResultLimits: 8,
         highlightSearchTermsOnTargetPage: true,
@@ -87,6 +91,7 @@ const config = {
   ],
 
   plugins: [
+    require.resolve('docusaurus-plugin-image-zoom'),
     excludeProjectQuiverFromMainDocsLoader,
     require.resolve('./plugins/dev-homepage'),
     ['@docusaurus/plugin-content-docs', {
@@ -105,17 +110,21 @@ const config = {
       path: 'docs-spearhead',
       routeBasePath: 'spearhead',
       sidebarPath: require.resolve('./sidebars-spearhead.js'),
+      // Content is imported from the project-spearhead repo at build time
+      // (see external-docs.json), so edits belong upstream.
       editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
-        `https://github.com/Arrow-air/website/edit/staging/docs-spearhead/${docPath}`,
+        `https://github.com/Arrow-air/project-spearhead/edit/main/docs/${docPath}`,
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {
-      id: 'flight-tracking',
-      path: 'docs-flight-tracking',
-      routeBasePath: 'flight-tracking',
-      sidebarPath: require.resolve('./sidebars-flight-tracking.js'),
+      id: 'caribou',
+      path: 'docs-caribou',
+      routeBasePath: 'caribou',
+      sidebarPath: require.resolve('./sidebars-caribou.js'),
+      // Content is imported from the project-caribou repo at build time
+      // (see external-docs.json), so edits belong upstream.
       editUrl: (/** @type {{docPath: string}} */ { docPath }) =>
-        `https://github.com/Arrow-air/website/edit/staging/docs-flight-tracking/${docPath}`,
+        `https://github.com/Arrow-air/project-caribou/edit/main/docs/${docPath}`,
       showLastUpdateTime: true,
     }],
     ['@docusaurus/plugin-content-docs', {
@@ -188,6 +197,23 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      zoom: {
+        selector: '.theme-doc-markdown p:not(td p) > img, .theme-doc-markdown figure > img',
+        background: {
+          light: 'rgba(255, 255, 255, 0.96)',
+          dark: 'rgba(17, 24, 39, 0.96)',
+        },
+        // medium-zoom's `config` object is passed straight through by
+        // docusaurus-plugin-image-zoom to mediumZoom(selector, config).
+        // `margin: 48` insets the zoomed image 48px from each viewport edge.
+        // Do NOT add `container` here — passing a tall scrolling container
+        // (e.g. [class^="docMainContainer"]) makes medium-zoom translate to
+        // the article's geometric center, which is far below the viewport,
+        // so the image animates downward instead of zooming in place.
+        config: {
+          margin: 48,
+        },
+      },
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
@@ -250,7 +276,7 @@ const config = {
             items: [
               {
                 label: "Intro",
-                to: "/docs/intro",
+                to: "/docs",
               },
               {
                 label: "Blog",

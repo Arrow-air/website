@@ -11,7 +11,7 @@ function getScrollY(): number {
   );
 }
 
-export default function BackToTopButton(): JSX.Element | null {
+export default function BackToTopButton(): React.JSX.Element | null {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {

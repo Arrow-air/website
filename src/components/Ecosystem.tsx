@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-export default function Ecosystem(): JSX.Element {
+export default function Ecosystem(): React.JSX.Element {
   return (
     <React.Fragment>
     <article className="row justify-content-center text-center bg-white text-blue-dark bg-ecosystem border-top border-lavender-light">

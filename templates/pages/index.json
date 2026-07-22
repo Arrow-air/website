@@ -15,7 +15,7 @@
     "<meta name=\"twitter:description\" content=\"Arrow is a global community designing and building open-source aircraft together. Online, in the open. Start with drones, end with air taxis.\">",
     "<meta name=\"twitter:image\" content=\"https://arrowair.com/img/brand/brand-assets-discord-thumbnail@2x.png\">"
   ],
-  "extraHead": "",
+  "extraHead": "  <meta name=\"color-scheme\" content=\"dark\">",
   "bodyFile": "index.body.html",
   "extraScriptsFile": "index.scripts.html"
 }

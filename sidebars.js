@@ -68,6 +68,7 @@ const sidebars = {
       link: { type: 'doc', id: 'community/index' },
       items: [
         { type: 'doc', id: 'community/index', label: 'Community at Arrow' },
+        { type: 'doc', id: 'community/contributor-map', label: 'Contributor Map' },
         { type: 'doc', id: 'community/community-values', label: 'Culture & Values' },
         { type: 'doc', id: 'community/community-calls', label: 'Calls & Events' },
         { type: 'doc', id: 'community/growth-marketing', label: 'Growth & Marketing' },
@@ -100,6 +101,7 @@ const sidebars = {
         { type: 'doc', id: 'governance/why-a-dao', label: 'Why a DAO?' },
         { type: 'doc', id: 'governance/constitution', label: 'Constitution' },
         { type: 'doc', id: 'governance/arrow-token', label: 'ARROW Token' },
+        { type: 'doc', id: 'governance/legal-structure', label: 'Legal Structure' },
         { type: 'doc', id: 'governance/core/treasury', label: 'Treasury' },
         {
           type: 'category',
