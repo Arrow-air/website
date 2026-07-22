@@ -374,27 +374,25 @@ function QuickLinksDropdown() {
   );
 }
 
-function FlightTrackingIcon() {
+function CaribouIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
-      <title>itinerary-2</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>rotor</title>
       <g fill="currentColor">
-        <path d="M5 21C6.65685 21 8 19.6569 8 18C8 16.3431 6.65685 15 5 15C3.34315 15 2 16.3431 2 18C2 19.6569 3.34315 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path>
-        <path d="M19 9C20.6569 9 22 7.65685 22 6C22 4.34315 20.6569 3 19 3C17.3431 3 16 4.34315 16 6C16 7.65685 17.3431 9 19 9Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path>
-        <path d="M5 11V3H11L13 21H19V13" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path>
+        <path d="M4.92893 19.0711C8.83418 22.9763 15.1658 22.9763 19.0711 19.0711C22.9763 15.1658 22.9763 8.83416 19.0711 4.92892C15.1658 1.02367 8.83418 1.02367 4.92893 4.92892C1.02369 8.83416 1.02369 15.1658 4.92893 19.0711Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square" fill="none"></path>
+        <path d="M8.30762 7.20782C9.69589 5.81956 11.596 5.25383 13.3975 5.50958L13.7275 5.55743L15.2959 7.12482L14.7529 7.82111L12.8203 10.3065L13.6934 11.1795L16.1787 9.24689L16.875 8.7049L18.4434 10.2723L18.4902 10.6024C18.746 12.4038 18.1812 14.3049 16.793 15.6932C15.2218 17.2643 12.9971 17.7798 10.9971 17.2459L9.64844 18.5936C8.98273 18.3561 8.36298 18.0222 7.80762 17.6063L10.4785 14.9363L11.0869 15.1746C12.5244 15.7379 14.2192 15.4369 15.3779 14.2781C16.1481 13.5079 16.5376 12.5022 16.5479 11.491L14.2246 13.2996L13.5273 13.8416L10.1582 10.4725L10.7002 9.77521L12.5078 7.45099C11.4969 7.46144 10.4917 7.85186 9.72168 8.62189C8.56296 9.78062 8.26188 11.4754 8.8252 12.9129L9.06445 13.5213L6.39355 16.1912C5.97758 15.6357 5.64263 15.0163 5.40527 14.3504L6.75391 13.0027C6.22006 11.0028 6.73651 8.77895 8.30762 7.20782Z" fill="currentColor"></path>
       </g>
     </svg>
   );
 }
 
-function FlightTrackingActiveIcon() {
+function CaribouActiveIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
-      <title>itinerary-2</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden className={styles.smallIcon}>
+      <title>rotor</title>
       <g fill="currentColor">
-        <path d="M5 21C6.65685 21 8 19.6569 8 18C8 16.3431 6.65685 15 5 15C3.34315 15 2 16.3431 2 18C2 19.6569 3.34315 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square"></path>
-        <path d="M19 9C20.6569 9 22 7.65685 22 6C22 4.34315 20.6569 3 19 3C17.3431 3 16 4.34315 16 6C16 7.65685 17.3431 9 19 9Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="square"></path>
-        <path d="M5 11V3H11L13 21H19V13" stroke="currentColor" strokeWidth="2" strokeLinecap="square" fill="none"></path>
+        <circle cx="12" cy="12" r="11" fill="currentColor" stroke="none"></circle>
+        <path d="M8.30762 7.20782C9.69589 5.81956 11.596 5.25383 13.3975 5.50958L13.7275 5.55743L15.2959 7.12482L14.7529 7.82111L12.8203 10.3065L13.6934 11.1795L16.1787 9.24689L16.875 8.7049L18.4434 10.2723L18.4902 10.6024C18.746 12.4038 18.1812 14.3049 16.793 15.6932C15.2218 17.2643 12.9971 17.7798 10.9971 17.2459L9.64844 18.5936C8.98273 18.3561 8.36298 18.0222 7.80762 17.6063L10.4785 14.9363L11.0869 15.1746C12.5244 15.7379 14.2192 15.4369 15.3779 14.2781C16.1481 13.5079 16.5376 12.5022 16.5479 11.491L14.2246 13.2996L13.5273 13.8416L10.1582 10.4725L10.7002 9.77521L12.5078 7.45099C11.4969 7.46144 10.4917 7.85186 9.72168 8.62189C8.56296 9.78062 8.26188 11.4754 8.8252 12.9129L9.06445 13.5213L6.39355 16.1912C5.97758 15.6357 5.64263 15.0163 5.40527 14.3504L6.75391 13.0027C6.22006 11.0028 6.73651 8.77895 8.30762 7.20782Z" fill="white"></path>
       </g>
     </svg>
   );
@@ -431,7 +429,7 @@ const SUBNAV_TABS = [
   { label: 'HOME',                path: '/docs',             to: '/docs',       icon: <DocsIcon />, activeIcon: <DocsActiveIcon /> },
   { label: 'Quiver',              path: '/quiver',           to: '/quiver',           icon: <QuiverIcon />, activeIcon: <QuiverActiveIcon /> },
   { label: 'Spearhead',           path: '/spearhead',        to: '/spearhead',        icon: <SpearheadIcon />, activeIcon: <SpearheadActiveIcon /> },
-  { label: 'Flight Tracking App', path: '/flight-tracking',  to: '/flight-tracking',  icon: <FlightTrackingIcon />, activeIcon: <FlightTrackingActiveIcon /> },
+  { label: 'Caribou',             path: '/caribou',          to: '/caribou',          icon: <CaribouIcon />, activeIcon: <CaribouActiveIcon /> },
   { label: 'Bounty Board',        path: '/bounty',           to: '/bounty',           icon: <BountyIcon />, activeIcon: <BountyActiveIcon /> },
 ];
 

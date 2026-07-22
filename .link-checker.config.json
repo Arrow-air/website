@@ -28,7 +28,7 @@
       "pattern": "^/bounty"
     },
     {
-      "pattern": "^/flight-tracking/"
+      "pattern": "^/caribou"
     },
     {
       "pattern": "^/img/"

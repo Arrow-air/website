@@ -266,6 +266,14 @@ patch_known_route_mismatches() {
 				"$mdfile" 2>/dev/null || true
 		done
 
+		# The docs index links to the bare information-note/ directory, which
+		# has no route on this site; point it at GitHub.
+		if [ -f "$target_path/index.md" ]; then
+			sed_inplace \
+				-e "s|](\./information-note/)|](${repo_url}/tree/main/docs/information-note)|g" \
+				"$target_path/index.md" 2>/dev/null || true
+		fi
+
 		# Bare directory links (cases/, figures/) have no doc route either.
 		local stability_note="$target_path/information-note/phase-1/Flight-Dynamics/0001-Preliminary-Fixed-Wing-Stability-Analysis/information-note.md"
 		if [ -f "$stability_note" ]; then
