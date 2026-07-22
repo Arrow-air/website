@@ -247,6 +247,25 @@
               opacity: 1 !important;
             }
 
+            /* Webflow's mobile-nav animation leaves a stale inline transform
+              on the menu; a transformed element becomes the containing block
+              for the absolutely-positioned mega menu, pinning it to the nav
+              links instead of the full navbar. Neutralize on desktop. */
+            @media (min-width: 992px) {
+              .arrow-navbar_menu {
+                transform: none !important;
+              }
+            }
+
+            /* Quicklinks cards: below ~1280px the columns get narrow and the
+              card descriptions wrap badly — hide them so cards collapse to
+              icon + title. `p` only: h4 section headings share the class. */
+            @media (max-width: 1280px) {
+              .arrow-navbar_dropdown-link p.text-size-small.is-mega-menu {
+                display: none;
+              }
+            }
+
             /* #159: mobile hamburger menu — DOCS+DISCORD CTAs at top,
               nav links below as larger left-aligned Neue Haas links */
             @media (max-width: 991px) {
@@ -257,6 +276,26 @@
                 flex-direction: column !important;
                 justify-content: flex-start !important;
                 text-align: left !important;
+                /* Side padding moves onto the items so the Quicklinks panel
+                  can bleed edge-to-edge without fragile width math; bottom
+                  padding goes too so the open panel's navy can run to the
+                  drawer's bottom edge */
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                padding-bottom: 0 !important;
+              }
+              /* Let the dropdown stretch so the open panel fills the
+                remaining drawer height with navy */
+              .arrow-navbar_menu-left {
+                display: flex;
+                flex-direction: column;
+                flex: 1 0 auto;
+              }
+              .arrow-navbar_menu-dropdown.is-tap-open {
+                flex: 1;
+              }
+              .arrow-navbar_menu-dropdown.is-tap-open .arrow-navbar_dropdown-list {
+                flex: 1;
               }
               /* Hoist DOCS + DISCORD to the top */
               .arrow-navbar_menu-right {
@@ -266,6 +305,7 @@
                 margin-top: 0 !important;
                 margin-bottom: 1.5rem;
                 width: 100%;
+                padding: 0 5%;
               }
               .arrow-navbar_menu-right .button {
                 flex: 1;
@@ -284,8 +324,13 @@
                 font-size: 1.25rem !important;
                 text-align: left !important;
                 justify-content: flex-start !important;
-                padding-left: 0 !important;
+                padding-left: 5% !important;
+                padding-right: 5% !important;
                 width: 100%;
+              }
+              /* Breathing room between the toggle and the expanded panel */
+              .arrow-navbar_dropdown-toggle {
+                padding-bottom: 1.5rem !important;
               }
               /* Items inside the Quicklinks dropdown when expanded */
               .arrow-navbar_dropdown-link,
@@ -294,6 +339,114 @@
                 text-align: left !important;
                 justify-content: flex-start !important;
                 font-size: 1.125rem !important;
+              }
+              /* The inner .drop-menu-title re-applies mono + uppercase
+                (main.css) — neutralize so QUICKLINKS matches the other links */
+              .arrow-navbar_dropdown-toggle .drop-menu-title {
+                font-family: 'Neue Haas Grotesk', sans-serif !important;
+                text-transform: none !important;
+              }
+              /* Tone down the dropdown section headings (ENGINEERING etc):
+                no mono/uppercase, no bullet icon — plain muted labels */
+              .arrow-navbar_dropdown-list .menu-title-bullet {
+                display: none !important;
+              }
+              .arrow-navbar_dropdown-list .text-size-small.is-mega-menu.title {
+                font-family: 'Neue Haas Grotesk', sans-serif !important;
+                text-transform: none !important;
+                color: var(--_primitives---opacity--white-60) !important;
+              }
+              /* Animate the toggle chevron: point down closed, up open */
+              .arrow-navbar_dropdown-toggle .dropdown-chevron {
+                transition: transform 300ms cubic-bezier(0.32, 0.72, 0, 1);
+              }
+              .is-tap-open .arrow-navbar_dropdown-toggle .dropdown-chevron {
+                transform: rotate(180deg);
+              }
+              /* De-box the section containers: no border/background/panel
+                padding — just muted labels and cards on the navy backdrop */
+              .arrow-navbar_dropdown-column.is-general {
+                border: none !important;
+                background-color: transparent !important;
+                background-image: none !important;
+                padding: 0 !important;
+              }
+              /* The dropdown wrapper computes to a flex row, so the expanded
+                panel renders beside the toggle and overflows off-screen —
+                stack toggle + panel and let the panel fill the drawer */
+              .arrow-navbar_menu-dropdown {
+                flex-direction: column !important;
+                width: 100% !important;
+                /* Desktop hover-bridge padding paints a drawer-blue sliver
+                  under the open panel — not needed for tap-toggle */
+                padding-bottom: 0 !important;
+                margin-bottom: 0 !important;
+              }
+              /* Tap-only: the panel is revealed exclusively by Webflow's
+                tap-toggled nav-dropdown-open class, so the desktop hover
+                interaction (w--open + fade) can't trigger it in the drawer.
+                Reveal animates downward via the grid-rows 0fr->1fr technique
+                (real expansion, not just a fade); ease-out, exit faster. */
+              .arrow-navbar_dropdown-list {
+                display: grid !important;
+                grid-template-rows: 0fr;
+                min-width: 0 !important;
+                max-width: none !important;
+                /* 5% sides so panel content aligns with the drawer items */
+                padding: 0 5% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                background-color: var(--_primitives---colors--blue-darker) !important;
+                /* Soft shadow under the toggle row: reads as the panel
+                  sliding out from beneath the menu above */
+                box-shadow: inset 0 14px 12px -10px rgba(0, 0, 0, 0.45);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-4px);
+                transition:
+                  grid-template-rows 250ms cubic-bezier(0.32, 0.72, 0, 1),
+                  transform 250ms cubic-bezier(0.32, 0.72, 0, 1),
+                  opacity 200ms ease-out,
+                  visibility 0s linear 250ms;
+              }
+              .arrow-navbar_dropdown-list > .arrow-navbar_container {
+                min-height: 0;
+                overflow: hidden;
+                /* Vertical padding participates in the reveal so nothing
+                  of the panel remains visible when collapsed */
+                padding: 0 !important;
+                transition: padding 250ms cubic-bezier(0.32, 0.72, 0, 1);
+              }
+              .arrow-navbar_menu-dropdown.is-tap-open .arrow-navbar_dropdown-list > .arrow-navbar_container {
+                padding: 1rem 0 1.25rem !important;
+                transition: padding 350ms cubic-bezier(0.32, 0.72, 0, 1);
+              }
+              .arrow-navbar_dropdown-list .arrow-navbar_container {
+                width: 100% !important;
+                max-width: none !important;
+              }
+              /* Webflow's mobile open-state class only sets position:static;
+                visibility normally comes from the desktop hover animation,
+                which is unreliable on taps (stale inline opacity:0). Tie
+                visibility directly to the open state instead. */
+              .arrow-navbar_menu-dropdown.is-tap-open .arrow-navbar_dropdown-list {
+                grid-template-rows: 1fr;
+                opacity: 1 !important;
+                visibility: visible;
+                transform: none;
+                transition:
+                  grid-template-rows 350ms cubic-bezier(0.32, 0.72, 0, 1),
+                  transform 350ms cubic-bezier(0.32, 0.72, 0, 1),
+                  opacity 250ms ease-out,
+                  visibility 0s;
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .arrow-navbar_dropdown-list,
+                .arrow-navbar_menu-dropdown.is-tap-open .arrow-navbar_dropdown-list,
+                .arrow-navbar_dropdown-toggle .dropdown-chevron {
+                  transition: none !important;
+                }
               }
             }
           </style>

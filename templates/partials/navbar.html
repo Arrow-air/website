@@ -362,3 +362,50 @@
         </div>
       </div>
     </div>
+    <script>
+      // In the mobile drawer the Quicklinks dropdown must be press-to-toggle.
+      // Webflow's dropdown reads data-hover only at init and its hover/ix2
+      // state machine misbehaves inside the collapsed nav, so at <=991px we
+      // own the toggle: suppress Webflow's handlers (this script runs before
+      // its DOM-ready init, so our capture listeners register first) and
+      // drive our own is-tap-open class. (Webflow's w--nav-dropdown-open is
+      // NOT an expanded state: the nav module stamps it on every dropdown
+      // whenever the mobile menu opens, so it cannot gate the reveal.)
+      (function () {
+        var mq = window.matchMedia('(max-width: 991px)');
+        document.querySelectorAll('.arrow-navbar_menu-dropdown').forEach(function (wrap) {
+          var toggle = wrap.querySelector('.w-dropdown-toggle');
+          var list = wrap.querySelector('.w-dropdown-list');
+          if (!toggle || !list) return;
+          function setOpen(open) {
+            wrap.classList.toggle('is-tap-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          }
+          function flip() {
+            setOpen(!wrap.classList.contains('is-tap-open'));
+          }
+          ['mouseup', 'click'].forEach(function (type) {
+            toggle.addEventListener(type, function (e) {
+              if (!mq.matches) return;
+              e.preventDefault();
+              e.stopImmediatePropagation();
+              if (type === 'click') flip();
+            }, true);
+          });
+          toggle.addEventListener('keydown', function (e) {
+            if (!mq.matches) return;
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopImmediatePropagation();
+              flip();
+            }
+          }, true);
+          // Collapse when the drawer itself is opened/closed via the hamburger
+          document.querySelectorAll('.w-nav-button').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              if (mq.matches) setOpen(false);
+            });
+          });
+        });
+      })();
+    </script>
