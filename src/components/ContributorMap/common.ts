@@ -1,7 +1,16 @@
 /* Types and helpers shared by the flat map (index.tsx) and the globe view
   (Globe.tsx). Everything here is pure and SSR-safe. */
 
+import disciplines from '@site/src/data/disciplines.json';
+
 export type EntryType = 'contributor' | 'workspace' | 'manufacturer';
+
+/* discipline name -> category accent color, from the canonical taxonomy
+  (same colors as the bounty board pills). */
+export const DISCIPLINE_COLOR: Record<string, string> = {};
+for (const category of disciplines.categories) {
+  for (const d of category.disciplines) DISCIPLINE_COLOR[d.name] = category.color;
+}
 
 export interface Contributor {
   id: string;
