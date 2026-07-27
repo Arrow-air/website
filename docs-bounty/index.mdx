@@ -4,8 +4,7 @@ sidebar_label: Bounty Board
 hide_table_of_contents: true
 ---
 
-import BountyTable from '@site/src/components/BountyTable';
-import bounties from '@site/src/data/bounties.generated.json';
+import BountyBoard from '@site/src/components/BountyBoard';
 
 # Bounty Board
 
@@ -13,28 +12,9 @@ import bounties from '@site/src/data/bounties.generated.json';
 We're preparing the first batch of live, funded bounties. Check back soon — they'll appear right here as they're posted.
 :::
 
-Complete a bounty to earn USDC and $ARROW tokens. New to the process? See [How to Claim](/bounty/bounties/how-to-claim).
+Complete a bounty to earn USDC and $ARROW tokens. Bounties are grouped by
+[contributor discipline](/docs/community/disciplines) — filter by category,
+discipline, status, or reward to find work that matches your skills. New to the
+process? See [How to Claim](/bounty/bounties/how-to-claim).
 
-## Engineering
-
-Hardware and mechanical engineering tasks for Project Quiver (PT3). Covers CAD design, structural analysis, propulsion testing, and related documentation.
-
-<BountyTable hideClaimedToggle rows={bounties.engineering} />
-
-## Software
-
-Structural and aerodynamic engineering work for Project Spearhead. Includes FEA, CFD simulations, design reviews, and avionics integration.
-
-<BountyTable hideClaimedToggle rows={bounties.software} />
-
-## Growth & Media
-
-Cross-project software tools, developer documentation, and technical resources spanning both Quiver and Spearhead. Good for software engineers and technical writers.
-
-<BountyTable hideClaimedToggle rows={bounties.growthMedia} />
-
-## General DAO
-
-Design, content, and community-focused work supporting Arrow's broader mission. Includes UI wireframes, onboarding guides, social media, and translation — open to non-engineers.
-
-<BountyTable hideClaimedToggle rows={bounties.generalDao} />
+<BountyBoard />
