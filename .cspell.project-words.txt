@@ -82,6 +82,8 @@ networkidle
 NGOs
 noopener
 noreferrer
+Nucleo
+nucleoapp
 Nuxt
 openframes
 opensource

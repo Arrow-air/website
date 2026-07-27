@@ -1,5 +1,6 @@
 import React from 'react';
 import disciplines from '@site/src/data/disciplines.json';
+import DisciplineIcon from '@site/src/components/DisciplineIcon';
 
 const FONT = "'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
@@ -32,9 +33,9 @@ export default function DisciplineGrid() {
           <p style={{ fontFamily: FONT, fontSize: '13px', color: 'var(--docs-text-secondary, #6b7280)', marginBottom: '22px' }}>
             {category.tagline}
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             {category.disciplines.map(d => (
-              <div key={d.name} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+              <div key={d.name} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <span
                   style={{
                     fontFamily: FONT,
@@ -43,11 +44,25 @@ export default function DisciplineGrid() {
                     color: category.color,
                     background: hexToRgba(category.color, 0.08),
                     border: `1px solid ${hexToRgba(category.color, 0.35)}`,
-                    padding: '2px 6px',
                     alignSelf: 'flex-start',
+                    display: 'inline-flex',
+                    alignItems: 'stretch',
                   }}
                 >
-                  {d.name}
+                  {/* subtle tinted block behind the icon separates it from the label */}
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      padding: '3px 4px',
+                      background: hexToRgba(category.color, 0.14),
+                    }}
+                  >
+                    <DisciplineIcon name={d.icon} size={14} />
+                  </span>
+                  <span style={{ padding: '2px 6px 2px 7px', display: 'inline-flex', alignItems: 'center' }}>
+                    {d.name}
+                  </span>
                 </span>
                 <span style={{ fontFamily: FONT, fontSize: '13px', color: 'var(--docs-text-secondary, #6b7280)', lineHeight: 1.45 }}>
                   {d.blurb}
