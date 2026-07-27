@@ -1,0 +1,113 @@
+{
+  "$schema": "./disciplines.schema.json",
+  "$comment": "Arrow DAO contributor disciplines taxonomy v1.0 (community-approved 2026-07). Canonical source of truth — the bounty issue form, bounty board, contributor map schema, and contributor Discord bot all consume this file. Review app: https://disciplines-ui.vercel.app. Do not add/rename disciplines without a taxonomy review.",
+  "version": "1.0",
+  "categories": [
+    {
+      "name": "Engineering",
+      "tagline": "Design & build the aircraft",
+      "color": "#3B69D1",
+      "disciplines": [
+        { "name": "Mechanical", "icon": "gears", "blurb": "Parts, mechanisms, structures — hardware that survives flight" },
+        { "name": "CAD", "icon": "draw-compass", "blurb": "3D modeling, drawings, design for print & machining" },
+        { "name": "Electrical", "icon": "plug", "blurb": "PCBs, wiring harnesses, power distribution, sensors" },
+        { "name": "Aerodynamics", "icon": "wind", "blurb": "Props, airflow, performance analysis" },
+        { "name": "Power", "icon": "battery-full", "blurb": "Batteries, packs, charging, energy storage" },
+        { "name": "Propulsion", "icon": "fan-blade", "blurb": "Motors, ESCs, props — turning stored energy into thrust" },
+        { "name": "Certification", "icon": "award-certificate", "blurb": "Airworthiness standards, means of compliance, design assurance" },
+        { "name": "Safety", "icon": "shield-check", "blurb": "FMEA, failure analysis, reliability engineering" }
+      ]
+    },
+    {
+      "name": "Flight Systems",
+      "tagline": "The brains in the air",
+      "color": "#218191",
+      "disciplines": [
+        { "name": "Firmware", "icon": "brackets-curly", "blurb": "Autopilot & embedded code — ArduPilot, drivers, sensors" },
+        { "name": "Software", "icon": "code", "blurb": "Flight-stack software — GCS, SDKs, companion computers, log tools" },
+        { "name": "Controls", "icon": "sliders", "blurb": "Flight dynamics, tuning, control theory" },
+        { "name": "Autonomy", "icon": "brain-sparkle", "blurb": "Computer vision, obstacle avoidance, autonomous missions" },
+        { "name": "Telemetry", "icon": "radar", "blurb": "Data links, MAVLink streams, log pipelines, ground station data" },
+        { "name": "Simulation", "icon": "vr-headset", "blurb": "SITL, digital twins, simulation scenarios" }
+      ]
+    },
+    {
+      "name": "Flight Ops",
+      "tagline": "Fly, test & keep them flying",
+      "color": "#D9552F",
+      "disciplines": [
+        { "name": "Piloting", "icon": "helmet", "blurb": "Flying the aircraft — manual and mission operations" },
+        { "name": "Flight Test", "icon": "clipboard-check", "blurb": "Structured test flights, logs, test reports" },
+        { "name": "Maintenance", "icon": "wrench-screwdriver", "blurb": "Inspection, repair, keeping airframes airworthy" },
+        { "name": "Support", "icon": "users-chat", "blurb": "Helping builders & operators — onboarding, troubleshooting, training" },
+        { "name": "Regulatory", "icon": "passport", "blurb": "Airspace rules, waivers, per-country operating compliance" },
+        { "name": "Missions", "icon": "goal-flag", "blurb": "Planning & running real-world operations — spraying, survey, cargo" }
+      ]
+    },
+    {
+      "name": "Manufacturing",
+      "tagline": "Make & ship real parts",
+      "color": "#B8892E",
+      "disciplines": [
+        { "name": "3D Printing", "icon": "cube", "blurb": "Printed parts, printer tuning, materials" },
+        { "name": "Machining", "icon": "gear", "blurb": "CNC, milling, turning" },
+        { "name": "Composites", "icon": "layers", "blurb": "Carbon/glass layups, molds" },
+        { "name": "Assembly", "icon": "puzzle-piece", "blurb": "Building kits & aircraft, harness work" },
+        { "name": "Sourcing", "icon": "box-2", "blurb": "BOMs, vendors, procurement" },
+        { "name": "Quality", "icon": "magnifier-check", "blurb": "Inspection, acceptance criteria, process control" }
+      ]
+    },
+    {
+      "name": "Design",
+      "tagline": "How Arrow looks & feels",
+      "color": "#AD4F7F",
+      "disciplines": [
+        { "name": "Industrial", "icon": "ruler", "blurb": "Physical product design, enclosures, ergonomics" },
+        { "name": "Interface", "icon": "grid-layout", "blurb": "UI/UX for tools, apps, and sites" },
+        { "name": "Graphics", "icon": "brush", "blurb": "Brand, visual design, motion" }
+      ]
+    },
+    {
+      "name": "Content",
+      "tagline": "Teach & tell the story",
+      "color": "#7A5BC7",
+      "disciplines": [
+        { "name": "Documentation", "icon": "book", "blurb": "Guides, manuals, wiki, build docs" },
+        { "name": "Media", "icon": "camera", "blurb": "Video, photography, storytelling" },
+        { "name": "Social Media", "icon": "hashtag", "blurb": "Channels, posting, distribution" }
+      ]
+    },
+    {
+      "name": "Growth",
+      "tagline": "Bring the world in",
+      "color": "#35916A",
+      "disciplines": [
+        { "name": "Marketing", "icon": "marketing-target", "blurb": "Positioning, campaigns, outreach" },
+        { "name": "Community", "icon": "users-heart", "blurb": "Onboarding, events, keeping the DAO healthy" },
+        { "name": "Business Development", "icon": "handshake", "blurb": "Partnerships, sales, finding customers" }
+      ]
+    },
+    {
+      "name": "Local",
+      "tagline": "Run Arrow where you live",
+      "color": "#7E8F45",
+      "disciplines": [
+        { "name": "Hosting", "icon": "people-roof", "blurb": "Facilitating & hosting meetups and local gatherings" },
+        { "name": "Workshops", "icon": "hammer", "blurb": "Opening & running build spaces — local manufacturing nodes" },
+        { "name": "Vertiports", "icon": "circle-plane", "blurb": "Landing infrastructure & local flight networks (concept work)" }
+      ]
+    },
+    {
+      "name": "Operations",
+      "tagline": "Run the DAO machinery",
+      "color": "#5F6774",
+      "disciplines": [
+        { "name": "Governance", "icon": "gavel", "blurb": "AIPs, proposals, voting process" },
+        { "name": "Tokenomics", "icon": "coins-crypto", "blurb": "Token economics, incentives, models" },
+        { "name": "Coordination", "icon": "square-kanban", "blurb": "Project management, synthesis, keeping work legible" },
+        { "name": "Legal", "icon": "scale", "blurb": "Contracts, compliance, IP & licensing" },
+        { "name": "Tooling", "icon": "gear-nodes", "blurb": "DAO infrastructure — website, bots, CI, automation" }
+      ]
+    }
+  ]
+}
