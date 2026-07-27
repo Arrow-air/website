@@ -29,12 +29,12 @@ export default function DisciplineGrid() {
           <h3 style={{ marginBottom: '2px', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
             {category.name}
           </h3>
-          <p style={{ fontFamily: FONT, fontSize: '13px', color: 'var(--docs-text-secondary, #6b7280)', marginBottom: '10px' }}>
+          <p style={{ fontFamily: FONT, fontSize: '13px', color: 'var(--docs-text-secondary, #6b7280)', marginBottom: '22px' }}>
             {category.tagline}
           </p>
-          <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '7px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {category.disciplines.map(d => (
-              <li key={d.name} style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+              <div key={d.name} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                 <span
                   style={{
                     fontFamily: FONT,
@@ -52,9 +52,9 @@ export default function DisciplineGrid() {
                 <span style={{ fontFamily: FONT, fontSize: '13px', color: 'var(--docs-text-secondary, #6b7280)', lineHeight: 1.45 }}>
                   {d.blurb}
                 </span>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </section>
       ))}
     </div>
