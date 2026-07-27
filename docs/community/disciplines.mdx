@@ -9,41 +9,39 @@ import DisciplineGrid from '@site/src/components/DisciplineGrid';
 
 # Contributor Disciplines
 
-Arrow uses one shared list of **contributor disciplines** — the things people
-actually work on, from CAD to composites to community — everywhere a skill tag
-appears:
+Arrow keeps one shared list of **contributor disciplines**: the kinds of work
+people actually do here. The same tags show up in three places:
 
-- **[Bounty board](/bounty)** — every bounty is tagged with the disciplines it
-  calls for, and the board's categories are the discipline categories below.
-- **[Contributor map](/docs/community/contributor-map)** — when you put
-  yourself on the map, you pick up to 3 disciplines for your profile card.
+- **[Bounty board](/bounty)** — bounties are tagged with the disciplines they
+  need, and the board's sections are the categories below.
+- **[Contributor map](/docs/community/contributor-map)** — your profile card
+  shows up to 3 disciplines that you pick when you register.
 - **Project tooling** — matching open work to the people who can do it.
 
-One taxonomy means the tags always line up: if a bounty is tagged
-**Manufacturing: Composites**, it's speaking the same language as every
-contributor who registered Composites on the map.
+Because everything reads from the same list, the tags always line up. A bounty
+tagged **Manufacturing: Composites** is asking for exactly what a contributor
+who registered Composites offered.
 
 ## The taxonomy
 
-Nine categories, each with a handful of disciplines. Tags are deliberately
-broad — they describe *what kind of work it is*, not seniority or specific
-tools.
+Nine categories, each holding a handful of disciplines. The tags describe the
+kind of work, not seniority or specific tools. They're broad on purpose, so
+they stay useful as projects change.
 
 <DisciplineGrid />
 
 ## How it's used
 
-**Tagging a bounty.** The [bounty issue form](/bounty/creating-bounties) offers
-the full discipline list as checkboxes. Pick the disciplines a contributor
-would need to complete the work — usually 1–3, occasionally more for
-cross-cutting tasks.
+**Tagging a bounty.** The [bounty issue form](/bounty/creating-bounties) lists
+every discipline as a checkbox. Tick the ones a contributor needs to do the
+work — most bounties need one to three.
 
 **Registering on the map.** The `/new-contributor` Discord command asks for up
-to 3 disciplines. Pick the ones you actually want to be found for — they're
-how other contributors (and future matching tools) discover you.
+to 3 disciplines. Pick the ones you want to be found for, because that's how
+other contributors discover you.
 
-**Changing the taxonomy.** The list is community-approved and versioned. It is
-deliberately stable — bounties, contributor profiles, and tooling all reference
-it — so additions or renames go through a community review, not a quick PR. If
-you think a discipline is missing, raise it in the
+**Changing the list.** The taxonomy is community-approved and versioned, and it
+moves slowly on purpose: bounties, profiles, and tooling all reference it.
+Additions or renames go through community review, not a quick PR. Think a
+discipline is missing? Raise it in the
 [Arrow Discord](https://discord.com/invite/arrow).
