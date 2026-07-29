@@ -3,12 +3,18 @@
 # Taxonomy source: src/data/disciplines.json (v1.0)
 name: Bounty
 description: Create a bounty-backed work item
-labels: ["bounty"]
+labels: ["bounty:proposed"]
 body:
   - type: markdown
     attributes:
       value: |
-        Create a bounty-backed work item. The short board-entry fields power the public bounty board; the spec fields explain what needs to be done.
+        The board-entry fields power the public bounty board; the spec fields tell a contributor what to actually do.
+
+        **Fill in at least one reward** — USDC, ARROW, or both. A bounty with neither is rejected by the board sync.
+
+        Only **Category**, a reward, the board description, scope, deliverables and acceptance criteria are required. Skip the rest if they don't apply.
+
+        Submitting adds the `bounty:proposed` label. A maintainer applies `bounty` to publish it to the board.
 
   - type: dropdown
     id: category
@@ -28,37 +34,43 @@ body:
     validations:
       required: true
 
-  - type: input
+  - type: dropdown
     id: project
     attributes:
       label: Project
-      description: Project or area this bounty belongs to.
-      placeholder: Longshot, Quiver, Spearhead, Cross-project, DAO
-    validations:
-      required: true
+      description: Which project this belongs to. Active projects per AIP-007.
+      options:
+        - Project Quiver
+        - Project Spearhead
+        - Project Caribou
+        - Project Longshot
+        - Cross-project
+        - DAO / Governance
 
   - type: input
     id: reward_usdc
     attributes:
       label: USDC reward, optional
-      description: Numeric amount only. Leave blank for ARROW-only bounties. At least one reward field should be filled.
+      description: Numeric amount only.
       placeholder: "800"
 
   - type: input
     id: reward_arrow
     attributes:
       label: ARROW reward, optional
-      description: Numeric amount only. Leave blank for USDC-only bounties. At least one reward field should be filled.
+      description: Numeric amount only.
       placeholder: "2500"
 
-  - type: input
+  - type: dropdown
     id: expected_window
     attributes:
       label: Expected completion window
-      description: How quickly this should be completed after someone claims it.
-      placeholder: "~1 week after assignment"
-    validations:
-      required: true
+      description: Rough guide for how long this should take once claimed.
+      options:
+        - "~1 week after assignment"
+        - "~2 weeks after assignment"
+        - "~1 month after assignment"
+        - "Flexible"
 
   - type: input
     id: expiry_date
@@ -73,72 +85,63 @@ body:
       label: Disciplines
       description: Select the disciplines this bounty calls for (shown as tags on the board, matched against contributor profiles). Full guide — https://arrowair.com/docs/community/disciplines
       options:
-        - label: "Engineering: Mechanical"
-        - label: "Engineering: CAD"
-        - label: "Engineering: Electrical"
-        - label: "Engineering: Aerodynamics"
-        - label: "Engineering: Power"
-        - label: "Engineering: Propulsion"
-        - label: "Engineering: Certification"
-        - label: "Engineering: Safety"
-        - label: "Flight Systems: Firmware"
-        - label: "Flight Systems: Software"
-        - label: "Flight Systems: Controls"
-        - label: "Flight Systems: Autonomy"
-        - label: "Flight Systems: Telemetry"
-        - label: "Flight Systems: Simulation"
-        - label: "Flight Ops: Piloting"
-        - label: "Flight Ops: Flight Test"
-        - label: "Flight Ops: Maintenance"
-        - label: "Flight Ops: Support"
-        - label: "Flight Ops: Regulatory"
-        - label: "Flight Ops: Missions"
-        - label: "Manufacturing: 3D Printing"
-        - label: "Manufacturing: Machining"
-        - label: "Manufacturing: Composites"
-        - label: "Manufacturing: Assembly"
-        - label: "Manufacturing: Sourcing"
-        - label: "Manufacturing: Quality"
-        - label: "Design: Industrial"
-        - label: "Design: Interface"
-        - label: "Design: Graphics"
-        - label: "Content: Documentation"
-        - label: "Content: Media"
-        - label: "Content: Social Media"
-        - label: "Growth: Marketing"
-        - label: "Growth: Community"
-        - label: "Growth: Business Development"
-        - label: "Local: Hosting"
-        - label: "Local: Workshops"
-        - label: "Local: Vertiports"
-        - label: "Operations: Governance"
-        - label: "Operations: Tokenomics"
-        - label: "Operations: Coordination"
-        - label: "Operations: Legal"
-        - label: "Operations: Tooling"
+        - label: "🔷 Engineering: Mechanical"
+        - label: "🔷 Engineering: CAD"
+        - label: "🔷 Engineering: Electrical"
+        - label: "🔷 Engineering: Aerodynamics"
+        - label: "🔷 Engineering: Power"
+        - label: "🔷 Engineering: Propulsion"
+        - label: "🔷 Engineering: Certification"
+        - label: "🔷 Engineering: Safety"
+        - label: "🟦 Flight Systems: Firmware"
+        - label: "🟦 Flight Systems: Software"
+        - label: "🟦 Flight Systems: Controls"
+        - label: "🟦 Flight Systems: Autonomy"
+        - label: "🟦 Flight Systems: Telemetry"
+        - label: "🟦 Flight Systems: Simulation"
+        - label: "🟧 Flight Ops: Piloting"
+        - label: "🟧 Flight Ops: Flight Test"
+        - label: "🟧 Flight Ops: Maintenance"
+        - label: "🟧 Flight Ops: Support"
+        - label: "🟧 Flight Ops: Regulatory"
+        - label: "🟧 Flight Ops: Missions"
+        - label: "🟫 Manufacturing: 3D Printing"
+        - label: "🟫 Manufacturing: Machining"
+        - label: "🟫 Manufacturing: Composites"
+        - label: "🟫 Manufacturing: Assembly"
+        - label: "🟫 Manufacturing: Sourcing"
+        - label: "🟫 Manufacturing: Quality"
+        - label: "🟥 Design: Industrial"
+        - label: "🟥 Design: Interface"
+        - label: "🟥 Design: Graphics"
+        - label: "🟪 Content: Documentation"
+        - label: "🟪 Content: Media"
+        - label: "🟪 Content: Social Media"
+        - label: "🟩 Growth: Marketing"
+        - label: "🟩 Growth: Community"
+        - label: "🟩 Growth: Business Development"
+        - label: "🟨 Local: Hosting"
+        - label: "🟨 Local: Workshops"
+        - label: "🟨 Local: Vertiports"
+        - label: "⬛ Operations: Governance"
+        - label: "⬛ Operations: Tokenomics"
+        - label: "⬛ Operations: Coordination"
+        - label: "⬛ Operations: Legal"
+        - label: "⬛ Operations: Tooling"
 
   - type: input
     id: thumbnail
     attributes:
       label: Thumbnail image URL, optional
-      description: Paste or drag an image into the issue editor, then use the generated image URL here. Prefer JPG/PNG/WebP under 500 KB, roughly square if possible.
+      description: Drag an image into any comment box to get a URL. Roughly square, under 500 KB.
       placeholder: "https://..."
 
   - type: textarea
     id: card_description
     attributes:
       label: Short bounty board description
-      description: 1–2 sentence public summary for the website card.
+      description: 1–2 sentences. This is the public card text on the bounty board.
       placeholder: "Create a practical 3D-printed battery base using the Longshot/Tattu reference geometry."
-    validations:
-      required: true
-
-  - type: textarea
-    id: summary
-    attributes:
-      label: Summary
-      description: Human-readable task framing.
-      placeholder: "Design a 3D-printable base for the Longshot battery."
     validations:
       required: true
 
@@ -181,7 +184,7 @@ body:
     id: acceptance_criteria
     attributes:
       label: Acceptance criteria / critical requirements
-      description: How reviewers decide whether the bounty is complete.
+      description: The quality bar the deliverables must clear. Be specific — this is what settles a "technically delivered but not good enough" dispute.
       placeholder: |
         - Physical fit is checked against the reference assembly
         - Pinout/pad positions/mounting interfaces are correct
@@ -190,19 +193,10 @@ body:
       required: true
 
   - type: textarea
-    id: constraints
+    id: notes_and_links
     attributes:
-      label: Constraints / non-goals
-      description: What contributors should avoid changing or expanding into.
+      label: Notes & links, optional
+      description: Non-goals, things not to change, dependencies, related issues or PRs.
       placeholder: |
-        - Do not modify unrelated components arbitrarily
-        - Document required follow-up changes instead
-
-  - type: textarea
-    id: related_links
-    attributes:
-      label: Related issues / PRs, optional
-      description: Dependencies or relevant linked work.
-      placeholder: |
+        - Don't modify unrelated components — note follow-ups instead
         - Related issue: #14
-        - Related PR: #15
