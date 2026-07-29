@@ -39,6 +39,7 @@ extensionpack
 favicons
 Flesch
 Flesch-Kincaid
+FMEA
 fract
 frontmatter
 fswatch
