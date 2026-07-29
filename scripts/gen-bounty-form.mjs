@@ -1,6 +1,31 @@
-# GENERATED FILE — do not edit the Category or Skills options by hand.
+#!/usr/bin/env node
+// Regenerates .github/ISSUE_TEMPLATE/bounty.yml from the canonical disciplines
+// taxonomy (src/data/disciplines.json) so the issue form can never drift from
+// the approved category/discipline list. Run after any taxonomy change:
+//
+//   node scripts/gen-bounty-form.mjs
+//
+// Everything outside the Category dropdown and the Skills checkboxes is
+// authored here verbatim — edit this template, then regenerate.
+
+import { readFileSync, writeFileSync } from 'node:fs';
+
+const TAXONOMY_PATH = 'src/data/disciplines.json';
+const OUTPUT_PATH = '.github/ISSUE_TEMPLATE/bounty.yml';
+
+const taxonomy = JSON.parse(readFileSync(TAXONOMY_PATH, 'utf8'));
+
+const categoryOptions = taxonomy.categories
+    .map(category => `        - ${category.name}`)
+    .join('\n');
+
+const disciplineOptions = taxonomy.categories
+    .flatMap(category => category.disciplines.map(d => `        - label: "${category.name}: ${d.name}"`))
+    .join('\n');
+
+const template = `# GENERATED FILE — do not edit the Category or Skills options by hand.
 # Regenerate with: node scripts/gen-bounty-form.mjs
-# Taxonomy source: src/data/disciplines.json (v1.0)
+# Taxonomy source: ${TAXONOMY_PATH} (v${taxonomy.version})
 name: Bounty
 description: Create a bounty-backed work item
 labels: ["bounty"]
@@ -16,15 +41,7 @@ body:
       label: Category
       description: Used to group this bounty on the bounty board. See the disciplines guide at https://arrowair.com/docs/community/disciplines
       options:
-        - Engineering
-        - Flight Systems
-        - Flight Ops
-        - Manufacturing
-        - Design
-        - Content
-        - Growth
-        - Local
-        - Operations
+${categoryOptions}
     validations:
       required: true
 
@@ -73,49 +90,7 @@ body:
       label: Disciplines
       description: Select the disciplines this bounty calls for (shown as tags on the board, matched against contributor profiles). Full guide — https://arrowair.com/docs/community/disciplines
       options:
-        - label: "Engineering: Mechanical"
-        - label: "Engineering: CAD"
-        - label: "Engineering: Electrical"
-        - label: "Engineering: Aerodynamics"
-        - label: "Engineering: Power"
-        - label: "Engineering: Propulsion"
-        - label: "Engineering: Certification"
-        - label: "Engineering: Safety"
-        - label: "Flight Systems: Firmware"
-        - label: "Flight Systems: Software"
-        - label: "Flight Systems: Controls"
-        - label: "Flight Systems: Autonomy"
-        - label: "Flight Systems: Telemetry"
-        - label: "Flight Systems: Simulation"
-        - label: "Flight Ops: Piloting"
-        - label: "Flight Ops: Flight Test"
-        - label: "Flight Ops: Maintenance"
-        - label: "Flight Ops: Support"
-        - label: "Flight Ops: Regulatory"
-        - label: "Flight Ops: Missions"
-        - label: "Manufacturing: 3D Printing"
-        - label: "Manufacturing: Machining"
-        - label: "Manufacturing: Composites"
-        - label: "Manufacturing: Assembly"
-        - label: "Manufacturing: Sourcing"
-        - label: "Manufacturing: Quality"
-        - label: "Design: Industrial"
-        - label: "Design: Interface"
-        - label: "Design: Graphics"
-        - label: "Content: Documentation"
-        - label: "Content: Media"
-        - label: "Content: Social Media"
-        - label: "Growth: Marketing"
-        - label: "Growth: Community"
-        - label: "Growth: Business Development"
-        - label: "Local: Hosting"
-        - label: "Local: Workshops"
-        - label: "Local: Vertiports"
-        - label: "Operations: Governance"
-        - label: "Operations: Tokenomics"
-        - label: "Operations: Coordination"
-        - label: "Operations: Legal"
-        - label: "Operations: Tooling"
+${disciplineOptions}
 
   - type: input
     id: thumbnail
@@ -206,3 +181,7 @@ body:
       placeholder: |
         - Related issue: #14
         - Related PR: #15
+`;
+
+writeFileSync(OUTPUT_PATH, template);
+console.log(`Wrote ${OUTPUT_PATH} — ${taxonomy.categories.length} categories, ${taxonomy.categories.reduce((n, c) => n + c.disciplines.length, 0)} disciplines (taxonomy v${taxonomy.version}).`);

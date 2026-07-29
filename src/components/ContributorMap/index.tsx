@@ -7,6 +7,7 @@ import Globe, {GlobeHandle} from './Globe';
 import {
   Contributor,
   COUNTRY_ALIASES,
+  DISCIPLINE_COLOR,
   EntryType,
   GOLDEN_ANGLE,
   LEGEND_LABEL,
@@ -400,7 +401,11 @@ function DotCard({
       {(person.disciplines?.length ?? 0) > 0 && (
         <div className={styles.cardTags}>
           {person.disciplines!.map(d => (
-            <span key={d} className={styles.cardTag}>
+            <span
+              key={d}
+              className={styles.cardTag}
+              style={DISCIPLINE_COLOR[d] ? {borderLeft: `3px solid ${DISCIPLINE_COLOR[d]}`} : undefined}
+            >
               {d}
             </span>
           ))}

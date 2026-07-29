@@ -69,6 +69,7 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'community/index', label: 'Community at Arrow' },
         { type: 'doc', id: 'community/contributor-map', label: 'Contributor Map' },
+        { type: 'doc', id: 'community/disciplines', label: 'Disciplines' },
         { type: 'doc', id: 'community/community-values', label: 'Culture & Values' },
         { type: 'doc', id: 'community/community-calls', label: 'Calls & Events' },
         { type: 'doc', id: 'community/growth-marketing', label: 'Growth & Marketing' },

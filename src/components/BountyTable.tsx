@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
+import disciplines from '@site/src/data/disciplines.json';
 
 type BountyStatus = 'OPEN' | 'CLAIMED' | 'EXPIRED' | 'CLOSED';
 
-export type SkillTag =
-  | 'CAD'
-  | 'FEA'
-  | 'CFD'
-  | 'Python'
-  | 'TypeScript'
-  | 'Rust'
-  | 'Electronics'
-  | 'Software'
-  | 'DevOps'
-  | 'Writing'
-  | 'Documentation'
-  | 'Translation'
-  | 'Design'
-  | 'Media'
-  | 'Video'
-  | 'Governance'
-  | 'Research'
-  | 'Testing';
+/**
+ * Discipline names from the canonical taxonomy (src/data/disciplines.json).
+ * Kept as string — sync-bounties.mjs validates tags against the taxonomy at
+ * sync time, so anything that reaches the generated JSON is canonical.
+ */
+export type SkillTag = string;
+
+/** discipline name -> category accent color, from the canonical taxonomy */
+const DISCIPLINE_COLOR: Record<string, string> = {};
+for (const category of disciplines.categories) {
+  for (const d of category.disciplines) DISCIPLINE_COLOR[d.name] = category.color;
+}
+
+function hexToRgba(hex: string, alpha: number): string {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
+}
 
 export type BountyRow = {
   title: string;
@@ -173,6 +172,29 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
                           return <>{excerpt}{isLong && readMoreUrl && <>{' '}...<a href={readMoreUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: 'inherit' }}>read more</a></>}{timing && <> <span style={{ fontWeight: 500, color: 'var(--docs-text-primary, #374151)' }}>| {timing}</span></>}</>;
                         })()}
                       </span>
+                      {row.skills && row.skills.length > 0 && (
+                        <span style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '2px' }}>
+                          {row.skills.map(skill => {
+                            const color = DISCIPLINE_COLOR[skill] ?? '#5F6774';
+                            return (
+                              <span
+                                key={skill}
+                                className="bt-pill-discipline"
+                                style={{
+                                  ...PILL_BASE,
+                                  display: 'inline-block',
+                                  padding: '2px 5px',
+                                  fontSize: '10px',
+                                  border: `1px solid ${hexToRgba(color, 0.45)}`,
+                                  color,
+                                  background: hexToRgba(color, 0.08),
+                                  cursor: 'default',
+                                }}
+                              >{skill}</span>
+                            );
+                          })}
+                        </span>
+                      )}
                     </span>
                   </span>
                 </td>
