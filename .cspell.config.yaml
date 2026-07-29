@@ -31,6 +31,9 @@ ignorePaths:
   # Generated map geometry — Natural Earth country names trip the checker
   - "src/data/world-map-geometry.json"
   - "src/data/world-globe-geometry.json"
+  # Contributor map entries — contributor names, cities and bios are
+  # user-submitted, so any of them can trip the checker
+  - "src/data/contributors.json"
   - "target"
   - "logs"
   - "out"
