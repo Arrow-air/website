@@ -356,6 +356,23 @@
       "blurb": "Placeholder manufacturing partner. Sheet metal, anodizing, and startlingly fast quotes.",
       "joined": "2025-02",
       "demo": true
+    },
+    {
+      "id": "828452116632567858",
+      "name": "sleety",
+      "country": "Ireland",
+      "city": "Dublin",
+      "lat": 53.3331,
+      "lng": -6.2489,
+      "tz": "Europe/Dublin",
+      "disciplines": [
+        "Certification",
+        "Safety"
+      ],
+      "joined": "2021-11",
+      "discord": "sleety.eth",
+      "signupAt": "2026-07-29T12:51:18.078Z",
+      "avatar": "/img/contributors/828452116632567858.webp"
     }
   ]
 }
