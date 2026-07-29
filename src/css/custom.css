@@ -1692,6 +1692,76 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
 .bt-pill-usdc:hover,
 .bt-pill-arrow:hover  { background: rgba(8,67,191,0.14) !important; border-color: rgba(8,67,191,0.6) !important; }
 
+/* Wide layout: the three columns need room for the reward and links cells to
+   stay legible. Below the breakpoint this is dropped in favour of stacked
+   cards, which is why it lives here rather than as an inline style. */
+.bt-table { min-width: 640px; }
+
+/* A 1px radius on the pills — enough to take the edge off without reading as
+   "rounded". The square, utilitarian look is deliberate. */
+.bt-pill-apply,
+.bt-pill-claimed,
+.bt-pill-expired,
+.bt-pill-closed,
+.bt-pill-usdc,
+.bt-pill-arrow,
+.bt-pill-discipline { border-radius: 1px !important; }
+
+/* Makes it quicker to see which row the cursor is on. */
+.theme-doc-markdown tbody tr:hover .bt-img-wrapper,
+.theme-doc-markdown tbody tr:hover .bt-img-placeholder { border-color: var(--docs-primary, #0843BF) !important; }
+
+/* --- Narrow screens: stack each bounty as a card ---------------------------
+   The table scrolls horizontally below 640px, which pushes the Apply button
+   off-screen — the one thing a contributor came to press. Collapsing to blocks
+   keeps everything reachable without a sideways swipe. */
+@media (max-width: 640px) {
+  .bt-table-wrap { overflow-x: visible !important; }
+
+  .bt-table { min-width: 0 !important; display: block !important; }
+  .bt-table thead,
+  .bt-table colgroup { display: none !important; }
+  .bt-table tbody { display: block !important; }
+
+  .bt-table tr {
+    display: block !important;
+    width: auto !important;
+    border: 1px solid var(--docs-border, #c9cfd8) !important;
+    padding: 10px 12px !important;
+    margin-bottom: 10px !important;
+    background: transparent !important;
+  }
+
+  /* Zebra and hover backgrounds are inline on <tr>; on cards they fight the
+     border, so neutralise them and let the border do the separating. */
+  .bt-table tbody tr:hover td { background: transparent !important; }
+
+  .bt-table td {
+    display: block !important;
+    width: auto !important;
+    border: none !important;
+    padding: 4px 0 !important;
+    text-align: left !important;
+  }
+
+  /* Reward and links sit side by side beneath the description rather than
+     stacking three deep. */
+  .bt-table td:nth-child(2),
+  .bt-table td:nth-child(3) {
+    display: inline-block !important;
+    vertical-align: top;
+    box-sizing: border-box !important;
+    width: 50% !important;
+    padding: 10px 0 0 0 !important;
+  }
+
+  /* inline-block cells only gain a gap from whitespace in the markup, and JSX
+     emits none — so the reward pill would otherwise butt straight against the
+     status pill. Padding inside the 50% keeps both outer edges flush with the
+     card while opening a gutter down the middle. */
+  .bt-table td:nth-child(2) { padding-right: 8px !important; }
+}
+
 .container {
   padding: 0 1.5rem;
 }

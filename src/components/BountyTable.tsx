@@ -75,27 +75,28 @@ function getTimingLabel(row: BountyRow): string | undefined {
   return undefined;
 }
 
-function PhotoPlaceholder({ size = 72 }: { size?: number }) {
-  const scale = size / 72;
+/**
+ * Stand-in for a bounty with no thumbnail. Deliberately not a person
+ * silhouette — the previous placeholder read as a broken avatar, which is the
+ * wrong signal for a work item. A dashed frame with the category accent says
+ * "no image supplied" instead.
+ */
+function PhotoPlaceholder({ size = 72, accent }: { size?: number, accent?: string }) {
+  const color = accent ?? '#5F6774';
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 72 72"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ display: 'block', flexShrink: 0 }}
-    >
-      <rect width="72" height="72" rx={0} fill="var(--ifm-color-emphasis-200, #e5e7eb)" stroke="var(--ifm-color-emphasis-400, #9ca3af)" strokeWidth={1 / scale} />
-      <circle cx="36" cy="31" r="9" stroke="var(--ifm-color-emphasis-600, #6b7280)" strokeWidth={1.5 / scale} fill="none" />
-      <path
-        d="M18 50c0-3 2-6 6-7l4-1.5a14 14 0 0 0 16 0L48 43c4 1 6 4 6 7"
-        stroke="var(--ifm-color-emphasis-600, #6b7280)"
-        strokeWidth={1.5 / scale}
-        fill="none"
-        strokeLinecap="round"
-      />
-    </svg>
+    <span
+      className="bt-img-placeholder"
+      aria-hidden="true"
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        flexShrink: 0,
+        display: 'block',
+        border: `1px dashed ${hexToRgba(color, 0.4)}`,
+        background: hexToRgba(color, 0.06),
+        boxSizing: 'border-box',
+      }}
+    />
   );
 }
 
@@ -107,8 +108,10 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
 
   return (
     <div>
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', minWidth: '640px', tableLayout: 'fixed' }}>
+      {/* minWidth lives in custom.css (.bt-table) so the narrow-screen card
+          layout can drop it — an inline style would outrank the media query. */}
+      <div className="bt-table-wrap" style={{ overflowX: 'auto' }}>
+        <table className="bt-table" style={{ width: '100%', tableLayout: 'fixed' }}>
           <colgroup>
             <col />
             <col style={{ width: '120px' }} />
@@ -159,7 +162,7 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
                       ? <span className="bt-img-wrapper" style={{ width: '56px', height: '56px', flexShrink: 0, display: 'block', background: 'var(--docs-bg-subtle, #e2e8f0)', padding: '2px', overflow: 'hidden', boxSizing: 'border-box', border: '1px solid var(--ifm-color-emphasis-400, #9ca3af)' }}>
                           <img src={row.image} alt={row.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                         </span>
-                      : <PhotoPlaceholder size={56} />}
+                      : <PhotoPlaceholder size={56} accent={row.skills?.length ? DISCIPLINE_COLOR[row.skills[0]] : undefined} />}
                     <span style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: 0 }}>
                       <span style={{ color: 'var(--docs-text-primary, #111827)', fontWeight: 500, fontSize: '15px' }}>{row.title}</span>
                       <span style={{ color: 'var(--docs-text-secondary)', fontSize: '13px', lineHeight: '1.5' }}>
