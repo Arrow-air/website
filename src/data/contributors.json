@@ -356,6 +356,25 @@
       "blurb": "Placeholder manufacturing partner. Sheet metal, anodizing, and startlingly fast quotes.",
       "joined": "2025-02",
       "demo": true
+    },
+    {
+      "id": "828452116632567858",
+      "name": "sleety",
+      "country": "Yemen",
+      "city": "Ataq",
+      "lat": 14.5377,
+      "lng": 46.8319,
+      "tz": "Asia/Aden",
+      "disciplines": [
+        "Mechanical",
+        "Firmware",
+        "Piloting"
+      ],
+      "blurb": "Hello, test person here!",
+      "joined": "2021-11",
+      "discord": "sleety.eth",
+      "signupAt": "2026-07-30T17:35:08.377Z",
+      "avatar": "/img/contributors/828452116632567858.webp"
     }
   ]
 }
