@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="900" height="640">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#d32f2f" />
+    </marker>
+    <marker id="arrow-gnd" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#424242" />
+    </marker>
+    <marker id="arrow-12v" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ff6f00" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+    .subtitle { font-family: Arial, sans-serif; font-size: 13px; fill: #555; }
+    .component-label { font-family: Arial, sans-serif; font-size: 12px; fill: #1a1a1a; font-weight: bold; }
+    .component-sublabel { font-family: Arial, sans-serif; font-size: 11px; fill: #555; }
+    .wire-label { font-family: monospace; font-size: 10px; fill: #d32f2f; font-weight: bold; }
+    .wire-label-12v { font-family: monospace; font-size: 10px; fill: #ff6f00; font-weight: bold; }
+    .wire-label-gnd { font-family: monospace; font-size: 10px; fill: #424242; font-weight: bold; }
+    .note { font-family: Arial, sans-serif; font-size: 11px; fill: #757575; }
+  </style>
+
+  <!-- Title -->
+  <text x="450" y="28" class="title" text-anchor="middle">Arrow Air — Power System Schematic (Bounty #201)</text>
+  <text x="450" y="46" class="subtitle" text-anchor="middle">48V Main Bus · 12V Redundant Avionics Bus · 4× Motor ESC Array</text>
+
+  <!-- Battery Pack -->
+  <rect x="40" y="70" width="140" height="90" rx="6" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+  <text x="110" y="100" class="component-label" text-anchor="middle">Battery Pack</text>
+  <text x="110" y="118" class="component-sublabel" text-anchor="middle">48V 20Ah LiFePO₄</text>
+  <text x="110" y="135" class="component-sublabel" text-anchor="middle">15S1P · 960 Wh</text>
+
+  <!-- BMS -->
+  <rect x="40" y="180" width="140" height="50" rx="6" fill="#e8f4f8" stroke="#2c5aa0" stroke-width="2"/>
+  <text x="110" y="205" class="component-label" text-anchor="middle">BMS</text>
+  <text x="110" y="222" class="component-sublabel" text-anchor="middle">CAN 250kbps</text>
+
+  <!-- Main Fuse -->
+  <rect x="210" y="90" width="90" height="40" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="255" y="110" class="component-label" text-anchor="middle">Main Fuse</text>
+  <text x="255" y="125" class="component-sublabel" text-anchor="middle">225A ANL</text>
+
+  <!-- Precharge -->
+  <rect x="330" y="90" width="70" height="40" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="365" y="110" class="component-label" text-anchor="middle">Precharge</text>
+  <text x="365" y="125" class="component-sublabel" text-anchor="middle">100Ω / 500ms</text>
+
+  <!-- Main Contactor -->
+  <rect x="430" y="90" width="80" height="40" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="470" y="110" class="component-label" text-anchor="middle">Contactor</text>
+  <text x="470" y="125" class="component-sublabel" text-anchor="middle">48V 200A</text>
+
+  <!-- +48V Main Bus -->
+  <rect x="540" y="70" width="36" height="380" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="558" y="60" class="component-label" text-anchor="middle" fill="#1565c0">+48V Bus</text>
+
+  <!-- Ground Bus -->
+  <rect x="40" y="500" width="780" height="36" rx="4" fill="#424242" stroke="#212121" stroke-width="2"/>
+  <text x="430" y="522" class="component-label" text-anchor="middle" fill="white">Ground Bus (0V)</text>
+
+  <!-- Motor ESC 1 -->
+  <rect x="620" y="100" width="150" height="55" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="695" y="122" class="component-label" text-anchor="middle">Motor ESC 1</text>
+  <text x="695" y="138" class="component-sublabel" text-anchor="middle">48V / 50A / 2kW</text>
+  <text x="695" y="152" class="component-sublabel" text-anchor="middle">DShot600 · BLHeli_32</text>
+
+  <!-- Motor 1 -->
+  <circle cx="820" cy="127" r="28" fill="#f1f8e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="820" y="131" class="component-label" text-anchor="middle">M1</text>
+
+  <!-- Motor ESC 2 -->
+  <rect x="620" y="180" width="150" height="55" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="695" y="202" class="component-label" text-anchor="middle">Motor ESC 2</text>
+  <text x="695" y="218" class="component-sublabel" text-anchor="middle">48V / 50A / 2kW</text>
+  <text x="695" y="232" class="component-sublabel" text-anchor="middle">DShot600 · BLHeli_32</text>
+
+  <!-- Motor 2 -->
+  <circle cx="820" cy="207" r="28" fill="#f1f8e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="820" y="211" class="component-label" text-anchor="middle">M2</text>
+
+  <!-- Motor ESC 3 -->
+  <rect x="620" y="260" width="150" height="55" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="695" y="282" class="component-label" text-anchor="middle">Motor ESC 3</text>
+  <text x="695" y="298" class="component-sublabel" text-anchor="middle">48V / 50A / 2kW</text>
+  <text x="695" y="312" class="component-sublabel" text-anchor="middle">DShot600 · BLHeli_32</text>
+
+  <!-- Motor 3 -->
+  <circle cx="820" cy="287" r="28" fill="#f1f8e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="820" y="291" class="component-label" text-anchor="middle">M3</text>
+
+  <!-- Motor ESC 4 -->
+  <rect x="620" y="340" width="150" height="55" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="695" y="362" class="component-label" text-anchor="middle">Motor ESC 4</text>
+  <text x="695" y="378" class="component-sublabel" text-anchor="middle">48V / 50A / 2kW</text>
+  <text x="695" y="392" class="component-sublabel" text-anchor="middle">DShot600 · BLHeli_32</text>
+
+  <!-- Motor 4 -->
+  <circle cx="820" cy="367" r="28" fill="#f1f8e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="820" y="371" class="component-label" text-anchor="middle">M4</text>
+
+  <!-- DC-DC Conv 1 (Primary) -->
+  <rect x="620" y="430" width="150" height="50" rx="5" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="695" y="452" class="component-label" text-anchor="middle">DC-DC Conv 1</text>
+  <text x="695" y="468" class="component-sublabel" text-anchor="middle">48V → 12V / 30A</text>
+
+  <!-- DC-DC Conv 2 (Redundant) -->
+  <rect x="620" y="500" width="150" height="50" rx="5" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="695" y="522" class="component-label" text-anchor="middle">DC-DC Conv 2</text>
+  <text x="695" y="538" class="component-sublabel" text-anchor="middle">48V → 12V / 30A</text>
+
+  <!-- +12V Bus -->
+  <rect x="800" y="430" width="30" height="120" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="815" y="420" class="component-label" text-anchor="middle" fill="#e65100">+12V</text>
+
+  <!-- Avionics Load -->
+  <rect x="760" y="460" width="80" height="36" rx="4" fill="#fce4ec" stroke="#c62828" stroke-width="2"/>
+  <text x="800" y="483" class="component-label" text-anchor="middle">Avionics</text>
+
+  <!-- Payload -->
+  <rect x="340" y="460" width="100" height="36" rx="4" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2"/>
+  <text x="390" y="483" class="component-label" text-anchor="middle">Payload</text>
+
+  <!-- Emergency Reserve -->
+  <rect x="200" y="460" width="100" height="36" rx="4" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2"/>
+  <text x="250" y="483" class="component-label" text-anchor="middle">Emergency</text>
+
+  <!-- Power wires from battery to main fuse -->
+  <line x1="110" y1="160" x2="110" y2="200" stroke="#424242" stroke-width="3" marker-end="url(#arrow-gnd)"/>
+  <line x1="180" y1="110" x2="210" y2="110" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="196" y="105" class="wire-label">+48V</text>
+
+  <!-- Fuse to precharge -->
+  <line x1="300" y1="110" x2="330" y2="110" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Precharge to contactor -->
+  <line x1="400" y1="110" x2="430" y2="110" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Contactor to +48V bus -->
+  <line x1="510" y1="110" x2="540" y2="110" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- +48V bus to Motor ESCs -->
+  <line x1="576" y1="127" x2="620" y2="127" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="595" y="122" class="wire-label">+48V</text>
+
+  <line x1="576" y1="207" x2="620" y2="207" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="595" y="202" class="wire-label">+48V</text>
+
+  <line x1="576" y1="287" x2="620" y2="287" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="595" y="282" class="wire-label">+48V</text>
+
+  <line x1="576" y1="367" x2="620" y2="367" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="595" y="362" class="wire-label">+48V</text>
+
+  <!-- Motor to ground -->
+  <line x1="848" y1="127" x2="848" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="848" y1="207" x2="848" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="848" y1="287" x2="848" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="848" y1="367" x2="848" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+
+  <!-- +48V bus to DC-DC Conv 1 -->
+  <line x1="576" y1="455" x2="620" y2="455" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="595" y="450" class="wire-label">+48V</text>
+
+  <!-- +48V bus to DC-DC Conv 2 -->
+  <line x1="576" y1="525" x2="620" y2="525" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- DC-DC Conv 1 to +12V bus -->
+  <line x1="770" y1="455" x2="800" y2="455" stroke="#ff6f00" stroke-width="3" marker-end="url(#arrow-12v)"/>
+  <text x="785" y="450" class="wire-label-12v">+12V</text>
+
+  <!-- DC-DC Conv 2 to +12V bus -->
+  <line x1="770" y1="525" x2="800" y2="525" stroke="#ff6f00" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-12v)"/>
+
+  <!-- +12V bus to Avionics -->
+  <line x1="815" y1="490" x2="815" y2="460" stroke="#ff6f00" stroke-width="3" marker-end="url(#arrow-12v)"/>
+  <line x1="815" y1="460" x2="840" y2="460" stroke="#ff6f00" stroke-width="3" marker-end="url(#arrow-12v)"/>
+  <text x="820" y="475" class="wire-label-12v">+12V</text>
+
+  <!-- +48V bus to Payload -->
+  <line x1="558" y1="478" x2="340" y2="478" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <circle cx="390" cy="478" r="6" fill="white" stroke="#d32f2f" stroke-width="2"/>
+  <text x="390" y="482" class="wire-label" text-anchor="middle" font-size="9">20A</text>
+
+  <!-- +48V bus to Emergency -->
+  <line x1="558" y1="478" x2="300" y2="478" stroke="#d32f2f" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
+
+  <!-- Ground connections -->
+  <line x1="110" y1="230" x2="110" y2="500" stroke="#424242" stroke-width="3" marker-end="url(#arrow-gnd)"/>
+  <line x1="365" y1="130" x2="365" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="470" y1="130" x2="470" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="695" y1="155" x2="695" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="695" y1="235" x2="695" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="695" y1="315" x2="695" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="695" y1="395" x2="695" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="695" y1="480" x2="695" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+  <line x1="695" y1="550" x2="695" y2="500" stroke="#424242" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-gnd)"/>
+
+  <!-- Legend -->
+  <text x="40" y="590" class="component-label">Legend:</text>
+  <line x1="100" y1="585" x2="150" y2="585" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="155" y="590" class="note">48V Power</text>
+  <line x1="240" y1="585" x2="290" y2="585" stroke="#ff6f00" stroke-width="3" marker-end="url(#arrow-12v)"/>
+  <text x="295" y="590" class="note">12V Power</text>
+  <line x1="370" y1="585" x2="420" y2="585" stroke="#424242" stroke-width="3" marker-end="url(#arrow-gnd)"/>
+  <text x="425" y="590" class="note">Ground</text>
+  <line x1="500" y1="585" x2="550" y2="585" stroke="#d32f2f" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow)"/>
+  <text x="555" y="590" class="note">Redundant / Backup</text>
+
+  <!-- Footer -->
+  <text x="450" y="620" class="note" text-anchor="middle">Generated for Arrow Air · Bounty #201 · Quality: Production-grade schematic</text>
+</svg>

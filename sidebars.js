@@ -32,6 +32,7 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'overview/about-arrow', label: 'What is Arrow?' },
         { type: 'doc', id: 'overview/our-projects', label: 'Our Projects' },
+        { type: 'doc', id: 'designs/bounty-201-power-system', label: 'Power System Design' },
       ],
     },
 
