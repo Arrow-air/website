@@ -360,19 +360,20 @@
     {
       "id": "828452116632567858",
       "name": "sleety",
-      "country": "Yemen",
-      "city": "Ataq",
-      "lat": 14.5377,
-      "lng": 46.8319,
-      "tz": "Asia/Aden",
+      "country": "Argentina",
+      "city": "Buenos Aires",
+      "lat": -34.6131,
+      "lng": -58.3772,
+      "tz": "America/Argentina/Buenos_Aires",
       "disciplines": [
-        "Mechanical",
-        "Firmware",
-        "Piloting"
+        "CAD",
+        "Aerodynamics",
+        "Safety"
       ],
-      "blurb": "Hello, test person here!",
+      "blurb": "Hey Im A test entry",
       "joined": "2021-11",
       "discord": "sleety.eth",
+      "github": "testguy",
       "signupAt": "2026-07-30T17:35:08.377Z",
       "avatar": "/img/contributors/828452116632567858.webp"
     }
