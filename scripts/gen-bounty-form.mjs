@@ -15,12 +15,34 @@ const OUTPUT_PATH = '.github/ISSUE_TEMPLATE/bounty.yml';
 
 const taxonomy = JSON.parse(readFileSync(TAXONOMY_PATH, 'utf8'));
 
+// One abstract color glyph per category, approximating its hex in the taxonomy.
+// Used only to group the 43-item discipline checklist visually — the same glyphs
+// the contributor-map Discord bot uses, so the taxonomy looks consistent
+// wherever a contributor meets it.
+//
+// These prefix the checkbox label, never the Category dropdown. sync-bounties.mjs
+// takes everything after the first colon ("Engineering: CAD" -> "CAD"), so a
+// prefix is discarded harmlessly, but the dropdown value is an exact map lookup
+// that throws on a miss.
+const CATEGORY_GLYPH = {
+    Engineering: '🔷',
+    'Flight Systems': '🟦',
+    'Flight Ops': '🟧',
+    Manufacturing: '🟫',
+    Design: '🟥',
+    Content: '🟪',
+    Growth: '🟩',
+    Local: '🟨',
+    Operations: '⬛',
+};
+
 const categoryOptions = taxonomy.categories
     .map(category => `        - ${category.name}`)
     .join('\n');
 
 const disciplineOptions = taxonomy.categories
-    .flatMap(category => category.disciplines.map(d => `        - label: "${category.name}: ${d.name}"`))
+    .flatMap(category => category.disciplines.map(d =>
+        `        - label: "${CATEGORY_GLYPH[category.name] ?? '▪️'} ${category.name}: ${d.name}"`))
     .join('\n');
 
 const template = `# GENERATED FILE — do not edit the Category or Skills options by hand.
@@ -28,12 +50,18 @@ const template = `# GENERATED FILE — do not edit the Category or Skills option
 # Taxonomy source: ${TAXONOMY_PATH} (v${taxonomy.version})
 name: Bounty
 description: Create a bounty-backed work item
-labels: ["bounty"]
+labels: ["bounty:proposed"]
 body:
   - type: markdown
     attributes:
       value: |
-        Create a bounty-backed work item. The short board-entry fields power the public bounty board; the spec fields explain what needs to be done.
+        The board-entry fields power the public bounty board; the spec fields tell a contributor what to actually do.
+
+        **Fill in at least one reward** — USDC, ARROW, or both. A bounty with neither is rejected by the board sync.
+
+        Only **Category**, a reward, the board description, scope, deliverables and acceptance criteria are required. Skip the rest if they don't apply.
+
+        Submitting adds the \`bounty:proposed\` label. A maintainer applies \`bounty\` to publish it to the board.
 
   - type: dropdown
     id: category
@@ -45,37 +73,43 @@ ${categoryOptions}
     validations:
       required: true
 
-  - type: input
+  - type: dropdown
     id: project
     attributes:
       label: Project
-      description: Project or area this bounty belongs to.
-      placeholder: Longshot, Quiver, Spearhead, Cross-project, DAO
-    validations:
-      required: true
+      description: Which project this belongs to. Active projects per AIP-007.
+      options:
+        - Project Quiver
+        - Project Spearhead
+        - Project Caribou
+        - Project Longshot
+        - Cross-project
+        - DAO / Governance
 
   - type: input
     id: reward_usdc
     attributes:
       label: USDC reward, optional
-      description: Numeric amount only. Leave blank for ARROW-only bounties. At least one reward field should be filled.
+      description: Numeric amount only.
       placeholder: "800"
 
   - type: input
     id: reward_arrow
     attributes:
       label: ARROW reward, optional
-      description: Numeric amount only. Leave blank for USDC-only bounties. At least one reward field should be filled.
+      description: Numeric amount only.
       placeholder: "2500"
 
-  - type: input
+  - type: dropdown
     id: expected_window
     attributes:
       label: Expected completion window
-      description: How quickly this should be completed after someone claims it.
-      placeholder: "~1 week after assignment"
-    validations:
-      required: true
+      description: Rough guide for how long this should take once claimed.
+      options:
+        - "~1 week after assignment"
+        - "~2 weeks after assignment"
+        - "~1 month after assignment"
+        - "Flexible"
 
   - type: input
     id: expiry_date
@@ -96,24 +130,15 @@ ${disciplineOptions}
     id: thumbnail
     attributes:
       label: Thumbnail image URL, optional
-      description: Paste or drag an image into the issue editor, then use the generated image URL here. Prefer JPG/PNG/WebP under 500 KB, roughly square if possible.
+      description: Drag an image into any comment box to get a URL. Roughly square, under 500 KB.
       placeholder: "https://..."
 
   - type: textarea
     id: card_description
     attributes:
       label: Short bounty board description
-      description: 1–2 sentence public summary for the website card.
+      description: 1–2 sentences. This is the public card text on the bounty board.
       placeholder: "Create a practical 3D-printed battery base using the Longshot/Tattu reference geometry."
-    validations:
-      required: true
-
-  - type: textarea
-    id: summary
-    attributes:
-      label: Summary
-      description: Human-readable task framing.
-      placeholder: "Design a 3D-printable base for the Longshot battery."
     validations:
       required: true
 
@@ -156,7 +181,7 @@ ${disciplineOptions}
     id: acceptance_criteria
     attributes:
       label: Acceptance criteria / critical requirements
-      description: How reviewers decide whether the bounty is complete.
+      description: The quality bar the deliverables must clear. Be specific — this is what settles a "technically delivered but not good enough" dispute.
       placeholder: |
         - Physical fit is checked against the reference assembly
         - Pinout/pad positions/mounting interfaces are correct
@@ -165,22 +190,13 @@ ${disciplineOptions}
       required: true
 
   - type: textarea
-    id: constraints
+    id: notes_and_links
     attributes:
-      label: Constraints / non-goals
-      description: What contributors should avoid changing or expanding into.
+      label: Notes & links, optional
+      description: Non-goals, things not to change, dependencies, related issues or PRs.
       placeholder: |
-        - Do not modify unrelated components arbitrarily
-        - Document required follow-up changes instead
-
-  - type: textarea
-    id: related_links
-    attributes:
-      label: Related issues / PRs, optional
-      description: Dependencies or relevant linked work.
-      placeholder: |
+        - Don't modify unrelated components — note follow-ups instead
         - Related issue: #14
-        - Related PR: #15
 `;
 
 writeFileSync(OUTPUT_PATH, template);
