@@ -360,20 +360,19 @@
     {
       "id": "828452116632567858",
       "name": "sleety",
-      "country": "Argentina",
-      "city": "Buenos Aires",
-      "lat": -34.6131,
-      "lng": -58.3772,
-      "tz": "America/Argentina/Buenos_Aires",
+      "country": "Portugal",
+      "city": "Azambuja",
+      "lat": 39.0703,
+      "lng": -8.8682,
+      "tz": "Europe/Lisbon",
       "disciplines": [
-        "CAD",
-        "Aerodynamics",
-        "Safety"
+        "Mechanical",
+        "Software",
+        "Flight Test"
       ],
-      "blurb": "Hey Im A test entry",
+      "blurb": "hey",
       "joined": "2021-11",
       "discord": "sleety.eth",
-      "github": "testguy",
       "signupAt": "2026-07-30T17:35:08.377Z",
       "avatar": "/img/contributors/828452116632567858.webp"
     }
