@@ -1697,6 +1697,20 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
    cards, which is why it lives here rather than as an inline style. */
 .bt-table { min-width: 640px; }
 
+/* Column headers pick up Departure Mono from the global `.theme-doc-markdown th`
+   rule. The board reads better in the same grotesk the project category tabs
+   use, so override it here rather than at that rule, which would restyle every
+   table in the docs. Letter-spacing and weight match the tabs; the size stays
+   at 12px so the header doesn't shrink against the row text below it.
+   Qualified with .theme-doc-markdown to outrank that rule: a bare `.bt-table th`
+   ties it on specificity and loses on source order, since it is declared later
+   in this file. */
+.theme-doc-markdown .bt-table th {
+  font-family: 'Neue Haas Grotesk', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 /* A 1px radius on the pills — enough to take the edge off without reading as
    "rounded". The square, utilitarian look is deliberate. */
 .bt-pill-apply,

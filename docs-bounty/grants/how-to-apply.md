@@ -17,11 +17,11 @@ sidebar_label: How to Apply
 
 Write up a short proposal covering:
 
-- **What you're building** — clear description of the deliverable
-- **Why it matters** — how it benefits the Arrow project or community
-- **Timeline** — milestones and estimated completion date
-- **Budget** — requested USDC and $ARROW amounts, with breakdown
-- **Your background** — relevant experience or past contributions
+- **What you're building**: a clear description of the deliverable
+- **Why it matters**: how it benefits the Arrow project or community
+- **Timeline**: milestones and estimated completion date
+- **Budget**: requested USDC and $ARROW amounts, with a breakdown
+- **Your background**: relevant experience or past contributions
 
 ### 2. Submit on GitHub
 
@@ -40,10 +40,10 @@ You'll be notified via the GitHub issue once a decision is made.
 
 ### 5. Work and payment
 
-Once approved, you'll be onboarded to the project. Payments are released against milestones — typically 50% upfront and 50% on completion, though this varies by grant size.
+Once approved, you'll be onboarded to the project. Payments are released against milestones, typically 50% upfront and 50% on completion, though this varies by grant size.
 
 ## Tips for a strong proposal
 
-- Be specific about deliverables — vague proposals are harder to approve
+- Be specific about deliverables, since vague proposals are harder to approve
 - Show prior work or relevant experience where possible
 - Start smaller if you're new to the community; build trust with bounties first

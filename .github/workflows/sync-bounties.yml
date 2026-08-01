@@ -3,9 +3,15 @@ name: Sync bounty board data
 on:
   workflow_dispatch:
 
+# A `permissions:` block is a complete replacement, not an addition: every scope
+# left out is set to none. Without `issues: read` the `gh issue list` call in
+# scripts/sync-bounties.mjs returns an empty array instead of failing, so the job
+# regenerates an empty board, finds no diff, and exits green having published
+# nothing. That is what kept the board empty through July.
 permissions:
   contents: write
   pull-requests: write
+  issues: read
 
 env:
   SYNC_BRANCH: bot/bounty-sync

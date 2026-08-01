@@ -1433,12 +1433,35 @@ export default function ContributorMap(): React.ReactElement {
       {expanded && <div className={styles.mapPlaceholder} aria-hidden="true" />}
       {expanded ? createPortal(mapPanelNode, document.body) : mapPanelNode}
 
-      {contributors.some(c => c.demo) && (
-        <p className={styles.demoNotice}>
-          Showing placeholder demo data — real contributors will appear here via
-          the opt-in <code>/new-contributor</code> Discord command.
-        </p>
-      )}
+      {/* The notice used to fire on "any demo row exists", so the moment the
+          first real contributor registered the map still told visitors every
+          dot was fake. Count instead, and stop claiming anything once the
+          placeholders are gone. */}
+      {(() => {
+        const real = contributors.filter(c => !c.demo).length;
+        const hasDemo = contributors.some(c => c.demo);
+        const people = `${real} ${real === 1 ? 'contributor' : 'contributors'}`;
+
+        // Three states, and the notice has to be honest in all of them. It used
+        // to render only while demo rows existed, which meant that once the
+        // placeholders were removed the map went silent — a nearly empty world
+        // map with no caption reads as broken rather than as new.
+        let summary: string;
+        if (hasDemo && real === 0) {
+          summary = 'Showing placeholder demo data. Real contributors appear here once they register.';
+        } else if (hasDemo) {
+          summary = `${people} on the map so far. The rest is placeholder data and clears as people register.`;
+        } else {
+          summary = `${people} on the map so far. It is new, and grows as people register.`;
+        }
+
+        return (
+          <p className={styles.demoNotice}>
+            {summary}{' '}
+            Add yourself with the opt-in <code>/new-contributor</code> Discord command.
+          </p>
+        );
+      })()}
     </div>
   );
 }

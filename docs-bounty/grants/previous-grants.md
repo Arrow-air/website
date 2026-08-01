@@ -7,17 +7,10 @@ sidebar_label: Previous Grants
 
 A record of grants awarded to the Arrow community.
 
-| Project | Recipient | USDC | $ARROW | Completed | Notes |
-|---------|-----------|------|--------|-----------|-------|
-| Quiver PT3 Assembly Documentation | @sl33ty | $2,500 | 10,000 | Jan 2026 | Full assembly guide for PT3 structural and PCB build |
-| Flight Simulation Environment | @maverick_fx | $1,800 | 7,500 | Dec 2025 | ArduPilot SITL setup guide and scripts for Quiver |
-| DAO Governance Framework v1 | @arrow_dao | $3,000 | 12,000 | Nov 2025 | Drafted initial voting procedures and contributor tiers |
-| Community Discord Onboarding Bot | @heliodev | $800 | 3,000 | Oct 2025 | Automated role assignment and welcome flow |
-| Quiver CAD Library — PT2 | @openframes | $1,200 | 5,000 | Sep 2025 | Parametric STEP files for PT2 airframe components |
-| Engineering Report Template System | @docwright | $500 | 2,000 | Aug 2025 | Standardised markdown templates for engineering reports |
+No grants have been awarded through this process yet, so there is nothing to list. This page fills in as proposals are approved and completed.
 
-## Notes
+If you have something larger in mind than a bounty, [How to Apply](./how-to-apply.md) covers what a proposal needs.
 
-- Recipient handles are pseudonymous GitHub/Discord identifiers
-- USDC amounts reflect final approved grant, net of any scope changes
-- $ARROW amounts were calculated at grant approval date
+## What gets recorded here
+
+Each entry names the project, the recipient, the amount awarded, and the month the work completed. Amounts shown are the final approved figure, so they account for any scope changes agreed along the way rather than the amount originally requested.
