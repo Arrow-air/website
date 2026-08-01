@@ -1433,12 +1433,21 @@ export default function ContributorMap(): React.ReactElement {
       {expanded && <div className={styles.mapPlaceholder} aria-hidden="true" />}
       {expanded ? createPortal(mapPanelNode, document.body) : mapPanelNode}
 
-      {contributors.some(c => c.demo) && (
-        <p className={styles.demoNotice}>
-          Showing placeholder demo data — real contributors will appear here via
-          the opt-in <code>/new-contributor</code> Discord command.
-        </p>
-      )}
+      {/* The notice used to fire on "any demo row exists", so the moment the
+          first real contributor registered the map still told visitors every
+          dot was fake. Count instead, and stop claiming anything once the
+          placeholders are gone. */}
+      {contributors.some(c => c.demo) && (() => {
+        const real = contributors.filter(c => !c.demo).length;
+        return (
+          <p className={styles.demoNotice}>
+            {real === 0
+              ? 'Showing placeholder demo data. Real contributors appear here once they register.'
+              : `${real} real ${real === 1 ? 'contributor' : 'contributors'} on the map so far. The rest is placeholder data and clears as people register.`}
+            {' '}Add yourself with the opt-in <code>/new-contributor</code> Discord command.
+          </p>
+        );
+      })()}
     </div>
   );
 }
