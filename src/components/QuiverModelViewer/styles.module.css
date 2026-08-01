@@ -58,6 +58,47 @@
   padding-left: 1.2rem;
 }
 
+.sliderControl {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.sliderControl input[type='range'] {
+  width: 100%;
+  cursor: pointer;
+}
+
+.componentLabel {
+  position: relative;
+  pointer-events: none;
+}
+
+.labelLeader {
+  position: absolute;
+  overflow: visible;
+}
+
+.labelLeader line {
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 1.5;
+}
+
+.labelLeader circle {
+  fill: #ffffff;
+}
+
+.labelText {
+  position: absolute;
+  background: rgba(15, 18, 24, 0.85);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-family: var(--ifm-font-family-monospace);
+  white-space: nowrap;
+}
+
 .canvasWrap {
   position: relative;
   flex: 1;
