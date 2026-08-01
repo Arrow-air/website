@@ -172,3 +172,12 @@
     border-bottom: 1px solid var(--ifm-color-emphasis-300);
   }
 }
+
+/* Shown inside the canvas while the geometry downloads and decodes. */
+.canvasLoading {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ifm-color-emphasis-600, #8b93a1);
+  white-space: nowrap;
+  pointer-events: none;
+}

@@ -1,7 +1,8 @@
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Html, OrbitControls, useGLTF } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Html, OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import type { QuiverModelViewerProps } from './index';
 import styles from './styles.module.css';
 
@@ -190,6 +191,34 @@ const RECOLOR_BY_FILE: Record<
   },
 };
 
+/**
+ * Image-based lighting generated on the GPU at runtime.
+ *
+ * This replaces drei's <Environment preset="city" />, which downloads a 1k HDR
+ * from raw.githack.com — an unofficial proxy pinned to a GitHub commit. That is
+ * a third-party runtime dependency on the most technical page in the docs, and
+ * it fails the same way the Draco CDN did: blocked network, flat black model.
+ * RoomEnvironment is a neutral studio built procedurally, so the fill light
+ * costs no network at all.
+ */
+function StudioEnvironment(): null {
+  const gl = useThree((state) => state.gl);
+  const scene = useThree((state) => state.scene);
+
+  useEffect(() => {
+    const pmrem = new THREE.PMREMGenerator(gl);
+    const target = pmrem.fromScene(new RoomEnvironment(), 0.04);
+    scene.environment = target.texture;
+    return () => {
+      scene.environment = null;
+      target.dispose();
+      pmrem.dispose();
+    };
+  }, [gl, scene]);
+
+  return null;
+}
+
 function SubassemblyModel({
   url,
   visible,
@@ -200,18 +229,25 @@ function SubassemblyModel({
   showLabel = false,
   labelIndex = 0,
   onHover,
+  dracoPath,
 }: {
   url: string;
   visible: boolean;
   tint?: string;
   recolor?: (mesh: THREE.Mesh, size: THREE.Vector3) => RecolorStyle | null;
   explode?: number;
+  dracoPath: string;
   label?: string;
   showLabel?: boolean;
   labelIndex?: number;
   onHover: (name: string | null) => void;
 }): React.JSX.Element {
-  const { scene } = useGLTF(url, true); // true = Draco decoder from CDN
+  // A string sets a custom Draco decoder path. Passing `true` pulls the decoder
+  // from www.gstatic.com on every visit, so the entire model fails to render
+  // anywhere that CDN is unreachable (corporate proxies, blockers, some
+  // regions) and an open-hardware page phones home to a third party to draw
+  // itself. The decoder is vendored under static/ instead.
+  const { scene } = useGLTF(url, dracoPath);
   const restore = useRef<Map<THREE.Mesh, THREE.Material | THREE.Material[]>>(new Map());
   // Eased explode animation: `current` chases the slider target with an
   // ease-in-out tween driven from useFrame.
@@ -532,13 +568,27 @@ export default function Viewer({
   height,
 }: QuiverModelViewerProps & { height: number }): React.JSX.Element {
   const base = modelsBase.replace(/\/$/, '');
+  // Vendored decoder, so nothing is fetched from a third-party CDN at runtime;
+  // see the useGLTF call in SubassemblyModel.
+  //
+  // It deliberately does NOT sit beside the models. static/quiver/ is gitignored
+  // and repopulated from the upstream Quiver repo on every build, so anything
+  // placed there is absent in CI: the viewer would work locally and fail in
+  // production. static/draco/ is tracked and survives the import.
+  const dracoPath = '/draco/';
   const [manifest, setManifest] = useState<Manifest | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hidden, setHidden] = useState<Set<string>>(new Set());
   const [explode, setExplode] = useState(0); // 0 = assembled, 1.5 = fully exploded
   const [labelsOn, setLabelsOn] = useState(false);
   const [hoverName, setHoverName] = useState<string | null>(null);
-  const [treeOpen, setTreeOpen] = useState(true);
+  // The tree stacks above the canvas on narrow screens, where leaving it open
+  // pushes the aircraft below the fold entirely. Start collapsed on phones and
+  // let the "parts" button open it; stay open on wide screens where it sits
+  // beside the canvas and is the main way in.
+  const [treeOpen, setTreeOpen] = useState(
+    () => !(typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches),
+  );
   const cursor = useRef({ x: 0, y: 0 });
   const wrapRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -679,7 +729,18 @@ export default function Viewer({
         </div>
       </aside>
       )}
-      <div className={styles.canvasWrap} ref={wrapRef} onPointerMove={trackCursor}>
+      {/* A WebGL canvas is opaque to search engines and to assistive tech, and
+          r3f does not forward arbitrary DOM props to the canvas element, so the
+          description belongs on the wrapper. The parts tree is already a full
+          text listing of the assembly, so point at that rather than trying to
+          narrate geometry. */}
+      <div
+        className={styles.canvasWrap}
+        ref={wrapRef}
+        onPointerMove={trackCursor}
+        role="img"
+        aria-label="Interactive 3D model of the Quiver airframe. Every subassembly is also listed as text in the parts tree accompanying this view."
+      >
         <button
           type="button"
           className={styles.treeToggle}
@@ -692,10 +753,12 @@ export default function Viewer({
           <hemisphereLight intensity={0.6} color="#ffffff" groundColor="#404550" />
           <directionalLight position={[4, 6, 4]} intensity={1.2} />
           <directionalLight position={[-4, 2, -4]} intensity={0.5} />
-          <Suspense fallback={null}>
+          {/* Was `null`, which left an empty box for the whole download with no
+              indication anything was happening. */}
+          <Suspense fallback={<Html center className={styles.canvasLoading}>Loading assembly…</Html>}>
             {/* Image-based lighting so faces pointing away from the key
                 lights still pick up bounce instead of going black. */}
-            <Environment preset="city" />
+            <StudioEnvironment />
             {allFiles.map((file, i) => (
               <SubassemblyModel
                 key={file}
@@ -708,6 +771,7 @@ export default function Viewer({
                 showLabel={labelsOn}
                 labelIndex={i}
                 onHover={setHoverName}
+                dracoPath={dracoPath}
               />
             ))}
           </Suspense>
