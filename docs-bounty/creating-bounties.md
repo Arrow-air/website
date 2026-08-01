@@ -41,8 +41,10 @@ Status is derived, not managed by hand:
 
 ## Filling in the form
 
-Only six fields are required: Category, at least one reward, the board
-description, Scope, Deliverables, and Acceptance criteria. Skip anything else
+The form itself blocks submission on five: Category, the board description,
+Scope, Deliverables, and Acceptance criteria. A reward is required too, but the
+form can't enforce "at least one of two fields" — a bounty with neither is
+dropped during sync instead, with a warning in the log. Skip anything else
 that doesn't apply.
 
 **Category** (required) — one of the nine [discipline categories](/docs/community/disciplines).
@@ -95,6 +97,11 @@ job before claiming it.
 - Check the workflow log for `::warning::` lines. A malformed bounty is dropped
   silently rather than failing the run, so a missing card usually means a
   warning you haven't read.
+- If the run says **"No bounty data changes"** and opens no PR, that is not the
+  same as "nothing to do". A green run with no `::warning::` lines and no PR
+  means the job read *zero* issues, which points at the workflow's own
+  `permissions:` block rather than at your bounty. Confirm the run can see
+  issues before you go hunting for a formatting mistake.
 - Announce new bounties in Discord — the board doesn't notify anyone.
 - When someone claims: confirm in the issue thread and **assign them**. That's
   what flips the card to CLAIMED, and it only shows after the next sync, so run
