@@ -360,19 +360,20 @@
     {
       "id": "828452116632567858",
       "name": "sleety",
-      "country": "Portugal",
-      "city": "Azambuja",
-      "lat": 39.0703,
-      "lng": -8.8682,
-      "tz": "Europe/Lisbon",
+      "country": "United Kingdom",
+      "city": "Armagh",
+      "lat": 54.35,
+      "lng": -6.6667,
+      "tz": "Europe/London",
       "disciplines": [
-        "Mechanical",
-        "Software",
-        "Flight Test"
+        "Documentation",
+        "Marketing",
+        "Community"
       ],
-      "blurb": "hey",
+      "blurb": "From Armagh, living in Belfast/Banbridge. Been with Arrow since 2021 - can't wait for eVTOL!",
       "joined": "2021-11",
       "discord": "sleety.eth",
+      "github": "sl33ty",
       "signupAt": "2026-07-30T17:35:08.377Z",
       "avatar": "/img/contributors/828452116632567858.webp"
     }
