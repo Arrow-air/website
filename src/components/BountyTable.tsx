@@ -102,7 +102,10 @@ function PhotoPlaceholder({ size = 72, accent }: { size?: number, accent?: strin
 
 export default function BountyTable({ rows, hideClaimedToggle = false }: { rows: BountyRow[], hideClaimedToggle?: boolean }) {
   const [hideClaimed, setHideClaimed] = useState(false);
-  const [hoveredRow, setHoveredRow] = useState<string | null>(null);
+  // Tracked by row index rather than title: two bounties in one category can
+  // legitimately share a title, and keying on it made hovering either row
+  // highlight both.
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
 
   const visibleRows = hideClaimed ? rows.filter(r => r.status !== 'CLAIMED') : rows;
 
@@ -149,11 +152,13 @@ export default function BountyTable({ rows, hideClaimedToggle = false }: { rows:
             )}
             {visibleRows.map((row, i) => (
               <tr
-                key={row.title}
-                onMouseEnter={() => setHoveredRow(row.title)}
+                // The issue URL is the only genuinely unique field; titles are
+                // author-supplied and do collide.
+                key={getIssueUrl(row) ?? `${row.title}-${i}`}
+                onMouseEnter={() => setHoveredRow(i)}
                 onMouseLeave={() => setHoveredRow(null)}
                 style={{
-                  background: hoveredRow === row.title ? '#e2e8f0' : i % 2 === 1 ? 'var(--docs-bg-subtle, #f3f6f9)' : 'transparent',
+                  background: hoveredRow === i ? '#e2e8f0' : i % 2 === 1 ? 'var(--docs-bg-subtle, #f3f6f9)' : 'transparent',
                 }}
               >
                 <td>

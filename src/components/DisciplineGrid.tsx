@@ -14,13 +14,53 @@ function hexToRgba(hex: string, alpha: number): string {
  * (src/data/disciplines.json) as category cards with their disciplines.
  * Used by /docs/community/disciplines.
  */
+/** #anchor for a category card — same slug the jump bar links to */
+function slug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
 export default function DisciplineGrid() {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(310px, 1fr))', gap: '16px' }}>
+    <div>
+      {/* Nine categories and 43 disciplines run to roughly eight phone screens,
+          and the category headings live inside this component so Docusaurus
+          never sees them for the "On this page" sidebar. Without this bar the
+          page is a single unbroken scroll with no way to reach Operations
+          except by swiping past everything else. */}
+      <nav
+        aria-label="Jump to a discipline category"
+        style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '18px' }}
+      >
+        {disciplines.categories.map(category => (
+          <a
+            key={category.name}
+            href={`#${slug(category.name)}`}
+            style={{
+              fontFamily: FONT,
+              fontSize: '12px',
+              fontWeight: 600,
+              textDecoration: 'none',
+              color: category.color,
+              background: hexToRgba(category.color, 0.08),
+              border: `1px solid ${hexToRgba(category.color, 0.35)}`,
+              padding: '4px 9px',
+            }}
+          >
+            {category.name}
+          </a>
+        ))}
+      </nav>
+
+      {/* min() keeps the track from forcing a 310px column inside a narrower
+          container — below about a 342px viewport the fixed minimum overflowed
+          and gave the whole page a sideways scroll. */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(310px, 100%), 1fr))', gap: '16px' }}>
       {disciplines.categories.map(category => (
         <section
           key={category.name}
+          id={slug(category.name)}
           style={{
+            scrollMarginTop: '90px',
             border: '1px solid var(--ifm-color-emphasis-300, #d1d5db)',
             borderTop: `3px solid ${category.color}`,
             padding: '14px 16px',
@@ -72,6 +112,7 @@ export default function DisciplineGrid() {
           </div>
         </section>
       ))}
+      </div>
     </div>
   );
 }
