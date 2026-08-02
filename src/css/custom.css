@@ -2821,6 +2821,21 @@ video {
     max-width: 75% !important;
     flex-basis: 75% !important;
   }
+  /* Exception: pages embedding the Quiver 3D viewer keep the full width */
+  [class*="docRoot"]:not(:has(aside a[href^="/bounty"])) .row:has([class*="docItemContainer"] .quiver-model-viewer) > .col:only-child {
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+}
+
+/* Quiver 3D viewer pages: lift the prose width caps so the canvas can use
+   the whole docs area */
+.theme-doc-markdown:has(.quiver-model-viewer) {
+  max-width: none !important;
+}
+
+[class*="docItemContainer"]:has(.quiver-model-viewer) {
+  max-width: none;
 }
 
 /* Contributor map page (marker div in contributor-map.mdx): full-width
