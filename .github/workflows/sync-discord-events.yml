@@ -1,0 +1,68 @@
+name: Sync Discord Events
+
+on:
+  schedule:
+    # Every hour: new events get created, existing ones change status, and
+    # the page should stay within an hour of reality.
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    # Allow manual trigger for testing
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  SYNC_BRANCH: bot/discord-events-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Fetch Discord scheduled events
+        env:
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: node scripts/sync-discord-events.mjs
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet -- src/data/discord-events.generated.json; then
+            echo "No event data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open a PR if the event data changed
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "$SYNC_BRANCH"
+          git add src/data/discord-events.generated.json
+          git commit -m "chore: sync Discord events data"
+
+          git push --force origin "HEAD:refs/heads/$SYNC_BRANCH"
+
+          existing=$(gh pr view "$SYNC_BRANCH" --repo "$GITHUB_REPOSITORY" --json state --jq .state 2>/dev/null || true)
+          if [ "$existing" = "OPEN" ]; then
+            echo "Updated the open sync PR:"
+            gh pr view "$SYNC_BRANCH" --repo "$GITHUB_REPOSITORY" --json url --jq .url
+          else
+            gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base "$BASE_BRANCH" \
+              --head "$SYNC_BRANCH" \
+              --title "chore: sync Discord events data" \
+              --body "Regenerated \`src/data/discord-events.generated.json\` from the Discord Guild Scheduled Events API. Opened by the *Sync Discord Events* workflow.
+
+          Review the diff before merging — these are the events that go live on the community calls page."
+          fi
