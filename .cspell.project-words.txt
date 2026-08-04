@@ -21,6 +21,7 @@ chrono
 Chukotka
 CICD
 CMSIS
+CoinGecko
 CONOPS
 Coordinape
 counterparty
@@ -48,6 +49,7 @@ frontmatter
 fswatch
 fullwidth
 gatekeeping
+GeckoTerminal
 GLTF
 gltf
 Goodluck
