@@ -56,9 +56,15 @@ Roughly 76% of $ARROW supply sits in the DAO treasury. AIP-010 governs how it le
 
 The project funding bucket authorizes the *purpose*, not the transactions: every conversion of treasury $ARROW to USDC requires its own governance vote covering amount, venue, counterparty, and pricing. Treasury deployment exists to fund real protocol actors — contributors, manufacturers, and projects — not to support speculation.
 
-## Liquidity
+## Liquidity and market data
 
-An $ARROW-USDC pool exists on [Uniswap V3 (Ethereum Mainnet)](https://etherscan.io/address/0x84c4d2339c03aE3F7D5B7e63e3477b1dCA1610Ec). In the current framework, the DAO's authorized market activity is limited to individually voted sales from the project funding bucket, sized and paced to available liquidity. A DAO-owned liquidity pool is not authorized by AIP-010 and would require its own governance action and legal review.
+$ARROW trades in the [ARROW/USDC pool on Uniswap v4 (Ethereum Mainnet)](https://app.uniswap.org/explore/pools/ethereum/0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924), created in July 2026. Live price, volume, and liquidity data is available on [GeckoTerminal](https://www.geckoterminal.com/eth/pools/0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924).
+
+In the current framework, the DAO's authorized market activity is limited to individually voted sales from the project funding bucket, sized and paced to available liquidity; the first such sale was executed on July 21, 2026 under a governance vote. A DAO-owned liquidity pool is not authorized by AIP-010 and would require its own governance action and legal review.
+
+### Listings
+
+$ARROW has been submitted to [CoinGecko](https://www.coingecko.com) for listing — CoinGecko Request ID: **CL0408260044**.
 
 ## Roadmap
 
@@ -76,4 +82,4 @@ AIP-010 sketches a non-binding direction for future phases — each mechanism re
 | DAO Treasury (Gnosis Safe) | Ethereum Mainnet | `0x03b5dc2ce78a7bee9f66dd619b291595a2e166bb` |
 | DAO multisig | Optimism | `0xaDc17e5f0e9F755C717B2beE43B590260034b852` |
 | Vesting factory (Snapshot voting weight) | Optimism | `0xB93427b83573C8F27a08A909045c3e809610411a` |
-| Uniswap V3 $ARROW-USDC pool | Ethereum Mainnet | `0x84c4d2339c03aE3F7D5B7e63e3477b1dCA1610Ec` |
+| Uniswap v4 ARROW/USDC pool (pool ID) | Ethereum Mainnet | `0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924` |
