@@ -9,7 +9,7 @@ tags:
 ---
 # mahmudsudo / Mahmud
 ## About
-Systems engineer with 6+ years in production Rust and C++, currently pursuing postgraduate study in robotics and embedded systems. I like protocols, distributed systems, and cryptography — the kind of problems where getting the state machine wrong means something falls out of the sky or a payment goes nowhere. Also run a couple of small dev-tooling projects on the side.
+Systems engineer with 6+ years in production Rust and C++, currently pursuing postgraduate study in robotics and embedded systems. I like protocols, distributed systems, and cryptography , the kind of problems where getting the state machine wrong means something falls out of the sky or a payment goes nowhere. Also run a couple of small dev-tooling projects on the side.
 *Fun fact:* Multiple international hackathon wins, mostly from staying up too late arguing with a compiler.
 ### Team contributions
 * Attachment Developer Guide (in progress)
