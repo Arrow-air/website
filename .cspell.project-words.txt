@@ -133,6 +133,7 @@ subassembly
 sublicensable
 supermajority
 svgs
+Tagup
 tamasfe
 Tattu
 Thomasg
@@ -141,6 +142,7 @@ Tokenomics
 topo
 topojson
 typecheck
+Typeform
 Türkiye
 undeployed
 Unhover
