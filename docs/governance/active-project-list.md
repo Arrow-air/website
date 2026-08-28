@@ -5,6 +5,34 @@ description: A list of Arrow's currently active projects and initiatives.
 
 # Active Project List
 
-:::note Work In Progress
-This page is a work in progress. Content will be added soon.
-:::
+Work at Arrow is organized into projects: some build aircraft and hardware, others run the DAO's operations. Funded projects operate under the [AIP-006 Projects Framework](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-006.md), with a named leader, a budget cap, and an accountability record checked before any payment releases.
+
+This page is the governance view: what's active, who follows the money, and where to watch progress. For the aircraft themselves, [Our Projects](/docs/overview/our-projects) is the tour.
+
+_Last reviewed: August 2026._
+
+## Aircraft and hardware
+
+| Project | Status | Follow along |
+|---------|--------|--------------|
+| **Quiver** | Complete and available as a devkit, with loan units for attachment developers | [Quiver docs](/quiver) |
+| **Caribou** | Phase 1 complete: first aircraft built, powered ground tests done. Phase 2 (flight testing, September 2026 to February 2027) at Snapshot vote as of late August | [Caribou docs](/caribou) · [project repo](https://github.com/Arrow-air/project-caribou) |
+| **Spearhead** | In development: a fixed-wing VTOL demonstrator for higher speeds and longer range | [Spearhead docs](/spearhead) |
+| **Longshot** | First prototype in assembly: a community-built 2.3 kWh battery pack replacing Quiver's commercial LiPo | [proposal discussion](https://dao.arrowair.com/t/project-longshot-proposal-discussion/154) · [project repo](https://github.com/Arrow-air/project-longshot) |
+| **Quiver Mini** | In design: a lighter, lower-cost variant of the Quiver platform | [project repo](https://github.com/Arrow-air/project-quiver-mini) |
+| **Feather** | Open fixed-wing UAV design and documentation | [project repo](https://github.com/Arrow-air/project-feather) |
+| **Flight Tracking** | Platform for logging and visualizing flights from Arrow hardware, being rebuilt on Openship | [project repo](https://github.com/Arrow-air/flight-tracking) |
+
+## Operations and stewardship
+
+These keep the DAO itself running, proposed under AIP-006 and paid only against public accountability tables.
+
+| Project | What it does | Follow along |
+|---------|--------------|--------------|
+| **Docs Maintainer & Improver** | Ongoing stewardship of the global docs platform: copy, functionality, maintenance, and coverage of everything that ships. Term runs to January 2027 | [project repo](https://github.com/Arrow-air/project-docs-improvements) |
+| **Media & Social Comms** | Arrow's public voice: social content and media presence | [project repo](https://github.com/Arrow-air/project-social-comms) |
+| **Compass** | Priority-setting and coordination across the DAO's active work | [project repo](https://github.com/Arrow-air/project-arrow-compass) |
+
+## Proposing a project
+
+Anyone can propose a project. The path runs through a Forum discussion, then the AIP-006 framework for scope and budget, then a Snapshot vote. Start with [Submitting a Proposal](/docs/governance/good-to-know/submit-proposal), and browse the [DAO Forum](https://dao.arrowair.com) to see live proposals and discussions in flight.

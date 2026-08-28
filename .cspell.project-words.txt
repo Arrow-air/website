@@ -94,6 +94,7 @@ Nucleo
 nucleoapp
 Nuxt
 openframes
+Openship
 opensource
 Owlot
 panelized

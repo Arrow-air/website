@@ -105,6 +105,7 @@ const sidebars = {
         { type: 'doc', id: 'governance/constitution', label: 'Constitution' },
         { type: 'doc', id: 'governance/arrow-token', label: 'ARROW Token' },
         { type: 'doc', id: 'governance/legal-structure', label: 'Legal Structure' },
+        { type: 'doc', id: 'governance/active-project-list', label: 'Active Projects' },
         { type: 'doc', id: 'governance/core/treasury', label: 'Treasury' },
         {
           type: 'category',
