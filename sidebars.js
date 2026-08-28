@@ -72,6 +72,7 @@ const sidebars = {
         { type: 'doc', id: 'community/disciplines', label: 'Disciplines' },
         { type: 'doc', id: 'community/community-values', label: 'Culture & Values' },
         { type: 'doc', id: 'community/community-calls', label: 'Calls & Events' },
+        { type: 'doc', id: 'community/working-async', label: 'Working Async' },
         { type: 'doc', id: 'community/growth-marketing', label: 'Growth & Marketing' },
       ],
     },
@@ -85,6 +86,7 @@ const sidebars = {
       link: { type: 'doc', id: 'guides/index' },
       items: [
         { type: 'doc', id: 'guides/development-guide', label: 'Development Guide' },
+        { type: 'doc', id: 'guides/github-guide', label: 'GitHub Guide' },
         { type: 'doc', id: 'guides/code-of-conduct', label: 'Code of Conduct' },
         { type: 'doc', id: 'contributing/arrow-brand', label: 'Brand Guidelines' },
         { type: 'doc', id: 'community/discord-guide', label: 'Discord Guide' },
