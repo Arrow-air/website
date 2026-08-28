@@ -106,6 +106,7 @@ Pinout
 PIXKIT
 prestart
 quadcopter
+Quicklinks
 recompiles
 redoc
 Redocusaurus
