@@ -17,7 +17,8 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "start:local-docs": "bash scripts/start-local-docs.sh"
+    "start:local-docs": "bash scripts/start-local-docs.sh",
+    "changelog-draft": "node scripts/draft-changelog.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.2",
