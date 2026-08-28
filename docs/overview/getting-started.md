@@ -1,5 +1,4 @@
 ---
-draft: true
 sidebar_position: 2
 description: New to Arrow? Find your path based on what you want to do.
 ---
@@ -18,7 +17,7 @@ Arrow needs UI/UX, graphic, and industrial design contributions. Jump into [Disc
 
 ## I'm here for the DAO / Governance
 
-Read about [how we work](/docs/overview/how-we-work), then explore the [Governance](/docs/governance) section to understand Arrow's DAO structure, the $ARROW token, and how to participate in decisions via AIPs and Snapshot voting.
+Read about [how we work](/docs/contributing/how-we-work), then explore the [Governance](/docs/governance) section to understand Arrow's DAO structure, the $ARROW token, and how to participate in decisions via AIPs and Snapshot voting.
 
 ## I want to join the community
 

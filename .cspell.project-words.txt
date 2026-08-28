@@ -86,6 +86,7 @@ minimis
 mkdocs
 mktemp
 MTOW
+multicopter
 networkidle
 NGOs
 noopener
@@ -104,6 +105,7 @@ phlgwv
 Photoshop
 PIDS
 Pinout
+Pixhawk
 PIXKIT
 prestart
 quadcopter

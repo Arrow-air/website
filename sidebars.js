@@ -31,6 +31,7 @@ const sidebars = {
       link: { type: 'doc', id: 'overview/index' },
       items: [
         { type: 'doc', id: 'overview/about-arrow', label: 'What is Arrow?' },
+        { type: 'doc', id: 'overview/getting-started', label: 'Getting Started' },
         { type: 'doc', id: 'overview/our-projects', label: 'Our Projects' },
       ],
     },
@@ -134,6 +135,7 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'reference/dao-forum', label: 'DAO Forum' },
         { type: 'doc', id: 'reference/snapshot', label: 'Snapshot' },
+        { type: 'doc', id: 'reference/glossary', label: 'Glossary' },
         { type: 'doc', id: 'reference/contracts/index', label: 'Token Contracts' },
         { type: 'link', label: 'Google Drive', href: 'https://drive.google.com' },
         { type: 'doc', id: 'reference/discord', label: 'Discord Server' },
