@@ -1,0 +1,57 @@
+name: Sync Discord events
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *' # hourly
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  SYNC_BRANCH: bot/events-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Generate events from Discord
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GUILD_ID: ${{ secrets.GUILD_ID }}
+          GH_TOKEN: ${{ secrets.BOT_GH_TOKEN || github.token }}
+        run: node scripts/sync-events.mjs
+
+      - name: Open a PR if events data changed
+        env:
+          GH_TOKEN: ${{ secrets.BOT_GH_TOKEN || github.token }}
+          BASE_BRANCH: ${{ github.ref_name }}
+        run: |
+          if git diff --quiet -- src/data/events.generated.json; then
+            echo "No events data changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "$SYNC_BRANCH"
+          git add src/data/events.generated.json
+          git commit -m "chore: sync Discord events data"
+          git push --force origin "HEAD:refs/heads/$SYNC_BRANCH"
+
+          existing=$(gh pr view "$SYNC_BRANCH" --repo "$GITHUB_REPOSITORY" --json state --jq .state 2>/dev/null || true)
+          if [ "$existing" = "OPEN" ]; then
+            echo "Updated the open sync PR:"
+            gh pr view "$SYNC_BRANCH" --repo "$GITHUB_REPOSITORY" --json url --jq .url
+          else
+            gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base "$BASE_BRANCH" \
+              --head "$SYNC_BRANCH" \
+              --title "chore: sync Discord events data" \
+              --body "Regenerated \`src/data/events.generated.json\` from the Discord Guild Scheduled Events API. Opened by the *Sync Discord events* workflow."
+          fi
