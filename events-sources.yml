@@ -1,0 +1,9 @@
+# Configure where the sync script should read events from.
+# Do NOT commit tokens. The Discord bot token must be provided as a GitHub secret
+# named `DISCORD_BOT_TOKEN`. The workflow will also accept a secret `GUILD_ID`.
+
+# Example using a single guild id:
+guild: ''
+
+# If you prefer, export GUILD_ID in the workflow or environment instead of
+# committing it here. The script will prefer the environment variable.
