@@ -46,6 +46,12 @@
       "pattern": "etherscan.io/"
     },
     {
+      "pattern": "geckoterminal.com"
+    },
+    {
+      "pattern": "coingecko.com"
+    },
+    {
       "pattern": "https://ree.auto/"
     },
     {
