@@ -4469,3 +4469,15 @@ a.card--link:hover .card__body p {
 [data-theme='dark'] .theme-doc-markdown .clg-gallery::before {
   display: none;
 }
+
+/* Full-width doc pages (tables read better without the 860px cap).
+   A page opts in by rendering <div id="full-width-doc" /> in its MDX. */
+.theme-doc-markdown:has(#full-width-doc),
+[class*="docItemContainer"]:has(#full-width-doc) {
+  max-width: none !important;
+}
+.row .col:has(#full-width-doc) {
+  max-width: 100% !important;
+  flex-basis: 100% !important;
+  flex-grow: 1 !important;
+}
