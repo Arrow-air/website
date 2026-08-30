@@ -50,15 +50,17 @@ fswatch
 fullwidth
 gatekeeping
 GeckoTerminal
+githack
 GLTF
-gltf
 Goodluck
 gpgsign
+gstatic
 Gündoğan
 heliodev
 hexacopter
 hideable
 Holla
+hoverable
 IDAT
 IEND
 IHDR
@@ -69,6 +71,7 @@ inotifywait
 INPLACE
 interoperating
 johnsoncodehk
+kapton
 Kincaid
 kjcerveny
 Kolkata
@@ -80,6 +83,7 @@ makefiles
 makerspaces
 MCAD
 mdfile
+metalness
 metaverse
 Minh
 minimis
@@ -94,6 +98,7 @@ Nucleo
 nucleoapp
 Nuxt
 openframes
+openmotors
 opensource
 Owlot
 panelized
@@ -104,6 +109,7 @@ Photoshop
 PIDS
 Pinout
 PIXKIT
+pmrem
 prestart
 quadcopter
 recompiles
@@ -157,5 +163,6 @@ XFLR
 Xipu
 yapf
 Zeynep
+zstd
 Šavrič
 Δlng
