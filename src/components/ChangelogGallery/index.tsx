@@ -53,7 +53,7 @@ export default function ChangelogGallery({ images }: { images: GalleryImage[] })
   };
 
   return (
-    <figure className={styles.gallery}>
+    <figure className={`clg-gallery ${styles.gallery}`}>
       <button
         type="button"
         className={styles.featured}

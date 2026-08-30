@@ -4452,3 +4452,20 @@ a.card--link:hover .card__body p {
 .theme-doc-markdown:has(h2[id^="article-1"]) h3 {
   margin-top: 2.5rem;
 }
+
+/* The changelog gallery manages its own chrome — suppress the retro OS
+   window wrapper (and its title bar) and sit it in a subtle tinted
+   container instead. Placed late in the file so it wins over both the
+   light and dark retro-wrapper rules on source order. */
+.theme-doc-markdown .clg-gallery,
+[data-theme='dark'] .theme-doc-markdown .clg-gallery {
+  position: static;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: color-mix(in srgb, var(--ifm-color-primary) 5%, transparent);
+  padding: 0.5rem;
+}
+
+.theme-doc-markdown .clg-gallery::before,
+[data-theme='dark'] .theme-doc-markdown .clg-gallery::before {
+  display: none;
+}
