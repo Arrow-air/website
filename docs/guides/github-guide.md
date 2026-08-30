@@ -11,7 +11,7 @@ This page is a map of the organization and how contribution flows through it. Fo
 
 ## The repositories that matter most
 
-The organization has a lot of repos. These are the ones you'll touch most often.
+The organization has a lot of repos. Right now, these are the ones you'll touch most often, though the list shifts as projects spin up and others wind down.
 
 | Repository | What it holds |
 |------------|---------------|
@@ -30,7 +30,11 @@ Issues are how work is advertised. Two kinds are worth knowing about:
 - **Bounties** are funded issues, posted with a reward and a defined scope. They appear as GitHub issues labeled `bounty` in the website repo and are published on the [bounty board](/bounty). If you want paid, well-scoped work, start there and read [What are Bounties?](/bounty/bounties/what-are-bounties).
 - **Regular issues** are everything else: bugs, ideas, and improvements that need an owner. They're unfunded but they are also how many contributors build trust before taking on bigger funded work.
 
+A note on how bounties are awarded: they don't automatically go to the first person to apply or to open a PR. Some are a better fit for contributors who have been around Arrow a while and have a track record of impactful work, and maintainers weigh that when awarding. We want to share the workload, but outstanding work comes first. Pointing an AI at our repos to farm bounties and bulk-generate solutions isn't what this is for; we care about crafted work, and we reward people who care about Arrow rather than treating it as one more bounty pot.
+
 You don't need an issue to contribute. If you spot something broken or unclear, a pull request that fixes it is always welcome. For anything significant, open an issue or post in Discord first so the effort isn't duplicated.
+
+Be aware that pull requests can be declined, and the most common reason is the blind submission: a sizeable change nobody discussed anywhere public first. A quick temperature check saves everyone the awkward version of that conversation. Something like "hey, I'd like to add X to the docs. Is it a good idea? Anything I should know first? Here's a rough outline, feedback appreciated" posted in Discord or an issue is usually all it takes, and it often improves the idea before a line is written.
 
 ## Before your first pull request
 
