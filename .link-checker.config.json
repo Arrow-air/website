@@ -31,6 +31,18 @@
       "pattern": "^/caribou"
     },
     {
+      "pattern": "^/quiver"
+    },
+    {
+      "pattern": "^/spearhead"
+    },
+    {
+      "pattern": "geckoterminal.com"
+    },
+    {
+      "pattern": "coingecko.com"
+    },
+    {
       "pattern": "^/img/"
     },
     {
