@@ -21,4 +21,4 @@ Read about [how we work](/docs/contributing/how-we-work), then explore the [Gove
 
 ## I want to join the community
 
-Come say hi on [Discord](https://discord.com/invite/arrow) — it's where everything happens day-to-day. Then read through the [Community](/docs/contributing/community) page to understand how Arrow is structured and where you can make an impact.
+Come say hi on [Discord](https://discord.com/invite/arrow) — it's where everything happens day-to-day. Then read [How We Work](/docs/contributing/how-we-work) to understand how Arrow is structured and where you can make an impact.
