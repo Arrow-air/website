@@ -27,12 +27,41 @@ function parseProjectsTable(markdown: string): { header: Row; rows: Row[] } | nu
   return rows.length > 0 ? { header, rows } : null;
 }
 
+const STATUS_COLORS: Record<string, string> = {
+  ACTIVE: 'var(--ifm-color-success)',
+  EXPIRED: 'var(--ifm-color-emphasis-500)',
+  PAUSED: 'var(--ifm-color-warning)',
+  HALTED: 'var(--ifm-color-danger)',
+};
+
 function cell(text: string, key: number): JSX.Element {
   if (/^https?:\/\//.test(text)) {
     const label = text.replace(/^https?:\/\/(www\.)?github\.com\//, '');
     return (
       <td key={key}>
         <a href={text}>{label}</a>
+      </td>
+    );
+  }
+  const status = STATUS_COLORS[text.toUpperCase()];
+  if (status) {
+    return (
+      <td key={key}>
+        <span
+          style={{
+            border: `1px solid ${status}`,
+            color: status,
+            background: `color-mix(in srgb, ${status} 10%, transparent)`,
+            borderRadius: 2,
+            fontFamily: 'var(--ifm-font-family-monospace)',
+            fontSize: '0.72rem',
+            letterSpacing: '0.05em',
+            padding: '0.1rem 0.4rem',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {text.toUpperCase()}
+        </span>
       </td>
     );
   }

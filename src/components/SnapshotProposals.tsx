@@ -69,12 +69,37 @@ export default function SnapshotProposals(): JSX.Element {
   const active = proposals.filter((p) => p.state === 'active' || p.state === 'pending');
   const recent = proposals.filter((p) => p.state === 'closed').slice(0, 5);
 
+  const stateDot = (state: Proposal['state']) => {
+    const color =
+      state === 'active'
+        ? 'var(--ifm-color-success)'
+        : state === 'pending'
+          ? 'var(--ifm-color-warning)'
+          : 'var(--ifm-color-emphasis-400)';
+    return (
+      <span style={{ whiteSpace: 'nowrap' }}>
+        <span
+          aria-hidden="true"
+          style={{
+            background: color,
+            borderRadius: '50%',
+            display: 'inline-block',
+            height: '0.55em',
+            marginRight: '0.4em',
+            width: '0.55em',
+          }}
+        />
+        {state}
+      </span>
+    );
+  };
+
   const row = (p: Proposal) => (
     <tr key={p.id}>
       <td>
         <a href={`${SPACE_URL}/proposal/${p.id}`}>{p.title}</a>
       </td>
-      <td>{p.state}</td>
+      <td>{stateDot(p.state)}</td>
       <td>{leadingChoice(p)}</td>
       <td>{endLabel(p)}</td>
     </tr>
