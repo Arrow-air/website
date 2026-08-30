@@ -49,11 +49,8 @@ frontmatter
 fswatch
 fullwidth
 gatekeeping
-<<<<<<< HEAD
-githack
-=======
 GeckoTerminal
->>>>>>> origin/staging
+githack
 GLTF
 Goodluck
 gpgsign
