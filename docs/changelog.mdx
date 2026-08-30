@@ -3,7 +3,11 @@ title: Changelog
 description: A running summary of what's been improved, discussed, and edited across the Arrow docs — generated from GitHub activity.
 ---
 
+import ChangelogGallery, { ChangelogBanner } from '@site/src/components/ChangelogGallery';
+
 Recent changes across all Arrow documentation, summarized from GitHub commits and pull requests.
+
+<ChangelogBanner src="/img/bayer-blue-dark.png" alt="Arrow docs changelog" />
 
 ---
 
@@ -11,12 +15,35 @@ Recent changes across all Arrow documentation, summarized from GitHub commits an
 
 The [$ARROW token page](/docs/governance/arrow-token) went live on production with CoinGecko verification details and the current v4 pool information. The contributor map dropped its placeholder profiles, so every pin on the globe now belongs to a real contributor.
 
+<ChangelogGallery
+  images={[
+    {
+      src: '/img/changelog/2026-08-04_token-page.png',
+      alt: 'The $ARROW token page',
+      caption: '$ARROW token page live on production',
+      target: 'cl-2026-08-04-token',
+    },
+    {
+      src: '/img/changelog/2026-08-04_contributor-map.png',
+      alt: 'The contributor map',
+      caption: 'Every pin on the map is a real contributor',
+      target: 'cl-2026-08-04-map',
+    },
+    {
+      src: '/img/changelog/2026-08-04_bounty-board.png',
+      alt: 'The bounty board',
+      caption: 'Bounty board syncing again',
+      target: 'cl-2026-08-04-sync',
+    },
+  ]}
+/>
+
 **New**
-- [$ARROW Token](/docs/governance/arrow-token) on production, with CoinGecko verification and pool details.
+- <span id="cl-2026-08-04-token">[$ARROW Token](/docs/governance/arrow-token) on production, with CoinGecko verification and pool details.</span>
 
 **Updated**
-- [Contributor Map](/docs/community/contributor-map) cleared of demo profiles, with the caption corrected to match.
-- Bounty board sync unblocked, with corrections across the board and bounty docs.
+- <span id="cl-2026-08-04-map">[Contributor Map](/docs/community/contributor-map) cleared of demo profiles, with the caption corrected to match.</span>
+- <span id="cl-2026-08-04-sync">Bounty board sync unblocked, with corrections across the board and bounty docs.</span>
 
 ---
 
@@ -24,13 +51,30 @@ The [$ARROW token page](/docs/governance/arrow-token) went live on production wi
 
 The bounty flow got a full pass, from the issue form through to the docs that explain it. Creating a bounty now asks for five required fields instead of a long questionnaire, and nothing publishes to the board until a maintainer applies the publish label.
 
+<ChangelogGallery
+  images={[
+    {
+      src: '/img/changelog/2026-07-31_what-are-bounties.png',
+      alt: 'The What are Bounties page',
+      caption: 'Bounty docs rewritten against the disciplines taxonomy',
+      target: 'cl-2026-07-31-docs',
+    },
+    {
+      src: '/img/changelog/2026-07-31_board-mobile-cards.png',
+      alt: 'The bounty board on a narrow screen',
+      caption: 'The board stacks into cards on mobile',
+      target: 'cl-2026-07-31-cards',
+    },
+  ]}
+/>
+
 **New**
 - Bounty creation guide for maintainers, covering the form, the publish gate, and the sync.
 
 **Updated**
-- [What are Bounties?](/bounty/bounties/what-are-bounties) rewritten against the approved disciplines taxonomy, removing outdated categories and a payment promise the process never made.
+- <span id="cl-2026-07-31-docs">[What are Bounties?](/bounty/bounties/what-are-bounties) rewritten against the approved disciplines taxonomy, removing outdated categories and a payment promise the process never made.</span>
 - Bounty board data now syncs through a pull request rather than pushing to a protected branch, so every change is reviewable.
-- The board stacks into cards on narrow screens.
+- <span id="cl-2026-07-31-cards">The board stacks into cards on narrow screens.</span>
 
 ---
 
