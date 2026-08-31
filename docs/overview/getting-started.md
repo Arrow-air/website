@@ -19,7 +19,7 @@ Read about [how we work](/docs/contributing/how-we-work), then explore the [Gove
 
 ## Growing Arrow
 
-If you support what Arrow is doing and want to get our name out there, we'd love the help. We want the mission shared wide, and innovative work on social media, content, or anywhere else people gather genuinely moves the needle. We're a collective that values initiative, and [retroactive $ARROW compensation](/docs/contributing/grants-bounties#retroactive-bounties) is on the table for efforts that grow Arrow. Got an idea for a collaboration, or thoughts on how a community like ours grows? We welcome them, come tell us in [Discord](https://discord.com/invite/arrow).
+If you support what Arrow is doing and want to get our name out there, we'd love the help. We want the mission shared wide, and innovative work on social media, content, or anywhere else people gather genuinely moves the needle. We're a collective that values initiative, and [retroactive $ARROW compensation](/docs/contributing/grants-bounties#retroactive-grants) is on the table for efforts that grow Arrow. Got an idea for a collaboration, or thoughts on how a community like ours grows? We welcome them, come tell us in [Discord](https://discord.com/invite/arrow).
 
 ## I want to join the community
 

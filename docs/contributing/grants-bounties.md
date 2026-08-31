@@ -18,7 +18,7 @@ A Time Commitment Grant, created by [AIP-004](https://github.com/Arrow-air/dao-a
 
 Grants suit contributors who have already shipped work here and want to commit sustained time: maintaining a subsystem, leading an area, carrying a project forward week over week.
 
-## Retroactive bounties
+## Retroactive grants
 
 There's a third shape we're genuinely excited about: work nobody asked for. Build something that impresses the community and there's a good chance the DAO recognizes it with tokens or compensation after the fact. We believe good work is obvious, and so is sloppy work, so if you make Arrow better in a way people can see and use, that deserves recognition.
 
