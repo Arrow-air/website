@@ -31,6 +31,7 @@ const sidebars = {
       link: { type: 'doc', id: 'overview/index' },
       items: [
         { type: 'doc', id: 'overview/about-arrow', label: 'What is Arrow?' },
+        { type: 'doc', id: 'overview/getting-started', label: 'Getting Started' },
         { type: 'doc', id: 'overview/our-projects', label: 'Our Projects' },
       ],
     },
@@ -72,6 +73,7 @@ const sidebars = {
         { type: 'doc', id: 'community/disciplines', label: 'Disciplines' },
         { type: 'doc', id: 'community/community-values', label: 'Culture & Values' },
         { type: 'doc', id: 'community/community-calls', label: 'Calls & Events' },
+        { type: 'doc', id: 'community/working-async', label: 'Working Async' },
         { type: 'doc', id: 'community/growth-marketing', label: 'Growth & Marketing' },
       ],
     },
@@ -85,6 +87,7 @@ const sidebars = {
       link: { type: 'doc', id: 'guides/index' },
       items: [
         { type: 'doc', id: 'guides/development-guide', label: 'Development Guide' },
+        { type: 'doc', id: 'guides/github-guide', label: 'GitHub Guide' },
         { type: 'doc', id: 'guides/code-of-conduct', label: 'Code of Conduct' },
         { type: 'doc', id: 'contributing/arrow-brand', label: 'Brand Guidelines' },
         { type: 'doc', id: 'community/discord-guide', label: 'Discord Guide' },
@@ -103,6 +106,7 @@ const sidebars = {
         { type: 'doc', id: 'governance/constitution', label: 'Constitution' },
         { type: 'doc', id: 'governance/arrow-token', label: 'ARROW Token' },
         { type: 'doc', id: 'governance/legal-structure', label: 'Legal Structure' },
+        { type: 'doc', id: 'governance/active-project-list', label: 'Active Projects' },
         { type: 'doc', id: 'governance/core/treasury', label: 'Treasury' },
         {
           type: 'category',
@@ -131,6 +135,7 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'reference/dao-forum', label: 'DAO Forum' },
         { type: 'doc', id: 'reference/snapshot', label: 'Snapshot' },
+        { type: 'doc', id: 'reference/glossary', label: 'Glossary' },
         { type: 'doc', id: 'reference/contracts/index', label: 'Token Contracts' },
         { type: 'link', label: 'Google Drive', href: 'https://drive.google.com' },
         { type: 'doc', id: 'reference/discord', label: 'Discord Server' },

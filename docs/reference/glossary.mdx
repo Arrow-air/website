@@ -1,35 +1,74 @@
 ---
-draft: true
 sidebar_position: 3
+description: Definitions for the terms you'll meet across Arrow's docs, Discord, and governance.
 sidebar_custom_props:
   icon: book
 ---
 
-import { data, columns } from './GlossaryData'
-
 # Glossary
-:mag: *Use the search bar to see terms in this glossary from anywhere on the
-website!*
 
-<div>
-{
-data.map(
-  (entry) => (
-    <div>
-    <h3>{entry[0]}</h3>
-    <p style={{"color":"#333"}}>{entry[1]}</p>
-    <i style={{"color":"#aaa"}}>Links:</i>
-    <p>
-    {
-      Array.from(entry[2]).map((link) => (
-      <div>
-      <a href={link}>{link}</a>
-      </div>
-      ))
-    }
-    </p>
-    </div>
-  )
-)
-}
-</div>
+The terms you'll meet across Arrow's docs, Discord, and governance, in plain words. Use the site search to jump to any of them from anywhere.
+
+## The organization
+
+**Arrow** — A decentralized community building open-source aircraft in public, governed as a DAO. Aircraft first, DAO second.
+
+**DAO (Decentralized Autonomous Organization)** — An organization whose rules and treasury are controlled by its members through open voting rather than by a management chain. Arrow's decisions are made by $ARROW token holders.
+
+**AIP (Arrow Improvement Proposal)** — The formal mechanism for changing how Arrow works: contributor pay, project funding, mission, protocol design. Anyone can write one. See [Arrow Improvement Proposals](/docs/governance/aips).
+
+**$ARROW** — Arrow's governance token: fixed 100M supply, used for voting, manufacturing bonds, and contributor compensation. See [The $ARROW Token](/docs/governance/arrow-token).
+
+**GBC (Grants and Bounties Committee)** — The elected body that reviews and releases contributor compensation, created by AIP-002.
+
+**Snapshot** — The platform where Arrow's governance votes happen, token-weighted and public. See [Snapshot](/docs/reference/snapshot).
+
+**Treasury** — The DAO's pooled funds, deployed against budgets that governance approves. See [Treasury](/docs/governance/core/treasury).
+
+**Bounty** — A funded, defined-scope task anyone can claim, published on the [bounty board](/bounty).
+
+**Grant** — Ongoing funded work, typically through the Time Commitment Grant system from AIP-004, which sets five compensation levels.
+
+**Projects Framework** — The AIP-006 structure for DAO-funded projects: a named leader, a monthly budget cap, and public accountability before payment releases. The current lineup is on the [Active Projects](/docs/governance/active-project-list) page.
+
+**CLA (Contributor License Agreement)** — The one-time agreement every contributor signs so the open-source licensing of Arrow's work stays clean. See [Sign the CLA](/docs/guides/sign-cla).
+
+**Disciplines taxonomy** — The community-approved set of nine categories and forty-three disciplines that tags bounties and contributor profiles with one shared vocabulary.
+
+## The aircraft
+
+**Quiver** — Arrow's first completed aircraft: a modular open-source quadcopter, available as a devkit. See the [Quiver docs](/quiver).
+
+**Quiver Mini** — A lighter, lower-cost variant of Quiver, currently in design.
+
+**Spearhead** — Arrow's fixed-wing VTOL demonstrator, currently in development, pushing toward higher speeds and longer range. See the [Spearhead docs](/spearhead).
+
+**Caribou** — Arrow's heavy-lift hexacopter for payload-heavy missions like agricultural spraying. See the [Caribou docs](/caribou).
+
+**Longshot** — A community-built lithium-ion battery pack to replace Quiver's commercial LiPo.
+
+**Feather** — An open fixed-wing UAV design, lightweight and built for community iteration.
+
+**Devkit** — A complete aircraft kit Arrow puts in builders' hands, for assembly, experimentation, and building attachments on top of.
+
+## The technology
+
+**VTOL / eVTOL** — Vertical Takeoff and Landing aircraft; the "e" means electric. Arrow builds VTOL aircraft because they need minimal ground infrastructure.
+
+**Fixed-wing VTOL** — An aircraft that takes off and lands vertically but cruises on wings like a plane, gaining speed and range over a pure multicopter.
+
+**ArduPilot / PX4** — The two major open-source autopilot software projects. Arrow aircraft fly on open flight stacks.
+
+**Pixhawk** — A family of open-standard flight controller hardware that runs ArduPilot or PX4.
+
+**Flight controller** — The onboard computer that keeps an aircraft stable and executes commands, running the autopilot software.
+
+**ESC (Electronic Speed Controller)** — The electronics that translate the flight controller's commands into motor speed.
+
+**LiPo (Lithium polymer battery)** — The common battery chemistry for electric aircraft, favored for high discharge rates.
+
+**MTOW (Maximum Takeoff Weight)** — The heaviest an aircraft is designed to be at takeoff, including payload and batteries.
+
+**Airframe** — The aircraft's physical structure: frame, arms, wings, and skin, everything except propulsion, electronics, and payload.
+
+Missing a term you had to look up elsewhere? That's a bug in this page. [Open an issue](https://github.com/Arrow-air/website/issues) or edit the page directly.

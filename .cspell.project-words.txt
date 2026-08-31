@@ -86,6 +86,7 @@ minimis
 mkdocs
 mktemp
 MTOW
+multicopter
 networkidle
 NGOs
 noopener
@@ -94,6 +95,7 @@ Nucleo
 nucleoapp
 Nuxt
 openframes
+Openship
 opensource
 Owlot
 panelized
@@ -103,9 +105,11 @@ phlgwv
 Photoshop
 PIDS
 Pinout
+Pixhawk
 PIXKIT
 prestart
 quadcopter
+Quicklinks
 recompiles
 redoc
 Redocusaurus
@@ -129,6 +133,7 @@ subassembly
 sublicensable
 supermajority
 svgs
+Tagup
 tamasfe
 Tattu
 Thomasg
@@ -137,6 +142,7 @@ Tokenomics
 topo
 topojson
 typecheck
+Typeform
 Türkiye
 undeployed
 Unhover
@@ -159,3 +165,6 @@ yapf
 Zeynep
 Šavrič
 Δlng
+mahmudsudo
+Mahmud
+hackathon
