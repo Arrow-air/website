@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arrowair.com/schemas/disciplines.schema.json",
+  "title": "Arrow contributor disciplines taxonomy",
+  "description": "Canonical, community-approved taxonomy of contributor disciplines grouped into categories. Consumed by the bounty issue form (generated), the bounty board, the contributor map schema, and the contributor Discord bot.",
+  "type": "object",
+  "required": ["version", "categories"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "$comment": { "type": "string" },
+    "version": {
+      "type": "string",
+      "description": "Taxonomy version. Bump on any add/rename/remove — downstream consumers pin behavior to this.",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "tagline", "color", "disciplines"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "maxLength": 32 },
+          "tagline": { "type": "string", "minLength": 1, "maxLength": 64 },
+          "color": {
+            "type": "string",
+            "description": "Category accent color, used for discipline pills and map tags.",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "disciplines": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "icon", "blurb"],
+              "properties": {
+                "name": { "type": "string", "minLength": 1, "maxLength": 32 },
+                "icon": {
+                  "type": "string",
+                  "description": "Nucleo Sharp icon name.",
+                  "pattern": "^[a-z0-9-]+$"
+                },
+                "blurb": { "type": "string", "minLength": 1, "maxLength": 120 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

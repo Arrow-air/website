@@ -4,13 +4,31 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 const CONFIG_PATH = 'bounty-sources.yml';
 const OUTPUT_PATH = 'src/data/bounties.generated.json';
+const TAXONOMY_PATH = 'src/data/disciplines.json';
 
-const CATEGORY_KEYS = new Map([
-    ['Engineering', 'engineering'],
-    ['Software', 'software'],
-    ['Growth & Media', 'growthMedia'],
-    ['General DAO', 'generalDao'],
+// Categories and disciplines come from the canonical taxonomy — the same file
+// that generates the issue form (scripts/gen-bounty-form.mjs) and backs the
+// contributor map. Keys are camelCased category names.
+const taxonomy = JSON.parse(readFileSync(TAXONOMY_PATH, 'utf8'));
+
+function camelCase(name) {
+    return name
+        .replace(/[^A-Za-z0-9]+(.)/g, (_, ch) => ch.toUpperCase())
+        .replace(/^[A-Z]/, ch => ch.toLowerCase());
+}
+
+const CATEGORY_KEYS = new Map(taxonomy.categories.map(c => [c.name, camelCase(c.name)]));
+
+// Issues created before the taxonomy rollout used these category names.
+const LEGACY_CATEGORY_KEYS = new Map([
+    ['Software', camelCase('Flight Systems')],
+    ['Growth & Media', camelCase('Growth')],
+    ['General DAO', camelCase('Operations')],
 ]);
+
+const DISCIPLINE_NAMES = new Set(
+    taxonomy.categories.flatMap(c => c.disciplines.map(d => d.name)),
+);
 
 function parseConfig(raw) {
     const repos = [];
@@ -95,12 +113,28 @@ function firstSection(sections, labels) {
     return undefined;
 }
 
-function parseSkills(value) {
+function parseSkills(value, source, warnings) {
     if (!value) return undefined;
     const checked = [...value.matchAll(/^- \[[xX]\]\s+(.+)$/gm)].map(match => match[1].trim());
-    if (checked.length) return checked;
-    const csv = value.split(',').map(part => part.trim()).filter(Boolean);
-    return csv.length ? csv : undefined;
+    const raw = checked.length
+        ? checked
+        : value.split(',').map(part => part.trim()).filter(Boolean);
+    if (!raw.length) return undefined;
+
+    // Checkbox labels are "Category: Discipline" — store the discipline name
+    // only (names are unique across the taxonomy); the board resolves category
+    // and color from disciplines.json. Unknown tags (legacy skill lists) are
+    // dropped with a warning rather than failing the whole bounty.
+    const disciplines = [];
+    for (const entry of raw) {
+        const name = entry.includes(':') ? entry.split(':').slice(1).join(':').trim() : entry;
+        if (DISCIPLINE_NAMES.has(name)) {
+            if (!disciplines.includes(name)) disciplines.push(name);
+        } else if (warnings) {
+            warnings.push(`${source}: unknown discipline tag "${entry}" dropped`);
+        }
+    }
+    return disciplines.length ? disciplines : undefined;
 }
 
 function formatUsdc(value) {
@@ -139,13 +173,16 @@ function normalizeDate(value) {
     return new Date(time).toISOString().slice(0, 10);
 }
 
-function issueToBounty(repo, issue, labels) {
+function issueToBounty(repo, issue, labels, warnings) {
     const sections = parseSections(issue.body || '');
     const category = firstSection(sections, ['Category']);
-    const key = CATEGORY_KEYS.get(category);
+    const key = CATEGORY_KEYS.get(category) ?? LEGACY_CATEGORY_KEYS.get(category);
 
     if (!key) {
         throw new Error(`${repo}#${issue.number}: missing or invalid Category (${category || 'blank'})`);
+    }
+    if (!CATEGORY_KEYS.has(category)) {
+        warnings.push(`${repo}#${issue.number}: legacy category "${category}" mapped to "${key}"`);
     }
 
     const usdc = formatUsdc(firstSection(sections, ['USDC reward, optional', 'USDC reward']));
@@ -168,7 +205,14 @@ function issueToBounty(repo, issue, labels) {
         posted: issue.createdAt,
         ...(expires ? { expires } : {}),
         ...(firstSection(sections, ['Expected completion window']) ? { expectedWindow: firstSection(sections, ['Expected completion window']) } : {}),
-        ...(parseSkills(firstSection(sections, ['Skills / tags', 'Skills/tags'])) ? { skills: parseSkills(firstSection(sections, ['Skills / tags', 'Skills/tags'])) } : {}),
+        ...(() => {
+            const skills = parseSkills(
+                firstSection(sections, ['Disciplines', 'Skills / tags', 'Skills/tags']),
+                `${repo}#${issue.number}`,
+                warnings,
+            );
+            return skills ? { skills } : {};
+        })(),
         ...(firstSection(sections, ['Thumbnail image URL, optional', 'Thumbnail / image URL']) ? { image: firstSection(sections, ['Thumbnail image URL, optional', 'Thumbnail / image URL']) } : {}),
         issueUrl: issue.url,
         ...(applyUrl ? { applyUrl } : {}),
@@ -189,7 +233,7 @@ function validateBounty(bounty, source) {
 
 function main() {
     const config = parseConfig(readFileSync(CONFIG_PATH, 'utf8'));
-    const data = { engineering: [], software: [], growthMedia: [], generalDao: [] };
+    const data = Object.fromEntries([...CATEGORY_KEYS.values()].map(key => [key, []]));
     const failures = [];
 
     for (const repo of config.repos) {
@@ -203,7 +247,7 @@ function main() {
 
         for (const issue of issues) {
             try {
-                const { key, bounty } = issueToBounty(repo, issue, config.labels);
+                const { key, bounty } = issueToBounty(repo, issue, config.labels, failures);
                 validateBounty(bounty, `${repo}#${issue.number}`);
                 data[key].push(bounty);
             } catch (error) {

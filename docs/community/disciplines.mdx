@@ -1,0 +1,47 @@
+---
+sidebar_position: 3
+title: Contributor Disciplines
+sidebar_label: Disciplines
+description: The shared taxonomy of contributor disciplines used across Arrow's bounty board, contributor map, and project tooling.
+---
+
+import DisciplineGrid from '@site/src/components/DisciplineGrid';
+
+# Contributor Disciplines
+
+Arrow keeps one shared list of **contributor disciplines**: the kinds of work
+people actually do here. The same tags show up in three places:
+
+- **[Bounty board](/bounty)** — bounties are tagged with the disciplines they
+  need, and the board's sections are the categories below.
+- **[Contributor map](/docs/community/contributor-map)** — your profile card
+  shows up to 3 disciplines that you pick when you register.
+- **Project tooling** — matching open work to the people who can do it.
+
+Because everything reads from the same list, the tags always line up. A bounty
+tagged **Manufacturing: Composites** is asking for exactly what a contributor
+who registered Composites offered.
+
+## The taxonomy
+
+Nine categories, each holding a handful of disciplines. The tags describe the
+kind of work, not seniority or specific tools. They're broad on purpose, so
+they stay useful as projects change.
+
+<DisciplineGrid />
+
+## How it's used
+
+**Tagging a bounty.** The [bounty issue form](/bounty/creating-bounties) lists
+every discipline as a checkbox. Tick the ones a contributor needs to do the
+work — most bounties need one to three.
+
+**Registering on the map.** The `/new-contributor` Discord command asks for up
+to 3 disciplines. Pick the ones you want to be found for, because that's how
+other contributors discover you.
+
+**Changing the list.** The taxonomy is community-approved and versioned, and it
+moves slowly on purpose: bounties, profiles, and tooling all reference it.
+Additions or renames go through community review, not a quick PR. Think a
+discipline is missing? Raise it in the
+[Arrow Discord](https://discord.com/invite/arrow).

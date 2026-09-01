@@ -1,6 +1,11 @@
 {
   "engineering": [],
-  "software": [],
-  "growthMedia": [],
-  "generalDao": []
+  "flightSystems": [],
+  "flightOps": [],
+  "manufacturing": [],
+  "design": [],
+  "content": [],
+  "growth": [],
+  "local": [],
+  "operations": []
 }

@@ -5,31 +5,12 @@ hide_table_of_contents: true
 
 # Previous Bounties
 
-Completed and closed bounties. These are no longer available to claim.
+Completed and closed bounties are archived here once they have been paid out.
 
-## Engineering — Quiver
+Nothing has landed yet. The bounty board opened recently, so this page fills up as the first bounties are claimed and closed rather than starting with a history behind it.
 
-| Bounty | USDC | $ARROW | Closed |
-|--------|------|--------|--------|
-| ESC Wiring Diagram Update | $200 | 600 | Feb 10 |
-| Carbon Fibre Arm Repair Guide | $300 | 750 | Feb 5 |
-| Battery Management System Review | $450 | 1,500 | Feb 1 |
-| Wiring Harness Diagram — PT3 | $250 | 500 | Feb 1 |
+If you want to be on it, the [bounty board](/bounty) has what is currently open, and [How to Claim](./how-to-claim) walks through the process.
 
-## Engineering — Spearhead
+## What gets listed here
 
-| Bounty | USDC | $ARROW | Closed |
-|--------|------|--------|--------|
-| Control Surface Hinge Mechanism | $350 | 1,200 | Feb 28 |
-
-## Engineering — General
-
-| Bounty | USDC | $ARROW | Closed |
-|--------|------|--------|--------|
-| Simulation Environment Setup Guide | $400 | 1,400 | Feb 15 |
-
-## General
-
-| Bounty | USDC | $ARROW | Closed |
-|--------|------|--------|--------|
-| DAO Governance Summary — Q4 2025 | $150 | 400 | Feb 1 |
+Once bounties start closing, each entry records the work, the reward paid, and the month it closed. Bounties that expired or were cancelled without being completed are not listed, since this is a record of work done rather than of everything ever posted.

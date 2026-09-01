@@ -1,5 +1,7 @@
 {
     "Exclude": [
-        "templates/pages/engineering.body.html"
+        "templates/pages/engineering.body.html",
+        "scripts/gen-bounty-form.mjs",
+        "scripts/gen-discipline-icons.mjs"
     ]
 }

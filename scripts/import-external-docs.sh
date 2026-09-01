@@ -119,7 +119,8 @@ source_fingerprint() {
 		-name '*.jpeg' -o \
 		-name '*.gif' -o \
 		-name '*.webp' -o \
-		-name '*.svg' \
+		-name '*.svg' -o \
+		-name '*.glb' \
 	\) \
 		! -name '.DS_Store' \
 		! -name 'mkdocs.yaml' \

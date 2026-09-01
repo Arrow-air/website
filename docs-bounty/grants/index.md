@@ -5,11 +5,11 @@ sidebar_label: Grants
 
 # Grants
 
-Arrow grants fund meaningful contributions to the project — engineering work, research, tooling, documentation, and more. Unlike bounties (which are scoped tasks with fixed payouts), grants are for larger, self-directed proposals where you define the scope and timeline.
+Arrow grants fund meaningful contributions to the project: engineering work, research, tooling, documentation and more. Unlike bounties (which are scoped tasks with fixed payouts), grants are for larger, self-directed proposals where you define the scope and timeline.
 
 ## Who can apply?
 
-Grants are open to anyone — community members, independent contributors, and external teams. You don't need to be a core contributor to apply.
+Grants are open to anyone, including community members, independent contributors and external teams. You don't need to be a core contributor to apply.
 
 ## What gets funded?
 

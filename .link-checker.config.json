@@ -31,6 +31,18 @@
       "pattern": "^/caribou"
     },
     {
+      "pattern": "^/quiver"
+    },
+    {
+      "pattern": "^/spearhead"
+    },
+    {
+      "pattern": "geckoterminal.com"
+    },
+    {
+      "pattern": "coingecko.com"
+    },
+    {
       "pattern": "^/img/"
     },
     {
@@ -43,7 +55,7 @@
       "pattern": "https://logs.px4.io"
     },
     {
-      "pattern": "https://etherscan.io/"
+      "pattern": "etherscan.io/"
     },
     {
       "pattern": "https://ree.auto/"

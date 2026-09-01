@@ -3,28 +3,68 @@ name: Sync bounty board data
 on:
   workflow_dispatch:
 
+# A `permissions:` block is a complete replacement, not an addition: every scope
+# left out is set to none. Without `issues: read` the `gh issue list` call in
+# scripts/sync-bounties.mjs returns an empty array instead of failing, so the job
+# regenerates an empty board, finds no diff, and exits green having published
+# nothing. That is what kept the board empty through July.
 permissions:
   contents: write
+  pull-requests: write
+  issues: read
+
+env:
+  SYNC_BRANCH: bot/bounty-sync
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Generate bounty data from GitHub issues
         env:
           GH_TOKEN: ${{ secrets.BOUNTY_SYNC_TOKEN || github.token }}
         run: node scripts/sync-bounties.mjs
 
-      - name: Commit generated bounty data if changed
+      # The base branch requires pull requests and verified signatures, so this
+      # job cannot commit to it directly — the previous version tried and was
+      # rejected with GH006, which is why the board was never populated. Feature
+      # branches carry neither rule, so the bot pushes there and opens a PR for a
+      # human to merge. That also keeps a reviewer between a form submission and
+      # a reward appearing on the public board.
+      - name: Open a PR if the board data changed
+        env:
+          GH_TOKEN: ${{ secrets.BOUNTY_SYNC_TOKEN || github.token }}
+          BASE_BRANCH: ${{ github.ref_name }}
         run: |
           if git diff --quiet -- src/data/bounties.generated.json; then
             echo "No bounty data changes."
             exit 0
           fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "$SYNC_BRANCH"
           git add src/data/bounties.generated.json
           git commit -m "chore: sync bounty board data"
-          git push
+
+          # Force-push: the branch is bot-owned and only ever carries the latest
+          # regenerated snapshot, so a rerun should replace it rather than stack.
+          git push --force origin "HEAD:refs/heads/$SYNC_BRANCH"
+
+          existing=$(gh pr view "$SYNC_BRANCH" --repo "$GITHUB_REPOSITORY" --json state --jq .state 2>/dev/null || true)
+          if [ "$existing" = "OPEN" ]; then
+            echo "Updated the open sync PR:"
+            gh pr view "$SYNC_BRANCH" --repo "$GITHUB_REPOSITORY" --json url --jq .url
+          else
+            gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base "$BASE_BRANCH" \
+              --head "$SYNC_BRANCH" \
+              --title "chore: sync bounty board data" \
+              --body "Regenerated \`src/data/bounties.generated.json\` from the \`bounty\`-labelled issues. Opened by the *Sync bounty board data* workflow.
+
+          Review the diff before merging — these are the rewards that go live on the public bounty board."
+          fi

@@ -1,17 +1,8 @@
 const sidebars = {
   BountySidebar: [
-    {
-      type: 'category',
-      label: 'Bounty Board',
-      link: { type: 'doc', id: 'index' },
-      collapsed: false,
-      items: [
-        { type: 'link', label: 'Engineering', href: '/bounty#engineering' },
-        { type: 'link', label: 'Software', href: '/bounty#software' },
-        { type: 'link', label: 'Growth & Media', href: '/bounty#growth--media' },
-        { type: 'link', label: 'General DAO', href: '/bounty#general-dao' },
-      ],
-    },
+    // Category anchor links were removed when the board gained its own
+    // category/discipline filters — the board is one filterable page now.
+    { type: 'doc', id: 'index', label: 'Bounty Board' },
     {
       type: 'category',
       label: 'Bounties',
@@ -19,6 +10,7 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'bounties/what-are-bounties', label: 'What are Bounties' },
         { type: 'doc', id: 'bounties/how-to-claim', label: 'How to Claim' },
+        { type: 'doc', id: 'creating-bounties', label: 'Creating Bounties' },
         { type: 'doc', id: 'bounties/previous-bounties', label: 'Previous Bounties' },
       ],
     },

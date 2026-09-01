@@ -1,0 +1,133 @@
+.viewer {
+  display: flex;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 0.75rem;
+  border-right: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  font-size: 0.85rem;
+}
+
+.sidebarActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.sidebarActions button {
+  flex: 1;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+}
+
+.sidebarActions button:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.category {
+  margin-bottom: 0.5rem;
+}
+
+.categoryLabel,
+.modelLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 0.1rem 0;
+}
+
+.categoryLabel {
+  font-weight: 600;
+}
+
+.modelLabel {
+  padding-left: 1.2rem;
+}
+
+.canvasWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  background: var(--ifm-background-color);
+}
+
+.hoverLabel {
+  position: absolute;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  /* Explicit colors: --ifm-background-color is `transparent` in light mode,
+     which made the chip text invisible. */
+  background: rgba(15, 18, 24, 0.85);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-family: var(--ifm-font-family-monospace);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.treeToggle {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.treeToggle:hover {
+  opacity: 1;
+}
+
+.hint {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--ifm-color-emphasis-600);
+  pointer-events: none;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  color: var(--ifm-color-emphasis-700);
+  padding: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .viewer {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-height: 180px;
+    border-right: none;
+    border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  }
+}
