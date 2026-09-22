@@ -10,16 +10,16 @@
       // ---------------------------------------------------------------
       var BASE_TABS = ['Overview', 'Tasks', 'Docs', 'Team', 'Discuss'];
       var PROJECTS = [
-        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator for higher speeds and longer range.', status: 'In development, wings-on flights underway', needs: ['aero', 'firmware', 'flight test'], tasks: 4, color: '#ff643b', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
-        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter platform with modular attachments.', status: 'Complete, available as a devkit', needs: ['attachments', 'docs', 'CAD'], tasks: 2, color: '#0A43BF' },
-        { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for agricultural spraying, 200 kg MTOW.', status: 'Phase 2 flight testing at Snapshot vote', needs: ['structures', 'power', 'test'], tasks: 5, color: '#0A43BF' },
-        { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack replacing the Quiver commercial LiPo.', status: 'First prototype in assembly', needs: ['battery', 'BMS', 'thermal'], tasks: 3, color: '#0A43BF' },
-        { id: 'feather', name: 'Feather', blurb: 'Open fixed-wing UAV design and documentation.', status: 'Design and documentation', needs: ['aero', 'CAD', 'docs'], tasks: 2, color: '#0A43BF' },
-        { id: 'kestrel', name: 'Kestrel', blurb: 'Next aircraft in the line. Scope being defined.', status: 'Scoping', needs: ['concept', 'requirements'], tasks: 1, color: '#0A43BF' },
-        { id: 'superapp', name: 'Superapp', blurb: 'This app. One place to onboard, contribute and follow the work.', status: 'Experimental', needs: ['frontend', 'design', 'wallet'], tasks: 6, color: '#0A43BF' },
-        { id: 'software', name: 'Software', blurb: 'Firmware, tooling and the systems around the aircraft.', status: 'Ongoing', needs: ['PX4', 'ArduPilot', 'tooling'], tasks: 3, color: '#0A43BF' },
-        { id: 'flight-testing', name: 'Flight Testing', blurb: 'Test campaigns, logs and the platform that tracks them.', status: 'Flight tracking rebuild in progress', needs: ['pilots', 'data', 'Openship'], tasks: 3, color: '#0A43BF' },
-        { id: 'growth', name: 'Growth & Community', blurb: 'Media, social, meetups and the people side of the DAO.', status: 'Ongoing', needs: ['content', 'video', 'community'], tasks: 4, color: '#0A43BF' }
+        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', img: 'spearhead', color: '#ff643b', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
+        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', img: 'quiver', color: '#0A43BF' },
+        { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for ag spraying.', img: 'caribou', color: '#0A43BF' },
+        { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack.', img: 'longshot', color: '#0A43BF' },
+        { id: 'feather', name: 'Feather', blurb: 'Open fixed-wing UAV.', img: 'feather', color: '#0A43BF' },
+        { id: 'kestrel', name: 'Kestrel', blurb: 'Next aircraft. Scope being defined.', color: '#0A43BF' },
+        { id: 'superapp', name: 'Superapp', blurb: 'This app.', img: 'app', color: '#0A43BF' },
+        { id: 'software', name: 'Software', blurb: 'Firmware and tooling around the aircraft.', color: '#0A43BF' },
+        { id: 'flight-testing', name: 'Flight Testing', blurb: 'Test campaigns and flight logs.', color: '#0A43BF' },
+        { id: 'growth', name: 'Growth & Community', blurb: 'Media, social and the people side.', color: '#0A43BF' }
       ];
 
       // ---------------------------------------------------------------
@@ -96,18 +96,26 @@
       // ---------------------------------------------------------------
       // Contribute: cards
       // ---------------------------------------------------------------
+      var MARK = '<svg viewBox="0 0 163 194" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M162.9,120.1l-50.36-11.17-31.09,84.49-31.09-84.49L0,120.1,81.45,0l81.45,120.1Z"/></svg>';
+
+      // Card media: the docs site's dithered card art at rest, the colour
+      // render on hover. Projects without art get the Arrow mark.
+      function cardMedia(p) {
+        if (!p.img) return '<div class="cf_media"><div class="cf_media_mark" style="color:' + p.color + '">' + MARK + '</div></div>';
+        return '<div class="cf_media">' +
+          '<img class="is-rest" src="/img/card-' + p.img + '_dark-unhover.png" alt="" loading="lazy">' +
+          '<img class="is-hover" src="/img/card-' + p.img + '_hover.png" alt="" loading="lazy">' +
+        '</div>';
+      }
+
       function renderCards() {
         grid.innerHTML = PROJECTS.map(function (p) {
           return '' +
             '<a class="cf" href="#contribute/' + p.id + '" style="--cf-color:' + p.color + '">' +
-              '<div class="cf_head">' +
-                '<div><h3 class="cf_title">' + p.name + '</h3><p class="cf_desc">' + p.blurb + '</p></div>' +
-                '<span class="cf_action">Open <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
-              '</div>' +
-              '<div class="cf_card">' +
-                '<div class="cf_status"><span class="cf_dot"></span>' + p.status + '</div>' +
-                '<div class="cf_tags">' + p.needs.map(function (n) { return '<span class="cf_tag">' + n + '</span>'; }).join('') + '</div>' +
-                '<div class="cf_meta"><b>' + p.tasks + '</b> open task' + (p.tasks === 1 ? '' : 's') + '</div>' +
+              cardMedia(p) +
+              '<div class="cf_body">' +
+                '<h3 class="cf_title">' + p.name + '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></h3>' +
+                '<p class="cf_desc">' + p.blurb + '</p>' +
               '</div>' +
             '</a>';
         }).join('');

@@ -261,8 +261,11 @@
           gap: 1rem;
         }
         .cf {
-          display: block;
-          padding: 6px;
+          display: grid;
+          grid-template-columns: 148px minmax(0, 1fr);
+          align-items: center;
+          gap: 14px;
+          padding: 10px 16px 10px 10px;
           background: var(--app-track);
           border: 1px solid var(--app-border);
           border-radius: 14px;
@@ -270,90 +273,60 @@
           text-decoration: none;
           transition: border-color 0.18s ease, transform 0.18s ease;
         }
-        .cf:hover { border-color: #3a3b41; transform: translateY(-1px); }
+        .cf:hover { border-color: var(--cf-color, var(--app-blue)); transform: translateY(-1px); }
         .cf:focus-visible { outline: 2px solid var(--app-blue-light); outline-offset: 2px; }
-        .cf_head {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 1rem;
-          padding: 8px 10px 12px;
-        }
-        .cf_title {
-          font-size: 0.95rem;
-          font-weight: 500;
-          color: #fff;
-          margin: 0 0 3px;
-          line-height: 1.2;
-        }
-        .cf_desc {
-          font-size: 0.8rem;
-          color: var(--app-muted);
-          margin: 0;
-          line-height: 1.35;
-        }
-        .cf_action {
-          flex: 0 0 auto;
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          height: 30px;
-          padding: 0 10px;
-          border: 1px solid var(--app-border);
-          border-radius: 8px;
-          background: rgba(255,255,255,0.03);
-          color: var(--app-text);
-          font-size: 0.78rem;
-          font-weight: 500;
-          white-space: nowrap;
-        }
-        .cf:hover .cf_action { border-color: var(--cf-color, var(--app-blue)); }
-        .cf_action svg { width: 12px; height: 12px; }
-        .cf_card {
+        .cf_media {
+          position: relative;
+          aspect-ratio: 16 / 9;
+          border-radius: 9px;
           background: var(--app-panel);
           border: 1px solid var(--app-border);
-          border-radius: 10px;
-          padding: 14px 14px 12px;
+          overflow: hidden;
         }
-        .cf_status {
+        .cf_media img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 6px;
+          transition: opacity 0.25s ease;
+        }
+        .cf_media .is-hover { opacity: 0; }
+        .cf:hover .cf_media .is-hover { opacity: 1; }
+        .cf:hover .cf_media .is-rest { opacity: 0; }
+        .cf_media_mark {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .cf_media_mark svg { width: 34px; height: 34px; opacity: 0.6; }
+        .cf_body { min-width: 0; }
+        .cf_title {
           display: flex;
           align-items: center;
           gap: 8px;
+          font-size: 1rem;
+          font-weight: 500;
+          color: #fff;
+          margin: 0 0 4px;
+          line-height: 1.2;
+        }
+        .cf_title svg {
+          width: 12px;
+          height: 12px;
+          color: var(--app-muted);
+          transition: transform 0.18s ease, color 0.18s ease;
+        }
+        .cf:hover .cf_title svg { color: var(--cf-color, var(--app-blue)); transform: translateX(2px); }
+        .cf_desc {
           font-size: 0.82rem;
-          color: var(--app-text);
-          margin-bottom: 10px;
-        }
-        .cf_dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: var(--cf-color, var(--app-blue));
-          box-shadow: 0 0 8px var(--cf-color, var(--app-blue));
-          flex: 0 0 auto;
-        }
-        .cf_tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-          margin-bottom: 12px;
-        }
-        .cf_tag {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.68rem;
-          letter-spacing: 0.02em;
-          padding: 3px 7px;
-          border-radius: 6px;
-          border: 1px solid var(--app-border);
           color: var(--app-muted);
+          margin: 0;
+          line-height: 1.4;
         }
-        .cf_meta {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.7rem;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-          color: var(--app-muted);
-        }
-        .cf_meta b { color: var(--app-text); font-weight: 500; }
 
         /* ---------------------------------------------------------------
            Project shell: a second, project-themed tab group inside the
@@ -523,6 +496,7 @@
           .app-panel_body { padding: 1.75rem 1rem; }
           .app-view h2 { font-size: 1.5rem; }
           .app-grid { grid-template-columns: 1fr; }
+          .cf { grid-template-columns: 112px minmax(0, 1fr); }
           .proj_panel { padding: 1.5rem 1rem; }
         }
         @media (prefers-reduced-motion: reduce) {
