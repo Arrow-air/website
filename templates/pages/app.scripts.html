@@ -1,3 +1,4 @@
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script type="importmap">
     {
       "imports": {
@@ -24,16 +25,16 @@
       // ---------------------------------------------------------------
       var BASE_TABS = ['Overview', 'Tasks', 'Docs', 'Team', 'Discuss'];
       var PROJECTS = [
-        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', img: 'spearhead', imgHover: 'card-spearhead_dark-hover.png', color: '#FF643B', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
-        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', img: 'quiver', color: '#218191', tabs: ['Overview', 'Component', 'Tasks', 'Docs', 'Team', 'Discuss'], viewer: true },
-        { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for ag spraying.', img: 'caribou', color: '#0943BF' },
-        { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack.', img: 'longshot', color: '#8234F0' },
-        { id: 'feather', name: 'Feather', blurb: 'Open fixed-wing UAV.', img: 'feather', color: '#AF947E' },
+        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', repo: 'project-spearhead', img: 'spearhead', imgHover: 'card-spearhead_dark-hover.png', color: '#FF643B', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
+        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', repo: 'project-quiver', img: 'quiver', color: '#218191', tabs: ['Overview', 'Component', 'Tasks', 'Docs', 'Team', 'Discuss'], viewer: true },
+        { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for ag spraying.', repo: 'project-caribou', img: 'caribou', color: '#0943BF' },
+        { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack.', repo: 'project-longshot', img: 'longshot', color: '#8234F0' },
+        { id: 'feather', name: 'Feather', blurb: 'Open fixed-wing UAV.', repo: 'project-feather', img: 'feather', color: '#AF947E' },
         { id: 'kestrel', name: 'Kestrel', blurb: 'Next aircraft. Scope being defined.', color: '#70C9D9' },
         { id: 'superapp', name: 'Superapp', blurb: 'This app.', img: 'app', color: '#2A5DCB' },
         { id: 'software', name: 'Software', blurb: 'Firmware and tooling around the aircraft.', color: '#B0B4BD' },
-        { id: 'flight-testing', name: 'Flight Testing', blurb: 'Test campaigns and flight logs.', color: '#FF906E' },
-        { id: 'growth', name: 'Growth & Community', blurb: 'Media, social and the people side.', color: '#C497FF' }
+        { id: 'flight-testing', name: 'Flight Testing', blurb: 'Test campaigns and flight logs.', repo: 'flight-tracking', color: '#FF906E' },
+        { id: 'growth', name: 'Growth & Community', blurb: 'Media, social and the people side.', repo: 'project-social-comms', color: '#C497FF' }
       ];
 
       // ---------------------------------------------------------------
@@ -189,6 +190,60 @@
         renderOnboarding();
       });
 
+
+      // ---------------------------------------------------------------
+      // Bounties. Demo rows in the shape of src/data/bounties.generated.json
+      // (the real board is synced from GitHub issues labelled "bounty").
+      // `components` are keywords matched against the subassembly file
+      // and mesh name, so a component view can surface its own work first.
+      // ---------------------------------------------------------------
+      var BOUNTIES = [
+        { project: 'quiver', title: 'Landing gear foot: replace printed tip with moulded TPU', description: 'Current PLA tips crack after hard landings. Design a TPU overmould or snap-on foot and document the print settings.', status: 'OPEN', usdc: '250', arrow: '1,250', skills: ['Mechanical', 'CAD', '3D Printing'], components: ['landing_gear', '1334', '1300'], issueUrl: 'https://github.com/Arrow-air/website/issues', expectedWindow: '2 to 3 weeks' },
+        { project: 'quiver', title: 'Motor arm quick-release latch', description: 'A tool-free latch so arms fold for transport without loosening the clamp bolts.', status: 'OPEN', usdc: '400', arrow: '2,000', skills: ['Mechanical', 'CAD'], components: ['motor_arm', '1400'], issueUrl: 'https://github.com/Arrow-air/website/issues', expectedWindow: '3 to 4 weeks' },
+        { project: 'quiver', title: 'PCB: add current sense on each ESC rail', description: 'Per-motor current telemetry to catch a failing motor before it fails in the air.', status: 'CLAIMED', usdc: '600', arrow: '3,000', skills: ['Electrical', 'Firmware'], components: ['pcb', '3300'], issueUrl: 'https://github.com/Arrow-air/website/issues', expectedWindow: '4 to 6 weeks' },
+        { project: 'quiver', title: 'Cockpit enclosure: vent path for the flight controller', description: 'The FC runs warm under the top cap in summer. Add a passive vent or duct without opening a water path.', status: 'OPEN', usdc: '150', arrow: '750', skills: ['Mechanical', 'CAD'], components: ['cockpit_enclosure', 'topcap', 'mainenclosure', '2400', '241'], issueUrl: 'https://github.com/Arrow-air/website/issues', expectedWindow: '1 to 2 weeks' },
+        { project: 'quiver', title: 'Propeller guard for indoor testing', description: 'Clip-on guards for the 15 inch props, printable in two parts, under 40 g each.', status: 'OPEN', usdc: '200', arrow: '1,000', skills: ['Mechanical', '3D Printing'], components: ['propulsion', 'propeller', '3100', '311'], issueUrl: 'https://github.com/Arrow-air/website/issues', expectedWindow: '2 weeks' },
+        { project: 'quiver', title: 'Assembly guide: photograph every step of the harness route', description: 'The harness section of the manufacturing guide has no photos. Build one, shoot it, annotate it.', status: 'OPEN', usdc: '120', arrow: '600', skills: ['Documentation', 'Media', 'Assembly'], components: ['harness', '4000'], issueUrl: 'https://github.com/Arrow-air/website/issues', expectedWindow: '1 week' },
+        { project: 'quiver', title: 'Hover endurance test at 25 C and 35 C', description: 'Two logged hover runs to a fixed voltage cutoff, same pack, with the logs uploaded to flight tracking.', status: 'OPEN', usdc: '180', arrow: '900', skills: ['Flight Test', 'Piloting'], components: [], issueUrl: 'https://github.com/Arrow-air/website/issues', expectedWindow: '2 weeks' }
+      ];
+
+      function bountyMatches(b, file, mesh) {
+        var hay = ((file || '') + ' ' + (mesh || '')).toLowerCase();
+        return (b.components || []).some(function (k) { return hay.indexOf(k.toLowerCase()) >= 0; });
+      }
+
+      function bountyRow(b, related) {
+        return '<tr' + (related ? ' class="is-related"' : '') + '>' +
+          '<td><a href="' + b.issueUrl + '" target="_blank" rel="noopener">' + b.title + '</a><small>' + b.description + '</small></td>' +
+          '<td class="bt_amt">' + (b.usdc ? b.usdc + ' <span>USDC</span>' : '') + (b.arrow ? '<br>' + b.arrow + ' <span>$ARROW</span>' : '') + '</td>' +
+          '<td><div class="bt_tags">' + b.skills.map(function (s) { return '<span class="bt_tag">' + s + '</span>'; }).join('') + '</div></td>' +
+          '<td><span class="bt_status is-' + b.status.toLowerCase() + '">' + b.status + '</span></td>' +
+        '</tr>';
+      }
+
+      function bountyTable(rows, relatedKeys) {
+        if (!rows.length) return '<div class="bt_wrap"><div class="bt_empty">No open bounties here yet.</div></div>';
+        return '<div class="bt_wrap"><table class="bt"><thead><tr><th>Bounty</th><th>Reward</th><th>Skills</th><th>Status</th></tr></thead><tbody>' +
+          rows.map(function (b) { return bountyRow(b, relatedKeys && bountyMatches(b, relatedKeys.file, relatedKeys.mesh)); }).join('') +
+        '</tbody></table></div>';
+      }
+
+      function improveSteps(p, label) {
+        var steps = [
+          { community: true, title: 'Say hello before you build', text: 'Post in #introductions on Discord or open a GitHub Discussion saying what you want to improve on the ' + label + '. Someone may already be on it, and the team will point you at the right files. Community first, then CAD.', cta: 'Open Discord', href: 'https://discord.com/invite/arrow' },
+          { title: 'Read the component in context', text: 'Open the ' + p.name + ' docs for this subassembly: what it does, what it mates with, and the tolerances that matter.', cta: 'Docs', href: '/quiver' },
+          { title: 'Pull the CAD', text: 'Clone the project repo, open the source assembly, and work on a branch named for the change.', cta: 'Repo', href: 'https://github.com/Arrow-air/project-quiver' },
+          { title: 'Make the change and prove it', text: 'Print it, fit it, test it. Photos and a short note on what changed and why are the bar.' },
+          { title: 'Open a PR', text: 'Link your Discord thread or Discussion in the PR so the review has the whole story.', cta: 'Open a PR', href: 'https://github.com/Arrow-air/project-quiver/pulls' }
+        ];
+        return '<div class="steps">' + steps.map(function (s, i) {
+          return '<div class="step' + (s.community ? ' is-community' : '') + '"><div class="step_n">' + String(i + 1).padStart(2, '0') + '</div>' +
+            '<div><b>' + s.title + '</b><p>' + s.text + '</p></div>' +
+            (s.cta ? '<a class="q_btn" href="' + s.href + '" target="_blank" rel="noopener">' + s.cta + '</a>' : '<span></span>') +
+          '</div>';
+        }).join('') + '</div>';
+      }
+
       // ---------------------------------------------------------------
       // Contribute: cards
       // ---------------------------------------------------------------
@@ -272,7 +327,13 @@
               '<div class="v3d_loading">Loading model</div>' +
               '<div class="v3d_tip" id="v3d-tip"></div>' +
               '<div class="v3d_hint">drag to orbit &middot; scroll to zoom &middot; click a part</div>' +
-            '</div>';
+            '</div>' +
+            '<div class="sec"><div class="sec_head"><h4>Open bounties on ' + p.name + '</h4><span>' + BOUNTIES.filter(function (b) { return b.project === p.id; }).length + ' listed</span></div>' +
+              bountyTable(BOUNTIES.filter(function (b) { return b.project === p.id; })) +
+            '</div>' +
+            '<div class="sec"><div class="sec_head"><h4>How to get involved</h4><span>5 steps</span></div>' + improveSteps(p, p.name + ' assembly') + '</div>' +
+            aboutSection(p);
+          loadAbout(p);
           var host = document.getElementById('v3d');
           var tip = document.getElementById('v3d-tip');
           mountViewer(host, {
@@ -310,15 +371,95 @@
             '<div class="v3d" id="v3d">' +
               '<div class="v3d_loading">Loading model</div>' +
               '<div class="v3d_hint">drag to orbit &middot; scroll to zoom</div>' +
-            '</div>';
+            '</div>' +
+            componentSections(p, file, mesh, label) +
+            aboutSection(p);
+          loadAbout(p);
           mountViewer(document.getElementById('v3d'), { base: '/app-models', accent: p.color, focus: { file: file, mesh: mesh } });
           return;
         }
 
+        if (sub === 'overview') {
+          var mine = BOUNTIES.filter(function (b) { return b.project === p.id; });
+          projPanel.innerHTML =
+            '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+            '<h3>' + p.name + '</h3>' +
+            '<p>' + p.blurb + '</p>' +
+            '<div class="sec"><div class="sec_head"><h4>Open bounties on ' + p.name + '</h4><span>' + mine.length + ' listed</span></div>' + bountyTable(mine) + '</div>' +
+            '<div class="sec"><div class="sec_head"><h4>How to get involved</h4><span>5 steps</span></div>' + improveSteps(p, p.name) + '</div>' +
+            aboutSection(p);
+          loadAbout(p);
+          return;
+        }
         projPanel.innerHTML =
           '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
           '<h3>' + title + '</h3>' +
           '<p>Placeholder for the ' + p.name + ' ' + title.toLowerCase() + ' view.</p>';
+      }
+
+
+      // ---------------------------------------------------------------
+      // About: the project's README from GitHub, rendered below the
+      // viewer, bounties and steps. Fetched once per project.
+      // ---------------------------------------------------------------
+      var readmeCache = {};
+      function aboutSection(p) {
+        if (!p.repo) return '';
+        return '<div class="sec" id="about-sec"><div class="sec_head"><h4>About ' + p.name + '</h4>' +
+          '<span><a class="sec_link" href="https://github.com/Arrow-air/' + p.repo + '" target="_blank" rel="noopener">github.com/Arrow-air/' + p.repo + '</a></span></div>' +
+          '<div class="readme" id="about-body"><div class="bt_empty">Loading README from GitHub</div></div></div>';
+      }
+      function loadAbout(p) {
+        var body = document.getElementById('about-body');
+        if (!p.repo || !body) return;
+        var render = function (md) {
+          if (!window.marked) { body.innerHTML = '<pre class="readme_raw">' + md.replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }) + '</pre>'; return; }
+          var rawBase = 'https://raw.githubusercontent.com/Arrow-air/' + p.repo + '/main/';
+          var blobBase = 'https://github.com/Arrow-air/' + p.repo + '/blob/main/';
+          var renderer = new marked.Renderer();
+          renderer.image = function (href, title, text) {
+            var src = typeof href === 'object' ? href.href : href;
+            var alt = typeof href === 'object' ? href.text : text;
+            if (!/^https?:/.test(src)) src = rawBase + src.replace(/^\.\//, '');
+            return '<img src="' + src + '" alt="' + (alt || '') + '" loading="lazy">';
+          };
+          renderer.link = function (href, title, text) {
+            var h = typeof href === 'object' ? href.href : href;
+            var t = typeof href === 'object' ? href.text : text;
+            if (!/^https?:|^#|^mailto:/.test(h)) h = blobBase + h.replace(/^\.\//, '');
+            return '<a href="' + h + '" target="_blank" rel="noopener">' + t + '</a>';
+          };
+          body.innerHTML = marked.parse(md, { renderer: renderer, gfm: true });
+        };
+        if (readmeCache[p.repo]) { render(readmeCache[p.repo]); return; }
+        var tryBranch = function (branch) {
+          return fetch('https://raw.githubusercontent.com/Arrow-air/' + p.repo + '/' + branch + '/README.md').then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.text();
+          });
+        };
+        tryBranch('main').catch(function () { return tryBranch('master'); }).then(function (md) {
+          readmeCache[p.repo] = md;
+          if (document.getElementById('about-body') === body) render(md);
+        }).catch(function (err) {
+          body.innerHTML = '<div class="bt_empty">Could not load the README (' + err.message + ').</div>';
+        });
+      }
+
+      function componentSections(p, file, mesh, label) {
+        var all = BOUNTIES.filter(function (b) { return b.project === p.id; });
+        var related = all.filter(function (b) { return bountyMatches(b, file, mesh); });
+        var rest = all.filter(function (b) { return !bountyMatches(b, file, mesh); });
+        var html = '';
+        if (related.length) {
+          html += '<div class="sec"><div class="sec_head"><h4>Bounties on this component</h4><span>' + related.length + ' related</span></div>' +
+            bountyTable(related, { file: file, mesh: mesh }) + '</div>';
+        }
+        html += '<div class="sec"><div class="sec_head"><h4>' + (related.length ? 'Or improve it your own way' : 'How to improve this component') + '</h4><span>5 steps</span></div>' +
+          improveSteps(p, label) + '</div>';
+        html += '<div class="sec"><div class="sec_head"><h4>' + (related.length ? 'Other ' + p.name + ' bounties' : 'All ' + p.name + ' bounties') + '</h4><span>' + rest.length + ' listed</span></div>' +
+          bountyTable(rest) + '</div>';
+        return html;
       }
 
       function showProject(p, sub, opts) {
