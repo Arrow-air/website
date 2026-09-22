@@ -1,121 +1,280 @@
   <script>
     (function () {
       var LOAD_MS = 1800;
+      var BLUE = '#5B8DEE';
+
+      // ---------------------------------------------------------------
+      // Project data. One entry per card on the Contribute tab.
+      // color: theme for the project's own tab group (Spearhead is the
+      // site orange primitive; the rest default to Arrow blue for now).
+      // ---------------------------------------------------------------
+      var BASE_TABS = ['Overview', 'Tasks', 'Docs', 'Team', 'Discuss'];
+      var PROJECTS = [
+        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator for higher speeds and longer range.', status: 'In development, wings-on flights underway', needs: ['aero', 'firmware', 'flight test'], tasks: 4, color: '#ff643b', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
+        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter platform with modular attachments.', status: 'Complete, available as a devkit', needs: ['attachments', 'docs', 'CAD'], tasks: 2, color: '#0A43BF' },
+        { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for agricultural spraying, 200 kg MTOW.', status: 'Phase 2 flight testing at Snapshot vote', needs: ['structures', 'power', 'test'], tasks: 5, color: '#0A43BF' },
+        { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack replacing the Quiver commercial LiPo.', status: 'First prototype in assembly', needs: ['battery', 'BMS', 'thermal'], tasks: 3, color: '#0A43BF' },
+        { id: 'feather', name: 'Feather', blurb: 'Open fixed-wing UAV design and documentation.', status: 'Design and documentation', needs: ['aero', 'CAD', 'docs'], tasks: 2, color: '#0A43BF' },
+        { id: 'kestrel', name: 'Kestrel', blurb: 'Next aircraft in the line. Scope being defined.', status: 'Scoping', needs: ['concept', 'requirements'], tasks: 1, color: '#0A43BF' },
+        { id: 'superapp', name: 'Superapp', blurb: 'This app. One place to onboard, contribute and follow the work.', status: 'Experimental', needs: ['frontend', 'design', 'wallet'], tasks: 6, color: '#0A43BF' },
+        { id: 'software', name: 'Software', blurb: 'Firmware, tooling and the systems around the aircraft.', status: 'Ongoing', needs: ['PX4', 'ArduPilot', 'tooling'], tasks: 3, color: '#0A43BF' },
+        { id: 'flight-testing', name: 'Flight Testing', blurb: 'Test campaigns, logs and the platform that tracks them.', status: 'Flight tracking rebuild in progress', needs: ['pilots', 'data', 'Openship'], tasks: 3, color: '#0A43BF' },
+        { id: 'growth', name: 'Growth & Community', blurb: 'Media, social, meetups and the people side of the DAO.', status: 'Ongoing', needs: ['content', 'video', 'community'], tasks: 4, color: '#0A43BF' }
+      ];
+
+      // ---------------------------------------------------------------
+      // Elements
+      // ---------------------------------------------------------------
       var tablist = document.getElementById('app-tabs');
       var tabs = Array.prototype.slice.call(tablist.querySelectorAll('.app-tab'));
       var indicator = tablist.querySelector('.app-tabs_indicator');
       var stem = document.getElementById('app-stem');
       var loader = document.getElementById('app-loader');
       var loaderText = document.getElementById('app-loader-text');
+      var panel = document.getElementById('app-panel');
       var panelIndex = document.getElementById('app-panel-index');
       var panelTitle = document.getElementById('app-panel-title');
       var views = Array.prototype.slice.call(document.querySelectorAll('.app-view'));
-      var current = null;
+
+      var grid = document.getElementById('contribute-grid');
+      var gridWrap = document.getElementById('contribute-grid-wrap');
+      var projShell = document.getElementById('proj-shell');
+      var projName = document.getElementById('proj-name');
+      var projTabs = document.getElementById('proj-tabs');
+      var projIndicator = projTabs.querySelector('.app-tabs_indicator');
+      var projStem = document.getElementById('proj-stem');
+      var projPanel = document.getElementById('proj-panel');
+
+      var state = { main: null, project: null, sub: null };
       var loadTimer = null;
 
-      function labelOf(tab) {
-        return tab.textContent.replace(/^\d+\s*/, '').trim();
+      function slug(str) { return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+      function labelOf(tab) { return tab.textContent.replace(/^\d+\s*/, '').trim(); }
+      function findProject(id) {
+        for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].id === id) return PROJECTS[i];
+        return null;
       }
 
-      // Move the blue pill under the active tab and the stem under the pill.
-      function positionIndicator(tab) {
+      // ---------------------------------------------------------------
+      // Shared pill + stem positioning (main bar and project bar)
+      // ---------------------------------------------------------------
+      function positionIndicator(list, ind, tab, stemEl) {
         var x = tab.offsetLeft - 4; // track has 4px padding
-        indicator.style.width = tab.offsetWidth + 'px';
-        indicator.style.transform = 'translateX(' + x + 'px)';
-
+        ind.style.width = tab.offsetWidth + 'px';
+        ind.style.transform = 'translateX(' + x + 'px)';
         var tabRect = tab.getBoundingClientRect();
-        var wrapRect = stem.parentNode.getBoundingClientRect();
-        stem.style.left = (tabRect.left + tabRect.width / 2 - wrapRect.left) + 'px';
+        var wrapRect = stemEl.parentNode.getBoundingClientRect();
+        stemEl.style.left = (tabRect.left + tabRect.width / 2 - wrapRect.left) + 'px';
       }
 
-      function setSelected(tab) {
-        tabs.forEach(function (t) {
+      function selectIn(list, ind, tabEls, tab, stemEl) {
+        tabEls.forEach(function (t) {
           var on = t === tab;
           t.setAttribute('aria-selected', on ? 'true' : 'false');
           t.tabIndex = on ? 0 : -1;
         });
-        positionIndicator(tab);
+        positionIndicator(list, ind, tab, stemEl);
         tab.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
       }
 
-      function showView(name) {
-        views.forEach(function (v) {
-          v.classList.toggle('is-active', v.id === 'view-' + name);
-        });
-      }
-
-      function activate(tab, opts) {
-        opts = opts || {};
-        var name = tab.getAttribute('data-tab');
-        if (name === current) return;
-        current = name;
-
-        setSelected(tab);
-        panelIndex.textContent = String(tabs.indexOf(tab) + 1).padStart(2, '0');
-        panelTitle.textContent = labelOf(tab);
-        if (!opts.silent) history.replaceState(null, '', '#' + name);
-
+      // ---------------------------------------------------------------
+      // Loader
+      // ---------------------------------------------------------------
+      function runLoader(text, color, done) {
         if (loadTimer) clearTimeout(loadTimer);
-
-        if (opts.instant) {
-          loader.classList.remove('is-visible');
-          showView(name);
-          return;
-        }
-
-        // Restart the bar animation by toggling the class.
-        loaderText.textContent = 'Loading ' + labelOf(tab).toLowerCase();
+        loader.style.setProperty('--loader-color', color || BLUE);
+        loaderText.textContent = text;
         loader.classList.remove('is-visible');
         void loader.offsetWidth;
         loader.classList.add('is-visible');
-
         loadTimer = setTimeout(function () {
           loader.classList.remove('is-visible');
-          showView(name);
+          done();
         }, LOAD_MS);
       }
 
+      // ---------------------------------------------------------------
+      // Contribute: cards
+      // ---------------------------------------------------------------
+      function renderCards() {
+        grid.innerHTML = PROJECTS.map(function (p) {
+          return '' +
+            '<a class="cf" href="#contribute/' + p.id + '" style="--cf-color:' + p.color + '">' +
+              '<div class="cf_head">' +
+                '<div><h3 class="cf_title">' + p.name + '</h3><p class="cf_desc">' + p.blurb + '</p></div>' +
+                '<span class="cf_action">Open <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+              '</div>' +
+              '<div class="cf_card">' +
+                '<div class="cf_status"><span class="cf_dot"></span>' + p.status + '</div>' +
+                '<div class="cf_tags">' + p.needs.map(function (n) { return '<span class="cf_tag">' + n + '</span>'; }).join('') + '</div>' +
+                '<div class="cf_meta"><b>' + p.tasks + '</b> open task' + (p.tasks === 1 ? '' : 's') + '</div>' +
+              '</div>' +
+            '</a>';
+        }).join('');
+      }
+
+      // ---------------------------------------------------------------
+      // Contribute: project shell
+      // ---------------------------------------------------------------
+      function buildProjectTabs(p) {
+        var names = p.tabs || BASE_TABS;
+        projTabs.querySelectorAll('.app-tab').forEach(function (t) { t.remove(); });
+        names.forEach(function (name, i) {
+          var b = document.createElement('button');
+          b.className = 'app-tab';
+          b.type = 'button';
+          b.setAttribute('role', 'tab');
+          b.setAttribute('data-sub', slug(name));
+          b.setAttribute('aria-selected', 'false');
+          b.tabIndex = -1;
+          b.innerHTML = '<span class="app-tab_num">' + String(i + 1).padStart(2, '0') + '</span>' + name;
+          b.addEventListener('click', function () {
+            location.hash = '#contribute/' + p.id + '/' + slug(name);
+          });
+          projTabs.appendChild(b);
+        });
+      }
+
+      function renderProjectView(p, sub) {
+        var names = p.tabs || BASE_TABS;
+        var title = names.filter(function (n) { return slug(n) === sub; })[0] || names[0];
+        projPanel.innerHTML =
+          '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+          '<h3>' + title + '</h3>' +
+          '<p>Placeholder for the ' + p.name + ' ' + title.toLowerCase() + ' view.</p>';
+      }
+
+      function showProject(p, sub, opts) {
+        opts = opts || {};
+        var names = p.tabs || BASE_TABS;
+        var validSub = names.map(slug).indexOf(sub) >= 0 ? sub : slug(names[0]);
+        var projectChanged = state.project !== p.id;
+
+        if (projectChanged) {
+          projShell.style.setProperty('--proj', p.color);
+          projName.textContent = p.name;
+          buildProjectTabs(p);
+        }
+        gridWrap.style.display = 'none';
+        projShell.classList.add('is-active');
+
+        var subTabs = Array.prototype.slice.call(projTabs.querySelectorAll('.app-tab'));
+        var active = subTabs.filter(function (t) { return t.getAttribute('data-sub') === validSub; })[0];
+
+        function commit() {
+          selectIn(projTabs, projIndicator, subTabs, active, projStem);
+          renderProjectView(p, validSub);
+        }
+
+        var subChanged = state.sub !== validSub;
+        state.project = p.id;
+        state.sub = validSub;
+
+        if (opts.instant || (!projectChanged && !subChanged)) {
+          commit();
+          // Layout settles after display flips; re-measure once.
+          requestAnimationFrame(function () { positionIndicator(projTabs, projIndicator, active, projStem); });
+        } else {
+          selectIn(projTabs, projIndicator, subTabs, active, projStem);
+          runLoader('Loading ' + p.name.toLowerCase() + (projectChanged ? '' : ' ' + validSub.replace(/-/g, ' ')), p.color, commit);
+        }
+      }
+
+      function showGrid() {
+        projShell.classList.remove('is-active');
+        gridWrap.style.display = '';
+        state.project = null;
+        state.sub = null;
+      }
+
+      // ---------------------------------------------------------------
+      // Routing: #main, #contribute/project, #contribute/project/sub
+      // ---------------------------------------------------------------
+      function parseHash() {
+        var parts = location.hash.replace(/^#/, '').split('/').filter(Boolean);
+        return { main: parts[0] || tabs[0].getAttribute('data-tab'), project: parts[1] || null, sub: parts[2] || null };
+      }
+
+      function showView(name) {
+        views.forEach(function (v) { v.classList.toggle('is-active', v.id === 'view-' + name); });
+      }
+
+      function route(opts) {
+        opts = opts || {};
+        var r = parseHash();
+        var tab = tabs.filter(function (t) { return t.getAttribute('data-tab') === r.main; })[0] || tabs[0];
+        var main = tab.getAttribute('data-tab');
+        var mainChanged = state.main !== main;
+
+        if (mainChanged) {
+          state.main = main;
+          selectIn(tablist, indicator, tabs, tab, stem);
+          panelIndex.textContent = String(tabs.indexOf(tab) + 1).padStart(2, '0');
+          panelTitle.textContent = labelOf(tab);
+        }
+
+        function afterMain() {
+          showView(main);
+          if (main === 'contribute') {
+            var p = r.project ? findProject(r.project) : null;
+            if (p) showProject(p, r.sub, { instant: mainChanged || opts.instant });
+            else showGrid();
+          }
+        }
+
+        if (mainChanged && !opts.instant) {
+          if (main === 'contribute') showGrid();
+          runLoader('Loading ' + labelOf(tab).toLowerCase(), BLUE, afterMain);
+        } else {
+          afterMain();
+        }
+      }
+
       tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () { activate(tab); });
+        tab.addEventListener('click', function () {
+          location.hash = '#' + tab.getAttribute('data-tab');
+        });
       });
 
-      tablist.addEventListener('keydown', function (e) {
-        var i = tabs.indexOf(document.activeElement);
+      function keyNav(list, e) {
+        var els = Array.prototype.slice.call(list.querySelectorAll('.app-tab'));
+        var i = els.indexOf(document.activeElement);
         if (i < 0) return;
         var next = null;
-        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
-        if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
-        if (e.key === 'Home') next = tabs[0];
-        if (e.key === 'End') next = tabs[tabs.length - 1];
-        if (next) { e.preventDefault(); next.focus(); activate(next); }
-      });
+        if (e.key === 'ArrowRight') next = els[(i + 1) % els.length];
+        if (e.key === 'ArrowLeft') next = els[(i - 1 + els.length) % els.length];
+        if (e.key === 'Home') next = els[0];
+        if (e.key === 'End') next = els[els.length - 1];
+        if (next) { e.preventDefault(); next.focus(); next.click(); }
+      }
+      tablist.addEventListener('keydown', function (e) { keyNav(tablist, e); });
+      projTabs.addEventListener('keydown', function (e) { keyNav(projTabs, e); });
 
       // Fill the viewport below the sticky tab bar, leaving the shell's bottom padding.
-      var panel = document.getElementById('app-panel');
       function sizePanel() {
         var top = panel.getBoundingClientRect().top + window.scrollY;
         var h = window.innerHeight - top - 24;
         panel.style.setProperty('--app-panel-h', Math.max(h, 320) + 'px');
       }
-      sizePanel();
 
       window.addEventListener('resize', function () {
         sizePanel();
         var active = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
-        if (active) positionIndicator(active);
+        if (active) positionIndicator(tablist, indicator, active, stem);
+        if (state.project) {
+          var sa = projTabs.querySelector('.app-tab[aria-selected="true"]');
+          if (sa) positionIndicator(projTabs, projIndicator, sa, projStem);
+        }
       });
 
-      window.addEventListener('hashchange', function () {
-        var target = document.getElementById('tab-' + location.hash.slice(1));
-        if (target) activate(target);
-      });
+      window.addEventListener('hashchange', function () { route(); });
 
-      // Initial tab: from the hash if valid, else the first. No loader on first paint.
-      var initial = document.getElementById('tab-' + location.hash.slice(1)) || tabs[0];
+      renderCards();
+      sizePanel();
       if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(function () { activate(initial, { instant: true, silent: true }); });
+        document.fonts.ready.then(function () { route({ instant: true }); });
       } else {
-        activate(initial, { instant: true, silent: true });
+        route({ instant: true });
       }
     })();
   </script>
