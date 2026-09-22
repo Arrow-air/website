@@ -32,6 +32,7 @@ static/quiver.html
 static/engineering.html
 static/community.html
 static/dao.html
+static/app.html
 
 # Imported external docs (pulled at build time via scripts/import-external-docs.sh or S3 sync in CI)
 docs/project-quiver/

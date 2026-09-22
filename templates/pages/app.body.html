@@ -1,0 +1,326 @@
+      <style>
+        /* ---------------------------------------------------------------
+           Arrow App shell (experimental)
+           Segmented tab bar under the site navbar, one container panel
+           attached to the active tab. Sizing follows the coss ui "lg"
+           tabs; the active pill is Arrow brand blue.
+           --------------------------------------------------------------- */
+        :root {
+          --app-blue: #0A43BF;
+          --app-blue-dark: #0736A0;
+          --app-blue-light: #5B8DEE;
+          --app-bg: #000;
+          --app-track: #141416;
+          --app-panel: #0b0b0d;
+          --app-border: #26272b;
+          --app-text: #f3f4f6;
+          --app-muted: #8b8d93;
+          --app-tab-h: 44px;
+          --app-radius: 12px;
+        }
+        .app-shell {
+          background: var(--app-bg);
+          color: var(--app-text);
+          min-height: calc(100vh - 80px);
+          padding-bottom: 6rem;
+        }
+        .app-tabbar {
+          position: sticky;
+          top: 0;
+          z-index: 20;
+          background: rgba(0, 0, 0, 0.85);
+          -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid var(--app-border);
+        }
+        .app-tabbar_inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          padding: 0.75rem 0;
+        }
+        .app-tabbar_label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--app-muted);
+          white-space: nowrap;
+        }
+        .app-tabs {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          padding: 4px;
+          background: var(--app-track);
+          border: 1px solid var(--app-border);
+          border-radius: calc(var(--app-radius) + 2px);
+          overflow-x: auto;
+          scrollbar-width: none;
+          max-width: 100%;
+        }
+        .app-tabs::-webkit-scrollbar { display: none; }
+        .app-tab {
+          position: relative;
+          z-index: 1;
+          flex: 0 0 auto;
+          height: var(--app-tab-h);
+          padding: 0 18px;
+          border: 0;
+          border-radius: var(--app-radius);
+          background: transparent;
+          color: var(--app-muted);
+          font-family: 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 0.95rem;
+          font-weight: 500;
+          letter-spacing: 0.01em;
+          line-height: 1;
+          cursor: pointer;
+          transition: color 0.18s ease;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .app-tab:hover { color: var(--app-text); }
+        .app-tab:focus-visible {
+          outline: 2px solid var(--app-blue-light);
+          outline-offset: 2px;
+        }
+        .app-tab[aria-selected="true"] {
+          color: #fff;
+        }
+        .app-tab_num {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          opacity: 0.55;
+          margin-right: 8px;
+        }
+        .app-tab[aria-selected="true"] .app-tab_num { opacity: 0.85; }
+        /* Sliding active pill */
+        .app-tabs_indicator {
+          position: absolute;
+          top: 4px;
+          left: 0;
+          height: var(--app-tab-h);
+          width: 0;
+          border-radius: var(--app-radius);
+          background: var(--app-blue);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 6px 18px rgba(10, 67, 191, 0.35);
+          transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform, width;
+        }
+        /* Panel, with a blue stem that runs up to the active tab */
+        .app-panel_wrap {
+          position: relative;
+          padding-top: 1.75rem;
+        }
+        .app-panel_stem {
+          position: absolute;
+          top: -1px;
+          height: 1.75rem;
+          width: 2px;
+          background: var(--app-blue);
+          transform: translateX(-1px);
+          transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+          opacity: 0.9;
+        }
+        .app-panel_stem::after {
+          content: "";
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          width: 10px;
+          height: 10px;
+          margin-left: -5px;
+          border-radius: 50%;
+          background: var(--app-blue);
+          box-shadow: 0 0 0 4px rgba(10, 67, 191, 0.25);
+        }
+        .app-panel {
+          position: relative;
+          min-height: 60vh;
+          background: var(--app-panel);
+          border: 1px solid var(--app-border);
+          border-radius: 16px;
+          overflow: hidden;
+        }
+        .app-panel_head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          padding: 0.9rem 1.25rem;
+          border-bottom: 1px solid var(--app-border);
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--app-muted);
+        }
+        .app-panel_head b {
+          color: var(--app-text);
+          font-weight: 500;
+        }
+        .app-panel_body {
+          padding: 2.5rem 1.5rem;
+        }
+        .app-view { display: none; }
+        .app-view.is-active {
+          display: block;
+          animation: app-view-in 0.35s ease both;
+        }
+        @keyframes app-view-in {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .app-view h2 {
+          font-size: 2rem;
+          line-height: 1.1;
+          margin: 0 0 0.75rem;
+          color: #fff;
+        }
+        .app-view p {
+          max-width: 56ch;
+          color: var(--app-muted);
+          margin: 0;
+        }
+        /* Loading overlay, 3 seconds per tab switch */
+        .app-loader {
+          position: absolute;
+          inset: 0;
+          display: none;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 1.25rem;
+          background: var(--app-panel);
+          z-index: 5;
+        }
+        .app-loader.is-visible { display: flex; }
+        .app-loader_mark {
+          width: 40px;
+          height: 40px;
+          animation: app-mark-pulse 1.2s ease-in-out infinite;
+        }
+        @keyframes app-mark-pulse {
+          0%, 100% { opacity: 0.35; transform: translateY(0); }
+          50%      { opacity: 1;    transform: translateY(-4px); }
+        }
+        .app-loader_text {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.75rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--app-muted);
+        }
+        .app-loader_bar {
+          width: min(320px, 70vw);
+          height: 3px;
+          border-radius: 3px;
+          background: var(--app-border);
+          overflow: hidden;
+        }
+        .app-loader_bar span {
+          display: block;
+          height: 100%;
+          width: 0;
+          background: linear-gradient(90deg, var(--app-blue-dark), var(--app-blue-light));
+        }
+        .app-loader.is-visible .app-loader_bar span {
+          animation: app-bar-fill 3s linear forwards;
+        }
+        @keyframes app-bar-fill {
+          from { width: 0; }
+          to   { width: 100%; }
+        }
+        @media (max-width: 767px) {
+          .app-tabbar_label { display: none; }
+          .app-tab { padding: 0 14px; font-size: 0.875rem; }
+          .app-panel_body { padding: 1.75rem 1rem; }
+          .app-view h2 { font-size: 1.5rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .app-tabs_indicator, .app-panel_stem { transition: none; }
+          .app-loader_mark { animation: none; opacity: 1; }
+        }
+      </style>
+
+      <section class="app-shell">
+        <div class="app-tabbar">
+          <div class="padding-global">
+            <div class="container-large">
+              <div class="app-tabbar_inner">
+                <div class="app-tabbar_label">Arrow app / experimental</div>
+                <div class="app-tabs" role="tablist" aria-label="Arrow app sections" id="app-tabs">
+                  <div class="app-tabs_indicator" aria-hidden="true"></div>
+                  <button class="app-tab" role="tab" data-tab="onboarding" aria-selected="true" aria-controls="view-onboarding" id="tab-onboarding"><span class="app-tab_num">01</span>Onboarding</button>
+                  <button class="app-tab" role="tab" data-tab="projects" aria-selected="false" aria-controls="view-projects" id="tab-projects" tabindex="-1"><span class="app-tab_num">02</span>Projects</button>
+                  <button class="app-tab" role="tab" data-tab="bounties" aria-selected="false" aria-controls="view-bounties" id="tab-bounties" tabindex="-1"><span class="app-tab_num">03</span>Bounties</button>
+                  <button class="app-tab" role="tab" data-tab="build" aria-selected="false" aria-controls="view-build" id="tab-build" tabindex="-1"><span class="app-tab_num">04</span>Build</button>
+                  <button class="app-tab" role="tab" data-tab="fly" aria-selected="false" aria-controls="view-fly" id="tab-fly" tabindex="-1"><span class="app-tab_num">05</span>Fly</button>
+                  <button class="app-tab" role="tab" data-tab="community" aria-selected="false" aria-controls="view-community" id="tab-community" tabindex="-1"><span class="app-tab_num">06</span>Community</button>
+                  <button class="app-tab" role="tab" data-tab="governance" aria-selected="false" aria-controls="view-governance" id="tab-governance" tabindex="-1"><span class="app-tab_num">07</span>Governance</button>
+                  <button class="app-tab" role="tab" data-tab="profile" aria-selected="false" aria-controls="view-profile" id="tab-profile" tabindex="-1"><span class="app-tab_num">08</span>Profile</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="app-panel_wrap">
+              <div class="app-panel_stem" id="app-stem" aria-hidden="true"></div>
+              <div class="app-panel" id="app-panel">
+                <div class="app-panel_head">
+                  <div>Tab <b id="app-panel-index">01</b> / 08</div>
+                  <div><b id="app-panel-title">Onboarding</b></div>
+                </div>
+
+                <div class="app-loader" id="app-loader" aria-live="polite">
+                  <svg class="app-loader_mark" viewBox="0 0 163 194" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill="#0A43BF" d="M162.9,120.1l-50.36-11.17-31.09,84.49-31.09-84.49L0,120.1,81.45,0l81.45,120.1Z"/>
+                  </svg>
+                  <div class="app-loader_bar"><span></span></div>
+                  <div class="app-loader_text" id="app-loader-text">Loading onboarding</div>
+                </div>
+
+                <div class="app-panel_body">
+                  <div class="app-view is-active" role="tabpanel" id="view-onboarding" aria-labelledby="tab-onboarding">
+                    <h2>Onboarding</h2>
+                    <p>Placeholder. This is where a new contributor lands and gets pointed at their first real task.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-projects" aria-labelledby="tab-projects">
+                    <h2>Projects</h2>
+                    <p>Placeholder. Quiver, Spearhead, Caribou and whatever comes next, each with status and an owner.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-bounties" aria-labelledby="tab-bounties">
+                    <h2>Bounties</h2>
+                    <p>Placeholder. Open work, claimed work, paid work.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-build" aria-labelledby="tab-build">
+                    <h2>Build</h2>
+                    <p>Placeholder. CAD, BOM, assembly guides and the workshop map.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-fly" aria-labelledby="tab-fly">
+                    <h2>Fly</h2>
+                    <p>Placeholder. Flight logs, test campaigns, telemetry.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-community" aria-labelledby="tab-community">
+                    <h2>Community</h2>
+                    <p>Placeholder. Contributors, meetups, Discord activity.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-governance" aria-labelledby="tab-governance">
+                    <h2>Governance</h2>
+                    <p>Placeholder. AIPs, Snapshot proposals, committees.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-profile" aria-labelledby="tab-profile">
+                    <h2>Profile</h2>
+                    <p>Placeholder. Your contributions, ownership and reputation.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

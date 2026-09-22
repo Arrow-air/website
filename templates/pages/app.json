@@ -1,0 +1,12 @@
+{
+  "output": "static/app.html",
+  "title": "Arrow App | Experimental",
+  "wfPageId": "686bc4649f23f7482c1e3649",
+  "metaTags": [
+    "<meta name=\"robots\" content=\"noindex, nofollow\">",
+    "<meta name=\"description\" content=\"Experimental multi-tab Arrow app shell.\">"
+  ],
+  "extraHead": "  <meta name=\"color-scheme\" content=\"dark\">",
+  "bodyFile": "app.body.html",
+  "extraScriptsFile": "app.scripts.html"
+}

@@ -1,0 +1,111 @@
+  <script>
+    (function () {
+      var LOAD_MS = 3000;
+      var tablist = document.getElementById('app-tabs');
+      var tabs = Array.prototype.slice.call(tablist.querySelectorAll('.app-tab'));
+      var indicator = tablist.querySelector('.app-tabs_indicator');
+      var stem = document.getElementById('app-stem');
+      var loader = document.getElementById('app-loader');
+      var loaderText = document.getElementById('app-loader-text');
+      var panelIndex = document.getElementById('app-panel-index');
+      var panelTitle = document.getElementById('app-panel-title');
+      var views = Array.prototype.slice.call(document.querySelectorAll('.app-view'));
+      var current = null;
+      var loadTimer = null;
+
+      function labelOf(tab) {
+        return tab.textContent.replace(/^\d+\s*/, '').trim();
+      }
+
+      // Move the blue pill under the active tab and the stem under the pill.
+      function positionIndicator(tab) {
+        var x = tab.offsetLeft - 4; // track has 4px padding
+        indicator.style.width = tab.offsetWidth + 'px';
+        indicator.style.transform = 'translateX(' + x + 'px)';
+
+        var tabRect = tab.getBoundingClientRect();
+        var wrapRect = stem.parentNode.getBoundingClientRect();
+        stem.style.left = (tabRect.left + tabRect.width / 2 - wrapRect.left) + 'px';
+      }
+
+      function setSelected(tab) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+        });
+        positionIndicator(tab);
+        tab.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      }
+
+      function showView(name) {
+        views.forEach(function (v) {
+          v.classList.toggle('is-active', v.id === 'view-' + name);
+        });
+      }
+
+      function activate(tab, opts) {
+        opts = opts || {};
+        var name = tab.getAttribute('data-tab');
+        if (name === current) return;
+        current = name;
+
+        setSelected(tab);
+        panelIndex.textContent = String(tabs.indexOf(tab) + 1).padStart(2, '0');
+        panelTitle.textContent = labelOf(tab);
+        if (!opts.silent) history.replaceState(null, '', '#' + name);
+
+        if (loadTimer) clearTimeout(loadTimer);
+
+        if (opts.instant) {
+          loader.classList.remove('is-visible');
+          showView(name);
+          return;
+        }
+
+        // Restart the bar animation by toggling the class.
+        loaderText.textContent = 'Loading ' + labelOf(tab).toLowerCase();
+        loader.classList.remove('is-visible');
+        void loader.offsetWidth;
+        loader.classList.add('is-visible');
+
+        loadTimer = setTimeout(function () {
+          loader.classList.remove('is-visible');
+          showView(name);
+        }, LOAD_MS);
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () { activate(tab); });
+      });
+
+      tablist.addEventListener('keydown', function (e) {
+        var i = tabs.indexOf(document.activeElement);
+        if (i < 0) return;
+        var next = null;
+        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'Home') next = tabs[0];
+        if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); next.focus(); activate(next); }
+      });
+
+      window.addEventListener('resize', function () {
+        var active = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+        if (active) positionIndicator(active);
+      });
+
+      window.addEventListener('hashchange', function () {
+        var target = document.getElementById('tab-' + location.hash.slice(1));
+        if (target) activate(target);
+      });
+
+      // Initial tab: from the hash if valid, else the first. No loader on first paint.
+      var initial = document.getElementById('tab-' + location.hash.slice(1)) || tabs[0];
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () { activate(initial, { instant: true, silent: true }); });
+      } else {
+        activate(initial, { instant: true, silent: true });
+      }
+    })();
+  </script>
