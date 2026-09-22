@@ -79,7 +79,10 @@
       // Shared pill + stem positioning (main bar and project bar)
       // ---------------------------------------------------------------
       function positionIndicator(list, ind, tab, stemEl) {
-        var x = tab.offsetLeft - 4; // track has 4px padding
+        // offsetLeft already includes the track's 4px padding, and the
+        // absolutely positioned pill measures from the padding edge, so the
+        // two line up without an adjustment.
+        var x = tab.offsetLeft;
         ind.style.width = tab.offsetWidth + 'px';
         ind.style.transform = 'translateX(' + x + 'px)';
         var tabRect = tab.getBoundingClientRect();
@@ -146,7 +149,7 @@
       function obSave(st) { try { localStorage.setItem(OB_KEY, JSON.stringify(st)); } catch (e) {} }
 
       function questCard(q, done) {
-        return '<div class="q' + (done ? ' is-done' : '') + '" data-quest="' + q.id + '">' +
+        return '<div class="q' + (done ? ' is-done' : '') + '" data-quest="' + q.id + '"><div class="q_in">' +
           '<div class="q_icon">' + (done ? ICONS.check : ICONS[q.icon]) + '</div>' +
           '<div><h3 class="q_title">' + q.title + '</h3><p class="q_desc">' + q.desc + '</p></div>' +
           '<div class="q_side">' +
@@ -156,7 +159,7 @@
               : '<a class="q_btn" href="' + q.href + '"' + (/^https?:/.test(q.href) ? ' target="_blank" rel="noopener"' : '') + '>' + q.cta + '</a>' +
                 '<button class="q_mark" type="button" data-done="' + q.id + '">mark done</button>') +
           '</div>' +
-        '</div>';
+        '</div></div>';
       }
 
       function renderOnboarding() {
@@ -229,14 +232,19 @@
       }
 
 
-      function bountyFrame(title, count, sub, tableHtml) {
+      var FRAME_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>';
+      function frame(title, pill, sub, bodyHtml) {
         return '<div class="bf">' +
           '<div class="bf_head">' +
-            '<h4 class="bf_title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>' + title + '</h4>' +
-            '<div class="bf_meta"><span class="bf_sub">' + sub + '</span><span class="bf_pill">' + count + '</span></div>' +
+            '<h4 class="bf_title">' + FRAME_ICON + title + '</h4>' +
+            '<div class="bf_meta">' + (sub ? '<span class="bf_sub">' + sub + '</span>' : '') + (pill ? '<span class="bf_pill">' + pill + '</span>' : '') + '</div>' +
           '</div>' +
-          tableHtml +
+          bodyHtml +
         '</div>';
+      }
+      function bountyFrame(title, count, sub, tableHtml) { return frame(title, count, sub, tableHtml); }
+      function frameRow(title, note) {
+        return '<div class="bf_row"><h5>' + title + '</h5>' + (note ? '<span class="bf_sub">' + note + '</span>' : '') + '</div>';
       }
 
       function improveSteps(p, label) {
@@ -492,16 +500,19 @@
         disposeViewer();
 
         if (p.viewer && sub === 'overview') {
+          var mineV = BOUNTIES.filter(function (b) { return b.project === p.id; });
           projPanel.innerHTML =
             '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
             '<h3>' + p.name + ', assembled</h3>' +
-            '<p style="margin-bottom:1rem">Orbit the aircraft. Hover a component to see what it is, click it to go deeper.</p>' +
-            '<div class="v3d" id="v3d">' +
-              '<div class="v3d_loading">Loading model</div>' +
-              '<div class="v3d_tip" id="v3d-tip"></div>' +
-              '<div class="v3d_hint">drag to orbit &middot; scroll to zoom &middot; click a part</div>' +
-            '</div>' +
-            bountyFrame('Open bounties on ' + p.name, BOUNTIES.filter(function (b) { return b.project === p.id; }).length + ' listed', 'paid in USDC and $ARROW', bountyTable(BOUNTIES.filter(function (b) { return b.project === p.id; }))) +
+            '<p>Orbit the aircraft. Hover a component to see what it is, click it to go deeper.</p>' +
+            frame(p.name + ' assembly', mineV.length + ' bounties', 'drag to orbit, click a part',
+              '<div class="v3d" id="v3d">' +
+                '<div class="v3d_loading">Loading model</div>' +
+                '<div class="v3d_tip" id="v3d-tip"></div>' +
+                '<div class="v3d_hint">drag to orbit &middot; scroll to zoom &middot; click a part</div>' +
+              '</div>' +
+              frameRow('Open bounties on ' + p.name, 'paid in USDC and $ARROW') +
+              bountyTable(mineV)) +
             '<div class="sec"><div class="sec_head"><h4>How to get involved</h4><span>5 steps</span></div>' + improveSteps(p, p.name + ' assembly') + '</div>' +
             aboutSection(p);
           loadAbout(p);
@@ -539,10 +550,6 @@
             '<div class="v3d_crumbs"><a href="#contribute/' + p.id + '/overview">' + p.name + '</a> / <a href="#contribute/' + p.id + '/overview">' + systemLabel + '</a> / <b>' + label + '</b></div>' +
             '<h3>' + label + '</h3>' +
             '<p style="margin-bottom:1rem">Same CAD for now. Each component will link to its own model, drawings and tasks.</p>' +
-            '<div class="v3d" id="v3d">' +
-              '<div class="v3d_loading">Loading model</div>' +
-              '<div class="v3d_hint">drag to orbit &middot; scroll to zoom</div>' +
-            '</div>' +
             componentSections(p, file, mesh, label) +
             aboutSection(p);
           loadAbout(p);
@@ -640,10 +647,13 @@
         var all = BOUNTIES.filter(function (b) { return b.project === p.id; });
         var related = all.filter(function (b) { return bountyMatches(b, file, mesh); });
         var rest = all.filter(function (b) { return !bountyMatches(b, file, mesh); });
-        var html = '';
-        if (related.length) {
-          html += bountyFrame('Bounties on this component', related.length + ' related', label, bountyTable(related, { file: file, mesh: mesh }));
-        }
+        var viewerHtml =
+          '<div class="v3d" id="v3d">' +
+            '<div class="v3d_loading">Loading model</div>' +
+            '<div class="v3d_hint">drag to orbit &middot; scroll to zoom</div>' +
+          '</div>';
+        var html = frame(label, related.length ? related.length + ' related' : '', 'same CAD for now',
+          viewerHtml + (related.length ? frameRow('Bounties on this component', 'paid in USDC and $ARROW') + bountyTable(related, { file: file, mesh: mesh }) : ''));
         html += '<div class="sec"><div class="sec_head"><h4>' + (related.length ? 'Or improve it your own way' : 'How to improve this component') + '</h4><span>5 steps</span></div>' +
           improveSteps(p, label) + '</div>';
         html += bountyFrame(related.length ? 'Other ' + p.name + ' bounties' : 'All ' + p.name + ' bounties', rest.length + ' listed', 'paid in USDC and $ARROW', bountyTable(rest));

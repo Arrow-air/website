@@ -573,15 +573,22 @@
         .ob_icon svg { width: 22px; height: 22px; }
         .ob_grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
         .q {
+          --done: #218191;
+          display: flex;
+          flex-direction: column;
+          border-radius: 14px;
+          border: 1px solid var(--app-border);
+          background: var(--app-chrome);
+          transition: border-color 0.18s ease;
+        }
+        .q_in {
+          flex: 1;
           display: grid;
           grid-template-columns: 40px minmax(0, 1fr) auto;
           align-items: center;
           gap: 14px;
           padding: 14px 16px;
-          border-radius: 14px;
-          border: 1px solid var(--app-border);
-          background: var(--app-chrome);
-          transition: border-color 0.18s ease;
+          border-radius: 13px;
         }
         .q:hover { border-color: #46484F; }
         .q_icon {
@@ -621,10 +628,25 @@
           cursor: pointer; padding: 0; text-decoration: underline dotted;
         }
         .q_mark:hover { color: var(--app-text); }
-        .q.is-done { border-color: color-mix(in srgb, #218191 55%, var(--app-border)); background: color-mix(in srgb, #218191 8%, var(--app-chrome)); }
-        .q.is-done .q_icon { background: #218191; border-color: #218191; color: #fff; }
+        /* Done: the same tinted frame as the bounty tables, card inset inside it */
+        .q.is-done {
+          padding: 6px;
+          border-radius: 16px;
+          border-color: color-mix(in srgb, var(--done) 55%, var(--app-border));
+          background: linear-gradient(180deg, color-mix(in srgb, var(--done) 26%, var(--app-chrome)) 0%, color-mix(in srgb, var(--done) 10%, var(--app-chrome)) 100%);
+          box-shadow: 0 1px 0 color-mix(in srgb, var(--done) 40%, transparent) inset;
+        }
+        .q.is-done:hover { border-color: color-mix(in srgb, var(--done) 75%, var(--app-border)); }
+        .q.is-done .q_in {
+          background: var(--app-track);
+          border: 1px solid color-mix(in srgb, var(--done) 30%, var(--app-border));
+          border-radius: 10px;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,0,0,0.4);
+          padding: 12px 14px;
+        }
+        .q.is-done .q_icon { background: var(--done); border-color: var(--done); color: #fff; }
         .q.is-done .q_title { color: var(--app-muted); text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.25); }
-        .q.is-done .q_reward { border-color: #218191; color: #70C9D9; }
+        .q.is-done .q_reward { border-color: var(--done); color: #70C9D9; }
         .q.is-locked { opacity: 0.55; }
         @media (max-width: 767px) {
           .ob_grid { grid-template-columns: 1fr; }
@@ -681,7 +703,6 @@
         .bt_wrap {
           border: 1px solid color-mix(in srgb, var(--proj) 45%, var(--app-border)); border-radius: 12px; overflow: auto;
           background: var(--app-track);
-          box-shadow: 0 0 0 1px color-mix(in srgb, var(--proj) 10%, transparent), 0 12px 32px color-mix(in srgb, var(--proj) 10%, transparent);
         }
         .sec_head h4::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--proj); margin-right: 10px; vertical-align: 1px; }
         .bt_empty { padding: 1.25rem; color: var(--app-muted); font-size: 0.85rem; }
@@ -791,7 +812,7 @@
           border: 1px solid color-mix(in srgb, var(--proj) 55%, var(--app-border));
           background:
             linear-gradient(180deg, color-mix(in srgb, var(--proj) 26%, var(--app-chrome)) 0%, color-mix(in srgb, var(--proj) 10%, var(--app-chrome)) 100%);
-          box-shadow: 0 1px 0 color-mix(in srgb, var(--proj) 40%, transparent) inset, 0 16px 40px color-mix(in srgb, var(--proj) 14%, transparent);
+          box-shadow: 0 1px 0 color-mix(in srgb, var(--proj) 40%, transparent) inset;
         }
         .bf_head {
           display: flex; align-items: center; justify-content: space-between; gap: 1rem;
@@ -807,8 +828,19 @@
         .bf_sub { font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, #fff 70%, var(--proj)); }
         .bf .bt_wrap {
           border-color: color-mix(in srgb, var(--proj) 30%, var(--app-border));
-          box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.4);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,0,0,0.4);
         }
+        .bf .v3d {
+          margin: 0 0 6px;
+          border-color: color-mix(in srgb, var(--proj) 30%, var(--app-border));
+          box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,0,0,0.4);
+          background: var(--app-track);
+        }
+        .bf_row {
+          display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+          padding: 10px 12px 10px;
+        }
+        .bf_row h5 { margin: 0; font-size: 0.9rem; font-weight: 500; color: #fff; }
         .bf .bt th { background: color-mix(in srgb, var(--proj) 16%, var(--app-track)); }
         .bf .bt_empty { background: var(--app-track); }
         .bf .sec_head { display: none; }
