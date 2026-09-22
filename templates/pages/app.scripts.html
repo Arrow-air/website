@@ -505,14 +505,13 @@
             '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
             '<h3>' + p.name + ', assembled</h3>' +
             '<p>Orbit the aircraft. Hover a component to see what it is, click it to go deeper.</p>' +
-            frame(p.name + ' assembly', mineV.length + ' bounties', 'drag to orbit, click a part',
+            frame(p.name + ' assembly', '', 'drag to orbit, click a part',
               '<div class="v3d" id="v3d">' +
                 '<div class="v3d_loading">Loading model</div>' +
                 '<div class="v3d_tip" id="v3d-tip"></div>' +
                 '<div class="v3d_hint">drag to orbit &middot; scroll to zoom &middot; click a part</div>' +
-              '</div>' +
-              frameRow('Open bounties on ' + p.name, 'paid in USDC and $ARROW') +
-              bountyTable(mineV)) +
+              '</div>') +
+            bountyFrame('Open bounties on ' + p.name, mineV.length + ' listed', 'paid in USDC and $ARROW', bountyTable(mineV)) +
             '<div class="sec"><div class="sec_head"><h4>How to get involved</h4><span>5 steps</span></div>' + improveSteps(p, p.name + ' assembly') + '</div>' +
             aboutSection(p);
           loadAbout(p);
@@ -652,8 +651,10 @@
             '<div class="v3d_loading">Loading model</div>' +
             '<div class="v3d_hint">drag to orbit &middot; scroll to zoom</div>' +
           '</div>';
-        var html = frame(label, related.length ? related.length + ' related' : '', 'same CAD for now',
-          viewerHtml + (related.length ? frameRow('Bounties on this component', 'paid in USDC and $ARROW') + bountyTable(related, { file: file, mesh: mesh }) : ''));
+        var html = frame(label, '', 'same CAD for now', viewerHtml);
+        if (related.length) {
+          html += bountyFrame('Bounties on this component', related.length + ' related', 'paid in USDC and $ARROW', bountyTable(related, { file: file, mesh: mesh }));
+        }
         html += '<div class="sec"><div class="sec_head"><h4>' + (related.length ? 'Or improve it your own way' : 'How to improve this component') + '</h4><span>5 steps</span></div>' +
           improveSteps(p, label) + '</div>';
         html += bountyFrame(related.length ? 'Other ' + p.name + ' bounties' : 'All ' + p.name + ' bounties', rest.length + ' listed', 'paid in USDC and $ARROW', bountyTable(rest));
