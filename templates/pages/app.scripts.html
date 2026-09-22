@@ -67,7 +67,7 @@
       var daoPanel = document.getElementById('dao-panel');
       var daoSubTabs = Array.prototype.slice.call(daoTabs.querySelectorAll('.app-tab'));
 
-      var state = { main: null, project: null, sub: null, component: null, dao: null };
+      var state = { main: null, project: null, sub: null, component: null, dao: null, fly: null, flyExtra: null };
       var viewer = null;
       var loadTimer = null;
 
@@ -753,6 +753,274 @@
         t.addEventListener('click', function () { location.hash = '#dao/' + t.getAttribute('data-sub'); });
       });
 
+      // ---------------------------------------------------------------
+      // Fly: flights.arrowair.com prototype. Fleet registry, flight record
+      // with filters, flight card with parsed-log summary, quick log.
+      // All data is illustrative and lives in memory (quick log entries
+      // persist to localStorage).
+      // ---------------------------------------------------------------
+      var flyName = document.getElementById('fly-name');
+      var flyTabs = document.getElementById('fly-tabs');
+      var flyIndicator = flyTabs.querySelector('.app-tabs_indicator');
+      var flyStem = document.getElementById('fly-stem');
+      var flyPanel = document.getElementById('fly-panel');
+      var flySubTabs = Array.prototype.slice.call(flyTabs.querySelectorAll('.app-tab'));
+
+      var FLY_TITLES = { flights: 'Flights', fleet: 'Fleet', log: 'Quick log' };
+      var SITES = ['Whangaparaoa field', 'Muriwai strip', 'Kumeu paddock', 'Hangar (indoor)'];
+      var PILOTS = ['Sleety', 'Marco', 'Tim K', 'Ana R'];
+      var AIRCRAFT = [
+        { id: 'qv-001', name: 'Quiver 001', serial: 'QV-2025-001', type: 'Quiver', cls: 'multirotor', cells: 6, status: 'active', mfg: 'Arrow', seconds: 4 * 3600 + 22 * 60 },
+        { id: 'qv-002', name: 'Quiver 002', serial: 'QV-2025-002', type: 'Quiver', cls: 'multirotor', cells: 6, status: 'active', mfg: 'Arrow', seconds: 3 * 3600 + 5 * 60 },
+        { id: 'qv-003', name: 'Quiver 003', serial: 'QV-2026-003', type: 'Quiver', cls: 'multirotor', cells: 6, status: 'maintenance', mfg: 'Community build', seconds: 1 * 3600 + 48 * 60 },
+        { id: 'qv-004', name: 'Quiver 004', serial: 'QV-2026-004', type: 'Quiver', cls: 'multirotor', cells: 6, status: 'active', mfg: 'Community build', seconds: 2 * 3600 + 31 * 60 },
+        { id: 'qv-005', name: 'Quiver 005', serial: 'QV-2026-005', type: 'Quiver', cls: 'multirotor', cells: 6, status: 'building', mfg: 'Community build', seconds: 0 },
+        { id: 'sp-001', name: 'Spearhead A', serial: 'SP-2026-001', type: 'Spearhead', cls: 'fixed_wing', status: 'active', mfg: 'Arrow', seconds: 52 * 60 },
+        { id: 'fe-001', name: 'Feather 01', serial: 'FE-2025-001', type: 'Feather', cls: 'fixed_wing', status: 'retired', mfg: 'Arrow', seconds: 6 * 3600 + 10 * 60 }
+      ];
+      var FLIGHTS = [
+        { id: 'f-118', started: '2026-09-20T09:14:00Z', aircraft: 'sp-001', title: 'Wings-on hover, first tethered lift', pilot: 'Sleety', site: 'Hangar (indoor)', duration: 312, logs: ['parsed'], gps: 'private', incident: 'none', tags: ['tethered', 'hover', 'milestone'],
+          notes: 'Three lifts to 0.8 m on the tether. Yaw authority is fine, pitch is a touch soft with the wings on.',
+          summary: { duration_s: 312, distance_m: 14, max_alt_m: 0.9, max_speed_mps: 0.6, health: { score: 92, grade: 'A' },
+            battery: { volt_start: 25.14, volt_min: 23.62, sag_v: 1.52, per_cell_min: 3.937, cells: 6, mah_used: 640, curr_max_a: 38.2 },
+            modes: [{ t: 0, mode: 'STABILIZE' }, { t: 41, mode: 'ALT_HOLD' }, { t: 268, mode: 'LAND' }],
+            events: [{ t: 38, event: 'ARMED' }, { t: 296, event: 'DISARMED' }],
+            checks: [
+              { status: 'pass', name: 'Vibration', value: '11.2', threshold: '30', detail: 'Peak clipping 0, all axes under threshold' },
+              { status: 'pass', name: 'Compass', value: '0.08', threshold: '0.35', detail: 'Mag field consistent' },
+              { status: 'warn', name: 'EKF variance', value: '0.6', threshold: '0.5', detail: 'Brief spike during second lift' },
+              { status: 'pass', name: 'Battery sag', value: '1.52 V', threshold: '2.5 V', detail: 'Within pack rating' }
+            ] } },
+        { id: 'f-117', started: '2026-09-18T15:40:00Z', aircraft: 'qv-002', title: 'Endurance hover, 25 C', pilot: 'Marco', site: 'Whangaparaoa field', duration: 1114, logs: ['parsed'], gps: 'shared', incident: 'none', tags: ['endurance', 'bounty'],
+          notes: 'Hover to 3.5 V per cell cutoff. Logged for the endurance bounty.',
+          summary: { duration_s: 1114, distance_m: 86, max_alt_m: 6.2, max_speed_mps: 1.9, health: { score: 88, grade: 'B' },
+            battery: { volt_start: 25.02, volt_min: 20.91, sag_v: 4.11, per_cell_min: 3.485, cells: 6, mah_used: 4780, curr_max_a: 41.7 },
+            modes: [{ t: 0, mode: 'STABILIZE' }, { t: 22, mode: 'LOITER' }, { t: 1080, mode: 'LAND' }],
+            events: [{ t: 19, event: 'ARMED' }, { t: 1102, event: 'DISARMED' }],
+            checks: [
+              { status: 'pass', name: 'Vibration', value: '14.8', threshold: '30', detail: 'Clean' },
+              { status: 'warn', name: 'Battery sag', value: '4.11 V', threshold: '2.5 V', detail: 'Expected for a full-discharge run' },
+              { status: 'pass', name: 'GPS', value: '14 sats', threshold: '8', detail: 'HDOP 0.9' }
+            ] } },
+        { id: 'f-116', started: '2026-09-17T10:05:00Z', aircraft: 'qv-004', title: 'Post-build shakedown', pilot: 'Tim K', site: 'Kumeu paddock', duration: 408, logs: ['parsing'], gps: 'shared', incident: 'none', tags: ['shakedown'] },
+        { id: 'f-115', started: '2026-09-14T08:30:00Z', aircraft: 'qv-001', title: 'Harness route photo flight', pilot: 'Sleety', site: 'Whangaparaoa field', duration: 522, logs: ['parsed'], gps: 'shared', incident: 'none', tags: ['media', 'bounty'] },
+        { id: 'f-114', started: '2026-09-11T16:20:00Z', aircraft: 'qv-003', title: 'Hard landing on approach', pilot: 'Ana R', site: 'Muriwai strip', duration: 195, logs: ['parsed'], gps: 'shared', incident: 'hard_landing', tags: ['incident'],
+          notes: 'Gust on final, descended too fast. Landing gear foot cracked, no other damage. Aircraft into maintenance.' },
+        { id: 'f-113', started: '2026-09-09T11:00:00Z', aircraft: 'qv-002', title: 'Autotune, roll and pitch', pilot: 'Marco', site: 'Whangaparaoa field', duration: 736, logs: ['parsed', 'parsed'], gps: 'shared', incident: 'none', tags: ['tuning'] },
+        { id: 'f-112', started: '2026-09-06T09:45:00Z', aircraft: 'qv-001', title: 'Untitled', pilot: 'Tim K', site: 'Kumeu paddock', duration: 288, logs: [], gps: 'private', incident: 'none', tags: [] },
+        { id: 'f-111', started: '2026-09-02T14:10:00Z', aircraft: 'qv-004', title: 'Maiden', pilot: 'Tim K', site: 'Kumeu paddock', duration: 142, logs: ['error'], gps: 'shared', incident: 'none', tags: ['maiden'] }
+      ];
+      var FLY_KEY = 'arrow-app-quicklog';
+      function flyExtra() { try { return JSON.parse(localStorage.getItem(FLY_KEY) || '[]'); } catch (e) { return []; } }
+      function allFlights() { return flyExtra().concat(FLIGHTS); }
+      function acOf(id) { for (var i = 0; i < AIRCRAFT.length; i++) if (AIRCRAFT[i].id === id) return AIRCRAFT[i]; return null; }
+      function flightOf(id) { var all = allFlights(); for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i]; return null; }
+
+      function fmtDur(s) { s = Math.round(s || 0); var m = Math.floor(s / 60), r = s % 60; if (m >= 60) { var h = Math.floor(m / 60); return h + 'h ' + String(m % 60).padStart(2, '0') + 'm'; } return m + ':' + String(r).padStart(2, '0'); }
+      function fmtHours(s) { return (s / 3600).toFixed(1) + ' h'; }
+      function fmtDT(iso) { var d = new Date(iso); return d.toISOString().slice(0, 10) + ' ' + d.toISOString().slice(11, 16) + 'Z'; }
+      function fmtNum(v, dp, unit) { return v == null ? '—' : Number(v).toFixed(dp) + (unit ? ' ' + unit : ''); }
+      function esc(str) { return String(str).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      function badge(text, cls, dot) { return '<span class="fl_badge ' + (cls || '') + (dot ? ' is-dot' : '') + '">' + text + '</span>'; }
+      function logRollup(logs) {
+        if (!logs || !logs.length) return { label: 'no log', status: null };
+        var order = ['error', 'parsing', 'uploaded', 'parsed'];
+        for (var i = 0; i < order.length; i++) if (logs.indexOf(order[i]) >= 0) return { label: logs.length > 1 ? order[i] + ' (' + logs.length + ')' : order[i], status: order[i] };
+        return { label: 'no log', status: null };
+      }
+      var STATUS_CLS = { active: 'is-success', maintenance: 'is-warn', building: 'is-primary', retired: '' };
+      var flyFilters = { type: '', aircraft: '', site: '', pilot: '', logs: '', incident: '' };
+
+      function selectField(key, label, opts) {
+        return '<div class="fl_field"><label>' + label + '</label><select data-flt="' + key + '">' +
+          '<option value="">All</option>' + opts.map(function (o) { return '<option value="' + esc(o.v) + '"' + (flyFilters[key] === o.v ? ' selected' : '') + '>' + esc(o.l) + '</option>'; }).join('') +
+          '</select></div>';
+      }
+      function renderFlights() {
+        var all = allFlights();
+        var vis = all.filter(function (f) {
+          var ac = acOf(f.aircraft) || {};
+          if (flyFilters.type && ac.type !== flyFilters.type) return false;
+          if (flyFilters.aircraft && f.aircraft !== flyFilters.aircraft) return false;
+          if (flyFilters.site && f.site !== flyFilters.site) return false;
+          if (flyFilters.pilot && f.pilot !== flyFilters.pilot) return false;
+          if (flyFilters.incident && (flyFilters.incident === 'any' ? f.incident === 'none' : f.incident !== flyFilters.incident)) return false;
+          if (flyFilters.logs) { var st = logRollup(f.logs).status; if (flyFilters.logs === 'none' ? st !== null : st !== flyFilters.logs) return false; }
+          return true;
+        });
+        var active = Object.keys(flyFilters).some(function (k) { return flyFilters[k]; });
+        var types = []; AIRCRAFT.forEach(function (a) { if (types.indexOf(a.type) < 0) types.push(a.type); });
+        var rows = vis.map(function (f) {
+          var ac = acOf(f.aircraft); var roll = logRollup(f.logs);
+          return '<tr data-flight="' + f.id + '">' +
+            '<td class="fl_mono">' + fmtDT(f.started) + '</td>' +
+            '<td>' + (ac ? esc(ac.name) : '—') + '</td>' +
+            '<td>' + esc(f.title || '(untitled)') + (f.incident !== 'none' ? ' ' + badge(f.incident.replace('_', ' '), 'is-danger', true) : '') + '</td>' +
+            '<td>' + esc(f.pilot) + '</td>' +
+            '<td>' + esc(f.site) + '</td>' +
+            '<td class="fl_mono fl_right">' + fmtDur(f.duration) + '</td>' +
+            '<td>' + (roll.status ? badge(roll.label, 'is-' + roll.status, true) : '<span class="fl_nolog">' + roll.label + '</span>') + '</td>' +
+            '<td>' + badge(f.gps, f.gps === 'shared' ? 'is-success' : '') + '</td>' +
+          '</tr>';
+        }).join('');
+        flyPanel.innerHTML =
+          '<div class="proj_kicker">Fly / Flights</div>' +
+          '<h3>Flights</h3>' +
+          '<p style="margin-bottom:1rem">Fleet-visible flight record. Every flight, every aircraft, newest first.</p>' +
+          '<div class="fl_actions"><a class="q_btn is-primary" href="#fly/log">+ Quick log</a><button class="q_btn" type="button">Bulk upload</button></div>' +
+          '<div class="fl_filters" id="fl-filters">' +
+            selectField('type', 'Type', types.map(function (t) { return { v: t, l: t }; })) +
+            selectField('aircraft', 'Aircraft', AIRCRAFT.map(function (a) { return { v: a.id, l: a.name }; })) +
+            selectField('site', 'Site', SITES.map(function (x) { return { v: x, l: x }; })) +
+            selectField('pilot', 'Pilot', PILOTS.map(function (x) { return { v: x, l: x }; })) +
+            selectField('incident', 'Incident', [{ v: 'any', l: 'Any incident' }, { v: 'hard_landing', l: 'Hard landing' }, { v: 'crash', l: 'Crash' }, { v: 'flyaway', l: 'Flyaway' }]) +
+            selectField('logs', 'Logs', [{ v: 'parsed', l: 'Parsed' }, { v: 'parsing', l: 'Parsing' }, { v: 'error', l: 'Error' }, { v: 'none', l: 'No log' }]) +
+            '<div class="fl_filters_tail"><span class="fl_count">' + vis.length + ' of ' + all.length + ' shown</span>' +
+            (active ? '<button class="q_btn" type="button" id="fl-clear">Clear filters</button>' : '') + '</div>' +
+          '</div>' +
+          '<div class="fl_table_wrap"><table class="bt"><thead><tr><th>Start</th><th>Aircraft</th><th>Title</th><th>Pilot</th><th>Site</th><th class="fl_right">Duration</th><th>Logs</th><th>GPS</th></tr></thead>' +
+          '<tbody>' + (rows || '<tr><td colspan="8" class="bt_empty">' + (active ? 'No flights match the current filters.' : 'No flights logged yet. Use Quick log or Bulk upload.') + '</td></tr>') + '</tbody></table></div>';
+        flyPanel.querySelectorAll('[data-flt]').forEach(function (sel) {
+          sel.addEventListener('change', function () { flyFilters[sel.getAttribute('data-flt')] = sel.value; renderFlights(); });
+        });
+        var clear = document.getElementById('fl-clear');
+        if (clear) clear.addEventListener('click', function () { Object.keys(flyFilters).forEach(function (k) { flyFilters[k] = ''; }); renderFlights(); });
+        flyPanel.querySelectorAll('tr[data-flight]').forEach(function (tr) {
+          tr.addEventListener('click', function () { location.hash = '#fly/flights/' + tr.getAttribute('data-flight'); });
+        });
+      }
+
+      function renderFleet() {
+        var quiver = AIRCRAFT.filter(function (a) { return a.type === 'Quiver'; });
+        var secs = quiver.reduce(function (n, a) { return n + a.seconds; }, 0);
+        var all = allFlights();
+        flyPanel.innerHTML =
+          '<div class="proj_kicker">Fly / Fleet</div>' +
+          '<h3>Fleet</h3>' +
+          '<p style="margin-bottom:1rem">Every open-stack aircraft on record: registry, status and cumulative flight time.</p>' +
+          '<div class="fl_stat"><span class="fl_stat_label">Quiver fleet total</span><span class="fl_stat_value">' + fmtHours(secs) + '</span><span class="fl_stat_detail">across ' + quiver.length + ' Quiver airframes</span></div>' +
+          '<div class="fl_actions"><button class="q_btn is-primary" type="button">+ New aircraft</button></div>' +
+          '<div class="fl_cards">' + AIRCRAFT.map(function (a) {
+            var n = all.filter(function (f) { return f.aircraft === a.id; }).length;
+            return '<a class="fl_card" href="#fly/flights" data-ac="' + a.id + '">' +
+              '<div class="fl_card_title">' + esc(a.name) + '</div>' +
+              '<div class="fl_card_desc">' + a.type + (a.cls === 'fixed_wing' ? ' &middot; fixed-wing' : a.cells ? ' &middot; ' + a.cells + 'S' : '') + '<br>' + (a.seconds ? fmtHours(a.seconds) + ' over ' + n + ' flight' + (n === 1 ? '' : 's') : 'No flights yet') + '</div>' +
+              '<div class="fl_card_meta"><span class="fl_mono" style="color:var(--app-muted)">S/N ' + a.serial + '</span>' + badge(a.status, STATUS_CLS[a.status] || '', true) + '</div>' +
+            '</a>';
+          }).join('') + '</div>';
+        flyPanel.querySelectorAll('[data-ac]').forEach(function (el) {
+          el.addEventListener('click', function () { Object.keys(flyFilters).forEach(function (k) { flyFilters[k] = ''; }); flyFilters.aircraft = el.getAttribute('data-ac'); });
+        });
+      }
+
+      function renderFlightCard(f) {
+        var ac = acOf(f.aircraft); var sm = f.summary;
+        var gradeCls = sm && sm.health ? (sm.health.score >= 90 ? 'is-success' : sm.health.score >= 75 ? 'is-warn' : 'is-danger') : '';
+        var logsHtml = '';
+        if (!f.logs.length) logsHtml = '<p class="fl_muted">No logs attached to this flight.</p>';
+        f.logs.forEach(function (st, i) {
+          var name = f.id.replace('f-', '') + (f.logs.length > 1 ? '-' + (i + 1) : '') + '_' + f.started.slice(0, 10).replace(/-/g, '') + '.BIN';
+          var size = (18 + i * 7 + (f.duration / 60) * 2.1).toFixed(1) + ' MB';
+          logsHtml += '<div class="fl_log"><div class="fl_log_head"><span class="fl_log_name">' + name + '</span><span class="fl_mono" style="color:var(--app-muted)">' + size + '</span>' + badge(st, 'is-' + st, true) + '<span class="fl_log_spacer"></span>' +
+            (st === 'parsed' ? '<a class="sec_link" href="#fly/flights/' + f.id + '">Params &rarr;</a> ' : '') + '<button class="q_btn" type="button">Raw .bin</button></div>';
+          if (st === 'error') logsHtml += '<div style="padding:12px 14px"><p class="fl_muted" style="color:#ef5350">Parse failed: unsupported log version (BIN v3). </p><button class="q_btn" type="button" style="margin-top:8px">Retry parse</button></div>';
+          else if (st !== 'parsed') logsHtml += '<div style="padding:12px 14px"><p class="fl_muted">' + (st === 'parsing' ? 'Parser is working on this log.' : 'Waiting for the parser.') + '</p></div>';
+          else if (sm && i === 0) {
+            logsHtml +=
+              '<div class="fl_stats">' +
+                '<div class="fl_stat_cell"><span class="l">Duration</span><span class="v">' + fmtDur(sm.duration_s) + '</span></div>' +
+                '<div class="fl_stat_cell"><span class="l">Distance</span><span class="v">' + fmtNum(sm.distance_m, 0, 'm') + '</span></div>' +
+                '<div class="fl_stat_cell"><span class="l">Max alt</span><span class="v">' + fmtNum(sm.max_alt_m, 1, 'm') + '</span></div>' +
+                '<div class="fl_stat_cell"><span class="l">Max speed</span><span class="v">' + fmtNum(sm.max_speed_mps, 1, 'm/s') + '</span></div>' +
+                '<div class="fl_stat_cell"><span class="l">Health</span><span class="v">' + sm.health.score + ' ' + badge(sm.health.grade, gradeCls) + '</span></div>' +
+              '</div>' +
+              '<div class="fl_panels">' +
+                '<div class="fl_pcard"><h5>Battery</h5><dl class="fl_kv">' +
+                  '<dt>Start</dt><dd>' + fmtNum(sm.battery.volt_start, 2, 'V') + '</dd><dt>Min</dt><dd>' + fmtNum(sm.battery.volt_min, 2, 'V') + '</dd>' +
+                  '<dt>Sag</dt><dd>' + fmtNum(sm.battery.sag_v, 2, 'V') + '</dd><dt>Per-cell min</dt><dd>' + fmtNum(sm.battery.per_cell_min, 3, 'V') + ' (' + sm.battery.cells + 'S)</dd>' +
+                  '<dt>Used</dt><dd>' + fmtNum(sm.battery.mah_used, 0, 'mAh') + '</dd><dt>Peak current</dt><dd>' + fmtNum(sm.battery.curr_max_a, 1, 'A') + '</dd></dl></div>' +
+                '<div class="fl_pcard"><h5>Modes</h5><ol class="fl_modes">' + sm.modes.map(function (m, j) { var to = sm.modes[j + 1] ? sm.modes[j + 1].t : sm.duration_s; return '<li><span class="fl_t">' + fmtDur(m.t) + '</span><span class="fl_mode">' + m.mode + '</span><span class="fl_dur">' + fmtDur(to - m.t) + '</span></li>'; }).join('') + '</ol></div>' +
+                '<div class="fl_pcard"><h5>Events</h5><ul class="fl_events">' + sm.events.map(function (e) { return '<li><span class="fl_t">' + fmtDur(e.t) + '</span><span class="fl_mode">' + e.event + '</span></li>'; }).join('') + '</ul></div>' +
+              '</div>' +
+              '<details class="fl_health"><summary>Health checks (' + sm.checks.length + ')</summary><table><tbody>' + sm.checks.map(function (c) {
+                return '<tr><td>' + badge(c.status, c.status === 'pass' ? 'is-success' : c.status === 'warn' ? 'is-warn' : 'is-danger', true) + '</td><td class="n">' + c.name + '</td><td class="val">' + c.value + (c.threshold ? ' / ' + c.threshold : '') + '</td><td class="d">' + c.detail + '</td></tr>';
+              }).join('') + '</tbody></table></details>';
+          }
+          logsHtml += '</div>';
+        });
+        flyPanel.innerHTML =
+          '<div class="fl_head"><div>' +
+            '<div class="proj_kicker"><a class="sec_link" href="#fly/flights">Flights</a> / ' + esc(f.title || 'Flight') + '</div>' +
+            '<h3>' + esc(f.title || 'Flight ' + fmtDT(f.started)) + ' ' + badge('GPS ' + f.gps, f.gps === 'shared' ? 'is-success' : '') + (f.incident !== 'none' ? ' ' + badge(f.incident.replace('_', ' '), 'is-danger', true) : '') + '</h3>' +
+            '<p>' + (ac ? esc(ac.name) + ' (' + ac.type + ')' : '—') + ' &middot; ' + esc(f.pilot) + ' &middot; ' + esc(f.site) + ' &middot; ' + fmtDT(f.started) + '</p>' +
+          '</div></div>' +
+          '<div class="fl_meta">' + (f.tags || []).map(function (t) { return badge(t, 'is-primary'); }).join('') + '<span class="fl_meta_spacer"></span>' +
+            '<button class="q_btn" type="button">Fetch weather &rarr; notes</button><button class="q_btn" type="button">Edit flight</button>' +
+            (ac ? '<a class="q_btn" href="#fly/fleet">Aircraft page &rarr;</a>' : '') + '</div>' +
+          (f.incident !== 'none' ? '<p class="fl_notes" style="color:#ef5350">Incident: ' + f.incident.replace('_', ' ') + (f.notes ? '. ' + esc(f.notes) : '') + '</p>' : f.notes ? '<p class="fl_notes">' + esc(f.notes) + '</p>' : '') +
+          '<div class="sec_head" style="margin-top:0"><h4>Flight logs</h4><span>' + f.logs.length + ' attached</span></div>' +
+          '<div style="margin-bottom:12px"><label class="fl_attach">+ Attach .bin log<input type="file" accept=".bin,.BIN"></label></div>' +
+          logsHtml +
+          '<div class="sec_head"><h4>Notes</h4><span>0</span></div><p class="fl_muted">No notes yet.</p>';
+      }
+
+      function renderQuickLog() {
+        flyPanel.innerHTML =
+          '<div class="proj_kicker">Fly / Quick log</div>' +
+          '<h3>Quick log</h3>' +
+          '<p style="margin-bottom:1.25rem">Log a flight in under a minute. Attach the .bin later and the parser fills in the rest.</p>' +
+          '<form class="fl_form" id="fl-form">' +
+            '<div class="fl_field is-wide"><label>Title</label><input name="title" placeholder="What was this flight for?" required></div>' +
+            '<div class="fl_field"><label>Aircraft</label><select name="aircraft" required>' + AIRCRAFT.filter(function (a) { return a.status !== 'retired'; }).map(function (a) { return '<option value="' + a.id + '">' + esc(a.name) + '</option>'; }).join('') + '</select></div>' +
+            '<div class="fl_field"><label>Site</label><select name="site">' + SITES.map(function (x) { return '<option>' + esc(x) + '</option>'; }).join('') + '</select></div>' +
+            '<div class="fl_field is-mono"><label>Started</label><input name="started" type="datetime-local" value="' + new Date(Date.now() - 3600000).toISOString().slice(0, 16) + '"></div>' +
+            '<div class="fl_field is-mono"><label>Duration (min)</label><input name="minutes" type="number" min="0" step="1" value="6"></div>' +
+            '<div class="fl_field"><label>Incident</label><select name="incident"><option value="none">None</option><option value="hard_landing">Hard landing</option><option value="crash">Crash</option><option value="flyaway">Flyaway</option></select></div>' +
+            '<div class="fl_field"><label>GPS</label><select name="gps"><option value="shared">Shared</option><option value="private">Private</option></select></div>' +
+            '<div class="fl_field is-wide"><label>Notes</label><textarea name="notes" placeholder="Conditions, what you tried, what to look at in the log"></textarea></div>' +
+            '<div class="fl_form_actions"><button class="q_btn is-primary" type="submit">Save flight</button><label class="fl_attach">+ Attach .bin log<input type="file" accept=".bin,.BIN"></label><span class="fl_muted">Saved locally in this prototype.</span></div>' +
+          '</form>';
+        document.getElementById('fl-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var fd = new FormData(e.target);
+          var extra = flyExtra();
+          var f = {
+            id: 'f-' + (200 + extra.length), started: new Date(fd.get('started')).toISOString(), aircraft: fd.get('aircraft'),
+            title: fd.get('title'), pilot: 'Sleety', site: fd.get('site'), duration: Number(fd.get('minutes')) * 60,
+            logs: [], gps: fd.get('gps'), incident: fd.get('incident'), tags: ['quick log'], notes: fd.get('notes')
+          };
+          extra.unshift(f);
+          try { localStorage.setItem(FLY_KEY, JSON.stringify(extra)); } catch (err) {}
+          location.hash = '#fly/flights/' + f.id;
+        });
+      }
+
+      function showFly(sub, extra, opts) {
+        opts = opts || {};
+        var validSub = FLY_TITLES[sub] ? sub : 'flights';
+        var active = flySubTabs.filter(function (t) { return t.getAttribute('data-sub') === validSub; })[0];
+        var changed = state.fly !== validSub || state.flyExtra !== (extra || null);
+        state.fly = validSub; state.flyExtra = extra || null;
+        function commit() {
+          selectIn(flyTabs, flyIndicator, flySubTabs, active, flyStem);
+          flyName.textContent = FLY_TITLES[validSub];
+          if (validSub === 'flights' && extra) { var f = flightOf(extra); if (f) { renderFlightCard(f); return; } }
+          if (validSub === 'flights') renderFlights();
+          else if (validSub === 'fleet') renderFleet();
+          else renderQuickLog();
+        }
+        if (opts.instant || !changed) {
+          commit();
+          requestAnimationFrame(function () { positionIndicator(flyTabs, flyIndicator, active, flyStem); });
+        } else {
+          selectIn(flyTabs, flyIndicator, flySubTabs, active, flyStem);
+          runLoader('Loading ' + (extra ? 'flight' : FLY_TITLES[validSub].toLowerCase()), '#5B8DEE', commit);
+        }
+      }
+      flySubTabs.forEach(function (t) {
+        t.addEventListener('click', function () { location.hash = '#fly/' + t.getAttribute('data-sub'); });
+      });
+
       function showGrid() {
         disposeViewer();
         projShell.classList.remove('is-active');
@@ -795,6 +1063,7 @@
             else showGrid();
           }
           if (main === 'dao') showDao(r.project, { instant: mainChanged || opts.instant });
+          if (main === 'fly') showFly(r.project, r.sub, { instant: mainChanged || opts.instant });
         }
 
         if (mainChanged && !opts.instant) {
@@ -825,6 +1094,7 @@
       tablist.addEventListener('keydown', function (e) { keyNav(tablist, e); });
       projTabs.addEventListener('keydown', function (e) { keyNav(projTabs, e); });
       daoTabs.addEventListener('keydown', function (e) { keyNav(daoTabs, e); });
+      flyTabs.addEventListener('keydown', function (e) { keyNav(flyTabs, e); });
 
       // Fill the viewport below the sticky tab bar, leaving the shell's bottom padding.
       function sizePanel() {
@@ -844,6 +1114,10 @@
         if (state.main === 'dao') {
           var da = daoTabs.querySelector('.app-tab[aria-selected="true"]');
           if (da) positionIndicator(daoTabs, daoIndicator, da, daoStem);
+        }
+        if (state.main === 'fly') {
+          var fa = flyTabs.querySelector('.app-tab[aria-selected="true"]');
+          if (fa) positionIndicator(flyTabs, flyIndicator, fa, flyStem);
         }
       });
 

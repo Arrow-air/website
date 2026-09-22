@@ -955,6 +955,122 @@
           .proj_panel { padding: 1.5rem 1rem; }
         }
 
+
+        /* ---------------------------------------------------------------
+           Fly: prototype of flights.arrowair.com (fleet, flights, flight
+           card, quick log) inside the Fly tab. Dummy data, no backend.
+           --------------------------------------------------------------- */
+        .fl_actions { display: flex; gap: 8px; margin: 0 0 1rem; }
+        .fl_filters {
+          display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end;
+          padding: 12px; margin-bottom: 1rem;
+          border: 1px solid var(--app-border); border-radius: 12px; background: var(--app-track);
+        }
+        .fl_field { display: flex; flex-direction: column; gap: 4px; min-width: 120px; }
+        .fl_field label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--app-muted); }
+        .fl_field select, .fl_field input, .fl_field textarea {
+          height: 32px; padding: 0 10px; border-radius: 8px;
+          border: 1px solid var(--app-border); background: var(--app-panel); color: var(--app-text);
+          font-family: inherit; font-size: 0.82rem;
+        }
+        .fl_field textarea { height: auto; padding: 8px 10px; min-height: 72px; resize: vertical; }
+        .fl_field select:focus-visible, .fl_field input:focus-visible, .fl_field textarea:focus-visible { outline: 2px solid var(--proj); outline-offset: 1px; }
+        .fl_field.is-mono input { font-family: 'JetBrains Mono', monospace; }
+        .fl_filters_tail { margin-left: auto; display: flex; align-items: center; gap: 10px; align-self: center; }
+        .fl_count { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--app-muted); }
+        .fl_table_wrap { border: 1px solid var(--app-border); border-radius: 12px; overflow: auto; }
+        .fl_table_wrap .bt th { background: color-mix(in srgb, var(--proj) 12%, var(--app-track)); }
+        .fl_table_wrap .bt td { border-bottom-color: var(--app-border); }
+        .fl_table_wrap .bt tr:last-child td { border-bottom: 0; }
+        .fl_table_wrap .bt tbody tr { cursor: pointer; transition: background 0.12s ease; }
+        .fl_table_wrap .bt tbody tr:hover td { background: rgba(255,255,255,0.03); }
+        .fl_mono { font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--app-text); white-space: nowrap; }
+        .fl_right { text-align: right; }
+        .fl_badge {
+          display: inline-flex; align-items: center; gap: 5px;
+          font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase;
+          padding: 2px 7px; border-radius: 4px; border: 1px solid var(--app-border); color: var(--app-muted); white-space: nowrap;
+        }
+        .fl_badge.is-dot::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+        .fl_badge.is-success { color: #22c55e; border-color: rgba(34,197,94,0.35); }
+        .fl_badge.is-warn { color: #FF906E; border-color: rgba(255,144,110,0.35); }
+        .fl_badge.is-danger { color: #ef5350; border-color: rgba(239,83,80,0.35); }
+        .fl_badge.is-primary { color: var(--proj); border-color: color-mix(in srgb, var(--proj) 45%, var(--app-border)); }
+        .fl_badge.is-parsed { color: #22c55e; border-color: rgba(34,197,94,0.35); }
+        .fl_badge.is-parsing, .fl_badge.is-uploaded { color: #FF906E; border-color: rgba(255,144,110,0.35); }
+        .fl_badge.is-error { color: #ef5350; border-color: rgba(239,83,80,0.35); }
+        .fl_nolog { color: var(--app-muted); font-size: 0.78rem; }
+        .fl_stat {
+          display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+          padding: 16px 18px; margin-bottom: 1rem;
+          border: 1px solid var(--app-border); border-radius: 12px;
+          background: linear-gradient(160deg, color-mix(in srgb, var(--proj) 22%, transparent), transparent 70%);
+        }
+        .fl_stat_label { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--app-muted); }
+        .fl_stat_value { font-size: 1.75rem; font-weight: 500; color: #fff; line-height: 1; letter-spacing: -0.01em; }
+        .fl_stat_detail { font-size: 0.82rem; color: var(--app-muted); }
+        .fl_cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+        .fl_card {
+          display: block; padding: 16px; text-decoration: none;
+          border: 1px solid var(--app-border); border-radius: 12px; background: var(--app-track); color: var(--app-text);
+          transition: border-color 0.15s ease, transform 0.15s ease;
+        }
+        .fl_card:hover { border-color: var(--proj); transform: translateY(-1px); }
+        .fl_card_title { font-size: 1rem; font-weight: 500; color: #fff; margin: 0 0 4px; }
+        .fl_card_desc { font-size: 0.82rem; color: var(--app-muted); line-height: 1.45; }
+        .fl_card_meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--app-border); }
+        .fl_head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .fl_head h3 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0 0 6px; }
+        .fl_head .proj_kicker { margin-bottom: 6px; }
+        .fl_meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+        .fl_meta_spacer { flex: 1 1 auto; }
+        .fl_notes { font-size: 0.88rem; color: var(--app-text); margin: 0 0 1.25rem; max-width: 70ch; }
+        .fl_log { border: 1px solid var(--app-border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+        .fl_log_head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; background: var(--app-track); border-bottom: 1px solid var(--app-border); }
+        .fl_log_name { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #fff; }
+        .fl_log_spacer { flex: 1 1 auto; }
+        .fl_stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: var(--app-border); border-bottom: 1px solid var(--app-border); }
+        .fl_stat_cell { padding: 14px 16px; background: var(--app-panel); }
+        .fl_stat_cell span { display: block; }
+        .fl_stat_cell .l { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--app-muted); margin-bottom: 6px; }
+        .fl_stat_cell .v { font-size: 1.25rem; font-weight: 500; color: #fff; line-height: 1; display: flex; align-items: center; gap: 8px; }
+        .fl_panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--app-border); }
+        .fl_pcard { padding: 14px 16px; background: var(--app-panel); min-width: 0; }
+        .fl_pcard h5 { margin: 0 0 10px; font-size: 0.85rem; font-weight: 500; color: #fff; }
+        .fl_kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0; font-size: 0.8rem; }
+        .fl_kv dt { color: var(--app-muted); }
+        .fl_kv dd { margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--app-text); text-align: right; }
+        .fl_modes, .fl_events { list-style: none; margin: 0; padding: 0; font-size: 0.8rem; }
+        .fl_modes li, .fl_events li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-top: 1px solid var(--app-border); }
+        .fl_modes li:first-child, .fl_events li:first-child { border-top: 0; padding-top: 0; }
+        .fl_t { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--app-muted); min-width: 44px; }
+        .fl_mode { color: #fff; font-weight: 500; flex: 1 1 auto; }
+        .fl_dur { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--app-muted); }
+        .fl_health { border-top: 1px solid var(--app-border); }
+        .fl_health summary { cursor: pointer; padding: 10px 14px; font-size: 0.82rem; color: var(--app-text); background: var(--app-track); }
+        .fl_health table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .fl_health td { padding: 8px 14px; border-top: 1px solid var(--app-border); vertical-align: top; }
+        .fl_health td:first-child { width: 1%; white-space: nowrap; }
+        .fl_health .n { color: #fff; }
+        .fl_health .d { color: var(--app-muted); }
+        .fl_health .val { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; white-space: nowrap; }
+        .fl_form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 760px; }
+        .fl_form .is-wide { grid-column: 1 / -1; }
+        .fl_form_actions { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; }
+        .fl_attach { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px dashed var(--app-border); border-radius: 8px; color: var(--app-muted); font-size: 0.8rem; cursor: pointer; }
+        .fl_attach:hover { border-color: var(--proj); color: var(--app-text); }
+        .fl_attach input { display: none; }
+        .fl_muted { color: var(--app-muted); font-size: 0.8rem; margin: 0; }
+        @media (max-width: 991px) {
+          .fl_cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .fl_stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+          .fl_panels { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 767px) {
+          .fl_cards { grid-template-columns: 1fr; }
+          .fl_stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .fl_form { grid-template-columns: 1fr; }
+        }
         /* ---------------------------------------------------------------
            Wallet sheet: coss ui "inset" sheet, opens from the right when
            the profile / balance widget is clicked. Backdrop + 448px panel,
@@ -1134,8 +1250,21 @@
                     </div>
                   </div>
                   <div class="app-view" role="tabpanel" id="view-fly" aria-labelledby="tab-fly">
-                    <h2>Fly</h2>
-                    <p>Placeholder. Flight logs, test campaigns, telemetry.</p>
+                    <div class="proj is-active" id="fly-shell" style="--proj: #5B8DEE; --proj-ink: #ffffff;">
+                      <div class="proj_top">
+                        <span class="proj_crumb">Fly / <b id="fly-name">Flights</b></span>
+                        <div class="proj_tabs" role="tablist" id="fly-tabs" aria-label="Flight tracking sections">
+                          <div class="app-tabs_indicator" aria-hidden="true"></div>
+                          <button class="app-tab" role="tab" data-sub="flights" aria-selected="true">Flights</button>
+                          <button class="app-tab" role="tab" data-sub="fleet" aria-selected="false" tabindex="-1">Fleet</button>
+                          <button class="app-tab" role="tab" data-sub="log" aria-selected="false" tabindex="-1">Quick log</button>
+                        </div>
+                      </div>
+                      <div class="proj_wrap">
+                        <div class="proj_stem" id="fly-stem" aria-hidden="true"></div>
+                        <div class="proj_panel" id="fly-panel"></div>
+                      </div>
+                    </div>
                   </div>
                   <div class="app-view" role="tabpanel" id="view-manufacture" aria-labelledby="tab-manufacture">
                     <h2>Manufacture</h2>
