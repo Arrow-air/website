@@ -1078,6 +1078,105 @@
         t.addEventListener('click', function () { location.hash = '#fly/' + t.getAttribute('data-sub'); });
       });
 
+      // ---------------------------------------------------------------
+      // Contributor dashboard (#me). Jumping-off point assembled from the
+      // contributor's profile. Hand-picked matches for now; the plan is
+      // for the contributor's agent to compile this from disciplines,
+      // commitment and availability.
+      // ---------------------------------------------------------------
+      var mePanel = document.getElementById('me-panel');
+      var PROFILE = { name: 'sl33ty', disciplines: ['Motion design', 'Documentation', 'Media'], commitment: '6 h / week', availability: 'Evenings and weekends', tz: 'NZST' };
+      var PROPOSALS = [
+        { id: 'snap-41', kind: 'Snapshot', title: 'Spearhead wings-on test campaign budget', ends: 'ends in 2d 4h', status: 'Voting', href: '#dao/governance' },
+        { id: 'aip-012', kind: 'AIP-012', title: 'Contributor agent framework', ends: 'discussion until 30 Sep', status: 'Discussion', href: '#dao/governance' },
+        { id: 'snap-40', kind: 'Snapshot', title: 'Q4 bounty pool top-up (12,000 USDC)', ends: 'ends in 5d', status: 'Voting', href: '#dao/governance' },
+        { id: 'proj-quiver-lead', kind: 'Project', title: 'Quiver: choose landing gear foot design', ends: '3 options, your discipline', status: 'Decision', href: '#contribute/quiver/tasks' }
+      ];
+      var UPDATES = [
+        { when: '20 Sep', kind: 'Flight test', title: 'Spearhead wings-on: first tethered lift', href: '#fly/videos/v-31' },
+        { when: '18 Sep', kind: 'Bounty', title: 'Quiver endurance hover logged at 25 C, 35 C run still open', href: '#contribute/quiver/bounties' },
+        { when: '16 Sep', kind: 'Governance', title: 'AIP-010 in effect: $ARROW rewards at hours x rate x 5', href: '#dao/governance' },
+        { when: '14 Sep', kind: 'Docs', title: 'Quiver assembly guide gets harness route photos', href: '#contribute/quiver/docs' },
+        { when: '12 Sep', kind: 'Community', title: 'Welcome call Thu 25 Sep, 18:00 UTC', href: '#start' }
+      ];
+      var ME_ICONS = {
+        spark: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.4 3.6L13 7l-3.6 1.4L8 12l-1.4-3.6L3 7l3.6-1.4z"/></svg>',
+        vote: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="11" height="7.5" rx="1.2"/><path d="M5 6V3.5h6V6M6 9.5l1.5 1.5L10 8"/></svg>',
+        task: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5 8l2 2 4-4"/></svg>',
+        news: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h10v10H3zM5.5 6h5M5.5 8.5h5M5.5 11h3"/></svg>',
+        wallet: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="9" rx="1.6"/><path d="M2 7h12M10.5 10h1"/></svg>',
+        agent: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="10" height="8" rx="2"/><circle cx="6.5" cy="9" r="0.8" fill="currentColor"/><circle cx="9.5" cy="9" r="0.8" fill="currentColor"/><path d="M8 2.5V5M6 2.5h4"/></svg>'
+      };
+      function meRow(href, ic, title, sub, end) {
+        return '<a class="me_row" href="' + href + '"><span class="me_row_ic">' + ic + '</span><span class="me_row_main"><span class="me_row_t">' + title + '</span><span class="me_row_s">' + sub + '</span></span>' + (end ? '<span class="me_row_end">' + end + '</span>' : '') + '</a>';
+      }
+      function meCard(title, icon, link, bodyHtml, cls) {
+        return '<div class="me_card ' + (cls || '') + '"><div class="me_card_head"><h4>' + (ME_ICONS[icon] || '') + title + '</h4>' + (link ? '<a href="' + link.href + '">' + link.label + ' &rarr;</a>' : '') + '</div><div class="me_card_body">' + bodyHtml + '</div></div>';
+      }
+      function renderMe() {
+        var st = obState();
+        var doneCount = QUESTS.filter(function (q) { return st[q.id]; }).length;
+        var disc = PROFILE.disciplines.map(function (d) { return d.toLowerCase(); });
+        var hour = new Date().getHours();
+        var greet = hour < 12 ? 'Morning' : hour < 18 ? 'Afternoon' : 'Evening';
+
+        // Suggested: bounties + open tasks whose skills overlap the profile, plus the next quest
+        var matchSkill = function (list) { return list.some(function (k) { return disc.some(function (d) { return d.indexOf(k.toLowerCase()) >= 0 || k.toLowerCase().indexOf(d.split(' ')[0]) >= 0; }); }); };
+        var sugg = [];
+        BOUNTIES.filter(function (b) { return b.status === 'OPEN' && matchSkill(b.skills); }).slice(0, 2).forEach(function (b) {
+          var pr = findProject(b.project);
+          sugg.push(meRow('#contribute/' + b.project + '/bounties', ME_ICONS.spark, esc(b.title), '<span class="me_why">matches ' + b.skills.filter(function (k) { return matchSkill([k]); }).join(', ') + '</span> &middot; ' + (pr ? pr.name : '') + ' bounty', '<b>' + b.usdc + ' USDC</b>+' + b.arrow + ' ARROW'));
+        });
+        Object.keys(TASKS).forEach(function (pid) {
+          TASKS[pid].filter(function (t) { return !t.who && t.col !== 'done' && matchSkill(t.tags); }).slice(0, 1).forEach(function (t) {
+            var pr = findProject(pid);
+            sugg.push(meRow('#contribute/' + pid + '/tasks', ME_ICONS.task, esc(t.title), '<span class="me_why">unassigned &middot; matches ' + t.tags.join(', ') + '</span> &middot; ' + (pr ? pr.name : '') + ' #' + t.n, '<b>Pick up</b>' + t.comp));
+          });
+        });
+        var nextQuest = QUESTS.filter(function (q) { return !st[q.id]; })[0];
+        if (nextQuest) sugg.push(meRow('#start', ME_ICONS.spark, esc(nextQuest.title), '<span class="me_why">onboarding</span> &middot; ' + esc(nextQuest.desc), '<b>+' + nextQuest.reward + ' ARROW</b>' + (8 - doneCount) + ' left'));
+        sugg.push(meRow('#fly/log', ME_ICONS.spark, 'Film and log the next Quiver test', '<span class="me_why">matches media, motion design</span> &middot; Flight ops needs a camera on Sat', '<b>Volunteer</b>weekend'));
+
+        var mine = [];
+        Object.keys(TASKS).forEach(function (pid) {
+          TASKS[pid].filter(function (t) { return t.who === 'SL' && t.col !== 'done'; }).forEach(function (t) {
+            var col = KB_COLS.filter(function (c) { return c.id === t.col; })[0];
+            var pr = findProject(pid);
+            mine.push(meRow('#contribute/' + pid + '/tasks', '<span style="color:' + col.color + '">' + (t.kind === 'pr' ? 'PR' : '#') + '</span>', esc(t.title), (pr ? pr.name : '') + ' &middot; ' + t.comp, '<b style="color:' + col.color + '">' + col.name + '</b>#' + t.n));
+          });
+        });
+        mine.push(meRow('#fly/videos/v-31', ME_ICONS.task, 'Cut the Spearhead wings-on clip for X', 'Growth &amp; Community &middot; due Thu', '<b style="color:#FF906E">In progress</b>2 of 3 shots'));
+
+        mePanel.innerHTML =
+          '<div class="me_head"><div>' +
+            '<div class="proj_kicker">Contributor dashboard</div>' +
+            '<h2>' + greet + ', ' + esc(PROFILE.name) + '</h2>' +
+            '<p>Your jumping-off point. Balance, decisions waiting on you, tasks in flight and what to pick up next.</p>' +
+            '<div class="me_profile">' + PROFILE.disciplines.map(function (d) { return '<span class="me_chip is-disc">' + esc(d) + '</span>'; }).join('') +
+              '<span class="me_chip"><span>commit</span>' + PROFILE.commitment + '</span><span class="me_chip"><span>avail</span>' + PROFILE.availability + '</span><span class="me_chip"><span>tz</span>' + PROFILE.tz + '</span>' +
+              '<a class="me_edit" href="#start">Edit profile</a></div>' +
+          '</div>' +
+          '<div class="me_agent"><span class="me_agent_ic">' + ME_ICONS.agent + '</span><div><b>Compiled by hand for now <span class="fl_badge is-primary">agent soon</span></b><p>Your contributor agent will build this page from your disciplines, commitment and availability, and talk to the project agents to find the work that fits.</p></div></div>' +
+          '</div>' +
+          '<div class="me_grid">' +
+            meCard('Suggested for you', 'spark', { href: '#contribute', label: 'All projects' }, sugg.join(''), 'is-wide') +
+            meCard('Balance', 'wallet', null,
+              '<div class="me_bal"><div class="me_bal_num">1,240<small>$ARROW</small></div><div class="me_bal_sub">&asymp; $248.00 at $0.20</div>' +
+              '<div class="me_bal_rows"><div class="me_bal_row"><span>USDC</span><b>120.00</b></div><div class="me_bal_row"><span>Claimable</span><b>+' + QUESTS.reduce(function (n, q) { return n + (st[q.id] ? q.reward : 0); }, 0) + ' ARROW</b></div><div class="me_bal_row"><span>This month</span><b>+720 ARROW</b></div></div>' +
+              '<div class="me_bal_actions"><button class="q_btn is-primary" type="button" id="me-wallet">Open wallet</button><a class="q_btn" href="#store">Store</a></div></div>') +
+            meCard('Decisions waiting on you', 'vote', { href: '#dao/governance', label: 'Governance' },
+              PROPOSALS.map(function (pz) { return meRow(pz.href, '<span>' + pz.kind.slice(0, 3).toUpperCase() + '</span>', esc(pz.title), '<span class="me_why">' + pz.kind + '</span> &middot; ' + pz.ends, '<b>' + pz.status + '</b>'); }).join(''), 'is-wide') +
+            meCard('Onboarding', 'task', { href: '#start', label: 'Start' },
+              '<div class="me_prog"><div style="display:flex;justify-content:space-between;font-size:0.82rem"><span>' + doneCount + ' of 8 steps</span><span class="fl_mono" style="color:var(--app-muted)">' + Math.round(doneCount / 8 * 100) + '%</span></div><div class="me_prog_bar"><span style="width:' + (doneCount / 8 * 100) + '%"></span></div>' +
+              '<p class="fl_muted">' + (doneCount >= 8 ? 'All done. Contribute is open.' : (nextQuest ? 'Next: ' + esc(nextQuest.title) : '')) + '</p></div>') +
+            meCard('Your tasks', 'task', { href: '#contribute/quiver/tasks', label: 'Board' }, mine.join(''), 'is-wide') +
+            meCard('Latest from Arrow', 'news', { href: '#fly/videos', label: 'Videos' },
+              UPDATES.map(function (u) { return meRow(u.href, '<span>' + u.when.split(' ')[0] + '</span>', esc(u.title), '<span class="me_upd_kind">' + u.kind + '</span> &middot; ' + u.when); }).join('')) +
+          '</div>';
+        var wb = document.getElementById('me-wallet');
+        if (wb) wb.addEventListener('click', function () { document.getElementById('app-user').click(); });
+      }
+
       function showGrid() {
         disposeViewer();
         projShell.classList.remove('is-active');
@@ -1101,6 +1200,19 @@
       function route(opts) {
         opts = opts || {};
         var r = parseHash();
+        var shell = document.querySelector('.app-shell');
+        if (r.main === 'me') {
+          var meChanged = state.main !== 'me';
+          state.main = 'me';
+          tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); t.tabIndex = -1; });
+          tablist.classList.add('is-none'); shell.classList.add('is-none');
+          panelIndex.textContent = '--';
+          panelTitle.textContent = 'Dashboard';
+          var showMe = function () { showView('me'); renderMe(); };
+          if (meChanged && !opts.instant) runLoader('Loading your dashboard', BLUE, showMe); else showMe();
+          return;
+        }
+        tablist.classList.remove('is-none'); shell.classList.remove('is-none');
         var tab = tabs.filter(function (t) { return t.getAttribute('data-tab') === r.main; })[0] || tabs[0];
         var main = tab.getAttribute('data-tab');
         var mainChanged = state.main !== main;
