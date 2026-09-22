@@ -646,18 +646,23 @@
         .bt { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.85rem; }
         .bt th {
           text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem;
-          letter-spacing: 0.06em; text-transform: uppercase; color: var(--app-muted); font-weight: 500;
-          padding: 8px 12px; border-bottom: 1px solid var(--app-border);
+          letter-spacing: 0.06em; text-transform: uppercase; color: var(--proj); font-weight: 500;
+          padding: 9px 12px; background: color-mix(in srgb, var(--proj) 12%, var(--app-track));
+          border-bottom: 1px solid color-mix(in srgb, var(--proj) 40%, var(--app-border));
         }
-        .bt td { padding: 11px 12px; border-bottom: 1px solid var(--app-border); vertical-align: top; color: var(--app-text); }
+        .bt td { padding: 11px 12px; border-bottom: 1px solid color-mix(in srgb, var(--proj) 18%, var(--app-border)); vertical-align: top; color: var(--app-text); }
         .bt tr:last-child td { border-bottom: 0; }
-        .bt tr.is-related td { background: color-mix(in srgb, var(--proj) 7%, transparent); }
+        .bt tbody tr { transition: background 0.15s ease; }
+        .bt tbody tr:hover td { background: color-mix(in srgb, var(--proj) 7%, transparent); }
+        .bt tr.is-related td { background: color-mix(in srgb, var(--proj) 12%, transparent); }
         .bt tr.is-related td:first-child { box-shadow: inset 3px 0 0 var(--proj); }
         .bt a { color: #fff; text-decoration: none; font-weight: 500; }
         .bt a:hover { color: var(--proj); }
         .bt small { display: block; color: var(--app-muted); margin-top: 2px; font-size: 0.78rem; }
         .bt_amt { font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
         .bt_amt span { color: var(--app-muted); }
+        .bt_amt .is-arrow { color: var(--proj); }
+        .bt_amt .is-arrow span { color: color-mix(in srgb, var(--proj) 70%, var(--app-muted)); }
         .bt_status {
           display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace;
           font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--app-muted);
@@ -670,9 +675,15 @@
         .bt_tags { display: flex; flex-wrap: wrap; gap: 4px; }
         .bt_tag {
           font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 2px 6px;
-          border-radius: 5px; border: 1px solid var(--app-border); color: var(--app-muted); white-space: nowrap;
+          border-radius: 5px; border: 1px solid color-mix(in srgb, var(--proj) 35%, var(--app-border)); color: var(--app-text); white-space: nowrap;
+          background: color-mix(in srgb, var(--proj) 6%, transparent);
         }
-        .bt_wrap { border: 1px solid var(--app-border); border-radius: 12px; overflow: auto; background: var(--app-track); }
+        .bt_wrap {
+          border: 1px solid color-mix(in srgb, var(--proj) 45%, var(--app-border)); border-radius: 12px; overflow: auto;
+          background: var(--app-track);
+          box-shadow: 0 0 0 1px color-mix(in srgb, var(--proj) 10%, transparent), 0 12px 32px color-mix(in srgb, var(--proj) 10%, transparent);
+        }
+        .sec_head h4::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--proj); margin-right: 10px; vertical-align: 1px; }
         .bt_empty { padding: 1.25rem; color: var(--app-muted); font-size: 0.85rem; }
         .steps { display: grid; gap: 10px; counter-reset: step; }
         .step {

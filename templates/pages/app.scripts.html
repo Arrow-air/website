@@ -215,7 +215,7 @@
       function bountyRow(b, related) {
         return '<tr' + (related ? ' class="is-related"' : '') + '>' +
           '<td><a href="' + b.issueUrl + '" target="_blank" rel="noopener">' + b.title + '</a><small>' + b.description + '</small></td>' +
-          '<td class="bt_amt">' + (b.usdc ? b.usdc + ' <span>USDC</span>' : '') + (b.arrow ? '<br>' + b.arrow + ' <span>$ARROW</span>' : '') + '</td>' +
+          '<td class="bt_amt">' + (b.usdc ? b.usdc + ' <span>USDC</span>' : '') + (b.arrow ? '<br><b class="is-arrow">' + b.arrow + ' <span>$ARROW</span></b>' : '') + '</td>' +
           '<td><div class="bt_tags">' + b.skills.map(function (s) { return '<span class="bt_tag">' + s + '</span>'; }).join('') + '</div></td>' +
           '<td><span class="bt_status is-' + b.status.toLowerCase() + '">' + b.status + '</span></td>' +
         '</tr>';
