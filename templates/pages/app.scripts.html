@@ -112,6 +112,83 @@
         }, LOAD_MS);
       }
 
+
+      // ---------------------------------------------------------------
+      // Onboarding quests. Illustrative only: rewards are placeholder
+      // numbers and "done" is a localStorage flag, not a verified event.
+      // ---------------------------------------------------------------
+      var ICONS = {
+        mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+        user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>',
+        x: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-7.1 8.1L21.7 21h-6.5l-4.6-6-5.3 6H2.3l7.6-8.7L2 3h6.6l4.2 5.5L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/></svg>',
+        shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>',
+        chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.2A8 8 0 1 1 21 12z"/></svg>',
+        call: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>',
+        issue: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>',
+        merge: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="12" r="2"/><path d="M6 7v10M6 7c0 4 4 5 10 5"/></svg>',
+        check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 7"/></svg>'
+      };
+      var QUESTS = [
+        { id: 'email', icon: 'mail', title: 'Verify your email', desc: 'So we can reach you about your work.', reward: 10, cta: 'Verify', href: '#' },
+        { id: 'profile', icon: 'user', title: 'Complete your contributor profile', desc: 'Pick your disciplines from the taxonomy.', reward: 25, cta: 'Fill in', href: '#' },
+        { id: 'follow', icon: 'x', title: 'Follow @ArrowAir_ on X', desc: 'Flight tests land there first.', reward: 10, cta: 'Follow', href: 'https://x.com/ArrowAir_' },
+        { id: 'verify-x', icon: 'shield', title: 'Verify your X account', desc: 'Link it so contributions can be credited.', reward: 15, cta: 'Verify', href: '#' },
+        { id: 'intro', icon: 'chat', title: 'Introduce yourself on Discord', desc: 'One message in #introductions.', reward: 20, cta: 'Open Discord', href: 'https://discord.com/invite/arrow' },
+        { id: 'call', icon: 'call', title: 'Attend a welcome call', desc: 'Earns the Member role on Discord.', reward: 50, cta: 'RSVP', href: 'https://discord.com/invite/arrow', featured: true, tag: 'Featured / next call Thu 25 Sep, 18:00 UTC' },
+        { id: 'issue', icon: 'issue', title: 'Open your first issue', desc: 'A bug, a question, an idea. Any repo.', reward: 30, cta: 'Find a good first issue', href: 'https://github.com/Arrow-air' },
+        { id: 'pr', icon: 'merge', title: 'Get your first PR accepted', desc: 'Unlocks Contribute.', reward: 100, cta: 'See open bounties', href: '#bounties' }
+      ];
+      var OB_KEY = 'arrow-app-onboarding';
+      function obState() {
+        try { return JSON.parse(localStorage.getItem(OB_KEY) || '{}'); } catch (e) { return {}; }
+      }
+      function obSave(st) { try { localStorage.setItem(OB_KEY, JSON.stringify(st)); } catch (e) {} }
+
+      function questCard(q, done) {
+        return '<div class="q' + (done ? ' is-done' : '') + '" data-quest="' + q.id + '">' +
+          '<div class="q_icon">' + (done ? ICONS.check : ICONS[q.icon]) + '</div>' +
+          '<div><h3 class="q_title">' + q.title + '</h3><p class="q_desc">' + q.desc + '</p></div>' +
+          '<div class="q_side">' +
+            '<span class="q_reward">' + (done ? '' : '+') + q.reward + ' $ARROW</span>' +
+            (done
+              ? '<button class="q_mark" type="button" data-undo="' + q.id + '">undo</button>'
+              : '<a class="q_btn" href="' + q.href + '"' + (/^https?:/.test(q.href) ? ' target="_blank" rel="noopener"' : '') + '>' + q.cta + '</a>' +
+                '<button class="q_mark" type="button" data-done="' + q.id + '">mark done</button>') +
+          '</div>' +
+        '</div>';
+      }
+
+      function renderOnboarding() {
+        var st = obState();
+        var doneCount = QUESTS.filter(function (q) { return st[q.id]; }).length;
+        var earned = QUESTS.reduce(function (n, q) { return n + (st[q.id] ? q.reward : 0); }, 0);
+        var feat = QUESTS.filter(function (q) { return q.featured && !st[q.id]; })[0];
+
+        document.getElementById('ob-ring').setAttribute('stroke-dashoffset', String(113 - 113 * doneCount / QUESTS.length));
+        document.getElementById('ob-ring-text').textContent = doneCount + '/' + QUESTS.length;
+        document.getElementById('ob-earned').textContent = earned.toLocaleString();
+        document.getElementById('ob-left').textContent = doneCount === QUESTS.length ? 'all done' : (QUESTS.length - doneCount) + ' step' + (QUESTS.length - doneCount === 1 ? '' : 's') + ' left';
+        document.getElementById('ob-bar').style.width = (100 * doneCount / QUESTS.length) + '%';
+        document.getElementById('ob-done').classList.toggle('is-on', doneCount === QUESTS.length);
+
+        document.getElementById('ob-feat').innerHTML = feat
+          ? '<div class="ob_feat"><div class="ob_icon">' + ICONS[feat.icon] + '</div>' +
+            '<div><div class="ob_feat_tag">' + feat.tag + '</div><h3 class="q_title">' + feat.title + '</h3><p class="q_desc">' + feat.desc + '</p></div>' +
+            '<div class="q_side"><span class="q_reward">+' + feat.reward + ' $ARROW</span><a class="q_btn is-primary" href="' + feat.href + '" target="_blank" rel="noopener">' + feat.cta + '</a><button class="q_mark" type="button" data-done="' + feat.id + '">mark done</button></div></div>'
+          : '';
+        document.getElementById('ob-grid').innerHTML = QUESTS.filter(function (q) { return !(q.featured && !st[q.id]); }).map(function (q) { return questCard(q, !!st[q.id]); }).join('');
+      }
+
+      document.getElementById('view-onboarding').addEventListener('click', function (e) {
+        var t = e.target.closest('[data-done],[data-undo]');
+        if (!t) return;
+        var st = obState();
+        if (t.hasAttribute('data-done')) st[t.getAttribute('data-done')] = true;
+        else delete st[t.getAttribute('data-undo')];
+        obSave(st);
+        renderOnboarding();
+      });
+
       // ---------------------------------------------------------------
       // Contribute: cards
       // ---------------------------------------------------------------
@@ -373,6 +450,7 @@
       window.addEventListener('hashchange', function () { route(); });
 
       renderCards();
+      renderOnboarding();
       sizePanel();
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(function () { route({ instant: true }); });

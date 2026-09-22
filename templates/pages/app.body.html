@@ -498,6 +498,140 @@
         }
         .v3d_empty a { color: var(--proj); }
 
+        /* ---------------------------------------------------------------
+           Onboarding: quests. Illustrative only, amounts are placeholders.
+           --------------------------------------------------------------- */
+        .ob_head {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 1.5rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.25rem;
+        }
+        .ob_stats {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: var(--app-muted);
+        }
+        .ob_stats b { color: var(--app-text); font-weight: 500; }
+        .ob_ring { width: 44px; height: 44px; position: relative; flex: 0 0 auto; }
+        .ob_ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+        .ob_ring circle { fill: none; stroke-width: 4; stroke-linecap: round; }
+        .ob_ring .t { stroke: var(--app-border); }
+        .ob_ring .f { stroke: var(--app-blue-light); stroke-dasharray: 113; transition: stroke-dashoffset 0.5s ease; }
+        .ob_ring span {
+          position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+          font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--app-text);
+        }
+        .ob_bar { height: 4px; border-radius: 4px; background: var(--app-border); overflow: hidden; margin-bottom: 1.5rem; }
+        .ob_bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--app-blue-dark), var(--app-blue-light)); transition: width 0.5s ease; }
+        .ob_done {
+          display: none;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          padding: 1rem 1.25rem;
+          margin-bottom: 1.5rem;
+          border-radius: 12px;
+          border: 1px solid color-mix(in srgb, var(--app-blue-light) 40%, var(--app-border));
+          background: color-mix(in srgb, var(--app-blue) 14%, var(--app-panel));
+        }
+        .ob_done.is-on { display: flex; }
+        .ob_done b { color: #fff; font-weight: 500; }
+        .ob_done p { margin: 2px 0 0; }
+        .ob_feat {
+          display: grid;
+          grid-template-columns: 52px minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 16px;
+          padding: 16px 18px;
+          margin-bottom: 1.25rem;
+          border-radius: 14px;
+          border: 1px solid var(--app-border);
+          background: linear-gradient(135deg, color-mix(in srgb, var(--app-blue) 22%, var(--app-chrome)), var(--app-chrome) 60%);
+        }
+        .ob_feat_tag {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--app-blue-light);
+          margin-bottom: 4px;
+        }
+        .ob_icon {
+          width: 52px; height: 52px; border-radius: 12px;
+          display: flex; align-items: center; justify-content: center;
+          background: var(--app-track); border: 1px solid var(--app-border);
+          color: var(--app-text);
+        }
+        .ob_icon svg { width: 22px; height: 22px; }
+        .ob_grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+        .q {
+          display: grid;
+          grid-template-columns: 40px minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 14px;
+          padding: 14px 16px;
+          border-radius: 14px;
+          border: 1px solid var(--app-border);
+          background: var(--app-chrome);
+          transition: border-color 0.18s ease;
+        }
+        .q:hover { border-color: #46484F; }
+        .q_icon {
+          width: 40px; height: 40px; border-radius: 10px;
+          display: flex; align-items: center; justify-content: center;
+          background: var(--app-track); border: 1px solid var(--app-border);
+          color: var(--app-muted);
+        }
+        .q_icon svg { width: 18px; height: 18px; }
+        .q_title { font-size: 0.95rem; font-weight: 500; color: #fff; margin: 0 0 3px; line-height: 1.2; }
+        .q_desc { font-size: 0.8rem; color: var(--app-muted); margin: 0; line-height: 1.35; }
+        .q_side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .q_reward {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          letter-spacing: 0.03em;
+          padding: 3px 8px;
+          border-radius: 6px;
+          border: 1px solid var(--app-border);
+          color: var(--app-text);
+          white-space: nowrap;
+        }
+        .q_btn {
+          display: inline-flex; align-items: center; gap: 6px;
+          height: 30px; padding: 0 12px;
+          border: 1px solid var(--app-border); border-radius: 8px;
+          background: rgba(255,255,255,0.04); color: var(--app-text);
+          font-family: inherit; font-size: 0.78rem; font-weight: 500; cursor: pointer;
+          white-space: nowrap; text-decoration: none;
+        }
+        .q_btn:hover { border-color: var(--app-blue-light); }
+        .q_btn.is-primary { background: var(--app-blue); border-color: var(--app-blue); color: #fff; }
+        .q_btn.is-primary:hover { background: var(--app-blue-dark); }
+        .q_mark {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.04em;
+          text-transform: uppercase; color: var(--app-muted); background: none; border: 0;
+          cursor: pointer; padding: 0; text-decoration: underline dotted;
+        }
+        .q_mark:hover { color: var(--app-text); }
+        .q.is-done { border-color: color-mix(in srgb, #218191 55%, var(--app-border)); background: color-mix(in srgb, #218191 8%, var(--app-chrome)); }
+        .q.is-done .q_icon { background: #218191; border-color: #218191; color: #fff; }
+        .q.is-done .q_title { color: var(--app-muted); text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.25); }
+        .q.is-done .q_reward { border-color: #218191; color: #70C9D9; }
+        .q.is-locked { opacity: 0.55; }
+        @media (max-width: 767px) {
+          .ob_grid { grid-template-columns: 1fr; }
+          .ob_feat { grid-template-columns: 40px minmax(0, 1fr); }
+          .ob_feat .q_btn { grid-column: 2; justify-self: start; }
+        }
+
         /* Loader takes a colour from whichever shell triggered it */
         .app-loader { --loader-color: var(--app-blue-light); }
         .app-loader_ring .fill { stroke: var(--loader-color); }
@@ -636,8 +770,23 @@
 
                 <div class="app-panel_body">
                   <div class="app-view is-active" role="tabpanel" id="view-onboarding" aria-labelledby="tab-onboarding">
-                    <h2>Onboarding</h2>
-                    <p>Placeholder. This is where a new contributor lands and gets pointed at their first real task.</p>
+                    <div class="ob_head">
+                      <div>
+                        <h2>Get set up, earn your first $ARROW</h2>
+                        <p>Eight small steps. Finish them all and Contribute opens up.</p>
+                      </div>
+                      <div class="ob_stats">
+                        <div class="ob_ring"><svg viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="18"/><circle class="f" id="ob-ring" cx="22" cy="22" r="18" stroke-dashoffset="113"/></svg><span id="ob-ring-text">0/8</span></div>
+                        <div><b id="ob-earned">0</b> $ARROW earned<br><span id="ob-left">8 steps left</span></div>
+                      </div>
+                    </div>
+                    <div class="ob_bar"><span id="ob-bar" style="width:0%"></span></div>
+                    <div class="ob_done" id="ob-done">
+                      <div><b>You're in.</b><p>All eight done. Head to Contribute and pick a project.</p></div>
+                      <a class="q_btn is-primary" href="#contribute">Go to Contribute</a>
+                    </div>
+                    <div id="ob-feat"></div>
+                    <div class="ob_grid" id="ob-grid"></div>
                   </div>
                   <div class="app-view" role="tabpanel" id="view-contribute" aria-labelledby="tab-contribute">
                     <div id="contribute-grid-wrap">
