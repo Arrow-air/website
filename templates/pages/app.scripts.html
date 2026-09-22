@@ -244,6 +244,95 @@
         }).join('') + '</div>';
       }
 
+
+      // ---------------------------------------------------------------
+      // Tasks: Kanban. Dummy rows shaped like GitHub Projects items
+      // (issue or PR, labels, assignee, status column). Drag to move for
+      // the demo; state is per session only.
+      // ---------------------------------------------------------------
+      var KB_COLS = [
+        { id: 'backlog', name: 'Backlog', color: '#6B6F79' },
+        { id: 'ready', name: 'Ready', color: '#5B8DEE' },
+        { id: 'progress', name: 'In progress', color: '#FF906E' },
+        { id: 'review', name: 'In review', color: '#C497FF' },
+        { id: 'done', name: 'Done', color: '#22c55e' }
+      ];
+      var TASKS = {
+        quiver: [
+          { n: 214, kind: 'issue', title: 'Landing gear foot cracks after hard landing', col: 'backlog', tags: ['Mechanical'], comp: 'Landing gear', who: '' },
+          { n: 221, kind: 'issue', title: 'Document torque values for arm clamp bolts', col: 'backlog', tags: ['Documentation'], comp: 'Motor arm', who: '' },
+          { n: 226, kind: 'issue', title: 'Prop guard for indoor testing', col: 'backlog', tags: ['3D Printing'], comp: 'Propulsion', who: '' },
+          { n: 209, kind: 'issue', title: 'Add current sense on ESC rails', col: 'ready', tags: ['Electrical'], comp: 'PCB', who: 'ZB' },
+          { n: 218, kind: 'issue', title: 'Vent path for flight controller under top cap', col: 'ready', tags: ['CAD'], comp: 'Cockpit enclosure', who: '' },
+          { n: 202, kind: 'issue', title: 'Quick-release latch for motor arms', col: 'progress', tags: ['Mechanical', 'CAD'], comp: 'Motor arm', who: 'AK' },
+          { n: 197, kind: 'issue', title: 'Hover endurance at 25 C and 35 C', col: 'progress', tags: ['Flight Test'], comp: '', who: 'TG' },
+          { n: 231, kind: 'pr', title: 'Harness route photos for assembly guide', col: 'review', tags: ['Documentation'], comp: 'Harness', who: 'SL' },
+          { n: 229, kind: 'pr', title: 'build123d: parametrise plate hole pattern', col: 'review', tags: ['CAD'], comp: 'Plates', who: 'MK' },
+          { n: 188, kind: 'pr', title: 'Battery slider end stop', col: 'done', tags: ['Mechanical'], comp: 'Battery slider', who: 'AK' },
+          { n: 184, kind: 'issue', title: 'GPS dome fouls on cap lip', col: 'done', tags: ['CAD'], comp: 'Peripheral', who: 'ZB' },
+          { n: 176, kind: 'pr', title: 'Manufacturing guide: cut sheet DXFs', col: 'done', tags: ['Machining', 'Documentation'], comp: 'Plates', who: 'SL' }
+        ]
+      };
+      var kbState = {};
+
+      function renderKanban(p) {
+        var rows = TASKS[p.id] || [];
+        var st = kbState[p.id] || (kbState[p.id] = {});
+        var repo = p.repo || 'website';
+        return '<div class="kb" id="kb">' + KB_COLS.map(function (c) {
+          var items = rows.filter(function (t) { return (st[t.n] || t.col) === c.id; });
+          return '<div class="kb_col" data-col="' + c.id + '" style="--kb-c:' + c.color + '">' +
+            '<div class="kb_head"><i></i>' + c.name + '<span>' + items.length + '</span></div>' +
+            items.map(function (t) {
+              return '<div class="kb_card" draggable="true" data-n="' + t.n + '">' +
+                '<div class="kb_ref"><i class="' + (t.kind === 'pr' ? 'is-pr' : '') + '"></i>' + repo + ' #' + t.n + '</div>' +
+                '<p class="kb_title">' + t.title + '</p>' +
+                '<div class="kb_meta"><div class="kb_tags">' +
+                  (t.comp ? '<span class="kb_tag is-comp">' + t.comp + '</span>' : '') +
+                  t.tags.map(function (g) { return '<span class="kb_tag">' + g + '</span>'; }).join('') +
+                '</div>' +
+                (t.who ? '<span class="kb_who" title="' + t.who + '">' + t.who + '</span>' : '<span class="kb_who is-empty" title="Unassigned">+</span>') +
+                '</div>' +
+              '</div>';
+            }).join('') +
+          '</div>';
+        }).join('') + '</div>' +
+        '<div class="kb_foot">Dummy board. Will mirror the ' + p.name + ' GitHub Projects view. Drag cards to try it.</div>';
+      }
+
+      function wireKanban(p) {
+        var board = document.getElementById('kb');
+        if (!board) return;
+        var dragging = null;
+        board.addEventListener('dragstart', function (e) {
+          var card = e.target.closest('.kb_card');
+          if (!card) return;
+          dragging = card;
+          card.classList.add('is-dragging');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', card.getAttribute('data-n'));
+        });
+        board.addEventListener('dragend', function () {
+          if (dragging) dragging.classList.remove('is-dragging');
+          dragging = null;
+          board.querySelectorAll('.kb_col').forEach(function (c) { c.classList.remove('is-over'); });
+        });
+        board.addEventListener('dragover', function (e) {
+          var col = e.target.closest('.kb_col');
+          if (!col) return;
+          e.preventDefault();
+          board.querySelectorAll('.kb_col').forEach(function (c) { c.classList.toggle('is-over', c === col); });
+        });
+        board.addEventListener('drop', function (e) {
+          var col = e.target.closest('.kb_col');
+          if (!col || !dragging) return;
+          e.preventDefault();
+          kbState[p.id][dragging.getAttribute('data-n')] = col.getAttribute('data-col');
+          projPanel.querySelector('#kb').outerHTML = renderKanban(p).replace(/<div class="kb_foot">[\s\S]*$/, '');
+          wireKanban(p);
+        });
+      }
+
       // ---------------------------------------------------------------
       // Contribute: cards
       // ---------------------------------------------------------------
@@ -379,6 +468,16 @@
           return;
         }
 
+        if (sub === 'tasks') {
+          var open = (TASKS[p.id] || []).filter(function (t) { return t.col !== 'done'; }).length;
+          projPanel.innerHTML =
+            '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+            '<h3>Active tasks</h3>' +
+            '<p style="margin-bottom:1.25rem">' + open + ' open across issues and pull requests.</p>' +
+            renderKanban(p);
+          wireKanban(p);
+          return;
+        }
         if (sub === 'overview') {
           var mine = BOUNTIES.filter(function (b) { return b.project === p.id; });
           projPanel.innerHTML =
