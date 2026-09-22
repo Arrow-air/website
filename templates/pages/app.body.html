@@ -108,6 +108,68 @@
           transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
           will-change: transform, width;
         }
+        /* Profile + balance, top right of the tab bar */
+        .app-user {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          height: calc(var(--app-tab-h) + 10px);
+          padding: 0 10px 0 6px;
+          background: var(--app-track);
+          border: 1px solid var(--app-border);
+          border-radius: calc(var(--app-radius) + 2px);
+          color: var(--app-text);
+          cursor: pointer;
+          flex: 0 0 auto;
+          font-family: 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+          text-align: left;
+          transition: border-color 0.18s ease;
+        }
+        .app-user:hover { border-color: #3a3b41; }
+        .app-user:focus-visible { outline: 2px solid var(--app-blue-light); outline-offset: 2px; }
+        .app-user_avatar {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          flex: 0 0 auto;
+          background:
+            repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0 3px, transparent 3px 6px),
+            repeating-linear-gradient(90deg, rgba(0,0,0,0.18) 0 3px, transparent 3px 6px),
+            linear-gradient(135deg, #5B8DEE 0%, #0A43BF 45%, #7b3fe4 100%);
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset;
+        }
+        .app-user_meta {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          line-height: 1;
+        }
+        .app-user_name {
+          font-size: 0.85rem;
+          font-weight: 500;
+          color: #fff;
+        }
+        .app-user_balance {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.02em;
+          color: var(--app-muted);
+        }
+        .app-user_balance b {
+          font-weight: 500;
+          color: var(--app-text);
+        }
+        .app-user_divider {
+          width: 1px;
+          height: 22px;
+          background: var(--app-border);
+          margin-left: 2px;
+        }
+        .app-user_chevron {
+          width: 14px;
+          height: 14px;
+          color: var(--app-muted);
+        }
         /* Panel, with a blue stem that runs up to the active tab */
         .app-panel_wrap {
           position: relative;
@@ -249,6 +311,9 @@
         }
         @media (max-width: 767px) {
           .app-tabbar_label { display: none; }
+          .app-user_meta { display: none; }
+          .app-user_divider { display: none; }
+          .app-user { padding: 0 8px 0 6px; gap: 6px; }
           .app-tab { padding: 0 14px; font-size: 0.875rem; }
           .app-panel_body { padding: 1.75rem 1rem; }
           .app-view h2 { font-size: 1.5rem; }
@@ -274,8 +339,16 @@
                   <button class="app-tab" role="tab" data-tab="fly" aria-selected="false" aria-controls="view-fly" id="tab-fly" tabindex="-1"><span class="app-tab_num">05</span>Fly</button>
                   <button class="app-tab" role="tab" data-tab="community" aria-selected="false" aria-controls="view-community" id="tab-community" tabindex="-1"><span class="app-tab_num">06</span>Community</button>
                   <button class="app-tab" role="tab" data-tab="governance" aria-selected="false" aria-controls="view-governance" id="tab-governance" tabindex="-1"><span class="app-tab_num">07</span>Governance</button>
-                  <button class="app-tab" role="tab" data-tab="profile" aria-selected="false" aria-controls="view-profile" id="tab-profile" tabindex="-1"><span class="app-tab_num">08</span>Profile</button>
                 </div>
+                <button class="app-user" type="button" aria-haspopup="menu" aria-expanded="false" id="app-user">
+                  <span class="app-user_avatar" aria-hidden="true"></span>
+                  <span class="app-user_meta">
+                    <span class="app-user_name">sl33ty</span>
+                    <span class="app-user_balance"><b>1,240</b> $ARROW</span>
+                  </span>
+                  <span class="app-user_divider" aria-hidden="true"></span>
+                  <svg class="app-user_chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
               </div>
             </div>
           </div>
@@ -287,7 +360,7 @@
               <div class="app-panel_stem" id="app-stem" aria-hidden="true"></div>
               <div class="app-panel" id="app-panel">
                 <div class="app-panel_head">
-                  <div>Tab <b id="app-panel-index">01</b> / 08</div>
+                  <div>Tab <b id="app-panel-index">01</b> / 07</div>
                   <div><b id="app-panel-title">Onboarding</b></div>
                 </div>
 
@@ -332,10 +405,6 @@
                   <div class="app-view" role="tabpanel" id="view-governance" aria-labelledby="tab-governance">
                     <h2>Governance</h2>
                     <p>Placeholder. AIPs, Snapshot proposals, committees.</p>
-                  </div>
-                  <div class="app-view" role="tabpanel" id="view-profile" aria-labelledby="tab-profile">
-                    <h2>Profile</h2>
-                    <p>Placeholder. Your contributions, ownership and reputation.</p>
                   </div>
                 </div>
               </div>
