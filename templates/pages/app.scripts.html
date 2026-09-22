@@ -849,6 +849,98 @@
 
       window.addEventListener('hashchange', function () { route(); });
 
+      // ---------------------------------------------------------------
+      // Wallet sheet (coss ui inset sheet). Opens from the profile /
+      // balance widget in the navbar. Balances and activity are
+      // illustrative; only the onboarding rewards come from real state.
+      // ---------------------------------------------------------------
+      (function () {
+        var sheet = document.getElementById('wallet-sheet');
+        var trigger = document.getElementById('app-user');
+        if (!sheet || !trigger) return;
+        var popup = sheet.querySelector('.sheet_popup');
+        var closeBtn = sheet.querySelector('.sheet_close');
+        var activity = document.getElementById('wl-activity');
+        var lastFocus = null;
+        var ACT_ICON = {
+          plus: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+          minus: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+          bounty: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>'
+        };
+        function renderActivity() {
+          var st = obState();
+          var rows = QUESTS.filter(function (q) { return st[q.id]; }).map(function (q) {
+            return { t: q.title, s: 'Onboarding reward', amt: '+' + q.reward + ' ARROW', k: 'plus' };
+          }).reverse();
+          rows = rows.concat([
+            { t: 'Bounty paid: Assembly guide photos', s: 'Quiver &middot; 14 Sep', amt: '+120.00 USDC', k: 'bounty' },
+            { t: 'Bounty paid: Assembly guide photos', s: 'Quiver &middot; 14 Sep', amt: '+600 ARROW', k: 'bounty' },
+            { t: 'Store: Quiver landing gear feet', s: '02 Sep', amt: '-180 ARROW', k: 'minus' }
+          ]);
+          activity.innerHTML = rows.length ? rows.map(function (r) {
+            var cls = r.k === 'minus' ? 'is-minus' : 'is-plus';
+            return '<div class="wl_row"><span class="wl_row_ic">' + ACT_ICON[r.k] + '</span>' +
+              '<div class="wl_row_main"><div class="wl_row_t">' + r.t + '</div><div class="wl_row_s">' + r.s + '</div></div>' +
+              '<div class="wl_row_amt ' + cls + '"><b>' + r.amt + '</b></div></div>';
+          }).join('') : '<div class="bt_empty">No activity yet.</div>';
+        }
+        function open() {
+          lastFocus = document.activeElement;
+          renderActivity();
+          sheet.classList.add('is-open');
+          sheet.setAttribute('aria-hidden', 'false');
+          trigger.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+          void popup.offsetWidth;
+          sheet.classList.add('is-in');
+          closeBtn.focus();
+        }
+        function close() {
+          sheet.classList.remove('is-in');
+          trigger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+          var done = function () {
+            sheet.classList.remove('is-open');
+            sheet.setAttribute('aria-hidden', 'true');
+            if (lastFocus && lastFocus.focus) lastFocus.focus();
+          };
+          var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (reduced) done(); else setTimeout(done, 200);
+        }
+        trigger.addEventListener('click', function () {
+          if (sheet.classList.contains('is-open')) close(); else open();
+        });
+        sheet.addEventListener('click', function (e) {
+          if (e.target.closest('[data-sheet-close]')) close();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && sheet.classList.contains('is-open')) close();
+        });
+        // Keep tab focus inside the sheet while it is open
+        sheet.addEventListener('keydown', function (e) {
+          if (e.key !== 'Tab') return;
+          var f = popup.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+          if (!f.length) return;
+          var first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+        var copy = document.getElementById('wl-copy');
+        copy.addEventListener('click', function () {
+          var addr = '0x7a3F2b19c0dE4f5A6b7C8d9E0f1A2b3C4d5E9C4e';
+          var label = document.getElementById('wl-addr');
+          var restore = label.innerHTML;
+          var flash = function () { label.textContent = 'Copied'; setTimeout(function () { label.innerHTML = restore; }, 1200); };
+          if (navigator.clipboard) navigator.clipboard.writeText(addr).then(flash, flash); else flash();
+        });
+        document.getElementById('wl-disconnect').addEventListener('click', function () {
+          trigger.classList.remove('is-connected');
+          sheet.querySelector('.wl_status').textContent = 'Disconnected';
+          sheet.querySelector('.wl_status').style.color = 'var(--app-muted)';
+          close();
+        });
+      })();
+
       renderCards();
       renderOnboarding();
       sizePanel();
