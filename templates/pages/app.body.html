@@ -783,6 +783,36 @@
         .tm_tag.is-pending { color: var(--app-muted); border-style: dashed; }
         @media (max-width: 767px) { .tm { grid-template-columns: 1fr; } }
 
+        /* Bounty frame: tinted outer container, table inset for depth */
+        .bf {
+          margin-top: 1.75rem;
+          border-radius: 16px;
+          padding: 6px;
+          border: 1px solid color-mix(in srgb, var(--proj) 55%, var(--app-border));
+          background:
+            linear-gradient(180deg, color-mix(in srgb, var(--proj) 26%, var(--app-chrome)) 0%, color-mix(in srgb, var(--proj) 10%, var(--app-chrome)) 100%);
+          box-shadow: 0 1px 0 color-mix(in srgb, var(--proj) 40%, transparent) inset, 0 16px 40px color-mix(in srgb, var(--proj) 14%, transparent);
+        }
+        .bf_head {
+          display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+          padding: 10px 12px 12px;
+        }
+        .bf_title { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 1.05rem; font-weight: 500; color: #fff; }
+        .bf_title svg { width: 16px; height: 16px; color: var(--proj-ink-on, #fff); opacity: 0.9; }
+        .bf_meta { display: flex; align-items: center; gap: 8px; }
+        .bf_pill {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase;
+          padding: 3px 9px; border-radius: 999px; color: var(--proj-ink, #fff); background: var(--proj);
+        }
+        .bf_sub { font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, #fff 70%, var(--proj)); }
+        .bf .bt_wrap {
+          border-color: color-mix(in srgb, var(--proj) 30%, var(--app-border));
+          box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.4);
+        }
+        .bf .bt th { background: color-mix(in srgb, var(--proj) 16%, var(--app-track)); }
+        .bf .bt_empty { background: var(--app-track); }
+        .bf .sec_head { display: none; }
+
         /* Loader takes a colour from whichever shell triggered it */
         .app-loader { --loader-color: var(--app-blue-light); }
         .app-loader_ring .fill { stroke: var(--loader-color); }

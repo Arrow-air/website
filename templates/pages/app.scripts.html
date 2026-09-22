@@ -228,6 +228,17 @@
         '</tbody></table></div>';
       }
 
+
+      function bountyFrame(title, count, sub, tableHtml) {
+        return '<div class="bf">' +
+          '<div class="bf_head">' +
+            '<h4 class="bf_title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>' + title + '</h4>' +
+            '<div class="bf_meta"><span class="bf_sub">' + sub + '</span><span class="bf_pill">' + count + '</span></div>' +
+          '</div>' +
+          tableHtml +
+        '</div>';
+      }
+
       function improveSteps(p, label) {
         var steps = [
           { community: true, title: 'Say hello before you build', text: 'Post in #introductions on Discord or open a GitHub Discussion saying what you want to improve on the ' + label + '. Someone may already be on it, and the team will point you at the right files. Community first, then CAD.', cta: 'Open Discord', href: 'https://discord.com/invite/arrow' },
@@ -490,9 +501,7 @@
               '<div class="v3d_tip" id="v3d-tip"></div>' +
               '<div class="v3d_hint">drag to orbit &middot; scroll to zoom &middot; click a part</div>' +
             '</div>' +
-            '<div class="sec"><div class="sec_head"><h4>Open bounties on ' + p.name + '</h4><span>' + BOUNTIES.filter(function (b) { return b.project === p.id; }).length + ' listed</span></div>' +
-              bountyTable(BOUNTIES.filter(function (b) { return b.project === p.id; })) +
-            '</div>' +
+            bountyFrame('Open bounties on ' + p.name, BOUNTIES.filter(function (b) { return b.project === p.id; }).length + ' listed', 'paid in USDC and $ARROW', bountyTable(BOUNTIES.filter(function (b) { return b.project === p.id; }))) +
             '<div class="sec"><div class="sec_head"><h4>How to get involved</h4><span>5 steps</span></div>' + improveSteps(p, p.name + ' assembly') + '</div>' +
             aboutSection(p);
           loadAbout(p);
@@ -566,7 +575,7 @@
             '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
             '<h3>' + p.name + '</h3>' +
             '<p>' + p.blurb + '</p>' +
-            '<div class="sec"><div class="sec_head"><h4>Open bounties on ' + p.name + '</h4><span>' + mine.length + ' listed</span></div>' + bountyTable(mine) + '</div>' +
+            bountyFrame('Open bounties on ' + p.name, mine.length + ' listed', 'paid in USDC and $ARROW', bountyTable(mine)) +
             '<div class="sec"><div class="sec_head"><h4>How to get involved</h4><span>5 steps</span></div>' + improveSteps(p, p.name) + '</div>' +
             aboutSection(p);
           loadAbout(p);
@@ -633,13 +642,11 @@
         var rest = all.filter(function (b) { return !bountyMatches(b, file, mesh); });
         var html = '';
         if (related.length) {
-          html += '<div class="sec"><div class="sec_head"><h4>Bounties on this component</h4><span>' + related.length + ' related</span></div>' +
-            bountyTable(related, { file: file, mesh: mesh }) + '</div>';
+          html += bountyFrame('Bounties on this component', related.length + ' related', label, bountyTable(related, { file: file, mesh: mesh }));
         }
         html += '<div class="sec"><div class="sec_head"><h4>' + (related.length ? 'Or improve it your own way' : 'How to improve this component') + '</h4><span>5 steps</span></div>' +
           improveSteps(p, label) + '</div>';
-        html += '<div class="sec"><div class="sec_head"><h4>' + (related.length ? 'Other ' + p.name + ' bounties' : 'All ' + p.name + ' bounties') + '</h4><span>' + rest.length + ' listed</span></div>' +
-          bountyTable(rest) + '</div>';
+        html += bountyFrame(related.length ? 'Other ' + p.name + ' bounties' : 'All ' + p.name + ' bounties', rest.length + ' listed', 'paid in USDC and $ARROW', bountyTable(rest));
         return html;
       }
 
