@@ -766,7 +766,60 @@
       var flyPanel = document.getElementById('fly-panel');
       var flySubTabs = Array.prototype.slice.call(flyTabs.querySelectorAll('.app-tab'));
 
-      var FLY_TITLES = { flights: 'Flights', fleet: 'Fleet', log: 'Quick log' };
+      var FLY_TITLES = { flights: 'Flights', fleet: 'Fleet', videos: 'Videos', log: 'Quick log' };
+      var VIDEOS = [
+        { id: 'v-31', flight: 'f-118', title: 'Spearhead wings-on: first tethered lift', len: '2:14', thumb: '/images/spearhead-first-version-p-800.avif', date: '2026-09-20', by: 'Sleety', desc: 'Three lifts on the tether with the wings fitted for the first time. Watch the pitch response on the second lift, that is the soft axis we are tuning next.' },
+        { id: 'v-30', flight: 'f-117', title: 'Quiver 002 endurance hover to cutoff', len: '18:41', thumb: '/images/drone-quiver-2-p-800.avif', date: '2026-09-18', by: 'Marco', desc: 'Full hover to the 3.5 V per cell cutoff at 25 C. Real-time telemetry overlay from the log.' },
+        { id: 'v-29', flight: 'f-116', title: 'Quiver 004 post-build shakedown', len: '4:02', thumb: '/images/hangar-test-together-p-800.avif', date: '2026-09-17', by: 'Tim K', desc: 'Motor spin-up, hover check and a couple of laps of the paddock on a community-built airframe.' },
+        { id: 'v-28', flight: 'f-114', title: 'Hard landing on approach, Quiver 003', len: '0:48', thumb: '/images/night-quiver-p-500.avif', date: '2026-09-11', by: 'Ana R', desc: 'Gust on final. Filed with the incident so the landing gear foot bounty has reference footage.' },
+        { id: 'v-27', flight: 'f-113', title: 'Autotune pass, roll and pitch', len: '12:20', thumb: '/images/quiver-3d_v2_0001-2-p-800.avif', date: '2026-09-09', by: 'Marco', desc: 'Autotune on both axes. Twitch sequence is visible from about 1:30.' },
+        { id: 'v-26', flight: null, title: 'Feather 01 last flight before retirement', len: '6:35', thumb: '/images/feather_v22-p-800.avif', date: '2026-08-22', by: 'Sleety', desc: 'A long glide to close out the Feather programme. No log attached, camera only.' }
+      ];
+      var vdFilter = '';
+      function videoOf(id) { for (var i = 0; i < VIDEOS.length; i++) if (VIDEOS[i].id === id) return VIDEOS[i]; return null; }
+      var PLAY = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5-9-5.5z"/></svg>';
+      function videoCard(v, small) {
+        var f = v.flight ? flightOf(v.flight) : null; var ac = f ? acOf(f.aircraft) : null;
+        return '<a class="vd_card" href="#fly/videos/' + v.id + '">' +
+          '<div class="vd_thumb"><img src="' + v.thumb + '" alt="" loading="lazy"><span class="vd_play">' + PLAY + '</span><span class="vd_len">' + v.len + '</span></div>' +
+          '<div class="vd_body"><div class="vd_title">' + esc(v.title) + '</div>' +
+          (small ? '' : '<div class="vd_meta">' + (ac ? '<b>' + esc(ac.name) + '</b> &middot; ' : '') + esc(v.by) + ' &middot; ' + v.date + '</div>') + '</div></a>';
+      }
+      function renderVideos() {
+        var types = []; VIDEOS.forEach(function (v) { var f = v.flight ? flightOf(v.flight) : null; var ac = f ? acOf(f.aircraft) : null; var t = ac ? ac.type : 'Other'; if (types.indexOf(t) < 0) types.push(t); });
+        var vis = VIDEOS.filter(function (v) { if (!vdFilter) return true; var f = v.flight ? flightOf(v.flight) : null; var ac = f ? acOf(f.aircraft) : null; return (ac ? ac.type : 'Other') === vdFilter; });
+        flyPanel.innerHTML =
+          '<div class="proj_kicker">Fly / Videos</div>' +
+          '<h3>Test flight videos</h3>' +
+          '<p style="margin-bottom:1rem">Every test flight we filmed, newest first. Each one links back to its flight card and log.</p>' +
+          '<div class="fl_actions"><button class="q_btn is-primary" type="button">+ Add video</button><span class="fl_count" style="align-self:center">' + vis.length + ' of ' + VIDEOS.length + ' shown</span></div>' +
+          '<div class="vd_chips"><button class="vd_chip' + (vdFilter ? '' : ' is-on') + '" data-vd="">All</button>' + types.map(function (t) { return '<button class="vd_chip' + (vdFilter === t ? ' is-on' : '') + '" data-vd="' + esc(t) + '">' + esc(t) + '</button>'; }).join('') + '</div>' +
+          '<div class="vd_grid">' + vis.map(function (v) { return videoCard(v); }).join('') + '</div>';
+        flyPanel.querySelectorAll('[data-vd]').forEach(function (b) { b.addEventListener('click', function () { vdFilter = b.getAttribute('data-vd'); renderVideos(); }); });
+      }
+      function renderVideo(v) {
+        var f = v.flight ? flightOf(v.flight) : null; var ac = f ? acOf(f.aircraft) : null;
+        var more = VIDEOS.filter(function (x) { return x.id !== v.id; }).slice(0, 4);
+        flyPanel.innerHTML =
+          '<div class="fl_head"><div>' +
+            '<div class="proj_kicker"><a class="sec_link" href="#fly/videos">Videos</a> / ' + esc(v.title) + '</div>' +
+            '<h3>' + esc(v.title) + '</h3>' +
+            '<p>' + (ac ? esc(ac.name) + ' (' + ac.type + ') &middot; ' : '') + esc(v.by) + ' &middot; ' + v.date + ' &middot; ' + v.len + '</p>' +
+          '</div></div>' +
+          '<div class="vd_split"><div>' +
+            '<div class="vd_player">' + (v.yt ? '<iframe src="https://www.youtube-nocookie.com/embed/' + v.yt + '" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' :
+              '<img src="' + v.thumb + '" alt=""><span class="vd_play">' + PLAY + '</span><div class="vd_player_hint">Player placeholder &middot; hook up YouTube or the storage bucket</div>') + '</div>' +
+            '<p class="vd_desc">' + esc(v.desc) + '</p>' +
+          '</div>' +
+          '<div class="vd_flight"><h5>Linked flight</h5>' + (f ?
+            '<dl class="fl_kv"><dt>Start</dt><dd>' + fmtDT(f.started) + '</dd><dt>Aircraft</dt><dd>' + (ac ? esc(ac.name) : '—') + '</dd><dt>Pilot</dt><dd>' + esc(f.pilot) + '</dd><dt>Site</dt><dd>' + esc(f.site) + '</dd><dt>Duration</dt><dd>' + fmtDur(f.duration) + '</dd>' +
+            (f.summary ? '<dt>Health</dt><dd>' + f.summary.health.score + ' ' + f.summary.health.grade + '</dd>' : '') + '<dt>Logs</dt><dd>' + logRollup(f.logs).label + '</dd></dl>' +
+            '<div style="margin-top:12px"><a class="q_btn is-primary" href="#fly/flights/' + f.id + '">Open flight card &rarr;</a></div>' :
+            '<p class="fl_muted">No flight linked. Camera only.</p><div style="margin-top:12px"><button class="q_btn" type="button">Link a flight</button></div>') +
+          '</div></div>' +
+          '<div class="sec_head"><h4>More test flights</h4><span>' + more.length + '</span></div>' +
+          '<div class="vd_strip">' + more.map(function (x) { return videoCard(x, true); }).join('') + '</div>';
+      }
       var SITES = ['Whangaparaoa field', 'Muriwai strip', 'Kumeu paddock', 'Hangar (indoor)'];
       var PILOTS = ['Sleety', 'Marco', 'Tim K', 'Ana R'];
       var AIRCRAFT = [
@@ -961,6 +1014,8 @@
           '<div class="sec_head" style="margin-top:0"><h4>Flight logs</h4><span>' + f.logs.length + ' attached</span></div>' +
           '<div style="margin-bottom:12px"><label class="fl_attach">+ Attach .bin log<input type="file" accept=".bin,.BIN"></label></div>' +
           logsHtml +
+          (function () { var vids = VIDEOS.filter(function (v) { return v.flight === f.id; }); return vids.length ?
+            '<div class="sec_head"><h4>Videos</h4><span>' + vids.length + '</span></div><div class="vd_strip" style="margin-bottom:1.5rem">' + vids.map(function (v) { return videoCard(v, true); }).join('') + '</div>' : ''; })() +
           '<div class="sec_head"><h4>Notes</h4><span>0</span></div><p class="fl_muted">No notes yet.</p>';
       }
 
@@ -1005,8 +1060,10 @@
           selectIn(flyTabs, flyIndicator, flySubTabs, active, flyStem);
           flyName.textContent = FLY_TITLES[validSub];
           if (validSub === 'flights' && extra) { var f = flightOf(extra); if (f) { renderFlightCard(f); return; } }
+          if (validSub === 'videos' && extra) { var v = videoOf(extra); if (v) { renderVideo(v); return; } }
           if (validSub === 'flights') renderFlights();
           else if (validSub === 'fleet') renderFleet();
+          else if (validSub === 'videos') renderVideos();
           else renderQuickLog();
         }
         if (opts.instant || !changed) {
@@ -1014,7 +1071,7 @@
           requestAnimationFrame(function () { positionIndicator(flyTabs, flyIndicator, active, flyStem); });
         } else {
           selectIn(flyTabs, flyIndicator, flySubTabs, active, flyStem);
-          runLoader('Loading ' + (extra ? 'flight' : FLY_TITLES[validSub].toLowerCase()), '#5B8DEE', commit);
+          runLoader('Loading ' + (extra ? (validSub === 'videos' ? 'video' : 'flight') : FLY_TITLES[validSub].toLowerCase()), '#5B8DEE', commit);
         }
       }
       flySubTabs.forEach(function (t) {

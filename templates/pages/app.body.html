@@ -1071,6 +1071,53 @@
           .fl_stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
           .fl_form { grid-template-columns: 1fr; }
         }
+
+        /* Fly: test flight video log */
+        .vd_chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+        .vd_chip {
+          height: 28px; padding: 0 12px; border-radius: 999px;
+          border: 1px solid var(--app-border); background: transparent; color: var(--app-muted);
+          font-family: inherit; font-size: 0.78rem; cursor: pointer; transition: color 0.15s ease, border-color 0.15s ease;
+        }
+        .vd_chip:hover { color: var(--app-text); }
+        .vd_chip.is-on { color: #fff; border-color: var(--proj); background: color-mix(in srgb, var(--proj) 18%, transparent); }
+        .vd_grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+        .vd_card { display: block; text-decoration: none; color: var(--app-text); border: 1px solid var(--app-border); border-radius: 12px; overflow: hidden; background: var(--app-track); transition: border-color 0.15s ease, transform 0.15s ease; }
+        .vd_card:hover { border-color: var(--proj); transform: translateY(-1px); }
+        .vd_thumb { position: relative; aspect-ratio: 16 / 9; background: #0b0b0d; overflow: hidden; }
+        .vd_thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+        .vd_card:hover .vd_thumb img { transform: scale(1.04); }
+        .vd_thumb::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent 55%); }
+        .vd_play {
+          position: absolute; left: 50%; top: 50%; z-index: 1; transform: translate(-50%, -50%);
+          width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+          background: rgba(10, 67, 191, 0.85); color: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+          transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .vd_card:hover .vd_play { transform: translate(-50%, -50%) scale(1.08); background: var(--app-blue); }
+        .vd_play svg { width: 16px; height: 16px; margin-left: 2px; }
+        .vd_len { position: absolute; right: 8px; bottom: 8px; z-index: 1; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.7); color: #fff; }
+        .vd_body { padding: 12px 14px 14px; }
+        .vd_title { font-size: 0.95rem; font-weight: 500; color: #fff; margin: 0 0 4px; line-height: 1.25; }
+        .vd_meta { font-size: 0.78rem; color: var(--app-muted); }
+        .vd_meta b { color: var(--app-text); font-weight: 500; }
+        .vd_player { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; border: 1px solid var(--app-border); background: #000; margin-bottom: 1rem; }
+        .vd_player img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85; }
+        .vd_player iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .vd_player .vd_play { width: 72px; height: 72px; }
+        .vd_player .vd_play svg { width: 26px; height: 26px; }
+        .vd_player_hint { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); }
+        .vd_split { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 1.25rem; align-items: start; }
+        .vd_flight { border: 1px solid var(--app-border); border-radius: 12px; background: var(--app-track); padding: 14px 16px; }
+        .vd_flight h5 { margin: 0 0 10px; font-size: 0.85rem; font-weight: 500; color: #fff; }
+        .vd_desc { font-size: 0.9rem; color: var(--app-text); max-width: 70ch; margin: 0 0 1rem; }
+        .vd_strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+        .vd_strip .vd_body { padding: 8px 10px 10px; }
+        .vd_strip .vd_title { font-size: 0.82rem; }
+        .vd_strip .vd_play { width: 32px; height: 32px; }
+        .vd_strip .vd_play svg { width: 12px; height: 12px; }
+        @media (max-width: 991px) { .vd_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .vd_split { grid-template-columns: 1fr; } .vd_strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 767px) { .vd_grid { grid-template-columns: 1fr; } }
         /* ---------------------------------------------------------------
            Wallet sheet: coss ui "inset" sheet, opens from the right when
            the profile / balance widget is clicked. Backdrop + 448px panel,
@@ -1257,6 +1304,7 @@
                           <div class="app-tabs_indicator" aria-hidden="true"></div>
                           <button class="app-tab" role="tab" data-sub="flights" aria-selected="true">Flights</button>
                           <button class="app-tab" role="tab" data-sub="fleet" aria-selected="false" tabindex="-1">Fleet</button>
+                          <button class="app-tab" role="tab" data-sub="videos" aria-selected="false" tabindex="-1">Videos</button>
                           <button class="app-tab" role="tab" data-sub="log" aria-selected="false" tabindex="-1">Quick log</button>
                         </div>
                       </div>
