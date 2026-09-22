@@ -90,7 +90,17 @@
         if (next) { e.preventDefault(); next.focus(); activate(next); }
       });
 
+      // Fill the viewport below the sticky tab bar, leaving the shell's bottom padding.
+      var panel = document.getElementById('app-panel');
+      function sizePanel() {
+        var top = panel.getBoundingClientRect().top + window.scrollY;
+        var h = window.innerHeight - top - 24;
+        panel.style.setProperty('--app-panel-h', Math.max(h, 320) + 'px');
+      }
+      sizePanel();
+
       window.addEventListener('resize', function () {
+        sizePanel();
         var active = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
         if (active) positionIndicator(active);
       });
