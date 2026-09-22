@@ -637,7 +637,7 @@
         .app-loader_ring .fill { stroke: var(--loader-color); }
         .app-loader_mark path { fill: var(--loader-color); }
 
-        /* Loading overlay, 1.8 seconds per tab switch */
+        /* Loading overlay, 0.8 seconds per tab switch */
         .app-loader {
           position: absolute;
           inset: 0;
@@ -684,7 +684,7 @@
           stroke-dashoffset: 201;
         }
         .app-loader.is-visible .app-loader_ring .fill {
-          animation: app-ring-fill 1.8s linear forwards;
+          animation: app-ring-fill 0.8s linear forwards;
         }
         @keyframes app-ring-fill {
           from { stroke-dashoffset: 201; }
