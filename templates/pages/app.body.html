@@ -704,7 +704,9 @@
         .bt td { padding: 11px 12px; border-bottom: 1px solid color-mix(in srgb, var(--proj) 18%, var(--app-border)); vertical-align: top; color: var(--app-text); }
         .bt tr:last-child td { border-bottom: 0; }
         .bt tbody tr { transition: background 0.15s ease; }
-        .bt tbody tr:hover td { background: color-mix(in srgb, var(--proj) 7%, transparent); }
+        /* Zebra rows: every other row a hair lighter, hover still wins */
+        .bt tbody tr:nth-child(even) td { background: rgba(255,255,255,0.025); }
+        .bt tbody tr:hover td { background: color-mix(in srgb, var(--proj) 8%, transparent); }
         .bt tr.is-related td { background: color-mix(in srgb, var(--proj) 12%, transparent); }
         .bt tr.is-related td:first-child { box-shadow: inset 3px 0 0 var(--proj); }
         .bt a { color: #fff; text-decoration: none; font-weight: 500; }
