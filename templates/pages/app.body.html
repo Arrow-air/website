@@ -10,9 +10,10 @@
           --app-blue-dark: #0736A0;
           --app-blue-light: #5B8DEE;
           --app-bg: #000;
-          --app-track: #141416;
-          --app-panel: #0b0b0d;
-          --app-border: #26272b;
+          --app-chrome: #1E1F24;   /* tab bar band, slate */
+          --app-track: #0B0B0D;    /* segmented control track, near black so pills pop */
+          --app-panel: #141518;    /* window surface, a step above the page */
+          --app-border: #33353C;
           --app-text: #f3f4f6;
           --app-muted: #8b8d93;
           --app-tab-h: 44px;
@@ -27,10 +28,9 @@
           position: sticky;
           top: 0;
           z-index: 20;
-          background: rgba(0, 0, 0, 0.85);
-          -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
+          background: var(--app-chrome);
           border-bottom: 1px solid var(--app-border);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.45);
         }
         .app-tabbar_inner {
           display: flex;
@@ -218,6 +218,7 @@
           justify-content: space-between;
           gap: 1rem;
           padding: 0.9rem 1.25rem;
+          background: var(--app-chrome);
           border-bottom: 1px solid var(--app-border);
           font-family: 'JetBrains Mono', monospace;
           font-size: 0.72rem;
@@ -266,7 +267,7 @@
           align-items: center;
           gap: 14px;
           padding: 10px 16px 10px 10px;
-          background: var(--app-track);
+          background: var(--app-chrome);
           border: 1px solid var(--app-border);
           border-radius: 14px;
           color: inherit;
@@ -279,7 +280,7 @@
           position: relative;
           aspect-ratio: 16 / 9;
           border-radius: 9px;
-          background: var(--app-panel);
+          background: var(--app-track);
           border: 1px solid var(--app-border);
           overflow: hidden;
         }
@@ -400,7 +401,7 @@
         .proj_panel {
           position: relative;
           min-height: 40vh;
-          background: var(--app-track);
+          background: var(--app-chrome);
           border: 1px solid var(--app-border);
           border-radius: 14px;
           padding: 2rem 1.5rem;
