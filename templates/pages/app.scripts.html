@@ -1117,6 +1117,12 @@
       function renderMe() {
         var st = obState();
         var doneCount = QUESTS.filter(function (q) { return st[q.id]; }).length;
+        var saved = profileGet();
+        if (saved) {
+          var cl = COMMIT_OPTS.filter(function (o) { return o.v === saved.commitment; })[0];
+          PROFILE = { name: saved.name || PROFILE.name, disciplines: saved.disciplines && saved.disciplines.length ? saved.disciplines : PROFILE.disciplines,
+            commitment: cl ? cl.t : PROFILE.commitment, availability: (saved.availability || []).join(', ') || PROFILE.availability, tz: saved.tz || PROFILE.tz };
+        }
         var disc = PROFILE.disciplines.map(function (d) { return d.toLowerCase(); });
         var hour = new Date().getHours();
         var greet = hour < 12 ? 'Morning' : hour < 18 ? 'Afternoon' : 'Evening';
@@ -1153,9 +1159,9 @@
             '<div class="proj_kicker">Contributor dashboard</div>' +
             '<h2>' + greet + ', ' + esc(PROFILE.name) + '</h2>' +
             '<p>Your jumping-off point. Balance, decisions waiting on you, tasks in flight and what to pick up next.</p>' +
-            '<div class="me_profile">' + PROFILE.disciplines.map(function (d) { return '<span class="me_chip is-disc">' + esc(d) + '</span>'; }).join('') +
+            '<div class="me_profile">' + PROFILE.disciplines.map(function (d) { var c = discColor(d); return '<span class="me_chip is-disc" style="color:' + c + ';border-color:' + c + '80">' + esc(d) + '</span>'; }).join('') +
               '<span class="me_chip"><span>commit</span>' + PROFILE.commitment + '</span><span class="me_chip"><span>avail</span>' + PROFILE.availability + '</span><span class="me_chip"><span>tz</span>' + PROFILE.tz + '</span>' +
-              '<a class="me_edit" href="#start">Edit profile</a></div>' +
+              '<a class="me_edit" href="#start/profile">Edit profile</a></div>' +
           '</div>' +
           '<div class="me_agent"><span class="me_agent_ic">' + ME_ICONS.agent + '</span><div><b>Compiled by hand for now <span class="fl_badge is-primary">agent soon</span></b><p>Your contributor agent will build this page from your disciplines, commitment and availability, and talk to the project agents to find the work that fits.</p></div></div>' +
           '</div>' +
@@ -1176,6 +1182,261 @@
           '</div>';
         var wb = document.getElementById('me-wallet');
         if (wb) wb.addEventListener('click', function () { document.getElementById('app-user').click(); });
+      }
+
+      // ---------------------------------------------------------------
+      // Onboarding wizard. Seven steps that write the contributor
+      // profile (localStorage for now). Disciplines come from
+      // disciplines-ui.vercel.app, v1.0 draft: 9 categories, 43 tags.
+      // ---------------------------------------------------------------
+      var PROFILE_KEY = 'arrow-app-profile';
+      var DRAFT_KEY = 'arrow-app-profile-draft';
+      var DISCIPLINES = [
+        { cat: 'Engineering', desc: 'Design & build the aircraft', color: '#89a5e3', tags: ['Mechanical', 'CAD', 'Electrical', 'Aerodynamics', 'Power', 'Propulsion', 'Certification', 'Safety'] },
+        { cat: 'Flight Systems', desc: 'The brains in the air', color: '#7ab3bd', tags: ['Firmware', 'Software', 'Controls', 'Autonomy', 'Telemetry', 'Simulation'] },
+        { cat: 'Flight Ops', desc: 'Fly, test & keep them flying', color: '#e89982', tags: ['Piloting', 'Flight Test', 'Maintenance', 'Support', 'Regulatory', 'Missions'] },
+        { cat: 'Manufacturing', desc: 'Make & ship real parts', color: '#d4b882', tags: ['3D Printing', 'Machining', 'Composites', 'Assembly', 'Sourcing', 'Quality'] },
+        { cat: 'Design', desc: 'How Arrow looks & feels', color: '#ce95b2', tags: ['Industrial', 'Interface', 'Graphics'] },
+        { cat: 'Content', desc: 'Teach & tell the story', color: '#af9ddd', tags: ['Documentation', 'Media', 'Social Media'] },
+        { cat: 'Growth', desc: 'Bring the world in', color: '#86bda6', tags: ['Marketing', 'Community', 'Business Development'] },
+        { cat: 'Local', desc: 'Run Arrow where you live', color: '#b2bc8f', tags: ['Hosting', 'Workshops', 'Vertiports'] },
+        { cat: 'Operations', desc: 'Run the DAO machinery', color: '#9fa4ac', tags: ['Governance', 'Tokenomics', 'Coordination', 'Legal', 'Tooling'] }
+      ];
+      function discColor(tag) { for (var i = 0; i < DISCIPLINES.length; i++) if (DISCIPLINES[i].tags.indexOf(tag) >= 0) return DISCIPLINES[i].color; return '#9fa4ac'; }
+      var WZ_ICON = {
+        build: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5l3 3L8 19H5v-3z"/><path d="M13 8l3 3M3 21h18"/></svg>',
+        fly: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>',
+        make: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>',
+        story: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>',
+        dao: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-6 7 6v11M9 21v-6h6v6"/></svg>',
+        local: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5a7 7 0 0 0-14 0C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+        x: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-7.1 8.1L21.7 21h-6.5l-4.6-6-5.3 6H2.3l7.6-8.7L2 3h6.6l4.2 5.5L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/></svg>',
+        yt: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a2.8 2.8 0 0 0-2-2C18.3 6 12 6 12 6s-6.3 0-8 .2a2.8 2.8 0 0 0-2 2C1.8 9.9 1.8 12 1.8 12s0 2.1.2 3.8a2.8 2.8 0 0 0 2 2c1.7.2 8 .2 8 .2s6.3 0 8-.2a2.8 2.8 0 0 0 2-2c.2-1.7.2-3.8.2-3.8s0-2.1-.2-3.8zM10 15V9l5.2 3L10 15z"/></svg>',
+        discord: '<svg viewBox="0 0 32 32" fill="currentColor"><path d="M26.413,6.536c-1.971-.902-4.052-1.543-6.189-1.904-.292,.523-.557,1.061-.793,1.612-2.277-.343-4.592-.343-6.869,0-.236-.551-.5-1.089-.793-1.612-2.139,.365-4.221,1.006-6.194,1.909C1.658,12.336,.596,17.987,1.127,23.558h0c2.294,1.695,4.861,2.984,7.591,3.811,.615-.827,1.158-1.704,1.626-2.622-.888-.332-1.744-.741-2.56-1.222,.215-.156,.425-.316,.628-.472,4.806,2.26,10.37,2.26,15.177,0,.205,.168,.415,.328,.628,.472-.817,.483-1.676,.892-2.565,1.225,.467,.918,1.011,1.794,1.626,2.619,2.732-.824,5.301-2.112,7.596-3.808h0c.623-6.461-1.064-12.06-4.46-17.025Zm-15.396,13.596c-1.479,0-2.702-1.343-2.702-2.994s1.18-3.006,2.697-3.006,2.73,1.354,2.704,3.006-1.192,2.994-2.699,2.994Zm9.967,0c-1.482,0-2.699-1.343-2.699-2.994s1.18-3.006,2.699-3.006,2.723,1.354,2.697,3.006-1.189,2.994-2.697,2.994Z"/></svg>',
+        gh: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.4-1.1-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.2-.4-1.2.1-2.6 0 0 .8-.3 2.8 1a9.5 9.5 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>',
+        mouth: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.2A8 8 0 1 1 21 12z"/></svg>',
+        meetup: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-5.5 6-5.5s6 2 6 5.5M15 15.5c2.8 0 5 1.6 5 4.5"/></svg>',
+        search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+        news: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>',
+        dots: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg>',
+        check: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>',
+        seed: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12c0-4 3-7 8-7-0 4-3 7-8 7zM12 15c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/></svg>',
+        pro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>',
+        hobby: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5 5.6.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.6 8z"/></svg>',
+        expert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>'
+      };
+      var WZ_ART = [
+        { img: '/images/spearhead-first-version-p-800.avif', tag: 'Spearhead', t: 'Open-source VTOL, built in the open', d: 'Every part, every log, every decision is public. That starts with knowing who you are.' },
+        { img: '/images/quiver-3d_v2_0001-2-p-800.avif', tag: 'Disciplines', t: '43 ways to help', d: 'The same tags drive the contributor map, the CRM and the bounty board.' },
+        { img: '/images/hangar-test-together-p-800.avif', tag: 'Experience', t: 'Beginners welcome', d: 'Most contributors learned on the job here. Tell us where you are, not where you wish you were.' },
+        { img: '/images/night-quiver-p-500.avif', tag: 'Location', t: 'Arrow is everywhere', d: 'Timezone sets which calls and flight windows you get invited to.' },
+        { img: '/images/drone-quiver-2-p-800.avif', tag: 'Commitment', t: 'A few hours goes a long way', d: 'Your agent will only suggest work that fits the time you actually have.' },
+        { img: '/images/feather_v22-p-800.avif', tag: 'Source', t: 'How did you find us?', d: 'Helps us put effort where new contributors come from.' },
+        { img: '/images/spearhead-first-version-p-800.avif', tag: 'Profile', t: 'Say hello', d: 'A short bio and your handles. This is what other contributors see first.' }
+      ];
+      var WZ_STEPS = [
+        { id: 'goal', q: 'What brings you to Arrow?', sub: 'Pick the one closest. It sets your first suggestions.', auto: true,
+          opts: [
+            { v: 'build', ic: 'build', t: 'Build the aircraft', d: 'CAD, electrics, firmware, tuning' },
+            { v: 'fly', ic: 'fly', t: 'Fly and test', d: 'Pilot, run test campaigns, log flights' },
+            { v: 'make', ic: 'make', t: 'Make parts', d: 'Print, machine, assemble, source' },
+            { v: 'story', ic: 'story', t: 'Tell the story', d: 'Docs, media, design, community' },
+            { v: 'dao', ic: 'dao', t: 'Run the DAO', d: 'Governance, tokenomics, tooling, legal' },
+            { v: 'local', ic: 'local', t: 'Bring Arrow to my city', d: 'Host, run workshops, find a field' }
+          ] },
+        { id: 'disciplines', q: 'What are your disciplines?', sub: 'Pick everything you can do, or want to learn. You can change this any time.', multi: true },
+        { id: 'experience', q: 'How much experience do you have?', sub: 'Across your main disciplines. No wrong answer.', auto: true,
+          opts: [
+            { v: 'learning', ic: 'seed', t: 'Learning', d: 'New to this, keen to pick it up' },
+            { v: 'hobbyist', ic: 'hobby', t: 'Hobbyist', d: 'Built or flown things for fun' },
+            { v: 'professional', ic: 'pro', t: 'Professional', d: 'Do this or did this for a living' },
+            { v: 'expert', ic: 'expert', t: 'Expert', d: 'Could lead a project in this area' }
+          ] },
+        { id: 'location', q: 'Where are you?', sub: 'City and timezone. Timezone decides which calls and flight windows you get invited to.' },
+        { id: 'time', q: 'How much time can you give?', sub: 'Be honest. Your agent will only suggest work that fits.' },
+        { id: 'source', q: 'How did you hear about Arrow?', sub: 'This helps us find the next contributor.', auto: true,
+          opts: [
+            { v: 'x', ic: 'x', t: 'X / Twitter' }, { v: 'youtube', ic: 'yt', t: 'YouTube' },
+            { v: 'discord', ic: 'discord', t: 'Discord' }, { v: 'github', ic: 'gh', t: 'GitHub' },
+            { v: 'mouth', ic: 'mouth', t: 'Word of mouth' }, { v: 'meetup', ic: 'meetup', t: 'Meetup or event' },
+            { v: 'search', ic: 'search', t: 'Search' }, { v: 'news', ic: 'news', t: 'News / article' },
+            { v: 'other', ic: 'dots', t: 'Other' }
+          ] },
+        { id: 'about', q: 'Tell us about yourself', sub: 'A name, a line or two, and where people can find you.' }
+      ];
+      var COMMIT_OPTS = [
+        { v: 'month', t: 'A few hours a month' }, { v: '2-5', t: '2 to 5 h a week' }, { v: '5-10', t: '5 to 10 h a week' }, { v: '10+', t: '10+ h a week' }, { v: 'full', t: 'This is my main thing' }
+      ];
+      var AVAIL_OPTS = ['Weekday days', 'Weekday evenings', 'Weekends', 'Flexible'];
+      var TZS = ['Pacific/Auckland', 'Australia/Sydney', 'Asia/Tokyo', 'Asia/Singapore', 'Asia/Kolkata', 'Asia/Dubai', 'Europe/Berlin', 'Europe/London', 'America/Sao_Paulo', 'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles'];
+
+      var wzHost = document.getElementById('ob-wizard');
+      var obQuests = document.getElementById('ob-quests');
+      var wz = { step: 0, data: {} };
+      function profileGet() { try { return JSON.parse(localStorage.getItem(PROFILE_KEY) || 'null'); } catch (e) { return null; } }
+      function draftGet() { try { return JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) { return null; } }
+      function draftSave() { try { localStorage.setItem(DRAFT_KEY, JSON.stringify(wz)); } catch (e) {} }
+
+      function wzArt() {
+        var a = WZ_ART[Math.min(wz.step, WZ_ART.length - 1)];
+        return '<div class="wz_art">' + WZ_ART.map(function (x, i) { return '<img src="' + x.img + '" alt="" class="' + (i === Math.min(wz.step, WZ_ART.length - 1) ? 'is-on' : '') + '">'; }).join('') +
+          '<div class="wz_art_cap"><span class="wz_art_tag">' + a.tag + '</span><div class="wz_art_t">' + a.t + '</div><p class="wz_art_d">' + a.d + '</p>' +
+          '<div class="wz_art_steps">' + WZ_STEPS.map(function (s, i) { return '<span class="' + (i <= wz.step ? 'is-done' : '') + '"></span>'; }).join('') + '</div></div></div>';
+      }
+      function wzRadio() { return '<span class="wz_radio">' + WZ_ICON.check + '</span>'; }
+      function wzValid(step) {
+        var d = wz.data;
+        switch (step.id) {
+          case 'goal': case 'experience': case 'source': return !!d[step.id];
+          case 'disciplines': return (d.disciplines || []).length > 0;
+          case 'location': return !!(d.city && d.tz);
+          case 'time': return !!d.commitment && (d.availability || []).length > 0;
+          case 'about': return !!(d.name && d.name.trim());
+        }
+        return true;
+      }
+      function wzBody(step) {
+        var d = wz.data;
+        if (step.opts && (step.id === 'goal' || step.id === 'experience')) {
+          return '<div class="wz_cards">' + step.opts.map(function (o) {
+            return '<button type="button" class="wz_card' + (d[step.id] === o.v ? ' is-on' : '') + '" data-pick="' + step.id + '" data-v="' + o.v + '">' + wzRadio() +
+              '<span class="wz_card_ic">' + WZ_ICON[o.ic] + '</span><span class="wz_card_t">' + o.t + '</span><span class="wz_card_d">' + o.d + '</span></button>';
+          }).join('') + '</div>';
+        }
+        if (step.id === 'source') {
+          return '<div class="wz_rows">' + step.opts.map(function (o) {
+            return '<button type="button" class="wz_row' + (d.source === o.v ? ' is-on' : '') + '" data-pick="source" data-v="' + o.v + '"><span class="wz_row_ic">' + WZ_ICON[o.ic] + '</span><span class="l">' + o.t + '</span>' + wzRadio() + '</button>';
+          }).join('') + '</div>';
+        }
+        if (step.id === 'disciplines') {
+          var picked = d.disciplines || [];
+          return '<div class="wz_picked">' + (picked.length ? picked.map(function (t) { return '<span class="fl_badge" style="color:' + discColor(t) + ';border-color:' + discColor(t) + '66">' + t + '</span>'; }).join('') : '<span class="wz_hint">Nothing picked yet. Tap a few.</span>') + '</div>' +
+            '<div class="wz_groups">' + DISCIPLINES.map(function (g) {
+              return '<div class="wz_group" style="--gc:' + g.color + '"><div class="wz_group_h"><b>' + g.cat + '</b><span>' + g.desc + '</span></div><div class="wz_chips">' +
+                g.tags.map(function (t) { return '<button type="button" class="wz_chip' + (picked.indexOf(t) >= 0 ? ' is-on' : '') + '" data-tag="' + esc(t) + '">' + t + '</button>'; }).join('') + '</div></div>';
+            }).join('') + '</div>';
+        }
+        if (step.id === 'location') {
+          var guess = d.tz || (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+          if (!d.tz && guess) d.tz = guess;
+          var list = TZS.slice(); if (guess && list.indexOf(guess) < 0) list.unshift(guess);
+          return '<div class="wz_fields">' +
+            '<div class="fl_field"><label>City</label><input data-f="city" placeholder="Auckland" value="' + esc(d.city || '') + '"></div>' +
+            '<div class="fl_field"><label>Country</label><input data-f="country" placeholder="New Zealand" value="' + esc(d.country || '') + '"></div>' +
+            '<div class="fl_field is-wide"><label>Timezone</label><select data-f="tz">' + list.map(function (z) { return '<option' + ((d.tz || guess) === z ? ' selected' : '') + '>' + z + '</option>'; }).join('') + '</select></div>' +
+            '<p class="wz_hint is-wide">Timezone was guessed from your browser. Change it if it is wrong.</p></div>';
+        }
+        if (step.id === 'time') {
+          var av = d.availability || [];
+          return '<div class="wz_fields"><div class="is-wide"><div class="fl_field"><label>Commitment</label></div><div class="wz_pills">' + COMMIT_OPTS.map(function (o) { return '<button type="button" class="wz_pill' + (d.commitment === o.v ? ' is-on' : '') + '" data-pick="commitment" data-v="' + o.v + '" data-stay="1">' + o.t + '</button>'; }).join('') + '</div></div>' +
+            '<div class="is-wide"><div class="fl_field"><label>Availability</label></div><div class="wz_pills">' + AVAIL_OPTS.map(function (o) { return '<button type="button" class="wz_pill' + (av.indexOf(o) >= 0 ? ' is-on' : '') + '" data-avail="' + o + '">' + o + '</button>'; }).join('') + '</div></div></div>';
+        }
+        if (step.id === 'about') {
+          return '<div class="wz_fields">' +
+            '<div class="fl_field"><label>Display name</label><input data-f="name" placeholder="sl33ty" value="' + esc(d.name || '') + '"></div>' +
+            '<div class="fl_field"><label>GitHub</label><input data-f="github" placeholder="@handle" value="' + esc(d.github || '') + '"></div>' +
+            '<div class="fl_field"><label>X</label><input data-f="x" placeholder="@handle" value="' + esc(d.x || '') + '"></div>' +
+            '<div class="fl_field"><label>Discord</label><input data-f="discord" placeholder="handle" value="' + esc(d.discord || '') + '"></div>' +
+            '<div class="fl_field is-wide"><label>Bio</label><textarea data-f="bio" placeholder="What you do, what you want to do here, anything you have built or flown.">' + esc(d.bio || '') + '</textarea></div></div>';
+        }
+        return '';
+      }
+      function wzSummary() {
+        var d = wz.data;
+        var lab = function (opts, v) { var o = opts.filter(function (x) { return x.v === v; })[0]; return o ? o.t : (v || '—'); };
+        return '<span class="wz_done_ic">' + WZ_ICON.check + '</span>' +
+          '<h2 class="wz_q">You’re in, ' + esc(d.name || 'friend') + '.</h2>' +
+          '<p class="wz_sub">Here is your contributor profile. Your dashboard and suggestions now read from it. Edit it any time from the dashboard.</p>' +
+          '<div class="wz_sum">' +
+            '<div class="wz_sum_row"><b>Goal</b><div>' + lab(WZ_STEPS[0].opts, d.goal) + '</div></div>' +
+            '<div class="wz_sum_row"><b>Disciplines</b><div>' + (d.disciplines || []).map(function (t) { return '<span class="fl_badge" style="color:' + discColor(t) + ';border-color:' + discColor(t) + '66;text-transform:none;letter-spacing:0;font-family:inherit;font-size:0.74rem">' + t + '</span>'; }).join('') + '</div></div>' +
+            '<div class="wz_sum_row"><b>Experience</b><div>' + lab(WZ_STEPS[2].opts, d.experience) + '</div></div>' +
+            '<div class="wz_sum_row"><b>Location</b><div>' + esc([d.city, d.country].filter(Boolean).join(', ')) + ' &middot; ' + esc(d.tz || '') + '</div></div>' +
+            '<div class="wz_sum_row"><b>Time</b><div>' + lab(COMMIT_OPTS, d.commitment) + ' &middot; ' + (d.availability || []).join(', ') + '</div></div>' +
+            '<div class="wz_sum_row"><b>Found us via</b><div>' + lab(WZ_STEPS[5].opts, d.source) + '</div></div>' +
+            (d.bio ? '<div class="wz_sum_row"><b>Bio</b><div>' + esc(d.bio) + '</div></div>' : '') +
+          '</div>' +
+          '<div class="wz_foot"><a class="q_btn is-primary" href="#start" id="wz-finish">Continue to your first quests</a><a class="q_btn" href="#me">Open dashboard</a><button type="button" class="wz_skip" id="wz-redo">Start over</button></div>';
+      }
+      function renderWizard() {
+        var last = wz.step >= WZ_STEPS.length;
+        var step = WZ_STEPS[Math.min(wz.step, WZ_STEPS.length - 1)];
+        var pct = Math.round((Math.min(wz.step, WZ_STEPS.length) / WZ_STEPS.length) * 100);
+        wzHost.innerHTML =
+          '<div class="wz_bar"><span style="width:' + (last ? 100 : pct) + '%"></span></div>' +
+          '<div class="wz_grid"><div class="wz_main">' +
+            '<div class="wz_top"><button type="button" class="wz_back" id="wz-back"' + (wz.step === 0 ? ' hidden' : '') + '><svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</button>' +
+            '<span class="wz_count">' + (last ? 'Done' : (wz.step + 1) + ' of ' + WZ_STEPS.length) + '</span></div>' +
+            (last ? wzSummary() :
+              '<h2 class="wz_q">' + step.q + '</h2><p class="wz_sub">' + step.sub + '</p>' +
+              '<div class="wz_body">' + wzBody(step) + '</div>' +
+              '<div class="wz_foot">' + (step.auto ? '<span class="wz_hint">Pick one to continue</span>' : '<button type="button" class="q_btn is-primary" id="wz-next"' + (wzValid(step) ? '' : ' disabled') + '>Continue</button>') +
+              (step.id === 'about' || step.id === 'disciplines' ? '<button type="button" class="wz_skip" id="wz-skip">Skip for now</button>' : '') + '</div>') +
+          '</div>' + wzArt() + '</div>';
+        draftSave();
+      }
+      function wzGo(n) { wz.step = Math.max(0, Math.min(n, WZ_STEPS.length)); renderWizard(); wzHost.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+      function wzFinish() {
+        var d = wz.data;
+        var prof = {
+          name: d.name || 'sl33ty', goal: d.goal, disciplines: d.disciplines || [], experience: d.experience,
+          city: d.city, country: d.country, tz: d.tz, commitment: d.commitment, availability: d.availability || [],
+          source: d.source, bio: d.bio, github: d.github, x: d.x, discord: d.discord, savedAt: new Date().toISOString()
+        };
+        try { localStorage.setItem(PROFILE_KEY, JSON.stringify(prof)); localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+        var st = obState(); st.profile = true; obSave(st); renderOnboarding();
+        var nm = document.querySelector('.app-user_name'); if (nm) nm.textContent = prof.name;
+      }
+      wzHost.addEventListener('click', function (e) {
+        var t;
+        if ((t = e.target.closest('[data-pick]'))) {
+          wz.data[t.getAttribute('data-pick')] = t.getAttribute('data-v');
+          var step = WZ_STEPS[wz.step];
+          if (step && step.auto && !t.hasAttribute('data-stay')) { renderWizard(); setTimeout(function () { wzGo(wz.step + 1); }, 260); }
+          else renderWizard();
+          return;
+        }
+        if ((t = e.target.closest('[data-tag]'))) {
+          var tag = t.getAttribute('data-tag'); var list = wz.data.disciplines || [];
+          var i = list.indexOf(tag); if (i >= 0) list.splice(i, 1); else list.push(tag);
+          wz.data.disciplines = list; renderWizard(); return;
+        }
+        if ((t = e.target.closest('[data-avail]'))) {
+          var a = t.getAttribute('data-avail'); var al = wz.data.availability || [];
+          var j = al.indexOf(a); if (j >= 0) al.splice(j, 1); else al.push(a);
+          wz.data.availability = al; renderWizard(); return;
+        }
+        if (e.target.closest('#wz-next')) { if (wzValid(WZ_STEPS[wz.step])) { if (wz.step === WZ_STEPS.length - 1) wzFinish(); wzGo(wz.step + 1); } return; }
+        if (e.target.closest('#wz-skip')) { if (wz.step === WZ_STEPS.length - 1) wzFinish(); wzGo(wz.step + 1); return; }
+        if (e.target.closest('#wz-back')) { wzGo(wz.step - 1); return; }
+        if (e.target.closest('#wz-finish')) { showStart(null, { instant: true }); return; }
+        if (e.target.closest('#wz-redo')) { e.preventDefault(); try { localStorage.removeItem(PROFILE_KEY); } catch (err) {} wz = { step: 0, data: {} }; renderWizard(); return; }
+      });
+      wzHost.addEventListener('input', function (e) {
+        var f = e.target.getAttribute('data-f'); if (!f) return;
+        wz.data[f] = e.target.value;
+        var next = document.getElementById('wz-next'); if (next) next.disabled = !wzValid(WZ_STEPS[wz.step]);
+        draftSave();
+      });
+      wzHost.addEventListener('change', function (e) {
+        var f = e.target.getAttribute('data-f'); if (!f) return;
+        wz.data[f] = e.target.value;
+        var next = document.getElementById('wz-next'); if (next) next.disabled = !wzValid(WZ_STEPS[wz.step]);
+        draftSave();
+      });
+      function showStart(sub, opts) {
+        var prof = profileGet();
+        var wantWizard = sub === 'profile' || !prof;
+        if (wantWizard) {
+          if (sub === 'profile' && prof) { wz = { step: 0, data: JSON.parse(JSON.stringify(prof)) }; }
+          else { var dr = draftGet(); if (dr && dr.data) wz = dr; }
+          if (wz.step >= WZ_STEPS.length) wz.step = 0;
+          wzHost.classList.add('is-active'); obQuests.style.display = 'none';
+          renderWizard();
+        } else {
+          wzHost.classList.remove('is-active'); obQuests.style.display = '';
+          if (sub !== 'profile' && location.hash.indexOf('#start/') === 0) history.replaceState(null, '', '#start');
+        }
       }
 
       function showGrid() {
@@ -1232,6 +1493,7 @@
             if (p) showProject(p, r.sub, { instant: mainChanged || opts.instant, extra: r.extra });
             else showGrid();
           }
+          if (main === 'start') showStart(r.project, { instant: mainChanged || opts.instant });
           if (main === 'dao') showDao(r.project, { instant: mainChanged || opts.instant });
           if (main === 'fly') showFly(r.project, r.sub, { instant: mainChanged || opts.instant });
         }
@@ -1385,6 +1647,7 @@
         });
       })();
 
+      (function () { var pf = profileGet(); var nm = document.querySelector('.app-user_name'); if (pf && pf.name && nm) nm.textContent = pf.name; })();
       renderCards();
       renderOnboarding();
       sizePanel();
