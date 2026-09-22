@@ -252,7 +252,7 @@
           color: var(--app-muted);
           margin: 0;
         }
-        /* Loading overlay, 3 seconds per tab switch */
+        /* Loading overlay, 1.8 seconds per tab switch */
         .app-loader {
           position: absolute;
           inset: 0;
@@ -300,7 +300,7 @@
           stroke-dashoffset: 201;
         }
         .app-loader.is-visible .app-loader_ring .fill {
-          animation: app-ring-fill 3s linear forwards;
+          animation: app-ring-fill 1.8s linear forwards;
         }
         @keyframes app-ring-fill {
           from { stroke-dashoffset: 201; }
