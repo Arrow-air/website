@@ -39,14 +39,6 @@
           gap: 1rem;
           padding: 0.75rem 0;
         }
-        .app-tabbar_label {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.7rem;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: var(--app-muted);
-          white-space: nowrap;
-        }
         .app-tabs {
           position: relative;
           display: flex;
@@ -128,6 +120,7 @@
         .app-user:hover { border-color: #3a3b41; }
         .app-user:focus-visible { outline: 2px solid var(--app-blue-light); outline-offset: 2px; }
         .app-user_avatar {
+          position: relative;
           width: 36px;
           height: 36px;
           border-radius: 50%;
@@ -137,6 +130,19 @@
             repeating-linear-gradient(90deg, rgba(0,0,0,0.18) 0 3px, transparent 3px 6px),
             linear-gradient(135deg, #5B8DEE 0%, #0A43BF 45%, #7b3fe4 100%);
           box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset;
+        }
+        /* Wallet connected: small green dot pinned to the avatar */
+        .app-user.is-connected .app-user_avatar::after {
+          content: "";
+          position: absolute;
+          right: -1px;
+          bottom: -1px;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #22c55e;
+          border: 2px solid var(--app-track);
+          box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
         }
         .app-user_meta {
           display: flex;
@@ -310,7 +316,6 @@
           animation: app-mark-pulse 1.2s ease-in-out infinite;
         }
         @media (max-width: 767px) {
-          .app-tabbar_label { display: none; }
           .app-user_meta { display: none; }
           .app-user_divider { display: none; }
           .app-user { padding: 0 8px 0 6px; gap: 6px; }
@@ -329,7 +334,6 @@
           <div class="padding-global">
             <div class="container-large">
               <div class="app-tabbar_inner">
-                <div class="app-tabbar_label">Arrow app / experimental</div>
                 <div class="app-tabs" role="tablist" aria-label="Arrow app sections" id="app-tabs">
                   <div class="app-tabs_indicator" aria-hidden="true"></div>
                   <button class="app-tab" role="tab" data-tab="onboarding" aria-selected="true" aria-controls="view-onboarding" id="tab-onboarding"><span class="app-tab_num">01</span>Onboarding</button>
@@ -340,7 +344,7 @@
                   <button class="app-tab" role="tab" data-tab="community" aria-selected="false" aria-controls="view-community" id="tab-community" tabindex="-1"><span class="app-tab_num">06</span>Community</button>
                   <button class="app-tab" role="tab" data-tab="governance" aria-selected="false" aria-controls="view-governance" id="tab-governance" tabindex="-1"><span class="app-tab_num">07</span>Governance</button>
                 </div>
-                <button class="app-user" type="button" aria-haspopup="menu" aria-expanded="false" id="app-user">
+                <button class="app-user is-connected" type="button" title="Wallet connected" aria-haspopup="menu" aria-expanded="false" id="app-user">
                   <span class="app-user_avatar" aria-hidden="true"></span>
                   <span class="app-user_meta">
                     <span class="app-user_name">sl33ty</span>
