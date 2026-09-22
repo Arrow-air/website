@@ -1110,8 +1110,9 @@
       function meRow(href, ic, title, sub, end) {
         return '<a class="me_row" href="' + href + '"><span class="me_row_ic">' + ic + '</span><span class="me_row_main"><span class="me_row_t">' + title + '</span><span class="me_row_s">' + sub + '</span></span>' + (end ? '<span class="me_row_end">' + end + '</span>' : '') + '</a>';
       }
-      function meCard(title, icon, link, bodyHtml, cls) {
-        return '<div class="me_card ' + (cls || '') + '"><div class="me_card_head"><h4>' + (ME_ICONS[icon] || '') + title + '</h4>' + (link ? '<a href="' + link.href + '">' + link.label + ' &rarr;</a>' : '') + '</div><div class="me_card_body">' + bodyHtml + '</div></div>';
+      var ME_COLORS = { spark: '#0A43BF', wallet: '#218191', vote: '#8234F0', task: '#FF643B', news: '#AF947E', prog: '#5B8DEE' };
+      function meCard(title, icon, link, bodyHtml, cls, color) {
+        return '<div class="me_card ' + (cls || '') + '" style="--mc:' + (color || ME_COLORS[icon] || '#0A43BF') + '"><div class="me_card_head"><h4>' + (ME_ICONS[icon] || '') + title + '</h4>' + (link ? '<a href="' + link.href + '">' + link.label + ' &rarr;</a>' : '') + '</div><div class="me_card_body">' + bodyHtml + '</div></div>';
       }
       function renderMe() {
         var st = obState();
@@ -1166,9 +1167,9 @@
               '<div class="me_bal_actions"><button class="q_btn is-primary" type="button" id="me-wallet">Open wallet</button><a class="q_btn" href="#store">Store</a></div></div>') +
             meCard('Decisions waiting on you', 'vote', { href: '#dao/governance', label: 'Governance' },
               PROPOSALS.map(function (pz) { return meRow(pz.href, '<span>' + pz.kind.slice(0, 3).toUpperCase() + '</span>', esc(pz.title), '<span class="me_why">' + pz.kind + '</span> &middot; ' + pz.ends, '<b>' + pz.status + '</b>'); }).join(''), 'is-wide') +
-            meCard('Onboarding', 'task', { href: '#start', label: 'Start' },
+            meCard('Onboarding', 'task', { href: '#start', label: 'Start' }, 
               '<div class="me_prog"><div style="display:flex;justify-content:space-between;font-size:0.82rem"><span>' + doneCount + ' of 8 steps</span><span class="fl_mono" style="color:var(--app-muted)">' + Math.round(doneCount / 8 * 100) + '%</span></div><div class="me_prog_bar"><span style="width:' + (doneCount / 8 * 100) + '%"></span></div>' +
-              '<p class="fl_muted">' + (doneCount >= 8 ? 'All done. Contribute is open.' : (nextQuest ? 'Next: ' + esc(nextQuest.title) : '')) + '</p></div>') +
+              '<p class="fl_muted">' + (doneCount >= 8 ? 'All done. Contribute is open.' : (nextQuest ? 'Next: ' + esc(nextQuest.title) : '')) + '</p></div>', '', ME_COLORS.prog) +
             meCard('Your tasks', 'task', { href: '#contribute/quiver/tasks', label: 'Board' }, mine.join(''), 'is-wide') +
             meCard('Latest from Arrow', 'news', { href: '#fly/videos', label: 'Videos' },
               UPDATES.map(function (u) { return meRow(u.href, '<span>' + u.when.split(' ')[0] + '</span>', esc(u.title), '<span class="me_upd_kind">' + u.kind + '</span> &middot; ' + u.when); }).join('')) +
