@@ -553,13 +553,13 @@
         .ob_ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
         .ob_ring circle { fill: none; stroke-width: 4; stroke-linecap: round; }
         .ob_ring .t { stroke: var(--app-border); }
-        .ob_ring .f { stroke: var(--app-blue-light); stroke-dasharray: 113; transition: stroke-dashoffset 0.5s ease; }
+        .ob_ring .f { stroke: var(--app-blue); stroke-dasharray: 113; transition: stroke-dashoffset 0.5s ease; }
         .ob_ring span {
           position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
           font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--app-text);
         }
         .ob_bar { height: 4px; border-radius: 4px; background: var(--app-border); overflow: hidden; margin-bottom: 1.5rem; }
-        .ob_bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--app-blue-dark), var(--app-blue-light)); transition: width 0.5s ease; }
+        .ob_bar span { display: block; height: 100%; background: var(--app-blue); transition: width 0.5s ease; }
         .ob_done {
           display: none;
           align-items: center;
@@ -590,7 +590,7 @@
           font-size: 0.62rem;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--app-blue-light);
+          color: var(--app-blue);
           margin-bottom: 4px;
         }
         .ob_icon {
@@ -602,7 +602,7 @@
         .ob_icon svg { width: 22px; height: 22px; }
         .ob_grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
         .q {
-          --done: #218191;
+          --done: var(--app-blue);
           display: flex;
           flex-direction: column;
           border-radius: 14px;
@@ -648,7 +648,7 @@
           font-family: inherit; font-size: 0.78rem; font-weight: 500; cursor: pointer;
           white-space: nowrap; text-decoration: none;
         }
-        .q_btn:hover { border-color: var(--app-blue-light); }
+        .q_btn:hover { border-color: var(--app-blue); }
         .q_btn.is-primary { background: var(--app-blue); border-color: var(--app-blue); color: #fff; }
         .q_btn.is-primary:hover { background: var(--app-blue-dark); }
         .q_mark {
@@ -675,7 +675,7 @@
         }
         .q.is-done .q_icon { background: var(--done); border-color: var(--done); color: #fff; }
         .q.is-done .q_title { color: var(--app-muted); text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.25); }
-        .q.is-done .q_reward { border-color: var(--done); color: #70C9D9; }
+        .q.is-done .q_reward { border-color: var(--done); color: var(--app-blue-light); }
         .q.is-locked { opacity: 0.55; }
         @media (max-width: 767px) {
           .ob_grid { grid-template-columns: 1fr; }
