@@ -24,7 +24,7 @@
       // ---------------------------------------------------------------
       var BASE_TABS = ['Overview', 'Tasks', 'Docs', 'Team', 'Discuss'];
       var PROJECTS = [
-        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', img: 'spearhead', color: '#FF643B', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
+        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', img: 'spearhead', imgHover: 'card-spearhead_dark-hover.png', color: '#FF643B', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
         { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', img: 'quiver', color: '#218191', tabs: ['Overview', 'Component', 'Tasks', 'Docs', 'Team', 'Discuss'], viewer: true },
         { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for ag spraying.', img: 'caribou', color: '#0943BF' },
         { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack.', img: 'longshot', color: '#8234F0' },
@@ -200,7 +200,7 @@
         if (!p.img) return '<div class="cf_media"><div class="cf_media_mark" style="color:' + p.color + '">' + MARK + '</div></div>';
         return '<div class="cf_media">' +
           '<img class="is-rest" src="/img/card-' + p.img + '_dark-unhover.png" alt="" loading="lazy">' +
-          '<img class="is-hover" src="/img/card-' + p.img + '_hover.png" alt="" loading="lazy">' +
+          '<img class="is-hover" src="/img/' + (p.imgHover || 'card-' + p.img + '_hover.png') + '" alt="" loading="lazy">' +
         '</div>';
       }
 
