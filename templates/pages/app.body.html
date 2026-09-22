@@ -42,6 +42,21 @@
         }
         .app-nav .app-tab { color: rgba(255,255,255,0.72); }
         .app-nav .app-tab:hover, .app-nav .app-tab[aria-selected="true"] { color: #fff; }
+        /* Bullet before the label; space is always reserved so the pill
+           width does not jump, the dot only lights up on the active tab. */
+        .app-nav .app-tab::before {
+          content: "";
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          margin-right: 8px;
+          vertical-align: 1px;
+          background: transparent;
+          transition: background 0.18s ease;
+        }
+        .app-nav .app-tab:hover::before { background: rgba(255,255,255,0.3); }
+        .app-nav .app-tab[aria-selected="true"]::before { background: #fff; box-shadow: 0 0 6px rgba(255,255,255,0.6); }
         .app-nav .app-tabs, .app-nav .app-user { border-color: rgba(255,255,255,0.18); }
         .app-nav::after { display: none; }
         .app-nav_container {
@@ -949,7 +964,7 @@
               <div class="app-panel_stem" id="app-stem" aria-hidden="true"></div>
               <div class="app-panel" id="app-panel">
                 <div class="app-panel_head">
-                  <div>Tab <b id="app-panel-index">01</b> / 04</div>
+                  <div>Tab <b id="app-panel-index">01</b> / 05</div>
                   <div><b id="app-panel-title">Start</b></div>
                 </div>
 
@@ -1011,6 +1026,10 @@
                   <div class="app-view" role="tabpanel" id="view-fly" aria-labelledby="tab-fly">
                     <h2>Fly</h2>
                     <p>Placeholder. Flight logs, test campaigns, telemetry.</p>
+                  </div>
+                  <div class="app-view" role="tabpanel" id="view-manufacture" aria-labelledby="tab-manufacture">
+                    <h2>Manufacture</h2>
+                    <p>Placeholder. CAD, BOM, assembly guides and the workshop map.</p>
                   </div>
                   <div class="app-view" role="tabpanel" id="view-dao" aria-labelledby="tab-dao">
                     <div class="proj is-active" id="dao-shell" style="--proj: #0A43BF; --proj-ink: #ffffff;">
