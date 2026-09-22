@@ -333,6 +333,79 @@
         });
       }
 
+
+      // ---------------------------------------------------------------
+      // Team: contributors to the project's repo, live from the GitHub
+      // contributors API (avatar, commits), merged with a profile map
+      // for bio and disciplines. The profile map is a stand-in for the
+      // contributor CRM / src/data/contributors.json until that is wired;
+      // anyone without an entry shows as "profile pending".
+      // Discipline colours follow src/data/disciplines.json categories.
+      // ---------------------------------------------------------------
+      var DISC_COLOR = {
+        Engineering: '#3B69D1', 'Flight Systems': '#218191', 'Flight Ops': '#5B8DEE', Manufacturing: '#FF643B',
+        Design: '#C497FF', Content: '#AF947E', Growth: '#22c55e', Local: '#70C9D9', Operations: '#B0B4BD'
+      };
+      var DISC_CAT = {
+        Mechanical: 'Engineering', CAD: 'Engineering', Electrical: 'Engineering', Aerodynamics: 'Engineering', Power: 'Engineering', Propulsion: 'Engineering', Certification: 'Engineering', Safety: 'Engineering',
+        Firmware: 'Flight Systems', Software: 'Flight Systems', Controls: 'Flight Systems', Autonomy: 'Flight Systems', Telemetry: 'Flight Systems', Simulation: 'Flight Systems',
+        Piloting: 'Flight Ops', 'Flight Test': 'Flight Ops', Maintenance: 'Flight Ops', Support: 'Flight Ops', Regulatory: 'Flight Ops', Missions: 'Flight Ops',
+        '3D Printing': 'Manufacturing', Machining: 'Manufacturing', Composites: 'Manufacturing', Assembly: 'Manufacturing', Sourcing: 'Manufacturing', Quality: 'Manufacturing',
+        Industrial: 'Design', Interface: 'Design', Graphics: 'Design',
+        Documentation: 'Content', Media: 'Content', 'Social Media': 'Content',
+        Marketing: 'Growth', Community: 'Growth', 'Business Development': 'Growth',
+        Hosting: 'Local', Workshops: 'Local', Vertiports: 'Local',
+        Governance: 'Operations', Tokenomics: 'Operations', Coordination: 'Operations', Legal: 'Operations', Tooling: 'Operations'
+      };
+      var PROFILES = {
+        DowFisherKBM: { name: 'Dow Fisher', bio: 'Quiver mechanical lead. Frames, plates, the parts that take the load.', disciplines: ['Mechanical', 'CAD', 'Assembly'] },
+        errrks: { name: 'Erik', bio: 'CAD and build123d. Keeps the parametric assembly honest.', disciplines: ['CAD', 'Mechanical', '3D Printing'] },
+        alperenag: { name: 'Alperen', bio: 'Aircraft and flight test. Runs the Spearhead campaign from Ankara.', disciplines: ['Aerodynamics', 'Flight Test', 'Piloting'] },
+        thomasgarrison: { name: 'Thomas Garrison', bio: 'Docs and flight logs. Texas test site.', disciplines: ['Documentation', 'Flight Test'] },
+        ZeynepB5793: { name: 'Zeynep', bio: 'Electrical. LiDAR, Ethernet and sensor integration on Quiver.', disciplines: ['Electrical', 'Firmware'] },
+        sl33ty: { name: 'Sleety', bio: 'From Armagh, living in Belfast/Banbridge. Been with Arrow since 2021.', disciplines: ['Documentation', 'Marketing', 'Community'] }
+      };
+      var teamCache = {};
+
+      function teamCard(c, max) {
+        var prof = PROFILES[c.login];
+        var pct = Math.max(4, Math.round(100 * c.contributions / max));
+        return '<div class="tm_card">' +
+          '<img class="tm_avatar" src="' + c.avatar_url + '&s=112" alt="" loading="lazy">' +
+          '<div>' +
+            '<div class="tm_top"><h4 class="tm_name"><a href="' + c.html_url + '" target="_blank" rel="noopener">' + (prof ? prof.name : c.login) + '</a></h4><span class="tm_handle">@' + c.login + '</span></div>' +
+            '<p class="tm_bio' + (prof ? '' : ' is-pending') + '">' + (prof ? prof.bio : 'No contributor profile yet.') + '</p>' +
+            '<div class="tm_contrib"><b>' + c.contributions + '</b> commits <div class="tm_bar"><span style="width:' + pct + '%"></span></div></div>' +
+            '<div class="tm_tags">' + (prof
+              ? prof.disciplines.map(function (d) { var cat = DISC_CAT[d] || 'Operations'; return '<span class="tm_tag is-cat" style="--tm-c:' + DISC_COLOR[cat] + '" title="' + cat + '">' + d + '</span>'; }).join('')
+              : '<span class="tm_tag is-pending">disciplines pending</span>') +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function renderTeam(p) {
+        var host = document.getElementById('tm-host');
+        if (!host || !p.repo) return;
+        var render = function (list) {
+          var people = list.filter(function (c) { return c.type !== 'Bot' && !/\[bot\]$/.test(c.login); });
+          var max = people.reduce(function (m, c) { return Math.max(m, c.contributions); }, 1);
+          var withProfile = people.filter(function (c) { return PROFILES[c.login]; }).length;
+          document.getElementById('tm-count').textContent = people.length + ' contributors, ' + withProfile + ' with profiles';
+          host.innerHTML = '<div class="tm">' + people.map(function (c) { return teamCard(c, max); }).join('') + '</div>';
+        };
+        if (teamCache[p.repo]) { render(teamCache[p.repo]); return; }
+        fetch('https://api.github.com/repos/Arrow-air/' + p.repo + '/contributors?per_page=50').then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        }).then(function (list) {
+          teamCache[p.repo] = list;
+          if (document.getElementById('tm-host') === host) render(list);
+        }).catch(function (err) {
+          host.innerHTML = '<div class="bt_empty">Could not load contributors from GitHub (' + err.message + ').</div>';
+        });
+      }
+
       // ---------------------------------------------------------------
       // Contribute: cards
       // ---------------------------------------------------------------
@@ -468,6 +541,15 @@
           return;
         }
 
+        if (sub === 'team') {
+          projPanel.innerHTML =
+            '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+            '<h3>People on ' + p.name + '</h3>' +
+            '<p style="margin-bottom:1.25rem">Everyone who has landed a commit on ' + (p.repo ? 'Arrow-air/' + p.repo : 'this project') + '. <span id="tm-count" class="tm_handle"></span></p>' +
+            '<div id="tm-host"><div class="bt_empty">Loading contributors from GitHub</div></div>';
+          renderTeam(p);
+          return;
+        }
         if (sub === 'tasks') {
           var open = (TASKS[p.id] || []).filter(function (t) { return t.col !== 'done'; }).length;
           projPanel.innerHTML =

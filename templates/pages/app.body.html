@@ -751,6 +751,27 @@
         .kb_foot { margin-top: 0.9rem; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--app-muted); }
         @media (max-width: 767px) { .kb { grid-template-columns: repeat(5, 240px); } }
 
+        /* Team (contributors) */
+        .tm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+        .tm_card { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 14px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--app-border); background: var(--app-chrome); }
+        .tm_avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid var(--app-border); background: var(--app-track); }
+        .tm_top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+        .tm_name { font-size: 0.95rem; font-weight: 500; color: #fff; margin: 0; }
+        .tm_name a { color: inherit; text-decoration: none; }
+        .tm_name a:hover { color: var(--proj); }
+        .tm_handle { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--app-muted); }
+        .tm_bio { font-size: 0.8rem; color: var(--app-muted); margin: 4px 0 8px; line-height: 1.4; }
+        .tm_bio.is-pending { font-style: italic; }
+        .tm_contrib { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--app-muted); margin-bottom: 8px; }
+        .tm_contrib b { color: var(--app-text); font-weight: 500; }
+        .tm_bar { flex: 1; height: 3px; border-radius: 3px; background: var(--app-border); overflow: hidden; max-width: 160px; }
+        .tm_bar span { display: block; height: 100%; background: var(--proj); }
+        .tm_tags { display: flex; flex-wrap: wrap; gap: 4px; }
+        .tm_tag { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 2px 7px; border-radius: 5px; border: 1px solid var(--app-border); color: var(--app-text); }
+        .tm_tag.is-cat { color: var(--tm-c); border-color: color-mix(in srgb, var(--tm-c) 50%, var(--app-border)); }
+        .tm_tag.is-pending { color: var(--app-muted); border-style: dashed; }
+        @media (max-width: 767px) { .tm { grid-template-columns: 1fr; } }
+
         /* Loader takes a colour from whichever shell triggered it */
         .app-loader { --loader-color: var(--app-blue-light); }
         .app-loader_ring .fill { stroke: var(--loader-color); }
