@@ -1,9 +1,10 @@
       <style>
         /* ---------------------------------------------------------------
            Arrow App shell (experimental)
-           Segmented tab bar under the site navbar, one container panel
-           attached to the active tab. Sizing follows the coss ui "lg"
-           tabs; the active pill is Arrow brand blue.
+           The four-tab segmented control lives in the app navbar
+           (partials/navbar-app.html) in place of the site menu; one
+           container panel hangs off the active tab by a stem. Sizing
+           follows the coss ui "lg" tabs; the active pill is Arrow brand blue.
            --------------------------------------------------------------- */
         :root {
           --app-blue: #0A43BF;
@@ -16,7 +17,7 @@
           --app-border: #33353C;
           --app-text: #f3f4f6;
           --app-muted: #8b8d93;
-          --app-tab-h: 44px;
+          --app-tab-h: 40px;
           --app-radius: 12px;
         }
         .app-shell {
@@ -24,21 +25,21 @@
           color: var(--app-text);
           padding-bottom: 1.5rem;
         }
-        .app-tabbar {
+        /* App navbar: the site's navbar band, made sticky, with the tab
+           track between the logo and the wallet widget. */
+        .app-nav {
           position: sticky;
           top: 0;
           z-index: 20;
           background: var(--app-chrome);
-          border-bottom: 1px solid var(--app-border);
-          box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.45);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.45);
         }
-        .app-tabbar_inner {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          padding: 0.75rem 0;
+        .app-nav_container {
+          gap: 1.25rem;
+          padding-bottom: 12px;
         }
+        .app-nav .arrow-navbar_logo-link { flex: 0 0 auto; }
+        .app-nav .app-tabs { margin-left: auto; margin-right: auto; }
         .app-tabs {
           position: relative;
           display: flex;
@@ -916,7 +917,9 @@
           .app-user_meta { display: none; }
           .app-user_divider { display: none; }
           .app-user { padding: 0 8px 0 6px; gap: 6px; }
-          .app-tab { padding: 0 14px; font-size: 0.875rem; }
+          .app-tab { padding: 0 12px; font-size: 0.85rem; }
+          .app-nav_container { gap: 0.75rem; }
+          .app-nav .main-logo svg { width: 96px; height: auto; }
           .app-panel_body { padding: 1.75rem 1rem; }
           .app-view h2 { font-size: 1.5rem; }
           .app-grid { grid-template-columns: 1fr; }
@@ -930,42 +933,14 @@
       </style>
 
       <section class="app-shell">
-        <div class="app-tabbar">
-          <div class="padding-global">
-            <div class="container-large">
-              <div class="app-tabbar_inner">
-                <div class="app-tabs" role="tablist" aria-label="Arrow app sections" id="app-tabs">
-                  <div class="app-tabs_indicator" aria-hidden="true"></div>
-                  <button class="app-tab" role="tab" data-tab="onboarding" aria-selected="true" aria-controls="view-onboarding" id="tab-onboarding"><span class="app-tab_num">01</span>Onboarding</button>
-                  <button class="app-tab" role="tab" data-tab="contribute" aria-selected="false" aria-controls="view-contribute" id="tab-contribute" tabindex="-1"><span class="app-tab_num">02</span>Contribute</button>
-                  <button class="app-tab" role="tab" data-tab="bounties" aria-selected="false" aria-controls="view-bounties" id="tab-bounties" tabindex="-1"><span class="app-tab_num">03</span>Bounties</button>
-                  <button class="app-tab" role="tab" data-tab="build" aria-selected="false" aria-controls="view-build" id="tab-build" tabindex="-1"><span class="app-tab_num">04</span>Build</button>
-                  <button class="app-tab" role="tab" data-tab="fly" aria-selected="false" aria-controls="view-fly" id="tab-fly" tabindex="-1"><span class="app-tab_num">05</span>Fly</button>
-                  <button class="app-tab" role="tab" data-tab="community" aria-selected="false" aria-controls="view-community" id="tab-community" tabindex="-1"><span class="app-tab_num">06</span>Community</button>
-                  <button class="app-tab" role="tab" data-tab="governance" aria-selected="false" aria-controls="view-governance" id="tab-governance" tabindex="-1"><span class="app-tab_num">07</span>Governance</button>
-                </div>
-                <button class="app-user is-connected" type="button" title="Wallet connected" aria-haspopup="menu" aria-expanded="false" id="app-user">
-                  <span class="app-user_avatar" aria-hidden="true"></span>
-                  <span class="app-user_meta">
-                    <span class="app-user_name">sl33ty</span>
-                    <span class="app-user_balance"><b>1,240</b> $ARROW</span>
-                  </span>
-                  <span class="app-user_divider" aria-hidden="true"></span>
-                  <svg class="app-user_chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="padding-global">
           <div class="container-large">
             <div class="app-panel_wrap">
               <div class="app-panel_stem" id="app-stem" aria-hidden="true"></div>
               <div class="app-panel" id="app-panel">
                 <div class="app-panel_head">
-                  <div>Tab <b id="app-panel-index">01</b> / 07</div>
-                  <div><b id="app-panel-title">Onboarding</b></div>
+                  <div>Tab <b id="app-panel-index">01</b> / 04</div>
+                  <div><b id="app-panel-title">Start</b></div>
                 </div>
 
                 <div class="app-loader" id="app-loader" aria-live="polite">
@@ -978,11 +953,11 @@
                       <path fill="#0A43BF" d="M162.9,120.1l-50.36-11.17-31.09,84.49-31.09-84.49L0,120.1,81.45,0l81.45,120.1Z"/>
                     </svg>
                   </div>
-                  <div class="app-loader_text" id="app-loader-text">Loading onboarding</div>
+                  <div class="app-loader_text" id="app-loader-text">Loading start</div>
                 </div>
 
                 <div class="app-panel_body">
-                  <div class="app-view is-active" role="tabpanel" id="view-onboarding" aria-labelledby="tab-onboarding">
+                  <div class="app-view is-active" role="tabpanel" id="view-start" aria-labelledby="tab-start">
                     <div class="ob_head">
                       <div>
                         <h2>Get set up, earn your first $ARROW</h2>
@@ -1023,25 +998,25 @@
                       </div>
                     </div>
                   </div>
-                  <div class="app-view" role="tabpanel" id="view-bounties" aria-labelledby="tab-bounties">
-                    <h2>Bounties</h2>
-                    <p>Placeholder. Open work, claimed work, paid work.</p>
-                  </div>
-                  <div class="app-view" role="tabpanel" id="view-build" aria-labelledby="tab-build">
-                    <h2>Build</h2>
-                    <p>Placeholder. CAD, BOM, assembly guides and the workshop map.</p>
-                  </div>
                   <div class="app-view" role="tabpanel" id="view-fly" aria-labelledby="tab-fly">
                     <h2>Fly</h2>
                     <p>Placeholder. Flight logs, test campaigns, telemetry.</p>
                   </div>
-                  <div class="app-view" role="tabpanel" id="view-community" aria-labelledby="tab-community">
-                    <h2>Community</h2>
-                    <p>Placeholder. Contributors, meetups, Discord activity.</p>
-                  </div>
-                  <div class="app-view" role="tabpanel" id="view-governance" aria-labelledby="tab-governance">
-                    <h2>Governance</h2>
-                    <p>Placeholder. AIPs, Snapshot proposals, committees.</p>
+                  <div class="app-view" role="tabpanel" id="view-dao" aria-labelledby="tab-dao">
+                    <div class="proj is-active" id="dao-shell" style="--proj: #0A43BF; --proj-ink: #ffffff;">
+                      <div class="proj_top">
+                        <span class="proj_crumb">DAO / <b id="dao-name">Community</b></span>
+                        <div class="proj_tabs" role="tablist" id="dao-tabs" aria-label="DAO sections">
+                          <div class="app-tabs_indicator" aria-hidden="true"></div>
+                          <button class="app-tab" role="tab" data-sub="community" aria-selected="true">Community</button>
+                          <button class="app-tab" role="tab" data-sub="governance" aria-selected="false" tabindex="-1">Governance</button>
+                        </div>
+                      </div>
+                      <div class="proj_wrap">
+                        <div class="proj_stem" id="dao-stem" aria-hidden="true"></div>
+                        <div class="proj_panel" id="dao-panel"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

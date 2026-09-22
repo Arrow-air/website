@@ -7,6 +7,7 @@
     "<meta name=\"description\" content=\"Experimental multi-tab Arrow app shell.\">"
   ],
   "extraHead": "  <meta name=\"color-scheme\" content=\"dark\">",
+  "navbarFile": "navbar-app.html",
   "bodyFile": "app.body.html",
   "extraScriptsFile": "app.scripts.html"
 }

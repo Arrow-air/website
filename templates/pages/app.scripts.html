@@ -23,10 +23,10 @@
       // brand scales at /docs/contributing/arrow-brand (Blue, Teal,
       // Orange, Purple, Tan, Slate). Light values get dark ink on the pill.
       // ---------------------------------------------------------------
-      var BASE_TABS = ['Overview', 'Tasks', 'Docs', 'Team', 'Discuss'];
+      var BASE_TABS = ['Overview', 'Tasks', 'Bounties', 'Build', 'Docs', 'Team', 'Discuss'];
       var PROJECTS = [
-        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', repo: 'project-spearhead', img: 'spearhead', imgHover: 'card-spearhead_dark-hover.png', color: '#FF643B', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
-        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', repo: 'project-quiver', img: 'quiver', color: '#218191', tabs: ['Overview', 'Component', 'Tasks', 'Docs', 'Team', 'Discuss'], viewer: true },
+        { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', repo: 'project-spearhead', img: 'spearhead', imgHover: 'card-spearhead_dark-hover.png', color: '#FF643B', tabs: ['Overview', 'Tasks', 'Bounties', 'Build', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
+        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', repo: 'project-quiver', img: 'quiver', color: '#218191', tabs: ['Overview', 'Component', 'Tasks', 'Bounties', 'Build', 'Docs', 'Team', 'Discuss'], viewer: true },
         { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for ag spraying.', repo: 'project-caribou', img: 'caribou', color: '#0943BF' },
         { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack.', repo: 'project-longshot', img: 'longshot', color: '#8234F0' },
         { id: 'feather', name: 'Feather', blurb: 'Open fixed-wing UAV.', repo: 'project-feather', img: 'feather', color: '#AF947E' },
@@ -60,7 +60,14 @@
       var projStem = document.getElementById('proj-stem');
       var projPanel = document.getElementById('proj-panel');
 
-      var state = { main: null, project: null, sub: null, component: null };
+      var daoName = document.getElementById('dao-name');
+      var daoTabs = document.getElementById('dao-tabs');
+      var daoIndicator = daoTabs.querySelector('.app-tabs_indicator');
+      var daoStem = document.getElementById('dao-stem');
+      var daoPanel = document.getElementById('dao-panel');
+      var daoSubTabs = Array.prototype.slice.call(daoTabs.querySelectorAll('.app-tab'));
+
+      var state = { main: null, project: null, sub: null, component: null, dao: null };
       var viewer = null;
       var loadTimer = null;
 
@@ -140,7 +147,7 @@
         { id: 'intro', icon: 'chat', title: 'Introduce yourself on Discord', desc: 'One message in #introductions.', reward: 20, cta: 'Open Discord', href: 'https://discord.com/invite/arrow' },
         { id: 'call', icon: 'call', title: 'Attend a welcome call', desc: 'Earns the Member role on Discord.', reward: 50, cta: 'RSVP', href: 'https://discord.com/invite/arrow', featured: true, tag: 'Featured / next call Thu 25 Sep, 18:00 UTC' },
         { id: 'issue', icon: 'issue', title: 'Open your first issue', desc: 'A bug, a question, an idea. Any repo.', reward: 30, cta: 'Find a good first issue', href: 'https://github.com/Arrow-air' },
-        { id: 'pr', icon: 'merge', title: 'Get your first PR accepted', desc: 'Unlocks Contribute.', reward: 100, cta: 'See open bounties', href: '#bounties' }
+        { id: 'pr', icon: 'merge', title: 'Get your first PR accepted', desc: 'Unlocks Contribute.', reward: 100, cta: 'See open bounties', href: '#contribute' }
       ];
       var OB_KEY = 'arrow-app-onboarding';
       function obState() {
@@ -183,7 +190,7 @@
         document.getElementById('ob-grid').innerHTML = QUESTS.filter(function (q) { return !(q.featured && !st[q.id]); }).map(function (q) { return questCard(q, !!st[q.id]); }).join('');
       }
 
-      document.getElementById('view-onboarding').addEventListener('click', function (e) {
+      document.getElementById('view-start').addEventListener('click', function (e) {
         var t = e.target.closest('[data-done],[data-undo]');
         if (!t) return;
         var st = obState();
@@ -575,6 +582,23 @@
           wireKanban(p);
           return;
         }
+        if (sub === 'bounties') {
+          var listed = BOUNTIES.filter(function (b) { return b.project === p.id; });
+          projPanel.innerHTML =
+            '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+            '<h3>Bounties on ' + p.name + '</h3>' +
+            '<p style="margin-bottom:1.25rem">Open work, claimed work, paid work. Paid in USDC and $ARROW.</p>' +
+            bountyFrame('Open', listed.length + ' listed', 'claim one from its GitHub issue', bountyTable(listed)) +
+            '<div class="sec"><div class="sec_head"><h4>How a bounty runs</h4><span>5 steps</span></div>' + improveSteps(p, p.name) + '</div>';
+          return;
+        }
+        if (sub === 'build') {
+          projPanel.innerHTML =
+            '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+            '<h3>Build ' + p.name + '</h3>' +
+            '<p>Placeholder. CAD, BOM, assembly guides and the workshop map for ' + p.name + '.</p>';
+          return;
+        }
         if (sub === 'overview') {
           var mine = BOUNTIES.filter(function (b) { return b.project === p.id; });
           projPanel.innerHTML =
@@ -699,6 +723,36 @@
         }
       }
 
+      // ---------------------------------------------------------------
+      // DAO: Community and Governance as a second-level tab group
+      // ---------------------------------------------------------------
+      var DAO_VIEWS = {
+        community: { title: 'Community', html: '<h3>Community</h3><p>Placeholder. Contributors, meetups, Discord activity.</p>' },
+        governance: { title: 'Governance', html: '<h3>Governance</h3><p>Placeholder. AIPs, Snapshot proposals, committees.</p>' }
+      };
+      function showDao(sub, opts) {
+        opts = opts || {};
+        var validSub = DAO_VIEWS[sub] ? sub : 'community';
+        var active = daoSubTabs.filter(function (t) { return t.getAttribute('data-sub') === validSub; })[0];
+        var changed = state.dao !== validSub;
+        state.dao = validSub;
+        function commit() {
+          selectIn(daoTabs, daoIndicator, daoSubTabs, active, daoStem);
+          daoName.textContent = DAO_VIEWS[validSub].title;
+          daoPanel.innerHTML = '<div class="proj_kicker">DAO / ' + DAO_VIEWS[validSub].title + '</div>' + DAO_VIEWS[validSub].html;
+        }
+        if (opts.instant || !changed) {
+          commit();
+          requestAnimationFrame(function () { positionIndicator(daoTabs, daoIndicator, active, daoStem); });
+        } else {
+          selectIn(daoTabs, daoIndicator, daoSubTabs, active, daoStem);
+          runLoader('Loading ' + validSub, BLUE, commit);
+        }
+      }
+      daoSubTabs.forEach(function (t) {
+        t.addEventListener('click', function () { location.hash = '#dao/' + t.getAttribute('data-sub'); });
+      });
+
       function showGrid() {
         disposeViewer();
         projShell.classList.remove('is-active');
@@ -708,7 +762,7 @@
       }
 
       // ---------------------------------------------------------------
-      // Routing: #main, #contribute/project, #contribute/project/sub
+      // Routing: #main, #contribute/project, #contribute/project/sub, #dao/sub
       // ---------------------------------------------------------------
       function parseHash() {
         var parts = location.hash.replace(/^#/, '').split('/').filter(Boolean);
@@ -740,6 +794,7 @@
             if (p) showProject(p, r.sub, { instant: mainChanged || opts.instant, extra: r.extra });
             else showGrid();
           }
+          if (main === 'dao') showDao(r.project, { instant: mainChanged || opts.instant });
         }
 
         if (mainChanged && !opts.instant) {
@@ -769,6 +824,7 @@
       }
       tablist.addEventListener('keydown', function (e) { keyNav(tablist, e); });
       projTabs.addEventListener('keydown', function (e) { keyNav(projTabs, e); });
+      daoTabs.addEventListener('keydown', function (e) { keyNav(daoTabs, e); });
 
       // Fill the viewport below the sticky tab bar, leaving the shell's bottom padding.
       function sizePanel() {
@@ -784,6 +840,10 @@
         if (state.project) {
           var sa = projTabs.querySelector('.app-tab[aria-selected="true"]');
           if (sa) positionIndicator(projTabs, projIndicator, sa, projStem);
+        }
+        if (state.main === 'dao') {
+          var da = daoTabs.querySelector('.app-tab[aria-selected="true"]');
+          if (da) positionIndicator(daoTabs, daoIndicator, da, daoStem);
         }
       });
 

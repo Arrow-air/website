@@ -83,6 +83,10 @@ function buildAll() {
     const config = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, configFile), 'utf8'));
     let html = baseTemplate;
 
+    // Optional per-page navbar partial (e.g. the app shell's own nav).
+    if (config.navbarFile) {
+      html = html.replace('{{INCLUDE:partials/navbar.html}}', '{{INCLUDE:partials/' + config.navbarFile + '}}');
+    }
     html = resolveIncludes(html);
     html = html.replace(/{{WF_PAGE_ID}}/g, config.wfPageId || '');
     html = html.replace('{{TITLE}}', config.title || '');
