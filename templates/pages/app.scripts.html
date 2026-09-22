@@ -1,3 +1,16 @@
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import { mount } from '/js/app-viewer.js';
+    window.ArrowViewer = { mount: mount };
+    window.dispatchEvent(new Event('arrow-viewer-ready'));
+  </script>
   <script>
     (function () {
       var LOAD_MS = 1800;
@@ -12,7 +25,7 @@
       var BASE_TABS = ['Overview', 'Tasks', 'Docs', 'Team', 'Discuss'];
       var PROJECTS = [
         { id: 'spearhead', name: 'Spearhead', blurb: 'Fixed-wing VTOL demonstrator.', img: 'spearhead', color: '#FF643B', tabs: ['Overview', 'Tasks', 'Docs', 'Flight logs', 'Team', 'Discuss'] },
-        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', img: 'quiver', color: '#218191' },
+        { id: 'quiver', name: 'Quiver', blurb: 'Open-source devkit quadcopter.', img: 'quiver', color: '#218191', tabs: ['Overview', 'Component', 'Tasks', 'Docs', 'Team', 'Discuss'], viewer: true },
         { id: 'caribou', name: 'Caribou', blurb: 'Heavy-lift hexacopter for ag spraying.', img: 'caribou', color: '#0943BF' },
         { id: 'longshot', name: 'Longshot', blurb: 'Community-built 2.3 kWh battery pack.', img: 'longshot', color: '#8234F0' },
         { id: 'feather', name: 'Feather', blurb: 'Open fixed-wing UAV.', img: 'feather', color: '#AF947E' },
@@ -46,7 +59,8 @@
       var projStem = document.getElementById('proj-stem');
       var projPanel = document.getElementById('proj-panel');
 
-      var state = { main: null, project: null, sub: null };
+      var state = { main: null, project: null, sub: null, component: null };
+      var viewer = null;
       var loadTimer = null;
 
       function isLight(hex) {
@@ -148,9 +162,82 @@
         });
       }
 
+      function disposeViewer() {
+        if (viewer && viewer.dispose) viewer.dispose();
+        viewer = null;
+      }
+
+      function mountViewer(host, opts) {
+        var start = function () {
+          window.ArrowViewer.mount(host, opts).then(function (v) {
+            viewer = v;
+            var l = host.querySelector('.v3d_loading');
+            if (l) l.remove();
+          }).catch(function (err) {
+            host.innerHTML = '<div class="v3d_loading">Could not load the model (' + err + ')</div>';
+          });
+        };
+        if (window.ArrowViewer) start();
+        else window.addEventListener('arrow-viewer-ready', start, { once: true });
+      }
+
       function renderProjectView(p, sub) {
         var names = p.tabs || BASE_TABS;
         var title = names.filter(function (n) { return slug(n) === sub; })[0] || names[0];
+        disposeViewer();
+
+        if (p.viewer && sub === 'overview') {
+          projPanel.innerHTML =
+            '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+            '<h3>' + p.name + ', assembled</h3>' +
+            '<p style="margin-bottom:1rem">Orbit the aircraft. Hover a component to see what it is, click it to go deeper.</p>' +
+            '<div class="v3d" id="v3d">' +
+              '<div class="v3d_loading">Loading model</div>' +
+              '<div class="v3d_tip" id="v3d-tip"></div>' +
+              '<div class="v3d_hint">drag to orbit &middot; scroll to zoom &middot; click a part</div>' +
+            '</div>';
+          var host = document.getElementById('v3d');
+          var tip = document.getElementById('v3d-tip');
+          mountViewer(host, {
+            base: '/app-models',
+            accent: p.color,
+            onHover: function (info) {
+              if (!info) { tip.classList.remove('is-on'); return; }
+              tip.innerHTML = info.label + ' <span>/ ' + info.system + '</span>';
+              tip.classList.add('is-on');
+            },
+            onPick: function (info) {
+              location.hash = '#contribute/' + p.id + '/component/' + encodeURIComponent(info.file + ':' + info.mesh);
+            }
+          });
+          return;
+        }
+
+        if (p.viewer && sub === 'component') {
+          var key = state.component ? decodeURIComponent(state.component) : '';
+          var file = key.split(':')[0];
+          var mesh = key.split(':').slice(1).join(':');
+          if (!file) {
+            projPanel.innerHTML =
+              '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
+              '<h3>' + title + '</h3>' +
+              '<div class="v3d_empty">No component selected. Pick one in the <a href="#contribute/' + p.id + '/overview">3D overview</a>.</div>';
+            return;
+          }
+          var systemLabel = file.replace(/^\d+_/, '').replace(/\.glb$/, '').replace(/_/g, ' ');
+          var label = mesh.replace(/_\d+$/, '').replace(/[-_]/g, ' ') || 'component';
+          projPanel.innerHTML =
+            '<div class="v3d_crumbs"><a href="#contribute/' + p.id + '/overview">' + p.name + '</a> / <a href="#contribute/' + p.id + '/overview">' + systemLabel + '</a> / <b>' + label + '</b></div>' +
+            '<h3>' + label + '</h3>' +
+            '<p style="margin-bottom:1rem">Same CAD for now. Each component will link to its own model, drawings and tasks.</p>' +
+            '<div class="v3d" id="v3d">' +
+              '<div class="v3d_loading">Loading model</div>' +
+              '<div class="v3d_hint">drag to orbit &middot; scroll to zoom</div>' +
+            '</div>';
+          mountViewer(document.getElementById('v3d'), { base: '/app-models', accent: p.color, focus: { file: file, mesh: mesh } });
+          return;
+        }
+
         projPanel.innerHTML =
           '<div class="proj_kicker">' + p.name + ' / ' + title + '</div>' +
           '<h3>' + title + '</h3>' +
@@ -180,9 +267,10 @@
           renderProjectView(p, validSub);
         }
 
-        var subChanged = state.sub !== validSub;
+        var subChanged = state.sub !== validSub || state.component !== (opts.extra || null);
         state.project = p.id;
         state.sub = validSub;
+        state.component = opts.extra || null;
 
         if (opts.instant || (!projectChanged && !subChanged)) {
           commit();
@@ -195,6 +283,7 @@
       }
 
       function showGrid() {
+        disposeViewer();
         projShell.classList.remove('is-active');
         gridWrap.style.display = '';
         state.project = null;
@@ -206,7 +295,7 @@
       // ---------------------------------------------------------------
       function parseHash() {
         var parts = location.hash.replace(/^#/, '').split('/').filter(Boolean);
-        return { main: parts[0] || tabs[0].getAttribute('data-tab'), project: parts[1] || null, sub: parts[2] || null };
+        return { main: parts[0] || tabs[0].getAttribute('data-tab'), project: parts[1] || null, sub: parts[2] || null, extra: parts[3] || null };
       }
 
       function showView(name) {
@@ -231,7 +320,7 @@
           showView(main);
           if (main === 'contribute') {
             var p = r.project ? findProject(r.project) : null;
-            if (p) showProject(p, r.sub, { instant: mainChanged || opts.instant });
+            if (p) showProject(p, r.sub, { instant: mainChanged || opts.instant, extra: r.extra });
             else showGrid();
           }
         }

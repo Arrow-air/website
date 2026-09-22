@@ -422,6 +422,82 @@
           margin-bottom: 0.75rem;
         }
 
+        /* 3D overview inside a project (progressive interactivity) */
+        .v3d {
+          position: relative;
+          height: min(62vh, 640px);
+          border-radius: 12px;
+          border: 1px solid var(--app-border);
+          background:
+            radial-gradient(ellipse at 50% 60%, color-mix(in srgb, var(--proj) 10%, transparent) 0%, transparent 60%),
+            var(--app-track);
+          overflow: hidden;
+        }
+        .v3d canvas { touch-action: none; }
+        .v3d_tip {
+          position: absolute;
+          left: 14px;
+          bottom: 14px;
+          display: none;
+          align-items: center;
+          gap: 10px;
+          padding: 8px 12px;
+          background: rgba(11, 11, 13, 0.85);
+          border: 1px solid var(--app-border);
+          border-left: 3px solid var(--proj);
+          border-radius: 8px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.03em;
+          color: var(--app-text);
+          pointer-events: none;
+        }
+        .v3d_tip.is-on { display: flex; }
+        .v3d_tip span { color: var(--app-muted); }
+        .v3d_hint {
+          position: absolute;
+          right: 14px;
+          bottom: 14px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.66rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--app-muted);
+          pointer-events: none;
+        }
+        .v3d_loading {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--app-muted);
+        }
+        .v3d_crumbs {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 1rem;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--app-muted);
+        }
+        .v3d_crumbs a { color: var(--app-muted); text-decoration: none; }
+        .v3d_crumbs a:hover { color: var(--app-text); }
+        .v3d_crumbs b { color: var(--proj); font-weight: 500; }
+        .v3d_empty {
+          padding: 3rem 1rem;
+          text-align: center;
+          color: var(--app-muted);
+        }
+        .v3d_empty a { color: var(--proj); }
+
         /* Loader takes a colour from whichever shell triggered it */
         .app-loader { --loader-color: var(--app-blue-light); }
         .app-loader_ring .fill { stroke: var(--loader-color); }

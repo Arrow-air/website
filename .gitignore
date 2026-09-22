@@ -49,3 +49,6 @@ static/caribou/
 docs-quiver/about-arrow
 docs-guides/about-arrow
 docs-bounty/about-arrow
+
+# Experimental app: Quiver GLBs copied from project-quiver for the demo
+static/app-models/
