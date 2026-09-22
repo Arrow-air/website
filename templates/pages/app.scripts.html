@@ -1219,30 +1219,18 @@
         search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
         news: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>',
         dots: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg>',
+        cheer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l4-1 2-6 2 6 4 1M8 10l-1 10M16 10l1 10M12 4v2"/><path d="M3 20h18"/></svg>',
         check: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>',
         seed: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12c0-4 3-7 8-7-0 4-3 7-8 7zM12 15c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/></svg>',
         pro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>',
         hobby: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5 5.6.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.6 8z"/></svg>',
         expert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>'
       };
-      var WZ_ART = [
-        { img: '/images/spearhead-first-version-p-800.avif', tag: 'Spearhead', t: 'Open-source VTOL, built in the open', d: 'Every part, every log, every decision is public. That starts with knowing who you are.' },
-        { img: '/images/quiver-3d_v2_0001-2-p-800.avif', tag: 'Disciplines', t: '43 ways to help', d: 'The same tags drive the contributor map, the CRM and the bounty board.' },
-        { img: '/images/hangar-test-together-p-800.avif', tag: 'Experience', t: 'Beginners welcome', d: 'Most contributors learned on the job here. Tell us where you are, not where you wish you were.' },
-        { img: '/images/night-quiver-p-500.avif', tag: 'Location', t: 'Arrow is everywhere', d: 'Timezone sets which calls and flight windows you get invited to.' },
-        { img: '/images/drone-quiver-2-p-800.avif', tag: 'Commitment', t: 'A few hours goes a long way', d: 'Your agent will only suggest work that fits the time you actually have.' },
-        { img: '/images/feather_v22-p-800.avif', tag: 'Source', t: 'How did you find us?', d: 'Helps us put effort where new contributors come from.' },
-        { img: '/images/spearhead-first-version-p-800.avif', tag: 'Profile', t: 'Say hello', d: 'A short bio and your handles. This is what other contributors see first.' }
-      ];
       var WZ_STEPS = [
-        { id: 'goal', q: 'What brings you to Arrow?', sub: 'Pick the one closest. It sets your first suggestions.', auto: true,
+        { id: 'mode', q: 'How do you want to be part of Arrow?', sub: 'You can change your mind later. Both get a dashboard and a vote.', auto: true, big: true,
           opts: [
-            { v: 'build', ic: 'build', t: 'Build the aircraft', d: 'CAD, electrics, firmware, tuning' },
-            { v: 'fly', ic: 'fly', t: 'Fly and test', d: 'Pilot, run test campaigns, log flights' },
-            { v: 'make', ic: 'make', t: 'Make parts', d: 'Print, machine, assemble, source' },
-            { v: 'story', ic: 'story', t: 'Tell the story', d: 'Docs, media, design, community' },
-            { v: 'dao', ic: 'dao', t: 'Run the DAO', d: 'Governance, tokenomics, tooling, legal' },
-            { v: 'local', ic: 'local', t: 'Bring Arrow to my city', d: 'Host, run workshops, find a field' }
+            { v: 'contribute', ic: 'build', t: 'Contribute', d: 'Build, fly, make, document, design or help run the DAO. Earn $ARROW for the work.' },
+            { v: 'cheer', ic: 'cheer', t: 'Cheerlead', d: 'Follow the builds, vote on proposals, spread the word and back the mission.' }
           ] },
         { id: 'disciplines', q: 'What are your disciplines?', sub: 'Pick everything you can do, or want to learn. You can change this any time.', multi: true },
         { id: 'experience', q: 'How much experience do you have?', sub: 'Across your main disciplines. No wrong answer.', auto: true,
@@ -1270,6 +1258,8 @@
       var AVAIL_OPTS = ['Weekday days', 'Weekday evenings', 'Weekends', 'Flexible'];
       var TZS = ['Pacific/Auckland', 'Australia/Sydney', 'Asia/Tokyo', 'Asia/Singapore', 'Asia/Kolkata', 'Asia/Dubai', 'Europe/Berlin', 'Europe/London', 'America/Sao_Paulo', 'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles'];
 
+      var CONTRIB_ONLY = ['disciplines', 'experience', 'time'];
+      function wzSteps() { return WZ_STEPS.filter(function (st) { return wz.data.mode === 'cheer' ? CONTRIB_ONLY.indexOf(st.id) < 0 : true; }); }
       var wzHost = document.getElementById('ob-wizard');
       var obQuests = document.getElementById('ob-quests');
       var wz = { step: 0, data: {} };
@@ -1277,17 +1267,11 @@
       function draftGet() { try { return JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) { return null; } }
       function draftSave() { try { localStorage.setItem(DRAFT_KEY, JSON.stringify(wz)); } catch (e) {} }
 
-      function wzArt() {
-        var a = WZ_ART[Math.min(wz.step, WZ_ART.length - 1)];
-        return '<div class="wz_art">' + WZ_ART.map(function (x, i) { return '<img src="' + x.img + '" alt="" class="' + (i === Math.min(wz.step, WZ_ART.length - 1) ? 'is-on' : '') + '">'; }).join('') +
-          '<div class="wz_art_cap"><span class="wz_art_tag">' + a.tag + '</span><div class="wz_art_t">' + a.t + '</div><p class="wz_art_d">' + a.d + '</p>' +
-          '<div class="wz_art_steps">' + WZ_STEPS.map(function (s, i) { return '<span class="' + (i <= wz.step ? 'is-done' : '') + '"></span>'; }).join('') + '</div></div></div>';
-      }
       function wzRadio() { return '<span class="wz_radio">' + WZ_ICON.check + '</span>'; }
       function wzValid(step) {
         var d = wz.data;
         switch (step.id) {
-          case 'goal': case 'experience': case 'source': return !!d[step.id];
+          case 'mode': case 'experience': case 'source': return !!d[step.id];
           case 'disciplines': return (d.disciplines || []).length > 0;
           case 'location': return !!(d.city && d.tz);
           case 'time': return !!d.commitment && (d.availability || []).length > 0;
@@ -1297,8 +1281,8 @@
       }
       function wzBody(step) {
         var d = wz.data;
-        if (step.opts && (step.id === 'goal' || step.id === 'experience')) {
-          return '<div class="wz_cards">' + step.opts.map(function (o) {
+        if (step.opts && (step.id === 'mode' || step.id === 'experience')) {
+          return '<div class="wz_cards' + (step.big ? ' is-big' : '') + '">' + step.opts.map(function (o) {
             return '<button type="button" class="wz_card' + (d[step.id] === o.v ? ' is-on' : '') + '" data-pick="' + step.id + '" data-v="' + o.v + '">' + wzRadio() +
               '<span class="wz_card_ic">' + WZ_ICON[o.ic] + '</span><span class="wz_card_t">' + o.t + '</span><span class="wz_card_d">' + o.d + '</span></button>';
           }).join('') + '</div>';
@@ -1348,38 +1332,39 @@
           '<h2 class="wz_q">You’re in, ' + esc(d.name || 'friend') + '.</h2>' +
           '<p class="wz_sub">Here is your contributor profile. Your dashboard and suggestions now read from it. Edit it any time from the dashboard.</p>' +
           '<div class="wz_sum">' +
-            '<div class="wz_sum_row"><b>Goal</b><div>' + lab(WZ_STEPS[0].opts, d.goal) + '</div></div>' +
-            '<div class="wz_sum_row"><b>Disciplines</b><div>' + (d.disciplines || []).map(function (t) { return '<span class="fl_badge" style="color:' + discColor(t) + ';border-color:' + discColor(t) + '66;text-transform:none;letter-spacing:0;font-family:inherit;font-size:0.74rem">' + t + '</span>'; }).join('') + '</div></div>' +
-            '<div class="wz_sum_row"><b>Experience</b><div>' + lab(WZ_STEPS[2].opts, d.experience) + '</div></div>' +
+            '<div class="wz_sum_row"><b>Role</b><div>' + lab(WZ_STEPS[0].opts, d.mode) + '</div></div>' +
+            (d.mode === 'cheer' ? '' : '<div class="wz_sum_row"><b>Disciplines</b><div>' + (d.disciplines || []).map(function (t) { return '<span class="fl_badge" style="color:' + discColor(t) + ';border-color:' + discColor(t) + '66;text-transform:none;letter-spacing:0;font-family:inherit;font-size:0.74rem">' + t + '</span>'; }).join('') + '</div></div>' +
+            '<div class="wz_sum_row"><b>Experience</b><div>' + lab(WZ_STEPS[2].opts, d.experience) + '</div></div>') +
             '<div class="wz_sum_row"><b>Location</b><div>' + esc([d.city, d.country].filter(Boolean).join(', ')) + ' &middot; ' + esc(d.tz || '') + '</div></div>' +
-            '<div class="wz_sum_row"><b>Time</b><div>' + lab(COMMIT_OPTS, d.commitment) + ' &middot; ' + (d.availability || []).join(', ') + '</div></div>' +
+            (d.mode === 'cheer' ? '' : '<div class="wz_sum_row"><b>Time</b><div>' + lab(COMMIT_OPTS, d.commitment) + ' &middot; ' + (d.availability || []).join(', ') + '</div></div>') +
             '<div class="wz_sum_row"><b>Found us via</b><div>' + lab(WZ_STEPS[5].opts, d.source) + '</div></div>' +
             (d.bio ? '<div class="wz_sum_row"><b>Bio</b><div>' + esc(d.bio) + '</div></div>' : '') +
           '</div>' +
           '<div class="wz_foot"><a class="q_btn is-primary" href="#start" id="wz-finish">Continue to your first quests</a><a class="q_btn" href="#me">Open dashboard</a><button type="button" class="wz_skip" id="wz-redo">Start over</button></div>';
       }
       function renderWizard() {
-        var last = wz.step >= WZ_STEPS.length;
-        var step = WZ_STEPS[Math.min(wz.step, WZ_STEPS.length - 1)];
-        var pct = Math.round((Math.min(wz.step, WZ_STEPS.length) / WZ_STEPS.length) * 100);
+        var STEPS = wzSteps();
+        var last = wz.step >= STEPS.length;
+        var step = STEPS[Math.min(wz.step, STEPS.length - 1)];
+        var pct = Math.round((Math.min(wz.step, STEPS.length) / STEPS.length) * 100);
         wzHost.innerHTML =
           '<div class="wz_bar"><span style="width:' + (last ? 100 : pct) + '%"></span></div>' +
           '<div class="wz_grid"><div class="wz_main">' +
             '<div class="wz_top"><button type="button" class="wz_back" id="wz-back"' + (wz.step === 0 ? ' hidden' : '') + '><svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</button>' +
-            '<span class="wz_count">' + (last ? 'Done' : (wz.step + 1) + ' of ' + WZ_STEPS.length) + '</span></div>' +
+            '<span class="wz_count">' + (last ? 'Done' : (wz.step + 1) + ' of ' + STEPS.length) + '</span></div>' +
             (last ? wzSummary() :
               '<h2 class="wz_q">' + step.q + '</h2><p class="wz_sub">' + step.sub + '</p>' +
               '<div class="wz_body">' + wzBody(step) + '</div>' +
               '<div class="wz_foot">' + (step.auto ? '<span class="wz_hint">Pick one to continue</span>' : '<button type="button" class="q_btn is-primary" id="wz-next"' + (wzValid(step) ? '' : ' disabled') + '>Continue</button>') +
               (step.id === 'about' || step.id === 'disciplines' ? '<button type="button" class="wz_skip" id="wz-skip">Skip for now</button>' : '') + '</div>') +
-          '</div>' + wzArt() + '</div>';
+          '</div></div>';
         draftSave();
       }
-      function wzGo(n) { wz.step = Math.max(0, Math.min(n, WZ_STEPS.length)); renderWizard(); wzHost.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+      function wzGo(n) { wz.step = Math.max(0, Math.min(n, wzSteps().length)); renderWizard(); wzHost.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
       function wzFinish() {
         var d = wz.data;
         var prof = {
-          name: d.name || 'sl33ty', goal: d.goal, disciplines: d.disciplines || [], experience: d.experience,
+          name: d.name || 'sl33ty', mode: d.mode, disciplines: d.disciplines || [], experience: d.experience,
           city: d.city, country: d.country, tz: d.tz, commitment: d.commitment, availability: d.availability || [],
           source: d.source, bio: d.bio, github: d.github, x: d.x, discord: d.discord, savedAt: new Date().toISOString()
         };
@@ -1391,7 +1376,7 @@
         var t;
         if ((t = e.target.closest('[data-pick]'))) {
           wz.data[t.getAttribute('data-pick')] = t.getAttribute('data-v');
-          var step = WZ_STEPS[wz.step];
+          var step = wzSteps()[wz.step];
           if (step && step.auto && !t.hasAttribute('data-stay')) { renderWizard(); setTimeout(function () { wzGo(wz.step + 1); }, 260); }
           else renderWizard();
           return;
@@ -1406,8 +1391,8 @@
           var j = al.indexOf(a); if (j >= 0) al.splice(j, 1); else al.push(a);
           wz.data.availability = al; renderWizard(); return;
         }
-        if (e.target.closest('#wz-next')) { if (wzValid(WZ_STEPS[wz.step])) { if (wz.step === WZ_STEPS.length - 1) wzFinish(); wzGo(wz.step + 1); } return; }
-        if (e.target.closest('#wz-skip')) { if (wz.step === WZ_STEPS.length - 1) wzFinish(); wzGo(wz.step + 1); return; }
+        if (e.target.closest('#wz-next')) { var S1 = wzSteps(); if (wzValid(S1[wz.step])) { if (wz.step === S1.length - 1) wzFinish(); wzGo(wz.step + 1); } return; }
+        if (e.target.closest('#wz-skip')) { if (wz.step === wzSteps().length - 1) wzFinish(); wzGo(wz.step + 1); return; }
         if (e.target.closest('#wz-back')) { wzGo(wz.step - 1); return; }
         if (e.target.closest('#wz-finish')) { showStart(null, { instant: true }); return; }
         if (e.target.closest('#wz-redo')) { e.preventDefault(); try { localStorage.removeItem(PROFILE_KEY); } catch (err) {} wz = { step: 0, data: {} }; renderWizard(); return; }
@@ -1415,13 +1400,13 @@
       wzHost.addEventListener('input', function (e) {
         var f = e.target.getAttribute('data-f'); if (!f) return;
         wz.data[f] = e.target.value;
-        var next = document.getElementById('wz-next'); if (next) next.disabled = !wzValid(WZ_STEPS[wz.step]);
+        var next = document.getElementById('wz-next'); if (next) next.disabled = !wzValid(wzSteps()[wz.step]);
         draftSave();
       });
       wzHost.addEventListener('change', function (e) {
         var f = e.target.getAttribute('data-f'); if (!f) return;
         wz.data[f] = e.target.value;
-        var next = document.getElementById('wz-next'); if (next) next.disabled = !wzValid(WZ_STEPS[wz.step]);
+        var next = document.getElementById('wz-next'); if (next) next.disabled = !wzValid(wzSteps()[wz.step]);
         draftSave();
       });
       function showStart(sub, opts) {
@@ -1430,7 +1415,7 @@
         if (wantWizard) {
           if (sub === 'profile' && prof) { wz = { step: 0, data: JSON.parse(JSON.stringify(prof)) }; }
           else { var dr = draftGet(); if (dr && dr.data) wz = dr; }
-          if (wz.step >= WZ_STEPS.length) wz.step = 0;
+          if (wz.step >= wzSteps().length) wz.step = 0;
           wzHost.classList.add('is-active'); obQuests.style.display = 'none';
           renderWizard();
         } else {
