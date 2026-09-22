@@ -11,7 +11,8 @@
           --app-blue-dark: #0736A0;
           --app-blue-light: #5B8DEE;
           --app-bg: #000;
-          --app-chrome: #1E1F24;   /* tab bar band, slate */
+          --app-chrome: #1E1F24;   /* panel head band, slate */
+          --app-navy: #071F5A;     /* navbar band, brand blue taken down to navy */
           --app-track: #0B0B0D;    /* segmented control track, near black so pills pop */
           --app-panel: #141518;    /* window surface, a step above the page */
           --app-border: #33353C;
@@ -31,7 +32,7 @@
           position: sticky;
           top: 0;
           z-index: 20;
-          background: var(--app-chrome);
+          background: var(--app-navy);
           box-shadow: 0 8px 24px rgba(0,0,0,0.45);
         }
         .app-nav_container {
@@ -40,6 +41,7 @@
         }
         .app-nav .arrow-navbar_logo-link { flex: 0 0 auto; }
         .app-nav .app-tabs { margin-left: auto; margin-right: auto; }
+        .app-nav .app-tabs, .app-nav .app-user { border-color: rgba(255,255,255,0.14); }
         .app-tabs {
           position: relative;
           display: flex;
