@@ -3,42 +3,36 @@ sidebar_position: 2
 title: Vesting Contracts
 ---
 
-# Vesting Contract
+# Vesting Contracts
 
-ARROW tokens are distributed to Arrow contributors as a reward for their contributions and investment in the project. These rewards are typically locked within vesting contracts, which release granted ARROW tokens over time after an initial cliff period.
+Contributors can be paid in ARROW that unlocks over time. Each vesting schedule is its own escrow contract on Optimism, created by the vesting escrow factory and funded with ARROW when it's created. Tokens vest linearly from a start date to an end date, optionally after a cliff, and the recipient claims them whenever they like. Once claimed, ARROW can stay on Optimism or be bridged back to Ethereum Mainnet.
 
-These vesting contracts and tokens are distributed on the Optimism L2 network, with contributors free to bridge their tokens back to mainnet after vesting.
+Addresses and full function details are in the [API reference](../api/index.md).
 
-## How To Create New Vesting Contracts
+## Claiming vested tokens
 
-1. Bridge the amount of ARROW tokens required from the Arrow mainnet multisig over to the Arrow Optimism multisig.
+This is the part most contributors need.
 
-   - Check the latest [Optimism deployment](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts-bedrock/README.md) and use the `L1StandardBridge` contract at `0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1`.
-   - Approve the `L1StandardBridge` to spend the required number of ARROW tokens, calling `approve` on the ArrowToken contract at `0x736609D310B5F925531B5ad895925CB0586F6241`.
-   - Deposit ARROW tokens to the L2 Optimism multisig, calling `depositERC20To` on the `L1StandardBridge`.
+1. Find your escrow address. The factory emits a `VestingEscrowCreated` event for every escrow, with the recipient indexed, so filtering the factory's events on [Optimistic Etherscan](https://optimistic.etherscan.io/address/0xB93427b83573C8F27a08A909045c3e809610411a#events) by your wallet address shows each escrow created for you. If you're unsure, ask in Discord.
+2. Open the escrow and call `unclaimed()` on the Read Contract tab to see how much has vested and not yet been claimed.
+3. Connect your wallet on the Write Contract tab and call `claim()`. Only the recipient can claim. With no arguments it sends everything available to your own address; you can also pass a different `beneficiary` address, and an `amount` to claim part of it.
 
-2. Create a new vesting contract using the ArrowVestingFactory contract at `0x736609D310B5F925531B5ad895925CB0586F6241`, calling `createVestingSchedule`.
+## Creating a vesting schedule
 
-   - `beneficiaryAddress` should be set to the wallet address of the contributor to be rewarded.
-   - `startTimestamp` should be set to the UNIX timestamp at which tokens should start vesting. You can use [unixtimestamp.com](https://www.unixtimestamp.com/) to calculate the UNIX timestamp representation of a specific future date.
-   - `durationSeconds` should be set to the total time in seconds required for the vesting period to complete. 
-   - Tokens will begin to vest when time reaches `startTimestamp`, and will vest linearly until time reaches `startTimestamp + durationSeconds`. 
+Escrows are created and funded by whoever is paying, usually the DAO.
 
-3. Send ARROW tokens (or ETH or any ERC20) to the newly created vesting contract.
+1. Get the ARROW onto Optimism. If it's on mainnet, bridge it through Optimism's `L1StandardBridge` at `0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1`: call `approve` on the ArrowToken contract at `0x736609D310B5F925531B5ad895925CB0586F6241` so the bridge can spend it, then call `depositERC20To` on the bridge to send it to the funding address on Optimism. Check the [latest Optimism deployment](https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts-bedrock/README.md) before bridging.
+2. From the funding address, call `approve` on the Optimism ARROW token (`0x78b3C724A2F663D11373C4a1978689271895256f`) so the factory can spend the amount being vested.
+3. Call `deploy_vesting_contract` on the factory:
+   - `token`: the Optimism ARROW token address.
+   - `recipient`: the contributor's wallet.
+   - `amount`: the amount to vest, in the token's smallest unit (ARROW has 18 decimals).
+   - `vesting_duration`: the length of the schedule in seconds.
+   - `vesting_start` (optional): the UNIX timestamp vesting starts from. It defaults to the moment the escrow is created. [unixtimestamp.com](https://www.unixtimestamp.com/) converts a date.
+   - `cliff_length` (optional): seconds before anything can be claimed. It defaults to 0 and can't be longer than the duration.
 
-## How To Release Vested Tokens From A Vesting Contract
+The factory pulls `amount` from the caller into the new escrow, and the caller becomes the escrow's admin.
 
-1. Find the address of the vesting contract.
-2. Check current vested token allowance in the contract, calling `vestedAmount(address token, uint64 timestamp)` with the ERC20 token address and the current timestamp.
-3. Release vested ARROW tokens (or any ERC20) to `beneficiaryAddress`, calling `release(address)` with the ERC20 token address.
+## Cancelling a vesting schedule
 
-## How To Cancel Existing Vesting Contracts
-
-Vesting contracts have the ability to be cancelled by the Arrow multisig, in cases of erroneous token distributions or if specific contributors become inactive.
-
-Upon cancellation, any vested tokens will be distributed to the contributor, with any remaining un-vested tokens returned to the Arrow multisig.
-
-In order to cancel an existing vesting contract:
-
-1. Find the vesting contract to be cancelled.
-2. Cancel the vesting contract, calling `cancel(address token)` from the Arrow Optimism multisig.
+The escrow's admin can cancel it by calling `rug_pull()`, for example after an erroneous distribution or when a contributor stops contributing. Vesting stops at that moment: the unvested remainder returns to the admin, and anything already vested stays in the escrow for the recipient to claim.
