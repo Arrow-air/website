@@ -18,7 +18,7 @@ How the token reserve can be used is governed by [AIP-010 (Tokenomics V1)](https
 
 ## How the treasury has been managed
 
-Arrow originally funded its treasury with ETH, which was staked into Rocket Pool (rETH) in September 2022 to earn yield while holding. As operations scaled, the DAO voted to convert rETH to USDC in regular tranches to cover bimonthly GBC funding rounds and named project budgets.
+Arrow originally funded its treasury with ETH, which was staked into Rocket Pool (rETH) in September 2022 to earn yield while holding. As operations scaled, the DAO voted to convert rETH to USDC in regular tranches to cover GBC funding rounds and named project budgets.
 
 The conversion history spans from October 2023 through early 2025, with amounts ranging from 8 to 150 rETH per swap. By 2025, the rETH position had been largely liquidated into USDC to match the pace of contributor spending.
 
@@ -29,7 +29,7 @@ The conversion history spans from October 2023 through early 2025, with amounts 
 **Out:** All spending goes through one of two routes:
 
 1. **Snapshot vote → multisig execution**: any new project, treasury swap, or governance decision. The DAO votes, the signers execute.
-2. **GBC multisig** ([`0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906`](https://etherscan.io/address/0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906)): the Grants and Bounties Committee holds a separate multisig funded by bimonthly DAO votes. The GBC distributes from there to individual contributors based on approved grants and bounties.
+2. **GBC multisig** ([`0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906`](https://etherscan.io/address/0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906)): the Grants and Bounties Committee holds a separate multisig funded by DAO votes, and distributed from there to contributors based on approved grants and bounties until early 2026. The committee is currently inactive, and project leads now handle most bounties within their projects.
 
 ## Governance
 
