@@ -174,7 +174,17 @@ const sidebars = {
         { type: 'link', label: 'DAO Forum', href: 'https://dao.arrowair.com/' },
         { type: 'doc', id: 'reference/snapshot', label: 'Snapshot' },
         { type: 'doc', id: 'reference/glossary', label: 'Glossary' },
-        { type: 'doc', id: 'reference/contracts/index', label: 'Token Contracts' },
+        {
+          type: 'category',
+          label: 'Token Contracts',
+          collapsible: true,
+          collapsed: true,
+          link: { type: 'doc', id: 'reference/contracts/index' },
+          items: [
+            { type: 'doc', id: 'reference/contracts/api/index', label: 'API Reference' },
+            { type: 'doc', id: 'reference/contracts/guides/vesting', label: 'Vesting' },
+          ],
+        },
         { type: 'doc', id: 'changelog', label: 'Changelog' },
         { type: 'link', label: 'Discord', href: 'https://discord.com/invite/arrow' },
         { type: 'link', label: 'X', href: 'https://x.com/ArrowAir_' },
