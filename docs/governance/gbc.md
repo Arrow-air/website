@@ -1,8 +1,12 @@
 ---
 sidebar_position: 5
+mdx:
+  format: mdx
 title: Grants & Bounties Committee
 description: What the Grants & Bounties Committee does, who sits on it, and how members are chosen.
 ---
+
+import GbcMembers from '@site/src/components/GbcMembers';
 
 The Grants & Bounties Committee (GBC) is the elected group that reviews grants and bounties and pays for delivered work. It was created by [AIP-002](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-002.md) and first elected in September 2024.
 
@@ -52,15 +56,9 @@ The GBC holds its own multisig, [`0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906`](h
 
 ## Members
 
-The official membership record is [AIP-003](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-003.md), a Living AIP that the AIP Editors update whenever membership changes. It currently lists the five members confirmed in the first election:
+The official membership record is [AIP-003](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-003.md), a Living AIP that the AIP Editors update whenever membership changes. The table below reads it directly, so it's always current.
 
-| Member |
-|---|
-| Alperenag |
-| Errrks |
-| Sleety |
-| Thomasg |
-| WhiteDadJokes |
+<GbcMembers />
 
 ## How members are chosen
 
