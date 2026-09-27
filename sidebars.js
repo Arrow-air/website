@@ -183,7 +183,6 @@ const sidebars = {
           link: { type: 'doc', id: 'reference/contracts/index' },
           items: [
             { type: 'doc', id: 'reference/contracts/api/index', label: 'API Reference' },
-            { type: 'doc', id: 'reference/contracts/guides/vesting', label: 'Vesting' },
           ],
         },
         { type: 'doc', id: 'changelog', label: 'Changelog' },
