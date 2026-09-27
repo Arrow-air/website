@@ -1,11 +1,19 @@
 ---
 sidebar_position: 1
-title: Introduction
+title: Token Contracts
+description: The ARROW token and vesting contracts, what they do, and where to find them.
 hide_table_of_contents: true
 ---
 
-# Introduction to Arrow Contracts
+# Token Contracts
 
-To support a large open-source project like Arrow Air, governance and token economics are best managed by [smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/) thanks to their transparency, immutability, and objectivity.
+Arrow keeps its on-chain footprint small. There's the $ARROW token itself, owned by the DAO multisig and open source in the [Arrow-Contracts repository](https://github.com/Arrow-air/Arrow-Contracts). Then there are vesting escrows, which let contributors be paid in ARROW that unlocks over time. These use Yearn's open-source vesting escrow contracts rather than Arrow's own code.
 
-Currently, we are still developing our contracts. Feel free to check out and/or contribute to our [repository](https://github.com/Arrow-air/Arrow-Contracts).
+The token lives on Ethereum Mainnet and is bridged to Optimism, where the vesting escrows live.
+
+## In this section
+
+- [API Reference](./api/index.md) lists the deployed addresses and every function and event the contracts expose.
+- [Vesting](./guides/vesting.md) walks through claiming, creating and cancelling a vesting schedule.
+
+For supply, allocation and how ARROW is used in governance, see the [ARROW Token](/docs/governance/arrow-token) page. The contracts are open to contributions, so if you spot an issue or want to propose a change, open an issue or PR on the Arrow-Contracts repository.
