@@ -138,10 +138,10 @@ function usePrefersReducedMotion(): boolean {
 
 // An edge label: plain text, vertically centred on `at`.
 function EdgeLabel({ at, lines, anchor }: { at: Point; lines: string[]; anchor: EdgeGeo['anchor'] }) {
-  const lineH = 12;
+  const lineH = 14;
   const [x, y] = at;
   return (
-    <text x={x} y={y - ((lines.length - 1) * lineH) / 2 + 3.5} textAnchor={anchor} className={styles.edgeLabel}>
+    <text x={x} y={y - ((lines.length - 1) * lineH) / 2 + 4} textAnchor={anchor} className={styles.edgeLabel}>
       {lines.map((line, j) => (
         <tspan key={j} x={x} dy={j === 0 ? 0 : lineH}>{line}</tspan>
       ))}
@@ -193,8 +193,8 @@ function Diagram({ layout, step, still, id }: { layout: Layout; step: number; st
             <g transform={`translate(${tx + (tile - 20) / 2} ${ty + (tile - 20) / 2}) scale(${20 / 24})`} className={styles.icon}>
               {n.icon}
             </g>
-            <text x={textX} y={y + layout.h / 2 - 5} className={styles.nodeTitle}>{n.title}</text>
-            <text x={textX} y={y + layout.h / 2 + 15} className={styles.nodeSub}>{n.sub}</text>
+            <text x={textX} y={y + layout.h / 2 - 6} className={styles.nodeTitle}>{n.title}</text>
+            <text x={textX} y={y + layout.h / 2 + 16} className={styles.nodeSub}>{n.sub}</text>
           </g>
         );
       })}
