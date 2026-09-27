@@ -24,7 +24,7 @@ The conversion history spans from October 2023 through early 2025, with amounts 
 
 ## How money moves
 
-**In:** Arrow's treasury was seeded from the initial token launch. There's no ongoing protocol revenue yet. The DAO operates from its capital reserves.
+**In:** Arrow's treasury was seeded from the initial token launch. There's no ongoing protocol revenue yet. The manufacturing protocol outlined in [AIP-009](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-009.md) is one of the ways Arrow aims to change that, with a commission to the treasury on each sale. The DAO operates from its capital reserves.
 
 **Out:** All spending goes through one of two routes:
 
