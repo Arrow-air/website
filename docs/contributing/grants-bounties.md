@@ -26,7 +26,7 @@ Be clear that this comes at the builder's risk. Nothing retroactive is guarantee
 
 ## Who decides
 
-The **Grants and Bounties Committee (GBC)**, an elected body created by [AIP-002](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-002.md), reviews submissions and releases compensation. Submissions follow the format defined in [AIP-005](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-005.md), which asks for the same things any reviewer would: what the work is, what it costs, and how anyone can verify it was done.
+Today, most bounties are reviewed and paid by project leads as part of running their projects. The **Grants and Bounties Committee (GBC)**, an elected body created by [AIP-002](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-002.md), is the governance layer for grants, bounties and retroactive awards, though it's [currently inactive](/docs/governance/gbc). Submissions follow the format defined in [AIP-005](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-005.md), which asks for the same things any reviewer would: what the work is, what it costs, and how anyone can verify it was done.
 
 Larger funded efforts with a named leader and a budget cap run as projects under the [AIP-006 Projects Framework](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-006.md) instead; the current lineup is on the [Active Projects](/docs/governance/active-project-list) page.
 
