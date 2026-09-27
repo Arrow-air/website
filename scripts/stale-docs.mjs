@@ -10,7 +10,8 @@
 //
 // "Touched" means the file's last commit, read in one pass over git history.
 // Only tracked Markdown/MDX under docs/ is checked, so docs imported from
-// project repos at build time are skipped. Draft pages are listed separately.
+// project repos at build time are skipped, as are templates and partials
+// (files starting with an underscore). Draft pages are listed separately.
 
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -31,7 +32,9 @@ const git = (...a) => execFileSync('git', a, { encoding: 'utf8', maxBuffer: 64 *
 const tracked = new Set(
     git('ls-files', 'docs')
         .split('\n')
-        .filter((f) => /\.mdx?$/.test(f)),
+        .filter((f) => /\.mdx?$/.test(f))
+        // Files starting with an underscore are templates and partials, not pages.
+        .filter((f) => !f.split('/').pop().startsWith('_')),
 );
 
 // Walk history newest first; the first date seen for a file is its last change.
