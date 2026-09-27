@@ -4,7 +4,7 @@ title: Grants & Bounties
 description: How Arrow funds contributor work through grants and bounties.
 ---
 
-Arrow pays for real work, and it does it in the open. There are two main funding shapes, and knowing which one fits is most of the battle: a **bounty** funds a defined task, a **grant** funds ongoing time.
+Arrow pays for real work, and it does it in the open. There are three funding shapes, and knowing which one fits is most of the battle: a **bounty** funds a defined task, a **grant** funds ongoing time, and a **retroactive grant** recognizes work that's already been done.
 
 ## Bounties: defined tasks
 
