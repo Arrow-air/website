@@ -2,11 +2,15 @@
 sidebar_position: 4
 title: Treasury
 description: Arrow DAO treasury — holdings, management, and how funds are spent.
+mdx:
+  format: mdx
 ---
+
+import CopyAddress from '@site/src/components/CopyAddress';
 
 Arrow's treasury is held on-chain in a Gnosis Safe multisig on Ethereum mainnet. Every transaction requires a passed DAO vote on Snapshot first, whether it's swapping rETH for USDC to cover payroll or funding a new project.
 
-**Treasury address:** [`0x03b5Dc2CE78a7bEe9F66DD619b291595a2E166BB`](https://etherscan.io/address/0x03b5Dc2CE78a7bEe9F66DD619b291595a2E166BB)
+**Treasury address:** <CopyAddress>0x03b5Dc2CE78a7bEe9F66DD619b291595a2E166BB</CopyAddress> ([Etherscan](https://etherscan.io/address/0x03b5Dc2CE78a7bEe9F66DD619b291595a2E166BB))
 
 ## Holdings
 
@@ -29,7 +33,7 @@ The conversion history spans from October 2023 through early 2025, with amounts 
 **Out:** All spending goes through one of two routes:
 
 1. **Snapshot vote → multisig execution**: any new project, treasury swap, or governance decision. The DAO votes, the signers execute.
-2. **GBC multisig** ([`0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906`](https://etherscan.io/address/0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906)): the Grants and Bounties Committee holds a separate multisig funded by DAO votes, and distributed from there to contributors based on approved grants and bounties until early 2026. The committee is currently inactive, and project leads now handle most bounties within their projects.
+2. **GBC multisig** (<CopyAddress>0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906</CopyAddress>, [Etherscan](https://etherscan.io/address/0x7cFd3D29fD7b13CA33E49bA6b11b79bEF89e5906)): the Grants and Bounties Committee holds a separate multisig funded by DAO votes, and distributed from there to contributors based on approved grants and bounties until early 2026. The committee is currently inactive, and project leads now handle most bounties within their projects.
 
 ## Governance
 

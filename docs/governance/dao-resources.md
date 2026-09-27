@@ -2,7 +2,11 @@
 sidebar_position: 4
 title: DAO Resources
 description: Where Arrow talks, decides, holds its funds and builds, with links to each.
+mdx:
+  format: mdx
 ---
+
+import CopyAddress from '@site/src/components/CopyAddress';
 
 # DAO Resources
 
@@ -28,7 +32,7 @@ Everything Arrow does happens in public, spread across a handful of tools. This 
 
 | Resource | What it's for |
 |---|---|
-| [Treasury](/docs/governance/core/treasury) | What the DAO holds and how spending is approved. The Safe itself is [`0x03b5…66bb` on Etherscan](https://etherscan.io/address/0x03b5dc2ce78a7bee9f66dd619b291595a2e166bb). |
+| [Treasury](/docs/governance/core/treasury) | What the DAO holds and how spending is approved. The Safe itself is <CopyAddress>0x03b5dc2ce78a7bee9f66dd619b291595a2e166bb</CopyAddress> ([Etherscan](https://etherscan.io/address/0x03b5dc2ce78a7bee9f66dd619b291595a2e166bb)). |
 | [ARROW token](/docs/governance/arrow-token) | Supply, allocation, where it trades and the key addresses. |
 | [Token contracts](/docs/reference/contracts) | The token and vesting contracts, with an API reference. |
 
