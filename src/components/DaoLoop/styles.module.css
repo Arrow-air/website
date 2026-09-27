@@ -114,7 +114,7 @@
 
 .nodeTitle {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0;
   fill: var(--docs-text);
