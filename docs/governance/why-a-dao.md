@@ -44,7 +44,7 @@ Arrow's governance isn't theoretical. It runs on [Snapshot](https://snapshot.org
 
 Formal rule changes go through the [AIP process](./aips/): a proposal is drafted, debated on the [DAO forum](https://dao.arrowair.com/), then put to a vote. Operational decisions — funding a new project, swapping treasury assets, electing committee members — also go to a Snapshot vote. Nothing material happens without one.
 
-The [Grants and Bounties Committee](./gbc) handles day-to-day contributor compensation through a separate multisig, funded by bimonthly DAO votes. The result is a system where strategic decisions are made collectively and operational execution is delegated to accountable individuals.
+Day-to-day contributor compensation is handled by project leads, who run bounties within their projects under budgets the DAO votes on. The [Grants and Bounties Committee](./gbc), which used to do this through a separate multisig, is currently inactive. The result is a system where strategic decisions are made collectively and operational execution is delegated to accountable individuals.
 
 ## The trade-offs
 
