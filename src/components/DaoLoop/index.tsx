@@ -193,8 +193,8 @@ function Diagram({ layout, step, still, id }: { layout: Layout; step: number; st
             <g transform={`translate(${tx + (tile - 20) / 2} ${ty + (tile - 20) / 2}) scale(${20 / 24})`} className={styles.icon}>
               {n.icon}
             </g>
-            <text x={textX} y={y + layout.h / 2 - 3} className={styles.nodeTitle}>{n.title}</text>
-            <text x={textX} y={y + layout.h / 2 + 14} className={styles.nodeSub}>{n.sub}</text>
+            <text x={textX} y={y + layout.h / 2 - 5} className={styles.nodeTitle}>{n.title}</text>
+            <text x={textX} y={y + layout.h / 2 + 15} className={styles.nodeSub}>{n.sub}</text>
           </g>
         );
       })}

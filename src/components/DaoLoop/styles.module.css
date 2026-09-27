@@ -1,3 +1,21 @@
+/* IBM Plex Mono, self-hosted like the site's other fonts (OFL, licence in
+   static/fonts/IBMPlexMono-LICENSE.txt). */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Role colours from the Arrow brand palette (Teal, Blue, Orange). */
 .figure {
   --loop-people: #218191;
@@ -44,7 +62,8 @@
 }
 
 .groupTitle {
-  font-family: 'Departure Mono', monospace;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 600;
   font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -67,7 +86,7 @@
 .arrowHead { fill: var(--docs-text-muted); }
 
 .edgeLabel {
-  font-family: 'Departure Mono', monospace;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.02em;
   fill: var(--docs-text-secondary);
@@ -95,16 +114,17 @@
 }
 
 .nodeTitle {
-  font-family: 'Departure Mono', monospace;
-  font-size: 11.5px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.03em;
   fill: var(--docs-text);
 }
 
 .nodeSub {
   font-family: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 12px;
+  font-size: 11.5px;
   fill: var(--docs-text-muted);
 }
 
@@ -135,7 +155,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: 'Departure Mono', monospace;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
