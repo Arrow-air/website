@@ -1,10 +1,10 @@
 ---
 sidebar_position: 0
 title: API Reference
-description: Functions, events and deployed addresses for the ARROW token and the vesting escrows contributors claim from.
+description: Functions, events and deployed addresses for the ARROW token and the vesting escrows contributors were paid through.
 ---
 
-Arrow's live contracts are the $ARROW token and a vesting escrow factory on Optimism that holds contributor ARROW while it vests. This page lists what each one exposes. For step-by-step instructions on creating, claiming and cancelling vesting, see the [Vesting guide](../guides/vesting.md).
+Arrow's contracts are the $ARROW token and the vesting escrows that contributors were paid through between 2022 and June 2024. Arrow no longer vests contributor ARROW and every schedule has fully vested, so the escrows now only matter for claiming what's left in them. This page lists what each contract exposes. For how to claim, see the [Vesting guide](../guides/vesting.md).
 
 ## Deployed addresses
 
@@ -17,7 +17,7 @@ Arrow's live contracts are the $ARROW token and a vesting escrow factory on Opti
 
 ARROW on Optimism isn't a separate deployment of ArrowToken. It's Optimism's standard bridged ERC-20, created through the Optimism token factory and linked to the mainnet token, so the bridge mints and burns it as ARROW moves between networks.
 
-Each vesting schedule is its own small escrow contract, cloned from the implementation by the factory. ARROW held in these escrows also counts toward [Snapshot](/docs/reference/snapshot) voting weight.
+Each vesting schedule was its own small escrow contract, cloned from the implementation by the factory. ARROW still sitting in an escrow counts toward [Snapshot](/docs/reference/snapshot) voting weight.
 
 ## ArrowToken
 
@@ -36,7 +36,7 @@ The owner is the DAO multisig, so both minting and upgrades need its signers to 
 
 [`VestingEscrowFactory.vy`](https://github.com/yearn/yearn-vesting-escrow/tree/980a3e43fc72edafc8fce11702e40ab14965ef06/contracts/VestingEscrowFactory.vy)
 
-Arrow uses Yearn's open-source vesting escrow, written in Vyper. The factory creates and funds one escrow per vesting schedule.
+Arrow used Yearn's open-source vesting escrow, written in Vyper. The factory created and funded one escrow per vesting schedule, about 2,500 in all between 2022 and June 2024, and hasn't created any since.
 
 | Member | Type | What it does |
 |---|---|---|
@@ -49,7 +49,7 @@ Arrow uses Yearn's open-source vesting escrow, written in Vyper. The factory cre
 
 [`VestingEscrowSimple.vy`](https://github.com/yearn/yearn-vesting-escrow/tree/980a3e43fc72edafc8fce11702e40ab14965ef06/contracts/VestingEscrowSimple.vy)
 
-Every vesting schedule runs this contract. The recipient claims from it; the admin can cancel it.
+Every escrow runs this contract. Because every schedule has fully vested, `unclaimed()` now shows an escrow's whole remaining balance and `claim()` collects it.
 
 | Function | Access | What it does |
 |---|---|---|
@@ -63,7 +63,7 @@ Every vesting schedule runs this contract. The recipient claims from it; the adm
 
 ## Other contracts in the repository
 
-The [Arrow-Contracts repository](https://github.com/Arrow-air/Arrow-Contracts) also holds `ArrowVestingFactory` and `ArrowVestingBase`, an earlier Solidity vesting design built on OpenZeppelin's `VestingWallet`. Contributor vesting runs on the Yearn escrows above, so those two contracts aren't documented here.
+The [Arrow-Contracts repository](https://github.com/Arrow-air/Arrow-Contracts) also holds `ArrowVestingFactory` and `ArrowVestingBase`, an earlier Solidity vesting design built on OpenZeppelin's `VestingWallet`. Contributor vesting ran on the Yearn escrows above, so those two contracts aren't documented here.
 
 Contributor pay has also been streamed in USDC on Ethereum Mainnet through [LlamaPay](https://llamapay.io), a third-party payment streaming protocol. LlamaPay isn't an Arrow contract, so it isn't covered here.
 
