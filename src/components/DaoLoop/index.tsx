@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 type Role = 'people' | 'governance' | 'money';
 type Node = { title: string; sub: string; role: Role; icon: React.ReactNode };
 
-// 24x24 stroke glyphs, drawn in the node's role colour.
+// 24x24 stroke glyphs, drawn in the node's role color.
 const ICONS = {
   people: (
     <>
