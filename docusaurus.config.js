@@ -92,6 +92,16 @@ const config = {
 
   plugins: [
     require.resolve('docusaurus-plugin-image-zoom'),
+    // Old URLs of pages that were merged into others, so existing links
+    // keep working. Client-side redirects only run in production builds.
+    ['@docusaurus/plugin-client-redirects', {
+      redirects: [
+        { from: '/docs/reference/discord', to: '/docs/community/discord-guide' },
+        { from: '/docs/reference/github', to: '/docs/guides/github-guide' },
+        { from: '/docs/reference/dao-forum', to: '/docs/community/forum' },
+        { from: '/docs/governance/core/legal', to: '/docs/governance/legal-structure' },
+      ],
+    }],
     excludeProjectQuiverFromMainDocsLoader,
     require.resolve('./plugins/dev-homepage'),
     ['@docusaurus/plugin-content-docs', {
