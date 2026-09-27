@@ -30,7 +30,7 @@ Everything Arrow does happens in public, spread across a handful of tools. This 
 |---|---|
 | [Treasury](/docs/governance/core/treasury) | What the DAO holds and how spending is approved. The Safe itself is [`0x03b5…66bb` on Etherscan](https://etherscan.io/address/0x03b5dc2ce78a7bee9f66dd619b291595a2e166bb). |
 | [ARROW token](/docs/governance/arrow-token) | Supply, allocation, where it trades and the key addresses. |
-| [Token contracts](/docs/reference/contracts) | The token and vesting contracts, with an API reference and a guide to claiming vested ARROW. |
+| [Token contracts](/docs/reference/contracts) | The token and vesting contracts, with an API reference. |
 
 ## Build
 

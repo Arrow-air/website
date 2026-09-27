@@ -14,6 +14,5 @@ The token lives on Ethereum Mainnet and is bridged to Optimism, where the vestin
 ## In this section
 
 - [API Reference](./api/index.md) lists the deployed addresses and every function and event the contracts expose.
-- [Vesting](./guides/vesting.md) explains how to claim any ARROW left in a vesting escrow.
 
 For supply, allocation and how ARROW is used in governance, see the [ARROW Token](/docs/governance/arrow-token) page. The contracts are open to contributions, so if you spot an issue or want to propose a change, open an issue or PR on the Arrow-Contracts repository.

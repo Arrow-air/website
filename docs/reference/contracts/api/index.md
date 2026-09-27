@@ -4,7 +4,7 @@ title: API Reference
 description: Functions, events and deployed addresses for the ARROW token and the vesting escrows contributors were paid through.
 ---
 
-Arrow's contracts are the $ARROW token and the vesting escrows that contributors were paid through between 2022 and June 2024. Arrow no longer vests contributor ARROW and every schedule has fully vested, so the escrows now only matter for claiming what's left in them. This page lists what each contract exposes. For how to claim, see the [Vesting guide](../guides/vesting.md).
+Arrow's contracts are the $ARROW token and the vesting escrows that contributors were paid through between 2022 and June 2024. Arrow no longer vests contributor ARROW and every schedule has fully vested, so the escrows now only matter for claiming what's left in them. This page lists what each contract exposes. Anyone with ARROW still in an escrow can collect it with `claim()`, described below.
 
 ## Deployed addresses
 
