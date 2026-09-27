@@ -30,8 +30,8 @@ Today, most bounties are reviewed and paid by project leads as part of running t
 
 Larger funded efforts with a named leader and a budget cap run as projects under the [AIP-006 Projects Framework](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-006.md) instead; the current lineup is on the [Active Projects](/docs/governance/active-project-list) page.
 
-## The quiet rule behind all of it
+## What reviewers look for
 
-Funding follows artifacts. A merged PR, a published design, a flight log: things a reviewer can open and check. If the work is good, it ships, and paid work at Arrow is simply that same rule with a budget attached.
+Reviewers pay for work they can open and check, like a merged PR, a published design or a flight log. If the work is good, it ships and it gets paid.
 
 Not sure where your idea fits? Ask in [Discord](https://discord.com/invite/arrow) and someone will point you at the right shape.
