@@ -2093,11 +2093,15 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
    CODE
    ========================================================================== */
 
-/* Inline code */
+/* Inline code. Sized in em so it scales with the surrounding text (tables
+   and admonitions run smaller than body copy), with thin vertical padding so
+   the chip clears the lines above and below when it wraps. */
 .theme-doc-markdown code {
   font-family: 'Jetbrainsmono', monospace;
-  font-size: 13px;
-  padding: 0.125rem 0.375rem;
+  font-size: 0.82em;
+  padding: 0.05em 0.35em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   background: #eef0f3;
   border: 1px solid #d5d8dc;
   color: var(--docs-text);
