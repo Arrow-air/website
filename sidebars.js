@@ -170,6 +170,7 @@ const sidebars = {
       label: 'RESOURCES',
       collapsible: true,
       collapsed: false,
+      link: { type: 'doc', id: 'governance/dao-resources' },
       items: [
         { type: 'link', label: 'DAO Forum', href: 'https://dao.arrowair.com/' },
         { type: 'doc', id: 'reference/snapshot', label: 'Snapshot' },
