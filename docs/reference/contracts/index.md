@@ -7,7 +7,7 @@ hide_table_of_contents: true
 
 # Token Contracts
 
-Arrow keeps its on-chain footprint small. There's the $ARROW token itself, owned by the DAO multisig and open source in the [Arrow-Contracts repository](https://github.com/Arrow-air/Arrow-Contracts). Then there are the vesting escrows that contributors were paid through between 2022 and June 2024, using Yearn's open-source vesting escrow contracts. Arrow no longer vests contributor ARROW and every schedule has fully vested, but anything unclaimed is still in its escrow.
+Arrow has two sets of contracts on-chain. The first is the $ARROW token, owned by the DAO multisig and open source in the [Arrow-Contracts repository](https://github.com/Arrow-air/Arrow-Contracts). The second is the vesting escrows that contributors were paid through between 2022 and June 2024, using Yearn's open-source vesting escrow contracts. Arrow no longer vests contributor ARROW and every schedule has fully vested, but anything unclaimed is still in its escrow.
 
 The token lives on Ethereum Mainnet and is bridged to Optimism, where the vesting escrows are.
 
