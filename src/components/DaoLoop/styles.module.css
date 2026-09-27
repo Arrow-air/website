@@ -1,0 +1,153 @@
+/* Role colours from the Arrow brand palette (Teal, Blue, Orange). */
+.figure {
+  --loop-people: #218191;
+  --loop-governance: #0943BF;
+  --loop-money: #D74314;
+  --loop-people-tint: #E5F6F9;
+  --loop-governance-tint: #ECF2FF;
+  --loop-money-tint: #FFE9E1;
+  margin: 1.75rem 0 2rem;
+  padding: 1.25rem 1rem 0.9rem;
+  border: 1px solid var(--docs-border);
+  background: var(--docs-bg-subtle);
+}
+
+[data-theme='dark'] .figure {
+  --loop-people: #70C9D9;
+  --loop-governance: #6DB0FF;
+  --loop-money: #FF906E;
+  --loop-people-tint: #0A2C32;
+  --loop-governance-tint: #03205E;
+  --loop-money-tint: #371A12;
+}
+
+.svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.wide { display: block; }
+.narrow { display: none; max-width: 340px; margin: 0 auto; }
+
+@media (max-width: 640px) {
+  .wide { display: none; }
+  .narrow { display: block; }
+}
+
+.people { --role: var(--loop-people); --role-tint: var(--loop-people-tint); }
+.governance { --role: var(--loop-governance); --role-tint: var(--loop-governance-tint); }
+.money { --role: var(--loop-money); --role-tint: var(--loop-money-tint); }
+
+.group rect {
+  fill: var(--loop-people-tint);
+  fill-opacity: 0.55;
+  stroke: var(--loop-people);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+
+.groupTitle {
+  font-family: 'Departure Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  fill: var(--loop-people);
+}
+
+.groupSub {
+  font-family: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 11.5px;
+  fill: var(--docs-text-secondary);
+}
+
+.edge {
+  fill: none;
+  stroke: var(--docs-text-muted);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 4;
+}
+
+.arrowHead { fill: var(--docs-text-muted); }
+
+.edgeLabel {
+  font-family: 'Departure Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  fill: var(--docs-text-secondary);
+}
+
+.nodeBox {
+  fill: var(--docs-bg);
+  stroke: var(--docs-border);
+  stroke-width: 1.25;
+  transition: stroke 0.35s ease, fill 0.35s ease;
+}
+
+.tile {
+  fill: var(--role-tint);
+  transition: fill 0.35s ease;
+}
+
+.icon {
+  fill: none;
+  stroke: var(--role);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.35s ease;
+}
+
+.nodeTitle {
+  font-family: 'Departure Mono', monospace;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  fill: var(--docs-text);
+}
+
+.nodeSub {
+  font-family: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  fill: var(--docs-text-muted);
+}
+
+.nodeActive .nodeBox { stroke: var(--role); stroke-width: 1.75; }
+.nodeActive .tile { fill: var(--role); }
+.nodeActive .icon { stroke: var(--docs-bg); }
+
+.logomark {
+  fill: var(--role);
+  stroke: none;
+  transition: fill 0.35s ease;
+}
+
+.nodeActive .logomark { fill: var(--docs-bg); }
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--docs-text-muted);
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Departure Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.key i { display: inline-block; width: 0.65rem; height: 0.65rem; }
+.keyPeople { background: var(--loop-people); }
+.keyGovernance { background: var(--loop-governance); }
+.keyMoney { background: var(--loop-money); }
+
+.captionText { flex-basis: 100%; text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nodeBox, .tile, .icon { transition: none; }
+}
