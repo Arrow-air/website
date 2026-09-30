@@ -238,12 +238,15 @@ nav[class*="navbar"] > [class*="navbarInner"] {
   border: 1px solid rgba(255, 255, 255, 0.25) !important;
   border-radius: 4px !important;
   color: #ffffff !important;
-  padding: 0 2.5rem 0 2rem !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6.5 1a5.5 5.5 0 0 1 4.38 8.82l3.66 3.66a.75.75 0 0 1-1.06 1.06l-3.66-3.66A5.5 5.5 0 1 1 6.5 1m0 1.5a4 4 0 1 0 0 8a4 4 0 0 0 0-8'/%3E%3C/svg%3E") !important;
-  background-repeat: no-repeat !important;
-  background-position: 0.5rem center !important;
-  background-size: 16px 16px !important;
+  padding: 0 2.5rem 0 2.25rem !important;
+  /* The search plugin renders its own magnifier SVG; a background icon here
+     would draw a second one beside it */
+  background-image: none !important;
   transition: background-color 0.15s ease, border-color 0.15s ease, width 0.2s ease;
+}
+
+.navbar__search [class*="searchIcon"] {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .navbar__search-input::placeholder {
