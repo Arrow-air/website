@@ -247,49 +247,46 @@
               opacity: 1 !important;
             }
 
-            /* Hero social proof line under the CTAs */
+            /* Hero social proof: live count pills inside the Discord + GitHub CTAs.
+              The numbers in the markup are fallbacks, replaced at load by the
+              script after </header>. */
             .hero-proof {
-              display: flex;
-              flex-wrap: wrap;
-              align-items: center;
-              gap: 0.5rem 0.75rem;
-              margin-top: 1.25rem;
-              font-family: Jetbrainsmono, monospace;
-              font-size: 0.8125rem;
-              letter-spacing: 0.02em;
-              color: var(--_primitives---colors--neutral-light);
-            }
-            .hero-proof_item {
               display: inline-flex;
               align-items: center;
-              gap: 0.4rem;
-              color: inherit;
-              text-decoration: none;
-              transition: color 0.15s ease;
-            }
-            .hero-proof_item:hover {
+              gap: 0.35rem;
+              padding: 0.15rem 0.45rem;
+              border-radius: 999px;
+              background: rgba(255, 255, 255, 0.12);
               color: #ffffff;
+              font-size: 0.75rem;
+              letter-spacing: 0.02em;
+              font-variant-numeric: tabular-nums;
+              line-height: 1.4;
             }
-            /* The global external-link arrow is noise on a stat line */
-            .hero-proof_item[target="_blank"]::after {
+            /* The pill already marks these as live links; the global
+              external-link arrow would only widen the buttons */
+            a.button:has(.hero-proof)::after {
               display: none;
             }
-            .hero-proof_count {
-              color: #ffffff;
-              font-variant-numeric: tabular-nums;
+            .hero-proof_label {
+              color: rgba(255, 255, 255, 0.65);
+              text-transform: none;
             }
-            .hero-proof_item svg {
+            /* Smaller laptops: drop the words so both CTAs stay on one row */
+            @media (min-width: 992px) and (max-width: 1365px) {
+              .hero-proof_label {
+                display: none;
+              }
+            }
+            .hero-proof svg {
               color: #f5c518;
             }
             .hero-proof_dot {
-              width: 7px;
-              height: 7px;
+              width: 6px;
+              height: 6px;
               border-radius: 50%;
               background: #3ba55d;
-              box-shadow: 0 0 0 3px rgba(59, 165, 93, 0.2);
-            }
-            .hero-proof_sep {
-              opacity: 0.4;
+              box-shadow: 0 0 0 2px rgba(59, 165, 93, 0.25);
             }
 
             /* Webflow's mobile-nav animation leaves a stale inline transform
