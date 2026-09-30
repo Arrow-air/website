@@ -247,6 +247,51 @@
               opacity: 1 !important;
             }
 
+            /* Hero social proof line under the CTAs */
+            .hero-proof {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              gap: 0.5rem 0.75rem;
+              margin-top: 1.25rem;
+              font-family: Jetbrainsmono, monospace;
+              font-size: 0.8125rem;
+              letter-spacing: 0.02em;
+              color: var(--_primitives---colors--neutral-light);
+            }
+            .hero-proof_item {
+              display: inline-flex;
+              align-items: center;
+              gap: 0.4rem;
+              color: inherit;
+              text-decoration: none;
+              transition: color 0.15s ease;
+            }
+            .hero-proof_item:hover {
+              color: #ffffff;
+            }
+            /* The global external-link arrow is noise on a stat line */
+            .hero-proof_item[target="_blank"]::after {
+              display: none;
+            }
+            .hero-proof_count {
+              color: #ffffff;
+              font-variant-numeric: tabular-nums;
+            }
+            .hero-proof_item svg {
+              color: #f5c518;
+            }
+            .hero-proof_dot {
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
+              background: #3ba55d;
+              box-shadow: 0 0 0 3px rgba(59, 165, 93, 0.2);
+            }
+            .hero-proof_sep {
+              opacity: 0.4;
+            }
+
             /* Webflow's mobile-nav animation leaves a stale inline transform
               on the menu; a transformed element becomes the containing block
               for the absolutely-positioned mega menu, pinning it to the nav

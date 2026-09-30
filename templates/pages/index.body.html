@@ -25,6 +25,19 @@
                           <div>GITHUB</div>
                         </a>
                       </div>
+                      <!-- Live counts: the numbers below are fallbacks, replaced at load by
+                        the GitHub org + Discord invite APIs (see script after </header>) -->
+                      <div class="hero-proof">
+                        <a href="https://github.com/Arrow-air" target="_blank" class="hero-proof_item">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.94 5.96l6.58.96l-4.76 4.64l1.12 6.55L12 17.52l-5.88 3.09l1.12-6.55L2.48 9.42l6.58-.96z"/></svg>
+                          <span class="hero-proof_count" data-proof="github">701</span> GitHub stars
+                        </a>
+                        <span class="hero-proof_sep" aria-hidden="true">·</span>
+                        <a href="https://discord.com/invite/arrow" target="_blank" class="hero-proof_item">
+                          <span class="hero-proof_dot" aria-hidden="true"></span>
+                          <span class="hero-proof_count" data-proof="discord">1,480</span> Discord members
+                        </a>
+                      </div>
                       <div class="magic-happens-wrapper">
                         <div class="magic0happens-lottie" data-w-id="2ff9a3cb-fb1e-1c9a-a9e8-c9bf523988dd" data-animation-type="lottie" data-src="documents/04_magic-happens_opt.lottie" data-loop="1" data-direction="1" data-autoplay="1" data-is-ix2-target="0" data-renderer="svg" data-default-duration="0" data-duration="12"></div>
                       </div>
@@ -50,6 +63,42 @@
           </div>
         </div>
       </header>
+      <script>
+        // Hero social proof: total stars across the Arrow-air org's public repos
+        // and the Discord invite's member count. Cached for 6h so repeat visits
+        // don't burn the unauthenticated GitHub rate limit (60/hr per IP). Any
+        // failure leaves the fallback numbers in the markup untouched.
+        (function () {
+          var KEY = 'arrow-hero-proof', TTL = 6 * 60 * 60 * 1000;
+          function render(counts) {
+            Object.keys(counts).forEach(function (k) {
+              var el = document.querySelector('[data-proof="' + k + '"]');
+              if (el && counts[k] > 0) el.textContent = counts[k].toLocaleString('en-US');
+            });
+          }
+          try {
+            var cached = JSON.parse(localStorage.getItem(KEY));
+            if (cached && Date.now() - cached.at < TTL) return render(cached.counts);
+          } catch (e) {}
+          var counts = {};
+          Promise.all([
+            fetch('https://api.github.com/orgs/Arrow-air/repos?per_page=100&type=public')
+              .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+              .then(function (repos) {
+                counts.github = repos.reduce(function (sum, r) { return sum + r.stargazers_count; }, 0);
+              }).catch(function () {}),
+            fetch('https://discord.com/api/v9/invites/arrow?with_counts=true')
+              .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+              .then(function (d) { counts.discord = d.approximate_member_count; })
+              .catch(function () {})
+          ]).then(function () {
+            render(counts);
+            if (counts.github && counts.discord) {
+              try { localStorage.setItem(KEY, JSON.stringify({at: Date.now(), counts: counts})); } catch (e) {}
+            }
+          });
+        })();
+      </script>
       <script>
         (function () {
           // Notable contributions — scattered across all 5 rows
