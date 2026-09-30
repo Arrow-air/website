@@ -278,17 +278,50 @@
             /* Mega menu (desktop): flat link rows instead of boxed cards, hairline
               column dividers instead of panels, and a content ease-in on open.
               Webflow snaps the list to opacity 1 inline, so the motion lives on
-              the inner container, which Webflow never touches. */
+              the columns inside it, which Webflow never touches. Enter is a
+              short staggered drop on a strong ease-out; exit is faster and
+              unstaggered so closing never feels like it lags the pointer. */
             @media (min-width: 992px) {
-              .arrow-navbar_dropdown-list > .arrow-navbar_container {
-                opacity: 0;
-                transform: translateY(-8px);
-                transition: opacity 180ms ease-out, transform 180ms ease-out;
+              .arrow-navbar_menu-dropdown {
+                --menu-ease: cubic-bezier(0.23, 1, 0.32, 1);
               }
-              .arrow-navbar_dropdown-list.w--open > .arrow-navbar_container {
+              .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-content-wrapper {
+                opacity: 0;
+                transform: translateY(-6px);
+                transition: opacity 120ms ease-out, transform 120ms ease-out;
+              }
+              /* Webflow flips the list from display:none in the same frame it
+                adds w--open, so a plain transition has no "before" to run from.
+                @starting-style supplies it (no animation in older browsers). */
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
                 opacity: 1;
                 transform: none;
-                transition: opacity 260ms ease-out, transform 320ms cubic-bezier(0.32, 0.72, 0, 1);
+                transition: opacity 220ms var(--menu-ease), transform 240ms var(--menu-ease);
+              }
+              @starting-style {
+                .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general,
+                .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
+                  opacity: 0;
+                  transform: translateY(-6px);
+                }
+              }
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general:nth-child(2) {
+                transition-delay: 40ms;
+              }
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general:nth-child(3) {
+                transition-delay: 80ms;
+              }
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
+                transition-delay: 120ms;
+              }
+              /* Chevron flips with the open state so the toggle shows it */
+              .arrow-navbar_dropdown-toggle .dropdown-chevron {
+                transition: transform 200ms var(--menu-ease);
+              }
+              .arrow-navbar_dropdown-toggle.w--open .dropdown-chevron {
+                transform: rotate(180deg);
               }
               .arrow-navbar_dropdown-list.w--open {
                 box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
@@ -316,11 +349,14 @@
                 padding: 0.5rem 0.625rem;
                 margin: 0 -0.625rem;
                 align-items: center;
-                transition: background-color 150ms ease;
+                transition: background-color 150ms ease, transform 120ms ease-out;
               }
               .arrow-navbar_dropdown-link:hover {
                 border: none !important;
-                background-color: var(--_primitives---opacity--white-10);
+              }
+              /* Press feedback: the row dips slightly so the click registers */
+              .arrow-navbar_dropdown-link:active {
+                transform: scale(0.98);
               }
               .arrow-navbar_dropdown-link .arrow-navbar_icon-holder {
                 display: flex;
@@ -332,17 +368,34 @@
                 background-color: var(--_primitives---opacity--white-10);
                 transition: background-color 150ms ease;
               }
-              .arrow-navbar_dropdown-link:hover .arrow-navbar_icon-holder {
-                background-color: var(--_primitives---opacity--white-20);
-              }
               .arrow-navbar_dropdown-link p.text-size-small.is-mega-menu {
                 color: var(--_primitives---opacity--white-60);
               }
             }
+            /* Hover highlights only for real pointers; touch taps would leave
+              them stuck on */
+            @media (min-width: 992px) and (hover: hover) and (pointer: fine) {
+              .arrow-navbar_dropdown-link:hover {
+                background-color: var(--_primitives---opacity--white-10);
+              }
+              .arrow-navbar_dropdown-link:hover .arrow-navbar_icon-holder {
+                background-color: var(--_primitives---opacity--white-20);
+              }
+            }
+            /* Reduced motion: keep the fade (it aids comprehension), drop the
+              movement, stagger and press scale */
             @media (min-width: 992px) and (prefers-reduced-motion: reduce) {
-              .arrow-navbar_dropdown-list > .arrow-navbar_container {
-                transition: none !important;
+              .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-content-wrapper,
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
                 transform: none !important;
+                transition: opacity 150ms ease !important;
+              }
+              .arrow-navbar_dropdown-link:active,
+              .arrow-navbar_dropdown-toggle .dropdown-chevron {
+                transform: none !important;
+                transition: none !important;
               }
             }
 
