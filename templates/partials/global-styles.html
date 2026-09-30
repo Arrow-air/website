@@ -247,18 +247,17 @@
               opacity: 1 !important;
             }
 
-            /* Nav CTAs: Discord is the one primary action (solid navy, the
-              mega menu's colour, reads against the blue bar); Docs drops to a
-              borderless ghost link */
+            /* Nav CTAs: Discord is the one primary action (translucent white
+              fill over the blue bar); Docs drops to a borderless ghost link */
             .arrow-navbar_menu-right .button.nav-cta {
-              background: var(--_primitives---colors--blue-darker) !important;
-              border-color: var(--_primitives---colors--blue-darker) !important;
+              background: rgba(255, 255, 255, 0.15) !important;
+              border-color: rgba(255, 255, 255, 0.3) !important;
               color: #ffffff !important;
               white-space: nowrap;
             }
             .arrow-navbar_menu-right .button.nav-cta:hover {
-              background: var(--_primitives---colors--blue-darkest) !important;
-              border-color: var(--_primitives---opacity--white-40) !important;
+              background: rgba(255, 255, 255, 0.25) !important;
+              border-color: rgba(255, 255, 255, 0.5) !important;
               color: #ffffff !important;
             }
             @media (min-width: 992px) {
