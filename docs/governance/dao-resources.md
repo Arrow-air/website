@@ -1,5 +1,4 @@
 ---
-draft: true
 sidebar_position: 4
 description: Links to Arrow DAO tools and resources.
 ---
