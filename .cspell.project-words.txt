@@ -168,3 +168,5 @@ Zeynep
 mahmudsudo
 Mahmud
 hackathon
+funder
+unvested

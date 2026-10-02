@@ -1,0 +1,56 @@
+name: Stale docs review
+
+# Once a month, list docs pages that haven't changed in six months and keep a
+# single open issue up to date with them, so reviewing old pages becomes a
+# standing checklist instead of something that only happens when a reader
+# notices a mistake.
+on:
+  schedule:
+    - cron: '0 9 1 * *'
+  workflow_dispatch:
+
+# A `permissions:` block replaces the defaults entirely, so every scope the
+# job needs is listed. Issues need write access to open and update the
+# checklist.
+permissions:
+  contents: read
+  issues: write
+
+env:
+  ISSUE_TITLE: Docs due a review
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history: the report dates each page by its last commit.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Build the stale docs checklist
+        run: node scripts/stale-docs.mjs --markdown > stale-docs.md
+
+      - name: Open or update the review issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "in:title \"$ISSUE_TITLE\"" --json number,title \
+            --jq ".[] | select(.title == \"$ISSUE_TITLE\") | .number" | head -1)
+
+          if grep -q "Nothing is stale right now" stale-docs.md; then
+            if [ -n "$existing" ]; then
+              gh issue close "$existing" --repo "$GITHUB_REPOSITORY" \
+                --comment "Every published docs page has changed in the last six months, so there's nothing left to review."
+            fi
+            echo "No stale docs."
+            exit 0
+          fi
+
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --body-file stale-docs.md
+            echo "Updated issue #$existing"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$ISSUE_TITLE" --body-file stale-docs.md
+          fi

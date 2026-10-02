@@ -37,7 +37,7 @@ The token has three active utilities:
 
 ### 2. Manufacturing bonds
 
-Under [AIP-009](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-009.md), community manufacturers post $ARROW as a quality-guarantee bond to fulfill orders for Arrow-designed hardware. Bonds lock for 28 days per shipped unit while the customer inspects the product. If the DAO upholds a customer dispute, the bond can be slashed: slashed tokens first compensate the customer, and any excess is burned — permanently reducing total supply. The DAO never keeps slashed tokens as revenue. Each sale also pays a commission to the DAO treasury. See [Manufacturing](../overview/manufacturing) for the full picture.
+[AIP-009](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-009.md) outlines a manufacturing protocol in which community manufacturers post $ARROW as a quality-guarantee bond to fulfill orders for Arrow-designed hardware. Bonds lock for 28 days per shipped unit while the customer inspects the product. If the DAO upholds a customer dispute, the bond can be slashed: slashed tokens first compensate the customer, and any excess is burned, permanently reducing total supply. The DAO never keeps slashed tokens as revenue. Each sale also pays a commission to the DAO treasury. AIP-009 is a basic design rather than a final specification, and work to finalize these details is ongoing, with more to come later in 2026. See [Manufacturing](../overview/manufacturing) for the full picture.
 
 ### 3. Contributor compensation
 
@@ -60,7 +60,13 @@ The project funding bucket authorizes the *purpose*, not the transactions: every
 
 ## Liquidity and market data
 
-$ARROW trades in the [ARROW/USDC pool on Uniswap v4 (Ethereum Mainnet)](https://app.uniswap.org/explore/pools/ethereum/0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924), created in July 2026. Live price, volume, and liquidity data is available on [GeckoTerminal](https://www.geckoterminal.com/eth/pools/0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924).
+$ARROW trades in three pools on Ethereum Mainnet:
+
+- **ARROW/USDC on Uniswap v4**, created in July 2026. [Uniswap](https://app.uniswap.org/explore/pools/ethereum/0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924) · [GeckoTerminal](https://www.geckoterminal.com/eth/pools/0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924)
+- **ARROW/WETH on Rubicon**, at a 0.3% fee. [GeckoTerminal](https://www.geckoterminal.com/eth/pools/0x3b725d9017526f8e349d1613c7e3b530c5b865c2)
+- **ARROW/USDC on Uniswap v3**, an early proof-of-concept pool with little liquidity. [Uniswap](https://app.uniswap.org/explore/pools/ethereum/0x84c4d2339c03aE3F7D5B7e63e3477b1dCA1610Ec) · [GeckoTerminal](https://www.geckoterminal.com/eth/pools/0x84c4d2339c03aE3F7D5B7e63e3477b1dCA1610Ec)
+
+GeckoTerminal shows live price, volume and liquidity for each.
 
 In the current framework, the DAO's authorized market activity is limited to individually voted sales from the project funding bucket, sized and paced to available liquidity; the first such sale was executed on July 21, 2026 under a governance vote. A DAO-owned liquidity pool is not authorized by AIP-010 and would require its own governance action and legal review.
 
@@ -85,3 +91,5 @@ AIP-010 sketches a non-binding direction for future phases — each mechanism re
 | DAO multisig | Optimism | <CopyAddress>0xaDc17e5f0e9F755C717B2beE43B590260034b852</CopyAddress> |
 | Vesting factory (Snapshot voting weight) | Optimism | <CopyAddress>0xB93427b83573C8F27a08A909045c3e809610411a</CopyAddress> |
 | Uniswap v4 ARROW/USDC pool (pool ID) | Ethereum Mainnet | <CopyAddress>0xc9f001b0b47be9183ff18fe7107778d7e7550dfdcc30914c81f9db288c64a924</CopyAddress> |
+| Rubicon ARROW/WETH pool | Ethereum Mainnet | <CopyAddress>0x3b725d9017526f8e349d1613c7e3b530c5b865c2</CopyAddress> |
+| Uniswap v3 ARROW/USDC pool | Ethereum Mainnet | <CopyAddress>0x84c4d2339c03aE3F7D5B7e63e3477b1dCA1610Ec</CopyAddress> |

@@ -4,7 +4,7 @@ title: Grants & Bounties
 description: How Arrow funds contributor work through grants and bounties.
 ---
 
-Arrow pays for real work, and it does it in the open. There are two main funding shapes, and knowing which one fits is most of the battle: a **bounty** funds a defined task, a **grant** funds ongoing time.
+Arrow pays for real work, and it does it in the open. There are three funding shapes, and knowing which one fits is most of the battle: a **bounty** funds a defined task, a **grant** funds ongoing time, and a **retroactive grant** recognizes work that's already been done.
 
 ## Bounties: defined tasks
 
@@ -26,12 +26,12 @@ Be clear that this comes at the builder's risk. Nothing retroactive is guarantee
 
 ## Who decides
 
-The **Grants and Bounties Committee (GBC)**, an elected body created by [AIP-002](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-002.md), reviews submissions and releases compensation. Submissions follow the format defined in [AIP-005](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-005.md), which asks for the same things any reviewer would: what the work is, what it costs, and how anyone can verify it was done.
+Today, most bounties are reviewed and paid by project leads as part of running their projects. The **Grants and Bounties Committee (GBC)**, an elected body created by [AIP-002](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-002.md), is the governance layer for grants, bounties and retroactive awards, though it's [currently inactive](/docs/governance/gbc). Submissions follow the format defined in [AIP-005](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-005.md), which asks for the same things any reviewer would: what the work is, what it costs, and how anyone can verify it was done.
 
 Larger funded efforts with a named leader and a budget cap run as projects under the [AIP-006 Projects Framework](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-006.md) instead; the current lineup is on the [Active Projects](/docs/governance/active-project-list) page.
 
-## The quiet rule behind all of it
+## What reviewers look for
 
-Funding follows artifacts. A merged PR, a published design, a flight log: things a reviewer can open and check. If the work is good, it ships, and paid work at Arrow is simply that same rule with a budget attached.
+Reviewers pay for work they can open and check, like a merged PR, a published design or a flight log. If the work is good, it ships and it gets paid.
 
 Not sure where your idea fits? Ask in [Discord](https://discord.com/invite/arrow) and someone will point you at the right shape.

@@ -289,6 +289,158 @@
               box-shadow: 0 0 0 2px rgba(59, 165, 93, 0.25);
             }
 
+            /* Nav CTAs: Discord is the one primary action (translucent white
+              fill over the blue bar); Docs drops to a borderless ghost link */
+            .arrow-navbar_menu-right .button.nav-cta {
+              background: rgba(255, 255, 255, 0.15) !important;
+              border-color: rgba(255, 255, 255, 0.3) !important;
+              color: #ffffff !important;
+              white-space: nowrap;
+            }
+            .arrow-navbar_menu-right .button.nav-cta:hover {
+              background: rgba(255, 255, 255, 0.25) !important;
+              border-color: rgba(255, 255, 255, 0.5) !important;
+              color: #ffffff !important;
+            }
+            @media (min-width: 992px) {
+              .arrow-navbar_menu-right {
+                gap: 0.25rem;
+              }
+              .arrow-navbar_menu-right .button.nav-ghost {
+                border-color: transparent !important;
+                color: rgba(255, 255, 255, 0.8) !important;
+              }
+              .arrow-navbar_menu-right .button.nav-ghost:hover {
+                background: rgba(255, 255, 255, 0.1) !important;
+                border-color: transparent !important;
+                color: #ffffff !important;
+              }
+            }
+
+            /* Mega menu (desktop): flat link rows instead of boxed cards, hairline
+              column dividers instead of panels, and a content ease-in on open.
+              Webflow snaps the list to opacity 1 inline, so the motion lives on
+              the columns inside it, which Webflow never touches. Enter is a
+              short staggered drop on a strong ease-out; exit is faster and
+              unstaggered so closing never feels like it lags the pointer. */
+            @media (min-width: 992px) {
+              .arrow-navbar_menu-dropdown {
+                --menu-ease: cubic-bezier(0.23, 1, 0.32, 1);
+              }
+              .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-content-wrapper {
+                opacity: 0;
+                transform: translateY(-6px);
+                transition: opacity 120ms ease-out, transform 120ms ease-out;
+              }
+              /* Webflow flips the list from display:none in the same frame it
+                adds w--open, so a plain transition has no "before" to run from.
+                @starting-style supplies it (no animation in older browsers). */
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
+                opacity: 1;
+                transform: none;
+                transition: opacity 220ms var(--menu-ease), transform 240ms var(--menu-ease);
+              }
+              @starting-style {
+                .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general,
+                .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
+                  opacity: 0;
+                  transform: translateY(-6px);
+                }
+              }
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general:nth-child(2) {
+                transition-delay: 40ms;
+              }
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general:nth-child(3) {
+                transition-delay: 80ms;
+              }
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
+                transition-delay: 120ms;
+              }
+              /* Chevron flips with the open state so the toggle shows it */
+              .arrow-navbar_dropdown-toggle .dropdown-chevron {
+                transition: transform 200ms var(--menu-ease);
+              }
+              .arrow-navbar_dropdown-toggle.w--open .dropdown-chevron {
+                transform: rotate(180deg);
+              }
+              .arrow-navbar_dropdown-list.w--open {
+                box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
+              }
+              .arrow-navbar_dropdown-content-left {
+                gap: 0 !important;
+              }
+              .arrow-navbar_dropdown-column.is-general {
+                border: none !important;
+                border-right: 1px solid var(--_primitives---opacity--white-10) !important;
+                border-radius: 0 !important;
+                background: none !important;
+                padding: 0.25rem 1.5rem !important;
+              }
+              .arrow-navbar_dropdown-column.is-general:first-child {
+                padding-left: 0 !important;
+              }
+              .arrow-navbar_dropdown-link-list {
+                grid-row-gap: 0.25rem;
+              }
+              .arrow-navbar_dropdown-link {
+                border: none !important;
+                background-color: transparent;
+                border-radius: 6px;
+                padding: 0.5rem 0.625rem;
+                margin: 0 -0.625rem;
+                align-items: center;
+                transition: background-color 150ms ease, transform 120ms ease-out;
+              }
+              .arrow-navbar_dropdown-link:hover {
+                border: none !important;
+              }
+              /* Press feedback: the row dips slightly so the click registers */
+              .arrow-navbar_dropdown-link:active {
+                transform: scale(0.98);
+              }
+              .arrow-navbar_dropdown-link .arrow-navbar_icon-holder {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 6px;
+                background-color: var(--_primitives---opacity--white-10);
+                transition: background-color 150ms ease;
+              }
+              .arrow-navbar_dropdown-link p.text-size-small.is-mega-menu {
+                color: var(--_primitives---opacity--white-60);
+              }
+            }
+            /* Hover highlights only for real pointers; touch taps would leave
+              them stuck on */
+            @media (min-width: 992px) and (hover: hover) and (pointer: fine) {
+              .arrow-navbar_dropdown-link:hover {
+                background-color: var(--_primitives---opacity--white-10);
+              }
+              .arrow-navbar_dropdown-link:hover .arrow-navbar_icon-holder {
+                background-color: var(--_primitives---opacity--white-20);
+              }
+            }
+            /* Reduced motion: keep the fade (it aids comprehension), drop the
+              movement, stagger and press scale */
+            @media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+              .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-content-wrapper,
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-column.is-general,
+              .arrow-navbar_dropdown-list.w--open .arrow-navbar_dropdown-content-wrapper {
+                transform: none !important;
+                transition: opacity 150ms ease !important;
+              }
+              .arrow-navbar_dropdown-link:active,
+              .arrow-navbar_dropdown-toggle .dropdown-chevron {
+                transform: none !important;
+                transition: none !important;
+              }
+            }
+
             /* Webflow's mobile-nav animation leaves a stale inline transform
               on the menu; a transformed element becomes the containing block
               for the absolutely-positioned mega menu, pinning it to the nav

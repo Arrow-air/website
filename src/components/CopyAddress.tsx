@@ -1,5 +1,28 @@
 import React, { useRef, useState } from 'react';
 
+const ICON_PROPS = {
+  width: 12,
+  height: 12,
+  viewBox: '0 0 24 24',
+  'aria-hidden': true,
+  style: { display: 'block' },
+} as const;
+
+const COPY_ICON = (
+  <svg {...ICON_PROPS}>
+    <g fill="none" stroke="currentColor" strokeWidth={2} strokeMiterlimit={10} strokeLinecap="square">
+      <path d="M17 7L21 7L21 21L7 21L7 17" />
+      <path d="M3 3L3 17L17 17L17 3L3 3Z" />
+    </g>
+  </svg>
+);
+
+const CHECK_ICON = (
+  <svg {...ICON_PROPS}>
+    <path d="M4 12.5L9.5 18L20 6" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="square" />
+  </svg>
+);
+
 /** An on-chain address with a one-click copy. Renders as code with a small
  *  copy control; falls back to plain code if the clipboard is unavailable. */
 export default function CopyAddress({ children }: { children: string }): JSX.Element {
@@ -24,7 +47,7 @@ export default function CopyAddress({ children }: { children: string }): JSX.Ele
         type="button"
         onClick={copy}
         aria-label={`Copy address ${children}`}
-        title="Copy address"
+        title={copied ? 'Copied' : 'Copy address'}
         style={{
           border: '1px solid var(--ifm-color-emphasis-300)',
           background: 'none',
@@ -33,11 +56,13 @@ export default function CopyAddress({ children }: { children: string }): JSX.Ele
           cursor: 'pointer',
           font: 'inherit',
           fontSize: '0.7rem',
-          padding: '0.1rem 0.35rem',
+          padding: '0.2rem',
           verticalAlign: 'middle',
+          display: 'inline-flex',
+          alignItems: 'center',
         }}
       >
-        {copied ? 'copied' : 'copy'}
+        {copied ? CHECK_ICON : COPY_ICON}
       </button>
     </span>
   );

@@ -92,6 +92,30 @@ const config = {
 
   plugins: [
     require.resolve('docusaurus-plugin-image-zoom'),
+    // Old URLs of pages that were merged into others, so existing links
+    // keep working. Client-side redirects only run in production builds.
+    ['@docusaurus/plugin-client-redirects', {
+      redirects: [
+        { from: '/docs/reference/discord', to: '/docs/community/discord-guide' },
+        { from: '/docs/reference/github', to: '/docs/guides/github-guide' },
+        { from: '/docs/reference/dao-forum', to: '/docs/community/forum' },
+        { from: '/docs/governance/core/legal', to: '/docs/governance/legal-structure' },
+        // Old project README links from before the Quiver docs had their own
+        // section. These pages became category pages, so map them by hand.
+        { from: '/docs/quiver/pt3-assembly-guides', to: '/quiver/category/manufacturing' },
+        { from: '/docs/quiver/Engineering-Reports', to: '/quiver/category/reference--engineering-reports' },
+      ],
+      // The project docs live at /quiver, /spearhead, /caribou and /bounty,
+      // but people (and old links) reach for /docs/<project>. Give every page
+      // in those sections a /docs alias that forwards to it.
+      createRedirects(existingPath) {
+        const sections = ['/quiver', '/spearhead', '/caribou', '/bounty'];
+        if (sections.some((s) => existingPath === s || existingPath.startsWith(`${s}/`))) {
+          return `/docs${existingPath}`;
+        }
+        return undefined;
+      },
+    }],
     excludeProjectQuiverFromMainDocsLoader,
     require.resolve('./plugins/dev-homepage'),
     ['@docusaurus/plugin-content-docs', {
@@ -197,6 +221,8 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // Default social preview for docs pages without their own image.
+      image: 'img/og/arrow-social-preview.png',
       zoom: {
         selector: '.theme-doc-markdown p:not(td p) > img, .theme-doc-markdown figure > img',
         background: {
