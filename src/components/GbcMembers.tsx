@@ -10,7 +10,7 @@ const AIP_LINK = 'https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-003.m
 /** Snapshot of AIP-003 as of September 2026, kept if the fetch fails. */
 const FALLBACK = ['Alperenag', 'Errrks', 'Sleety', 'Thomasg', 'WhiteDadJokes'];
 
-/** Pull the member names out of the GBC's "Current Membership" table,
+/** Pull the member names out of the GBC "Current Membership" table,
  *  ignoring commented-out placeholder rows. */
 export function parseGbcMembers(markdown: string): string[] {
   const text = markdown.replace(/<!--[\s\S]*?-->/g, '');
