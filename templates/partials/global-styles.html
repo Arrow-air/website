@@ -247,6 +247,48 @@
               opacity: 1 !important;
             }
 
+            /* Hero social proof: live count badges inside the Discord + GitHub CTAs.
+              The numbers in the markup are fallbacks, replaced at load by the
+              script after </header>. */
+            .hero-proof {
+              display: inline-flex;
+              align-items: center;
+              gap: 0.35rem;
+              padding: 0.15rem 0.45rem;
+              border-radius: 5px;
+              background: rgba(255, 255, 255, 0.12);
+              color: #ffffff;
+              font-size: 0.75rem;
+              letter-spacing: 0.02em;
+              font-variant-numeric: tabular-nums;
+              line-height: 1.4;
+            }
+            /* The pill already marks these as live links; the global
+              external-link arrow would only widen the buttons */
+            a.button:has(.hero-proof)::after {
+              display: none;
+            }
+            .hero-proof_label {
+              color: rgba(255, 255, 255, 0.65);
+              text-transform: none;
+            }
+            /* Smaller laptops: drop the words so both CTAs stay on one row */
+            @media (min-width: 992px) and (max-width: 1365px) {
+              .hero-proof_label {
+                display: none;
+              }
+            }
+            .hero-proof svg {
+              color: #f5c518;
+            }
+            .hero-proof_dot {
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: #3ba55d;
+              box-shadow: 0 0 0 2px rgba(59, 165, 93, 0.25);
+            }
+
             /* Nav CTAs: Discord is the one primary action (translucent white
               fill over the blue bar); Docs drops to a borderless ghost link */
             .arrow-navbar_menu-right .button.nav-cta {
