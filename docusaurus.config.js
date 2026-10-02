@@ -221,6 +221,8 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // Default social preview for docs pages without their own image.
+      image: 'img/og/arrow-social-preview.png',
       zoom: {
         selector: '.theme-doc-markdown p:not(td p) > img, .theme-doc-markdown figure > img',
         background: {
