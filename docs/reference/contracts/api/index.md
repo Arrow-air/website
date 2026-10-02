@@ -2,7 +2,11 @@
 sidebar_position: 0
 title: API Reference
 description: Functions, events and deployed addresses for the ARROW token and the vesting escrows contributors were paid through.
+mdx:
+  format: mdx
 ---
+
+import CopyAddress from '@site/src/components/CopyAddress';
 
 Arrow's contracts are the $ARROW token and the vesting escrows that contributors were paid through between 2022 and June 2024. Arrow no longer vests contributor ARROW and every schedule has fully vested, so the escrows now only matter for claiming what's left in them. This page lists what each contract exposes. Anyone with ARROW still in an escrow can collect it with `claim()`, described below.
 
@@ -10,10 +14,10 @@ Arrow's contracts are the $ARROW token and the vesting escrows that contributors
 
 | Contract | Network | Address |
 |---|---|---|
-| ArrowToken | Ethereum Mainnet | [`0x736609D310B5F925531B5ad895925CB0586F6241`](https://etherscan.io/token/0x736609D310B5F925531B5ad895925CB0586F6241) |
-| ARROW, bridged | Optimism | [`0x78b3C724A2F663D11373C4a1978689271895256f`](https://optimistic.etherscan.io/token/0x78b3C724A2F663D11373C4a1978689271895256f) |
-| Vesting escrow factory | Optimism | [`0xB93427b83573C8F27a08A909045c3e809610411a`](https://optimistic.etherscan.io/address/0xB93427b83573C8F27a08A909045c3e809610411a) |
-| Vesting escrow implementation | Optimism | [`0xb61915609e6Dc7A7261b678073c53BaC5875a8B4`](https://optimistic.etherscan.io/address/0xb61915609e6Dc7A7261b678073c53BaC5875a8B4) |
+| ArrowToken | Ethereum Mainnet | <CopyAddress>0x736609D310B5F925531B5ad895925CB0586F6241</CopyAddress> ([Etherscan](https://etherscan.io/token/0x736609D310B5F925531B5ad895925CB0586F6241)) |
+| ARROW, bridged | Optimism | <CopyAddress>0x78b3C724A2F663D11373C4a1978689271895256f</CopyAddress> ([Optimistic Etherscan](https://optimistic.etherscan.io/token/0x78b3C724A2F663D11373C4a1978689271895256f)) |
+| Vesting escrow factory | Optimism | <CopyAddress>0xB93427b83573C8F27a08A909045c3e809610411a</CopyAddress> ([Optimistic Etherscan](https://optimistic.etherscan.io/address/0xB93427b83573C8F27a08A909045c3e809610411a)) |
+| Vesting escrow implementation | Optimism | <CopyAddress>0xb61915609e6Dc7A7261b678073c53BaC5875a8B4</CopyAddress> ([Optimistic Etherscan](https://optimistic.etherscan.io/address/0xb61915609e6Dc7A7261b678073c53BaC5875a8B4)) |
 
 ARROW on Optimism isn't a separate deployment of ArrowToken. It's Optimism's standard bridged ERC-20, created through the Optimism token factory and linked to the mainnet token, so the bridge mints and burns it as ARROW moves between networks.
 
