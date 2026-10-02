@@ -3,7 +3,10 @@
   "extends": "@tsconfig/docusaurus/tsconfig.json",
   "include": ["src/"],
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": null,
+    "paths": {
+      "@site/*": ["./*"]
+    },
     "ignoreDeprecations": "6.0",
     "noEmit": true,
     "skipLibCheck": true
