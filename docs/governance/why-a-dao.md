@@ -1,7 +1,11 @@
 ---
 sidebar_position: 2
+mdx:
+  format: mdx
 description: What is a DAO, and why we believe it is the best model for Arrow's mission of building open-source aerial infrastructure for humanity.
 ---
+
+import { DaoLoop } from '@site/src/components/DaoLoop';
 
 # Why a DAO?
 
@@ -39,6 +43,8 @@ Arrow's goal is to bring private air travel to everyone. That's a multi-decade i
 A DAO, governed by its members and encoded in smart contracts, is structurally more durable than a company whose fate is tied to any single person or investor staying the course.
 
 ## How it works in practice
+
+<DaoLoop />
 
 Arrow's governance isn't theoretical. It runs on [Snapshot](https://snapshot.org/#/s:arrowair.eth), where token holders vote on proposals using $ARROW (including vested tokens). The quorum threshold is 2,000,000 ARROW. Votes run for 7 days.
 
