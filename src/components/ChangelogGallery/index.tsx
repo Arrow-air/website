@@ -11,7 +11,7 @@ export type GalleryImage = {
 };
 
 /** Full-width banner image for the top of the changelog page. */
-export function ChangelogBanner({ src, alt }: { src: string; alt: string }): JSX.Element {
+export function ChangelogBanner({ src, alt }: { src: string; alt: string }): React.JSX.Element {
   return (
     <div className={styles.banner}>
       <img src={src} alt={alt} loading="eager" />
@@ -24,7 +24,7 @@ export function ChangelogBanner({ src, alt }: { src: string; alt: string }): JSX
  * a jump link to the changelog line it illustrates, plus a thumbnail strip.
  * Clicking the featured image opens it full-size in a lightbox.
  */
-export default function ChangelogGallery({ images }: { images: GalleryImage[] }): JSX.Element | null {
+export default function ChangelogGallery({ images }: { images: GalleryImage[] }): React.JSX.Element | null {
   const [selected, setSelected] = useState(0);
   const [lightbox, setLightbox] = useState(false);
 
@@ -41,6 +41,7 @@ export default function ChangelogGallery({ images }: { images: GalleryImage[] })
 
   if (images.length === 0) return null;
   const current = images[Math.min(selected, images.length - 1)];
+  const { target } = current;
 
   const jumpToLine = (target: string) => {
     const el = document.getElementById(target);
@@ -64,8 +65,8 @@ export default function ChangelogGallery({ images }: { images: GalleryImage[] })
       </button>
       <figcaption className={styles.captionRow}>
         <span>{current.caption}</span>
-        {current.target && (
-          <button type="button" className={styles.jump} onClick={() => jumpToLine(current.target)}>
+        {target && (
+          <button type="button" className={styles.jump} onClick={() => jumpToLine(target)}>
             → read more in this entry
           </button>
         )}
