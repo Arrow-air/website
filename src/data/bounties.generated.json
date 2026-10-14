@@ -3,9 +3,72 @@
   "flightSystems": [],
   "flightOps": [],
   "manufacturing": [],
-  "design": [],
+  "design": [
+    {
+      "title": "Design the purchase flow on top of the store prototype",
+      "description": "The store prototype works. Someone should now be able to find a Quiver, see who will\nbuild it, and pay for it without needing to understand the DAO first. Design that\njourney properly, on top of what is already running.",
+      "status": "OPEN",
+      "arrow": "2,250",
+      "posted": "2026-08-02T22:54:45Z",
+      "expectedWindow": "~2 weeks after assignment",
+      "skills": [
+        "Interface",
+        "Tooling",
+        "Documentation"
+      ],
+      "issueUrl": "https://github.com/Arrow-air/website/issues/217",
+      "applyUrl": "https://github.com/Arrow-air/website/issues/217"
+    }
+  ],
   "content": [],
-  "growth": [],
+  "growth": [
+    {
+      "title": "Walk into Arrow from every direction and report where the path loses people",
+      "description": "Walk into Arrow the way a stranger would, from all four directions, and tell us where\nthe path works and where it loses people.",
+      "status": "OPEN",
+      "arrow": "1,920",
+      "posted": "2026-08-02T22:54:41Z",
+      "expectedWindow": "~1 month after assignment",
+      "skills": [
+        "Community",
+        "Documentation",
+        "Interface"
+      ],
+      "issueUrl": "https://github.com/Arrow-air/website/issues/214",
+      "applyUrl": "https://github.com/Arrow-air/website/issues/214"
+    }
+  ],
   "local": [],
-  "operations": []
+  "operations": [
+    {
+      "title": "AIP-009 Accelerator: call meeting and publish decision ledger",
+      "description": "An accelerator bounty. AIP-009's commerce side is moving; the bonding side has not been\npicked up. Get the people who can settle it into one room and write down what they\ndecide.",
+      "status": "OPEN",
+      "arrow": "1,440",
+      "posted": "2026-08-02T22:54:44Z",
+      "expectedWindow": "~1 month after assignment",
+      "skills": [
+        "Governance",
+        "Coordination",
+        "Documentation"
+      ],
+      "issueUrl": "https://github.com/Arrow-air/website/issues/216",
+      "applyUrl": "https://github.com/Arrow-air/website/issues/216"
+    },
+    {
+      "title": "Put live Discord events on the community calls page",
+      "description": "The website cannot tell you what is happening this week. Wire the calls page to Discord's\nevents so it shows every session across the projects, and write the page so a newcomer\nknows they can just turn up.",
+      "status": "OPEN",
+      "arrow": "1,600",
+      "posted": "2026-08-02T22:54:43Z",
+      "expectedWindow": "~2 weeks after assignment",
+      "skills": [
+        "Tooling",
+        "Interface",
+        "Documentation"
+      ],
+      "issueUrl": "https://github.com/Arrow-air/website/issues/215",
+      "applyUrl": "https://github.com/Arrow-air/website/issues/215"
+    }
+  ]
 }
