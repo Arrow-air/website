@@ -25,9 +25,9 @@ const CHECK_ICON = (
 
 /** An on-chain address with a one-click copy. Renders as code with a small
  *  copy control; falls back to plain code if the clipboard is unavailable. */
-export default function CopyAddress({ children }: { children: string }): JSX.Element {
+export default function CopyAddress({ children }: { children: string }): React.JSX.Element {
   const [copied, setCopied] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const copy = async () => {
     try {

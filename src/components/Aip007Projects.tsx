@@ -34,7 +34,7 @@ const STATUS_COLORS: Record<string, string> = {
   HALTED: 'var(--ifm-color-danger)',
 };
 
-function cell(text: string, key: number): JSX.Element {
+function cell(text: string, key: number): React.JSX.Element {
   if (/^https?:\/\//.test(text)) {
     const label = text.replace(/^https?:\/\/(www\.)?github\.com\//, '');
     return (
@@ -73,7 +73,7 @@ function cell(text: string, key: number): JSX.Element {
  * drift from the governance record. Renders nothing when unreachable — the
  * curated tables above carry the page on their own.
  */
-export default function Aip007Projects(): JSX.Element | null {
+export default function Aip007Projects(): React.JSX.Element | null {
   const [table, setTable] = useState<{ header: Row; rows: Row[] } | null>(null);
   const [failed, setFailed] = useState(false);
 

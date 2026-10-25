@@ -83,7 +83,7 @@ async function fetchLiveIndex(signal: AbortSignal): Promise<AipRow[]> {
   return clean.sort((a, b) => a.number - b.number);
 }
 
-export default function AipIndex(): JSX.Element {
+export default function AipIndex(): React.JSX.Element {
   const [rows, setRows] = useState<AipRow[]>(FALLBACK);
   const [live, setLive] = useState(false);
 
