@@ -1,5 +1,7 @@
 ---
 sidebar_position: 0
+mdx:
+  format: mdx
 title: Meet Our Contributors
 description: The people who build Arrow, and how to add your own contributor profile.
 sidebar_custom_props:
