@@ -9,7 +9,11 @@ An **Arrow Improvement Proposal (AIP)** is how Arrow DAO makes formal changes to
 
 Anyone can write one. All AIPs are stored publicly in the [dao-aips repository](https://github.com/Arrow-air/dao-aips) on GitHub, and all votes are conducted openly on [Snapshot](https://snapshot.org/#/s:arrowair.eth).
 
-9 AIPs have passed to date. They cover contributor pay, project structure, mission, and on-chain manufacturing.
+As of October 2026, ten AIPs have passed. Between them they cover the AIP process itself, contributor pay, how projects are started and funded, Arrow's mission and roadmap, the manufacturing protocol, and the ARROW token's utility and treasury limits ([AIP-010](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-010.md), passed in July 2026). The [AIP Index](./aip-index) lists every proposal live from GitHub.
+
+:::tip Starting a project?
+New projects don't need their own AIP. They follow the [AIP-006](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-006.md) path: a forum discussion, then a Snapshot vote that adds the project to AIP-007. See [Proposing a project](./submit-an-aip#proposing-a-project).
+:::
 
 ## AIP Types
 
