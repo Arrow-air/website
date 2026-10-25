@@ -100,6 +100,9 @@ const config = {
         { from: '/docs/reference/github', to: '/docs/guides/github-guide' },
         { from: '/docs/reference/dao-forum', to: '/docs/community/forum' },
         { from: '/docs/governance/core/legal', to: '/docs/governance/legal-structure' },
+        { from: '/docs/governance/good-to-know/submit-proposal', to: '/docs/governance/aips/submit-an-aip' },
+        { from: '/docs/governance/good-to-know', to: '/docs/governance' },
+        { from: '/docs/governance/core', to: '/docs/governance' },
         // Old project README links from before the Quiver docs had their own
         // section. These pages became category pages, so map them by hand.
         { from: '/docs/quiver/pt3-assembly-guides', to: '/quiver/category/manufacturing' },
