@@ -1,9 +1,12 @@
 Ableton
+adampaigge
 Ahmet
 AIPS
 Airspeeder
+alexdada
 Alperen
 alperenag
+amsmith
 Antimeridian
 Ardu
 arrowair
@@ -15,6 +18,7 @@ avgas
 bbox
 Bengaluru
 bierner
+Cerveny
 Chakra
 checkin
 chrono
@@ -48,13 +52,14 @@ fract
 frontmatter
 fswatch
 fullwidth
+funder
 gatekeeping
 GeckoTerminal
 GLTF
-gltf
 Goodluck
 gpgsign
 Gündoğan
+hackathon
 heliodev
 hexacopter
 hideable
@@ -76,6 +81,8 @@ lofi
 logomark
 Logomarks
 Lotte
+Mahmud
+mahmudsudo
 makefiles
 makerspaces
 MCAD
@@ -114,8 +121,10 @@ recompiles
 redoc
 Redocusaurus
 relitigating
+Reposts
 RIDESHARE
 roadmaps
+romanmandryk
 sanitychecks
 screenshare
 Shenzhen
@@ -137,6 +146,7 @@ Tagup
 tamasfe
 Tattu
 Thomasg
+thomasgarrison
 Tokenholders
 Tokenomics
 topo
@@ -147,6 +157,7 @@ Türkiye
 undeployed
 Unhover
 unixtimestamp
+unvested
 unzoomed
 UUPS
 vertiport
@@ -162,11 +173,7 @@ wordmark
 XFLR
 Xipu
 yapf
+yourname
 Zeynep
 Šavrič
 Δlng
-mahmudsudo
-Mahmud
-hackathon
-funder
-unvested

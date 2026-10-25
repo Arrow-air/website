@@ -19,7 +19,7 @@ These guides cover the practical side of contributing to Arrow. If you're new, r
 - **[Development Guide](/docs/guides/development-guide)**: Arrow's Git workflow, commit signing and build tooling.
 - **[Code Style Guides](/docs/guides/style-guides)**: conventions for Python and TypeScript in Arrow repos.
 - **[Writing Style Guide](/docs/guides/style-guides/writing)**: how Arrow's docs are written, for anyone editing these pages.
-- **[Brand Guidelines](/docs/contributing/arrow-brand)**: logos, colours and how to use them.
+- **[Brand Guidelines](/docs/contributing/arrow-brand)**: logos, colors and how to use them.
 
 ## Working together
 

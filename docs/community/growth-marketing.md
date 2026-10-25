@@ -34,4 +34,4 @@ You don't need to be a marketer to help Arrow grow.
 
 If you run an account, channel, newsletter or podcast with any kind of following, we'd really appreciate your help getting Arrow in front of more people. Amplification of any kind helps, from sharing a post or clip to writing about the project. We're also open to interviews, guest appearances, co-marketing and collaborative content. Get in touch on [Discord](https://discord.com/invite/arrow) or message [@ArrowAir_](https://x.com/ArrowAir_) on X.
 
-For logos, colours and usage rules, see the [Brand Guidelines](/docs/contributing/arrow-brand).
+For logos, colors and usage rules, see the [Brand Guidelines](/docs/contributing/arrow-brand).
