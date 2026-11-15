@@ -25,6 +25,7 @@
 //
 const fs = require('fs');
 const path = require('path');
+const gaMeasurementId = require('./ga-measurement-id.js');
 
 const ROOT = path.resolve(__dirname, '..');
 const TEMPLATES = path.join(ROOT, 'templates');
@@ -90,6 +91,9 @@ function buildAll() {
     const metaTags = (config.metaTags || []).map(t => '  ' + t).join('\n');
     html = replacePlaceholder(html, '{{META_TAGS}}', metaTags);
     html = replacePlaceholder(html, '{{EXTRA_HEAD}}', config.extraHead || '');
+    html = replacePlaceholder(html, '{{ANALYTICS}}', gaMeasurementId
+      ? `  <script src="/js/cookie-consent.js" data-ga-id="${gaMeasurementId}" defer></script>`
+      : '');
 
     let bodyContent = '';
     if (config.bodyFile) {

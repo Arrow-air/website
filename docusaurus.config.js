@@ -8,6 +8,7 @@ const darkCodeTheme = themes.dracula;
 
 // External docs config - shared with import script (external-docs.json)
 const externalDocs = require('./external-docs.json');
+const gaMeasurementId = require('./scripts/ga-measurement-id.js');
 
 // Custom plugin: prevent docs/project-quiver/ files from being processed by the
 // main docs preset's MDX webpack loader (they are handled by the quiver plugin instance).
@@ -41,6 +42,13 @@ const config = {
   url: "https://arrowair.com",
   baseUrl: "/",
   onBrokenLinks: "warn",
+
+  // Cookie banner + Google Analytics (production builds only); GA loads
+  // after the visitor allows it. The static pages get the same script from
+  // scripts/build-html.js.
+  scripts: gaMeasurementId
+    ? [{ src: "/js/cookie-consent.js", defer: true, "data-ga-id": gaMeasurementId }]
+    : [],
   favicon: "img/favicons/favicon.ico",
   organizationName: "Arrow", // Usually your GitHub org/user name.
   projectName: "arrow", // Usually your repo name.

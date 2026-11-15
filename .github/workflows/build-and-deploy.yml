@@ -46,6 +46,8 @@ jobs:
           npx openapi-merge-cli --config develop.openapi-merge.json
       - name: Build
         run: npm run build
+        env:
+          DEPLOY_ENV: ${{ inputs.environment }}
       - name: Deploy to ${{ inputs.environment }} S3
         id: sync_s3
         run: |

@@ -9,6 +9,7 @@
     {{EXTRA_HEAD}}      — page-specific CSS links
     {{CONTENT}}         — main body markup (from *.body.html)
     {{EXTRA_SCRIPTS}}   — page-specific JS (from *.scripts.html)
+    {{ANALYTICS}}       — cookie banner + Google Analytics, production builds only
 
   Per-page config lives in templates/pages/<name>.json.
 -->
@@ -21,6 +22,7 @@
   <meta content="width=device-width, initial-scale=1" name="viewport">
 {{INCLUDE:partials/head.html}}
 {{EXTRA_HEAD}}
+{{ANALYTICS}}
 </head>
 <body>
   <div class="page-wrapper">
