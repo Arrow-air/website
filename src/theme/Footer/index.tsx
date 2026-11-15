@@ -168,6 +168,7 @@ export default function Footer(): React.JSX.Element {
             <FooterThemeToggle />
             <Link to="/privacy-policy">Privacy Policy</Link>
             <Link to="/terms-of-service">Terms of Service</Link>
+            <Link to="/cookie-settings">Cookie Settings</Link>
           </div>
         </div>
       </div>
