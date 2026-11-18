@@ -26,7 +26,7 @@ Clone the [dao-aips repository](https://github.com/Arrow-air/dao-aips) and copy 
 - **Rationale** — Why this approach over alternatives
 - **Backwards Compatibility** — Any impact on existing processes, contracts, or systems
 
-Name your file `AIP-XXX.md` — AIP Editors will assign the number. Use the same zero-padded three-digit format as existing AIPs (e.g. `AIP-010.md`).
+Name your file `AIP-XXX.md` and leave the number to the AIP Editors, who assign it when they merge. Existing AIPs use a zero-padded three-digit number, from `AIP-001.md` to `AIP-010.md`.
 
 ## 4. Open a pull request
 
@@ -45,3 +45,13 @@ When you believe the AIP is ready and feedback has been addressed, ask an AIP Ed
 After Last Call, an AIP Editor creates the vote on [Snapshot](https://snapshot.org/#/s:arrowair.eth). The vote runs for 7 days (with a 1-day delay), requires 2,000,000 ARROW quorum, and uses **For / Against / Abstain** choices.
 
 If the vote passes, your AIP is marked **Final** (or **Living** if it's meant to be updated over time) and becomes part of how Arrow operates.
+
+## Proposing a project
+
+A new project (a build, a research effort or any funded area of work with a lead) doesn't need an AIP of its own. [AIP-006](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-006.md) sets out a shorter path:
+
+1. **Test the idea informally** in Discord and on a community call.
+2. **Post a proposal on the [DAO forum](/docs/community/forum).** The discussion covers the project's scope, how it fits the mission in [AIP-008](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-008.md), its budget and its timeline. A project needs a named lead and should not overlap an existing project.
+3. **Hold a Snapshot vote to amend [AIP-007](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-007.md)**, the living list of projects, adding the project's lead, monthly spending cap, start date, funding expiry and repository. The project starts when that vote passes.
+
+Once running, the lead posts a monthly update with a sentiment poll on the forum. Current projects are listed on [Active Projects](/docs/governance/active-project-list).
