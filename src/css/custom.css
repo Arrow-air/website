@@ -238,12 +238,15 @@ nav[class*="navbar"] > [class*="navbarInner"] {
   border: 1px solid rgba(255, 255, 255, 0.25) !important;
   border-radius: 4px !important;
   color: #ffffff !important;
-  padding: 0 2.5rem 0 2rem !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6.5 1a5.5 5.5 0 0 1 4.38 8.82l3.66 3.66a.75.75 0 0 1-1.06 1.06l-3.66-3.66A5.5 5.5 0 1 1 6.5 1m0 1.5a4 4 0 1 0 0 8a4 4 0 0 0 0-8'/%3E%3C/svg%3E") !important;
-  background-repeat: no-repeat !important;
-  background-position: 0.5rem center !important;
-  background-size: 16px 16px !important;
+  padding: 0 2.5rem 0 2.25rem !important;
+  /* The search plugin renders its own magnifier SVG; a background icon here
+     would draw a second one beside it */
+  background-image: none !important;
   transition: background-color 0.15s ease, border-color 0.15s ease, width 0.2s ease;
+}
+
+.navbar__search [class*="searchIcon"] {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .navbar__search-input::placeholder {
@@ -2093,11 +2096,15 @@ ul.theme-doc-sidebar-menu > li > .menu__list-item-collapsible .menu__link::befor
    CODE
    ========================================================================== */
 
-/* Inline code */
+/* Inline code. Sized in em so it scales with the surrounding text (tables
+   and admonitions run smaller than body copy), with thin vertical padding so
+   the chip clears the lines above and below when it wraps. */
 .theme-doc-markdown code {
   font-family: 'Jetbrainsmono', monospace;
-  font-size: 13px;
-  padding: 0.125rem 0.375rem;
+  font-size: 0.82em;
+  padding: 0.05em 0.35em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   background: #eef0f3;
   border: 1px solid #d5d8dc;
   color: var(--docs-text);

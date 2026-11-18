@@ -16,13 +16,15 @@
                           <div class="icon-embed-xsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewbox="0 0 24 24"><!--  Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE  -->
                               <path fill="#ffffff" d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.1.1 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.1 16.1 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02M8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12m6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12"></path>
                             </svg></div>
-                          <div>Join our discord community</div>
+                          <div>Join our discord</div>
+                          <span class="hero-proof"><span class="hero-proof_dot" aria-hidden="true"></span><span data-proof="discord">1,480</span><span class="hero-proof_label">members</span></span>
                         </a>
                         <a href="https://github.com/Arrow-air" target="_blank" class="button is-secondary is-icon is-alternate w-inline-block">
                           <div class="icon-embed-xsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewbox="0 0 24 24"><!--  Icon from Material Design Icons by Pictogrammers - https://github.com/Templarian/MaterialDesign/blob/master/LICENSE  -->
                               <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4.44c-.32-.07-.33-.68-.33-.89l.01-2.47c0-.84-.29-1.39-.61-1.67c2.01-.22 4.11-.97 4.11-4.44c0-.98-.35-1.79-.92-2.42c.09-.22.4-1.14-.09-2.38c0 0-.76-.23-2.48.93c-.72-.2-1.48-.3-2.25-.31c-.76.01-1.54.11-2.25.31c-1.72-1.16-2.48-.93-2.48-.93c-.49 1.24-.18 2.16-.09 2.38c-.57.63-.92 1.44-.92 2.42c0 3.47 2.1 4.22 4.1 4.47c-.26.2-.49.6-.57 1.18c-.52.23-1.82.63-2.62-.75c0 0-.48-.86-1.38-.93c0 0-.88 0-.06.55c0 0 .59.28 1 1.32c0 0 .52 1.75 3.03 1.21l.01 1.53c0 .21-.02.82-.34.89H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" fill="#ffffff"></path>
                             </svg></div>
                           <div>GITHUB</div>
+                          <span class="hero-proof"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.94 5.96l6.58.96l-4.76 4.64l1.12 6.55L12 17.52l-5.88 3.09l1.12-6.55L2.48 9.42l6.58-.96z"/></svg><span data-proof="github">701</span><span class="hero-proof_label">stars</span></span>
                         </a>
                       </div>
                       <div class="magic-happens-wrapper">
@@ -50,6 +52,42 @@
           </div>
         </div>
       </header>
+      <script>
+        // Hero social proof: total stars across the Arrow-air org's public repos
+        // and the Discord invite's member count. Cached for 6h so repeat visits
+        // don't burn the unauthenticated GitHub rate limit (60/hr per IP). Any
+        // failure leaves the fallback numbers in the button markup untouched.
+        (function () {
+          var KEY = 'arrow-hero-proof', TTL = 6 * 60 * 60 * 1000;
+          function render(counts) {
+            Object.keys(counts).forEach(function (k) {
+              var el = document.querySelector('[data-proof="' + k + '"]');
+              if (el && counts[k] > 0) el.textContent = counts[k].toLocaleString('en-US');
+            });
+          }
+          try {
+            var cached = JSON.parse(localStorage.getItem(KEY));
+            if (cached && Date.now() - cached.at < TTL) return render(cached.counts);
+          } catch (e) {}
+          var counts = {};
+          Promise.all([
+            fetch('https://api.github.com/orgs/Arrow-air/repos?per_page=100&type=public')
+              .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+              .then(function (repos) {
+                counts.github = repos.reduce(function (sum, r) { return sum + r.stargazers_count; }, 0);
+              }).catch(function () {}),
+            fetch('https://discord.com/api/v9/invites/arrow?with_counts=true')
+              .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+              .then(function (d) { counts.discord = d.approximate_member_count; })
+              .catch(function () {})
+          ]).then(function () {
+            render(counts);
+            if (counts.github && counts.discord) {
+              try { localStorage.setItem(KEY, JSON.stringify({at: Date.now(), counts: counts})); } catch (e) {}
+            }
+          });
+        })();
+      </script>
       <script>
         (function () {
           // Notable contributions — scattered across all 5 rows

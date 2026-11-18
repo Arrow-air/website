@@ -33,7 +33,7 @@ function endLabel(p: Proposal): string {
   return p.state === 'active' ? `ends ${date}` : `ended ${date}`;
 }
 
-export default function SnapshotProposals(): JSX.Element {
+export default function SnapshotProposals(): React.JSX.Element {
   const [proposals, setProposals] = useState<Proposal[] | null>(null);
   const [failed, setFailed] = useState(false);
 

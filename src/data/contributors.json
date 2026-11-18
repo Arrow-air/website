@@ -21,6 +21,25 @@
       "github": "sl33ty",
       "signupAt": "2026-07-30T17:35:08.377Z",
       "avatar": "/img/contributors/828452116632567858.webp"
+    },
+    {
+      "id": "823792915809173545",
+      "name": "alperenag",
+      "country": "Turkey",
+      "city": "Ankara",
+      "lat": 39.9199,
+      "lng": 32.8543,
+      "tz": "Europe/Istanbul",
+      "disciplines": [
+        "Aerodynamics",
+        "CAD",
+        "Assembly"
+      ],
+      "joined": "2022-03",
+      "discord": "alperenag",
+      "github": "alperenag",
+      "signupAt": "2026-09-14T16:18:12.262Z",
+      "avatar": "/img/contributors/823792915809173545.webp"
     }
   ]
 }
