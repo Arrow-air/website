@@ -1,72 +1,75 @@
 ---
+mdx:
+  format: mdx
 sidebar_position: 2
-description: The AIP lifecycle — from draft to final.
+description: The AIP lifecycle, from first idea to a Final vote.
 ---
+
+import { AipLifecycle } from '@site/src/components/ArrowDiagrams';
 
 # The AIP Process
 
-The AIP process is defined in [AIP-001](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-001.md), a **Living** AIP that's always up to date. This page covers the practical steps.
+An Arrow Improvement Proposal (AIP) is how a big change becomes official: a new committee, a new standard, a change to how the DAO runs. The process is defined in [AIP-001](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-001.md), a **Living** AIP that stays up to date. This page is the practical version.
 
-## Status Lifecycle
+<AipLifecycle />
 
-```
-Draft → Review → Last Call → Final
-                           → Stagnant (no activity 6+ months)
-                           → Withdrawn (author pulls it)
-```
+:::tip Proposing a project?
+Funded projects follow a lighter path under AIP-006: a forum post and a Snapshot vote that adds the project to AIP-007. See [Proposing a project](/docs/governance/aips/submit-an-aip#proposing-a-project).
+:::
 
-**Living** is a special final state for proposals that are meant to be continuously updated (like membership lists or the AIP guidelines themselves). **Obsolete** marks proposals superseded by a newer AIP.
+## Step by Step
 
-## Step-by-Step Walkthrough
+### 1. Test the idea
 
-### 1. Write a Draft
+Before writing anything formal, share the idea on [Discord](https://discord.com/invite/arrow) or the [DAO Forum](https://dao.arrowair.com/). It's the fastest way to find out whether people want it, who else cares, and what you haven't thought of yet.
 
-Clone the [dao-aips repository](https://github.com/Arrow-air/dao-aips) and create a new file using the [AIP template](https://github.com/Arrow-air/dao-aips/blob/main/AIP-template.md). A complete AIP includes:
+### 2. Write a Draft
 
-- **Preamble** — Title, author(s), type, status, created date
-- **Abstract** — One or two sentences describing the proposal
-- **Motivation** — Why this change is needed
-- **Specification** — The full technical or operational description
-- **Rationale** — Why this approach over alternatives
-- **Backwards Compatibility** — Any impact on existing processes or systems
+Clone the [dao-aips repository](https://github.com/Arrow-air/dao-aips) and start from the [AIP template](https://github.com/Arrow-air/dao-aips/blob/main/AIP-template.md). A complete AIP includes:
 
-Open a pull request to the repo with your draft.
+- **Preamble**: title, author(s), type, status and created date
+- **Abstract**: the proposal in one or two sentences
+- **Motivation**: why the change is needed
+- **Specification**: the full technical or operational detail
+- **Rationale**: why this approach over the alternatives
+- **Backwards Compatibility**: any effect on existing processes or systems
 
-### 2. Review
+Open a pull request with your draft. An AIP Editor merges it as a **Draft** once it's properly formatted, and assigns its number.
 
-Once the PR is submitted, your AIP enters **Review** status. The community discusses it on the [DAO forum](https://dao.arrowair.com/) and in Discord. AIP Editors check the proposal for completeness and formatting — they don't evaluate the idea itself.
+### 3. Review
 
-Engage with feedback and revise your AIP in response.
+Mark the AIP ready for **Review** and the community discusses it on the forum and in Discord. This is where most of the work happens: answer questions, take feedback and revise. AIP Editors check completeness and formatting. They don't judge the idea itself.
 
-### 3. Last Call
+Review ends with an informal **sentiment poll** to check that the community is broadly behind the proposal as written.
 
-When the author believes the AIP is ready, they request **Last Call** status. This is a final notice to the community — typically lasting a week — to raise any remaining objections before a vote is scheduled.
+### 4. Last Call
 
-### 4. Snapshot Vote
+If the poll is positive and the feedback has been dealt with, the AIP Editors announce **Last Call**: the community's final chance to suggest amendments. If substantial changes come up, the AIP goes back to Review. If not, it's ready for a vote.
 
-After Last Call, an AIP Editor creates the vote on [Snapshot](https://snapshot.org/#/s:arrowair.eth). The vote uses the standard text from AIP-001:
+### 5. Snapshot Vote
 
-> *"Should AIP-XXX: [Title] be accepted and executed?"*
+An AIP Editor creates the vote on [Snapshot](https://snapshot.org/#/s:arrowair.eth). AIP-001 recommends these headings for the vote text: a brief description, the rationale, the outcome if the vote passes, the outcome if it doesn't, relevant resource and discussion links, and a link to the latest version of the AIP on GitHub.
 
 Vote parameters:
-- **Delay**: 1 day after proposal creation
+
+- **Delay**: 1 day after the proposal is created
 - **Duration**: 7 days
 - **Quorum**: 2,000,000 ARROW (including vested tokens)
 - **Choices**: For / Against / Abstain
 
-### 5. Final or Withdrawn
+### 6. The Outcome
 
-If the vote passes quorum and a majority votes **For**, the AIP moves to **Final** (or **Living** if it's meant to be updated over time). A Final AIP is canonical — it cannot be modified. Changes require a new AIP.
+If the vote passes, the AIP becomes **Final**, or **Living** if it's meant to keep being updated. A Final AIP is canonical and can't be edited; changing it takes a new AIP. When a newer AIP replaces it, it becomes **Obsolete**.
 
-If the author withdraws the proposal at any point, it is marked **Withdrawn**. If a Final AIP is replaced by a newer one, it becomes **Obsolete**.
+If the vote doesn't pass, the AIP returns to **Draft** if work continues, or becomes **Stagnant** if it doesn't. A Draft or Review left inactive too long also becomes Stagnant, and can be revived by asking an AIP Editor. Authors can withdraw their AIP at any point, and it's marked **Withdrawn**.
 
 ## AIP Editors
 
-AIP Editors are listed in [AIP-003](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-003.md). Their responsibilities:
+AIP Editors are listed in [AIP-003](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-003.md). They:
 
-- Review submitted AIPs for completeness and correct formatting
+- Check submitted AIPs for completeness and formatting
 - Assign AIP numbers
-- Create the Snapshot vote once Last Call ends
+- Announce Last Call and create the Snapshot vote
 - Maintain the dao-aips repository
 
-Editors do not have veto power over proposals. Their role is administrative, not evaluative.
+Editors have no veto. Their role is administrative, not a judgment on the idea.

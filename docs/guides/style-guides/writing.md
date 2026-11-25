@@ -1,64 +1,51 @@
 # Writing Style Guide
 
->The writing style guide sets standards and processes for writing and
->reviewing official Arrow documents. 
->
->The goal of this guide is to help contributors improve readability and clarity of their publications to:
-> 1. Ensure brand consistency across official publications
-> 2. Attract more potential contributors
-> 3. Reduce the friction involved in onboarding  
+Arrow writes for a global audience. Most readers didn't follow the conversation that led to what you wrote, and many of them read English as a second or third language. This guide covers anything public: docs, blog posts, READMEs, forum posts and social copy.
 
+Clear writing does three jobs for Arrow. It keeps the brand consistent, it brings in new contributors, and it makes onboarding easier for the people who arrive.
 
-## :muscle: Motivation 
-Arrow DAO is an international effort. Although we conduct our business
-in English, our stakeholders vary in English fluency and reading
-proficiency. Even among native English speakers, confusion and
-misunderstandings arise when local idioms or slang are introduced.
+## Write for everyone
 
-In an attention economy, first impressions matter in forming long-term partnerships. The Arrow brand will benefit from consistent writing styles by presenting an accessible, professional, organized and committed front that attracts contributors and business partners. 
+- **Plain English.** Skip idioms, slang and in-jokes that only make sense in one country.
+- **Metric units.** kg, km, m/s.
+- **Times in UTC, 24-hour.** Write 14:00 UTC, not 2:00 PM.
+- **Spell out acronyms the first time**, for example vertical take-off and landing (VTOL). Jargon is fine in technical docs, but define it on the way in.
+- **Match the reading level to the format.** For everyday communication (posts, Discord, guides and how-tos), aim for a reader aged 13 to 15: short sentences, short paragraphs. You can check with the [Flesch-Kincaid score](https://readable.com/readability/flesch-reading-ease-flesch-kincaid-grade-level/). Formal, published documents such as AIPs, proposals, reports and specifications can use the full range of language they need to be precise, as long as they stay clear and define their terms.
+- **Break up walls of text.** Use headings, lists and **bold** for the one idea a skimming reader must not miss.
+- **Cut what doesn't earn its place.** If a sentence can lose words without losing meaning, it should.
 
-## 📖 Guidelines 
-### :telescope: Scope
-The style guide applies to all official and public-facing materials.
- 
-### :busts_in_silhouette: International Audience
-1. Reduce idioms, local slangs.
-2. Units of measurement shall be in metric.
-3. Timestamps shall be in Coordinated Universal Time (UTC) and use 24 Hour format (e.g. 14:00 instead of 2:00 PM).
+## Make it accessible
 
-### :wheelchair: Accessibility
-Some may access our contents using tools like screen readers. We want to be as inclusive as possible. Keep accessibility in mind when writing contents.
+Some readers use screen readers or other assistive tools.
 
-For rich media materials like images, always try to add descriptive alternative titles so that screen readers can parse the materials.
+- Give every image alt text that says what it shows.
+- Caption or describe videos, and don't make sound the only way to get the point.
+- Don't rely on color alone to carry meaning.
+- Write link text that says where it goes. "Read the AIP process" beats "click here".
 
-### :white_check_mark: Readability
-Readability can be quantitatively measured by the [Flesch-Kincaid score](https://readable.com/readability/flesch-reading-ease-flesch-kincaid-grade-level/).
-To reach a broader audience without losing professionalism, we strive to
-score at which materials can be understood by 13-to-15-year-olds. 
+## Arrow terms
 
-* If technology allows, take advantage of rich formatting like **bold**, *italic*, <ins>underline</ins>, ordered and unordered lists. We don’t want to throw a wall of text to our readers. 
-* Without losing meaning, reduce verbosity as much as possible. 
-* Avoid using jargon except for technical documentation.
-* Spell out acronyms when first introduced.
+- **Arrow is a community, not a company.** Use *community*, *contributors* or *the team*. *Company* is fine for other organizations.
+- **Name projects in full the first time** (*Project Quiver*), then just *Quiver*.
+- **"We" means Arrow and its contributors**, not only the core team.
+- **Write $ARROW or ARROW for the token**, and AIP-00N for proposals, linked the first time you mention one.
+- **US spelling.** The spell check on every docs pull request flags UK spellings.
 
-## :mag_right: Editorial Review Process
-### :page_with_curl: Arrow Blog
-1. The blog post submission must be in markdown format.
+## Docs pull requests
 
-    1. A Pull Request must be made on the
-       [website](https://github.com/Arrow-air/website/) GitHub
-       repository. 
-    2. The new submission should be automatically broadcasted in Discord, and we do a fit screening. 
-    3. If any of the following fails, we stop here and reject the PR.
+- The docs live in [Arrow-air/website](https://github.com/Arrow-air/website). Open pull requests against the `staging` branch.
+- Preview your change locally with `npm start` before you open the PR.
+- A spell check runs on every pull request. If it trips on a real name or term, add it to `.cspell.project-words.txt`.
+- The Quiver, Spearhead and Caribou docs are imported from each project's own repository. Edit those there, not in the website repo.
 
-2. Prior to opening a Pull Request, please confirm the following about the piece:
-    * Should not be an op-ed
-    * Should not be irrelevant 
-    * Should not be identical to existing posts
-    * Should not be promotional
-    * Should have no spelling/grammar issues.
-3. The "Editors" group on GitHub will review the blog.
-4. Editors, at this step, are free to make stylistic edits as long as the meaning of the edited part remains unaltered. The goal is to make the writing more “Arrow-like”.
-5. Review once again for inclusiveness purposes. Find out and modify wordings that might be too localized or exclusive. (don’t assume that everyone has the same context)
-6. If it’s a technical blog, we need to review deeper for fact checks
+## Blog posts
 
+1. Write the post in Markdown and open a pull request on the [website](https://github.com/Arrow-air/website/) repository.
+2. Before you open it, check that the post:
+   - is relevant to Arrow and not an opinion piece
+   - doesn't repeat an existing post
+   - isn't promotional
+   - has been proofread for spelling and grammar
+3. The Editors group on GitHub reviews it for fit, then for style. Editors may make stylistic edits as long as the meaning stays the same.
+4. Editors do a final pass for inclusiveness, rewording anything too local or that assumes context the reader may not have.
+5. Technical posts get a deeper fact-check before they're merged.

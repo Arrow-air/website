@@ -1,3 +1,12 @@
+---
+tags:
+  - contributors
+  - governance
+  - design
+  - media
+  - docs
+---
+
 # Sleety / Gavin
 
 ## About
@@ -10,12 +19,13 @@ Hi, I’m Sleety, I’m a Graphic Designer by trade. I love exciting new art, te
 
 ### Team contributions
 
-* Arrow Branding
-* Arrow Website Design
-* Arrow Explainer Content
-* Arrow Social Media Content
-* Growth & Onboarding
-* Cheerleader
+* Arrow branding and website design
+* Media and comms: Arrow's X, YouTube and TikTok
+* Docs maintainer for arrowair.com/docs
+* Author of AIP-001 to AIP-004 (the AIP process, the Grants and Bounties Committee, the membership list and the Time Commitment Grant)
+* The contributor map, the onboarding wizard and the disciplines taxonomy
+* Arrow Compass
+* Growth, onboarding and cheering everyone on
 
 ### Main skills
 
