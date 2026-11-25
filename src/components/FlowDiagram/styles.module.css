@@ -1,0 +1,153 @@
+/* Shares DaoLoop's look: IBM Plex Mono labels and the Arrow brand role
+   colours (Teal for building, Blue for decisions, Orange for value). The
+   Plex Mono @font-face rules live in DaoLoop's stylesheet and are repeated
+   here so this component works on pages without DaoLoop. */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+.figure {
+  --flow-build: #218191;
+  --flow-decide: #0943BF;
+  --flow-value: #D74314;
+  --flow-muted: #8A8A84;
+  --flow-build-tint: #E5F6F9;
+  --flow-decide-tint: #ECF2FF;
+  --flow-value-tint: #FFE9E1;
+  --flow-muted-tint: #F0F0EC;
+  margin: 1.75rem 0 2rem;
+  padding: 1.25rem 1rem 0.9rem;
+  border: 1px solid var(--docs-border);
+  background: var(--docs-bg-subtle);
+}
+
+[data-theme='dark'] .figure {
+  --flow-build: #70C9D9;
+  --flow-decide: #6DB0FF;
+  --flow-value: #FF906E;
+  --flow-muted: #9A9A93;
+  --flow-build-tint: #0A2C32;
+  --flow-decide-tint: #03205E;
+  --flow-value-tint: #371A12;
+  --flow-muted-tint: #2A2A27;
+}
+
+.svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.wide { display: block; }
+.narrow { display: none; max-width: 360px; margin: 0 auto; }
+
+@media (max-width: 640px) {
+  .wide { display: none; }
+  .narrow { display: block; }
+}
+
+.build { --role: var(--flow-build); --role-tint: var(--flow-build-tint); }
+.decide { --role: var(--flow-decide); --role-tint: var(--flow-decide-tint); }
+.value { --role: var(--flow-value); --role-tint: var(--flow-value-tint); }
+.muted { --role: var(--flow-muted); --role-tint: var(--flow-muted-tint); }
+
+.edge {
+  fill: none;
+  stroke: var(--docs-text-muted);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 4;
+  transition: stroke 0.35s ease;
+}
+
+.edgeOptional { stroke-dasharray: 2 5; opacity: 0.8; }
+
+.edgeOn {
+  stroke: var(--role);
+  stroke-width: 2;
+  animation: flow 0.9s linear infinite;
+}
+
+@keyframes flow { to { stroke-dashoffset: -16; } }
+
+.arrowHead { fill: var(--docs-text-muted); }
+.arrowHeadOn { fill: var(--role); }
+
+.edgeLabel {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11.5px;
+  letter-spacing: 0;
+  fill: var(--docs-text-secondary);
+}
+
+.nodeBox {
+  fill: var(--docs-bg);
+  stroke: var(--docs-border);
+  stroke-width: 1.25;
+  transition: stroke 0.35s ease, fill 0.35s ease;
+}
+
+.tile { fill: var(--role-tint); transition: fill 0.35s ease; }
+
+.icon {
+  fill: none;
+  stroke: var(--role);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.35s ease;
+}
+
+.nodeTitle {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  fill: var(--docs-text);
+}
+
+.nodeSub {
+  font-family: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  fill: var(--docs-text-muted);
+}
+
+.nodeActive .nodeBox { stroke: var(--role); stroke-width: 1.75; }
+.nodeActive .tile { fill: var(--role); }
+.nodeActive .icon { stroke: var(--docs-bg); stroke-width: 2.2; }
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--docs-text-muted);
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0;
+}
+
+.key i { display: inline-block; width: 0.65rem; height: 0.65rem; background: var(--role); }
+
+.captionText { flex-basis: 100%; text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nodeBox, .tile, .icon, .edge { transition: none; }
+  .edgeOn { animation: none; }
+}

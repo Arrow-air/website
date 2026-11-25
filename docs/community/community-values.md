@@ -6,13 +6,13 @@ description: The values that guide the Arrow community.
 
 ![Arrow community meetup in Turkey](/img/turkey-meetup-hillside.jpg)
 
-Arrow has no HR department, no culture deck, no offsite where someone facilitates a whiteboard session about values. These aren't aspirational statements. They're descriptions of how the community actually works, and what we expect from each other.
+Arrow has no HR department, no culture deck and no offsite with a whiteboard full of values. What follows isn't aspirational. It's how the community actually works, and what we expect from each other.
 
 ## We build in public
 
-Everything Arrow does is open by default. Design files, code, decisions, mistakes. Our repositories are public, governance votes are on-chain, and the DAO forum is readable by anyone.
+Everything Arrow does is open by default. Design files, code, decisions, mistakes. Our repositories are public, governance votes are public on Snapshot, and the DAO forum is readable by anyone. Day to day, it all comes together on [Discord](https://discord.com/invite/arrow): our meeting place and chat, where calls happen, builds get shared and anyone can drop in.
 
-Traditional aerospace works the opposite way. Secrecy is assumed, NDAs are standard, sharing knowledge outside the organization is treated as a liability. We think that produces worse aircraft and shuts out most of the world's talent. Building in public means our work can be scrutinized, improved, and built on by people we've never met. That's the whole point.
+Traditional aerospace works the opposite way. Secrecy is assumed, NDAs are standard, and sharing knowledge outside the building is treated as a risk. We think that produces worse aircraft and shuts out most of the world's talent. Building in public means our work can be scrutinized, improved, and built on by people we've never met. That's the whole point.
 
 If you're working on something at Arrow, assume it's visible. If you're making a decision, write it down somewhere permanent.
 
@@ -20,7 +20,7 @@ If you're working on something at Arrow, assume it's visible. If you're making a
 
 Arrow has no CEO, no board, no management chain that can unilaterally redirect the organization. Significant decisions (new projects, budget allocation, governance changes) go through the [AIP process](/docs/governance/aips) and are voted on by token holders.
 
-The votes are on-chain. The results bind the treasury. That means when you hold $ARROW, you have a real vote on what gets built and how resources get spent — not a symbolic one.
+Votes run on [Snapshot](https://snapshot.org/#/s:arrowair.eth), where every vote is signed by the voter's wallet and open for anyone to check, and passed proposals set how the treasury is spent. That means when you hold $ARROW, you have a real vote on what gets built and how resources get spent — not a symbolic one.
 
 If you think something should change, write a proposal and make your case publicly. Good arguments win here, not seniority, not who you know.
 
@@ -56,7 +56,7 @@ When you open a PR, write a proposal, or document a build process, assume the re
 
 We don't care whether you have a degree in aerospace engineering. We care whether you can do the work. Arrow has contributors who are professional engineers, people who learned CAD from YouTube, and everything in between.
 
-Same goes for governance. $ARROW is distributed to contributors based on what they ship, not their seniority or background. A new contributor who shows up consistently and does good work builds more real influence over time than someone with an impressive CV who doesn't.
+Same goes for pay and governance. Bounties, grants and funded projects pay for what gets shipped, not for titles or seniority. A new contributor who shows up consistently and does good work builds more real influence over time than someone with an impressive CV who doesn't.
 
 If you want to earn trust at Arrow, the path is the same for everyone:
 
@@ -70,4 +70,4 @@ If you want to earn trust at Arrow, the path is the same for everyone:
 
 Being rigorous isn't the same as moving slowly. We're honest about failure, thorough in our documentation, and public about our mistakes. When a test fails, we document why. When a design assumption turns out to be wrong, we say so and fix it. Arrow's long-term credibility depends on being the kind of organization that actually gets this right, not just one that moves fast.
 
-Patience matters here. The path from a 25kg quadcopter to something that carries people is long. We'd rather build a solid foundation than rush toward a milestone we're not ready for.
+Patience matters here. We've gone from a 25 kg quadcopter to a 200 kg heavy-lifter, and the path from there to aircraft that carry people is long. We'd rather build a solid foundation than rush toward a milestone we're not ready for.

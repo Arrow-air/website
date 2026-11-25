@@ -1,21 +1,43 @@
 ---
+mdx:
+  format: mdx
 sidebar_position: 5
-description: How Arrow coordinates open source hardware manufacturing through a decentralized network of community manufacturers.
+description: How Arrow's designs get built - open designs, a network of bonded community manufacturers, and a share of every sale back to the DAO.
 hide_table_of_contents: true
 ---
 
+import { ManufacturingNetwork } from '@site/src/components/ArrowDiagrams';
+
 # Manufacturing at Arrow
 
-Since Arrow doesn't have in-person facilities, we can't manufacture our designs like a traditional company. Instead of operating factories ourselves, we focus on design and coordination online, partnering with people and companies in our community to manufacture our designs.
+**Design globally, build locally.** Arrow doesn't run factories. We design in the open, online, and the building happens in the workshops of people and businesses in our community, close to the people who need the aircraft.
 
-So far, our manufacturing has been limited to various prototypes and the Quiver devkit. However, we envision a future where our designs are produced at scale globally. In this future, we'd like some of the value we create to flow back to the DAO so we can continue improving our designs and developing new products. We recognize the challenges of capturing value from open source designs when we don't directly control manufacturing, but we believe the future of hardware is open and that there's a practical way to manufacture our designs while sustaining the organization.
+## Where we are today
 
-In pursuit of this goal, we've conceptualized a [manufacturing protocol](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-009.md) that lets the DAO coordinate a network of community manufacturers, guaranteeing quality and support for customers. In exchange for providing designs, order flow, and support, manufacturers would post a quality-guarantee bond in our $ARROW token and pay a commission from sales to our treasury.
+So far that has meant prototypes, Quiver developer kits built and flown by contributors in places like Texas and Germany, and the first Caribou airframe, which flew in November 2026. It works, but it's hands-on: each build is coordinated person to person.
 
-The current specification envisions an Arrow-operated web store and protocol that routes customer orders to the best manufacturer, but initial versions will likely be more manual. It may be more practical for manufacturers to handle sales directly and pay commissions back to the treasury separately.
+## Where we're going
 
-As we evolve the concept, details will change from the original specification, but the core idea of an open network of manufacturers remains central to Arrow's model. By allowing anyone to build our designs, we can bring products to market quickly, with global availability and affordable costs for customers.
+In November 2025 token holders passed [AIP-009](https://github.com/Arrow-air/dao-aips/blob/main/AIPs/AIP-009.md), the basic design for a manufacturing protocol. It gives the DAO a way to coordinate a whole network of manufacturers, guarantee quality for customers, and bring some of the value our open designs create back to Arrow to fund better designs.
+
+<ManufacturingNetwork />
+
+Here's how it's meant to work:
+
+- **An open parts catalog.** Every Arrow part and product is listed with enough design detail to build it to spec and judge its quality. The DAO decides what goes in the catalog.
+- **Bonded manufacturers.** To sell official Arrow products, a manufacturer posts a bond in $ARROW, a promise to ship on time and to standard. At first the DAO approves each manufacturer. Over time, anyone should be able to join by posting a bond.
+- **One shop for customers.** Customers order from an Arrow web shop, paying in crypto or by card, and get the same Arrow-quality product whichever manufacturer fills the order. By default the nearest one does, but stock, price, delivery time and shipping cost can send an order elsewhere.
+- **Value back to Arrow.** Each sale pays a commission to the DAO treasury. The rate is set per catalog item: higher for something Arrow designed from scratch, like Quiver, and lower for a simple part like a cable.
+- **Protection for customers.** If a manufacturer fails to ship or ships poor quality, the DAO can slash its bond and use it to make the customer whole.
+
+In return, manufacturers get order flow, help with the build process, and the right to sell on Arrow's behalf, without having to do their own marketing.
+
+AIP-009 describes a concept, not a finished system, and the details will change as we build it. Early versions will be more manual than the spec: manufacturers may sell directly and pay commission back separately before the shop and the on-chain pieces exist. The core idea stays the same: an open network of builders, quality customers can count on, and a share of every sale funding what Arrow designs next.
+
+## Why open source still works here
+
+Arrow releases its work under copyleft licenses, [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html) for software and [CERN-OHL-S](https://ohwr.org/cern_ohl_s_v2.txt) for hardware. Anyone can build from the designs, and nobody can take them closed. Licensing the designs as private IP was considered and set aside: it's hard to enforce for a global community without a strong legal presence. The value Arrow captures comes from the network that builds, sells and supports the aircraft.
 
 :::tip Get Involved
-If you're interested in joining Arrow as a manufacturer, or in helping build our manufacturing protocol, please introduce yourself on our [Discord](https://discord.gg/arrow) or [governance forum](https://dao.arrowair.com/) and we'd be happy to discuss more.
+Want to build Arrow hardware, or help design the manufacturing protocol? Introduce yourself on [Discord](https://discord.gg/arrow) or the [DAO Forum](https://dao.arrowair.com/) and we'll take it from there.
 :::
