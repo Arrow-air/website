@@ -38,7 +38,7 @@ AIP-009 describes a concept, not a finished system, and the details will change 
 
 ## Why open source still works here
 
-Arrow releases its work under copyleft licenses by default, [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html) for software and [CERN-OHL-S](https://ohwr.org/cern_ohl_s_v2.txt) for hardware. Anyone can build from the designs, and nobody can take them closed. Licensing the designs as private IP was considered and set aside: it's hard to enforce for a global community without a strong legal presence. The value Arrow captures comes from the network that builds, sells and supports the aircraft.
+Arrow releases its work under copyleft licenses by default, GPL for software and [CERN-OHL-S](https://ohwr.org/cern_ohl_s_v2.txt) for hardware. Anyone can build from the designs, and nobody can take them closed. Licensing the designs as private IP was considered and set aside: it's hard to enforce for a global community without a strong legal presence. The value Arrow captures comes from the network that builds, sells and supports the aircraft.
 
 :::tip Get Involved
 Want to build Arrow hardware, or help design the manufacturing protocol? Introduce yourself on [Discord](https://discord.gg/arrow) or the [DAO Forum](https://dao.arrowair.com/) and we'll take it from there.
