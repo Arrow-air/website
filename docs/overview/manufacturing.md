@@ -14,7 +14,9 @@ import { ManufacturingNetwork } from '@site/src/components/ArrowDiagrams';
 
 ## Where we are today
 
-So far that has meant prototypes, Quiver developer kits built and flown by contributors in places like Texas and Germany, and the first Caribou airframe, which flew in November 2026. It works, but it's hands-on: each build is coordinated person to person.
+So far that has meant prototypes, Quiver developer kits built in Texas, electronics and the Caribou airframe built in Germany, and Caribou flying since autumn 2026.
+
+The first pieces of the manufacturing protocol already exist. There's an open [catalog](https://github.com/Arrow-air/arrow-catalog) of Arrow products, with the Quiver developer kit listed, and two approved manufacturers to start with: Javelina Propeller Laboratory in Texas for developer kits, and a workshop in Germany for parts, PCBs and EU orders. For now, most builds are still coordinated person to person.
 
 ## Where we're going
 
@@ -26,7 +28,7 @@ Here's how it's meant to work:
 
 - **An open parts catalog.** Every Arrow part and product is listed with enough design detail to build it to spec and judge its quality. The DAO decides what goes in the catalog.
 - **Bonded manufacturers.** To sell official Arrow products, a manufacturer posts a bond in $ARROW, a promise to ship on time and to standard. At first the DAO approves each manufacturer. Over time, anyone should be able to join by posting a bond.
-- **One shop for customers.** Customers order from an Arrow web shop, paying in crypto or by card, and get the same Arrow-quality product whichever manufacturer fills the order. By default the nearest one does, but stock, price, delivery time and shipping cost can send an order elsewhere.
+- **One shop for customers.** Customers order from an Arrow web shop, paying in crypto or by card, and get the same Arrow-quality product whichever manufacturer fills the order. By default the nearest one does, or customers can pick one themselves. Later versions will also weigh stock, price, delivery time and shipping cost.
 - **Value back to Arrow.** Each sale pays a commission to the DAO treasury. The rate is set per catalog item: higher for something Arrow designed from scratch, like Quiver, and lower for a simple part like a cable.
 - **Protection for customers.** If a manufacturer fails to ship or ships poor quality, the DAO can slash its bond and use it to make the customer whole.
 
@@ -36,7 +38,7 @@ AIP-009 describes a concept, not a finished system, and the details will change 
 
 ## Why open source still works here
 
-Arrow releases its work under copyleft licenses, [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html) for software and [CERN-OHL-S](https://ohwr.org/cern_ohl_s_v2.txt) for hardware. Anyone can build from the designs, and nobody can take them closed. Licensing the designs as private IP was considered and set aside: it's hard to enforce for a global community without a strong legal presence. The value Arrow captures comes from the network that builds, sells and supports the aircraft.
+Arrow releases its work under copyleft licenses by default, [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html) for software and [CERN-OHL-S](https://ohwr.org/cern_ohl_s_v2.txt) for hardware. Anyone can build from the designs, and nobody can take them closed. Licensing the designs as private IP was considered and set aside: it's hard to enforce for a global community without a strong legal presence. The value Arrow captures comes from the network that builds, sells and supports the aircraft.
 
 :::tip Get Involved
 Want to build Arrow hardware, or help design the manufacturing protocol? Introduce yourself on [Discord](https://discord.gg/arrow) or the [DAO Forum](https://dao.arrowair.com/) and we'll take it from there.
